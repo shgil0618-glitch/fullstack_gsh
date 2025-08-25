@@ -60,6 +60,25 @@ git commit -m "git 수정후 다시올리기"
 git push origin master
 ```
 
+---
+8. 트러블 슈팅
+8-1 문제코드
+```bash
+TJ-BU-703-P03@DESKTOP-5CVIKGS MINGW64 /c/KIMYOUNGMIN/workspace (master)
+$ git commit -m "git 수정 후 다시올리기"
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)       
+        modified:   day001.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+8-2 해결방안
+```bash
+ 트러블 슈팅 해결 내용 작성 (컨트롤+s 이후 commit 해야되는이유 이미 add .으로 저장한거 아니야?)
+```
 
 
 
