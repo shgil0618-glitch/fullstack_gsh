@@ -38,10 +38,19 @@ git init
 6-5.  git commit  -m "first commit"  
    뭘저장했는지 이름붙이고 저장  ★
 6-6.  git  remote  add  origin   `깃허브주소(원격저장소-공유작업)`
+```bash
+git remote add origin https://github.com/shgil0618-glitch/fullstack_gsh.git 
+```
 6-7.  git  remote  -v  연결확인
 6-8.  git  push origin master   원격저장소에 올리기
 
-
+7. [실습7] git 수정 후 다시 올리기
+```bash
+파일수정
+git add .
+git commit -m "git 수정후 다시올리기"
+git push origin master
+```
 
 
 
