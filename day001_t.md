@@ -52,7 +52,7 @@ git remote add origin https://github.com/shgil0618-glitch/fullstack_gsh.git
 6-8.  git  push origin master   원격저장소에 올리기
 
 ---
-7. [실습7] git 수정 후 다시 올리기
+7. [실습7] git 수정 후(ctrl+s) 다시 올리기
 ```bash
 파일수정
 git add .
