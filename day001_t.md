@@ -1,24 +1,31 @@
 #Track001 -  github
+
+---
 1. git  vs  github
 - git - 로컬에 파일의 변경이력 ( 내컴퓨터에 타임머신)
 - github - 클라우드올려서 협업 (친구들과 공유작업공간)
 
+---
 2. 기본명령어
    `git init`  저장소 생성   (빈 상자 만들기 )
    `git add .`  변경된 파일추가 ( 상자에 그림넣기)
    `git commit -m "설명" `  저장 ( 그림에 이름붙여저장)
 
+---
 3. [실습1] github 회원가입 및 로그인
  -  https://github.com/
 
+---
 4. [실습2] github 저장소
 -  오른쪽상단 - [+] - [New Repository]
 
+---
 5. [실습3] git
 - git-scm.com
 - 다운로드 - [설치] 
    - ■ (New!) Add a Git Bash Profile to Windows Termial
 
+---
 6. [실습4] git 
 6-1.  Gitbash   이름, 이메일 설정정보 
 ```bash
@@ -44,6 +51,7 @@ git remote add origin https://github.com/shgil0618-glitch/fullstack_gsh.git
 6-7.  git  remote  -v  연결확인
 6-8.  git  push origin master   원격저장소에 올리기
 
+---
 7. [실습7] git 수정 후 다시 올리기
 ```bash
 파일수정
