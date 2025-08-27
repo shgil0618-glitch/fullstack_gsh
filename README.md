@@ -134,7 +134,7 @@
 
 ---
 <!-- java, html+css+js/jquery ... -->
-## 📌포트폴리오
+## 📌 포트폴리오
 
 ``추후 업데이트 예정``
 
@@ -144,9 +144,10 @@
 
 ---
 <!-- 매일 올리기 -->
-## 트러블슈팅 (github에서 발생)
+## 📌 트러블 슈팅 (github에서 발생)
+<br/>
 
-### 트러블 슈팅(1)
+### ▶트러블 슈팅(1)
 
 ```bash
 $ git commit -m "git 수정 후 다시올리기"
@@ -172,9 +173,9 @@ no changes added to commit (use "git add" and/or "git commit -a")
    * 사소한 습관(파일 저장)을 소홀히 하면 불필요하게 시간을 낭비하게 됨
    * 앞으로는 **커밋 전 저장 확인 → ctrl+s 혹은 git status 확인** 습관을 들여야 함
 
----
+<br/>
 
-### 트러블 슈팅(2)
+### ▶트러블 슈팅(2)
 
 ```bash
 $ git push origin master
@@ -202,9 +203,9 @@ hint: have locally. ...
    * `push` 전에 **반드시 pull → 상태 확인 → 병합** 과정을 거쳐야 충돌을 줄일 수 있음
    * 습관적으로 **git pull → 코드 확인 → push** 루틴을 가져야 함
 
----
+<br/>
 
-### 트러블 슈팅(3)
+### ▶트러블 슈팅(3)
 
 ```bash
 $ git pull origin master
@@ -229,8 +230,6 @@ Automatic merge failed; fix conflicts and then commit the result.
    * 충돌은 협업 개발에서 자연스러운 과정이라는 점을 이해
    * 무조건 에러로 인식하기보다, **내용 비교 & 합의된 기준으로 수정**하는 습관 필요
    * 충돌 상황은 **커뮤니케이션 역량 + 코드 이해력**이 함께 요구된다는 점을 배움
-
-
 
 <br/>
 <br/>
