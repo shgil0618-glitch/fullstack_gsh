@@ -82,3 +82,31 @@
  
 ===
 
+# ✅ WebBasic
+### 3. Tag
+   1. 웹 페이지의 구성요소를 알려주는 표시언어
+   2. h1~h6 제목
+      - h1 : 로고, 상호명
+      - h2 : 주메뉴
+      - h3~h6 : 중요도 상세메뉴 (소제목)
+   3. p, pre : 문단
+      - p : 일반문단
+      - pre : 줄바꿈과 공백을 유지하는 서식 텍스트
+   4. img : 이미지
+      - src : 경로,  alt : 대체용어
+   5. a : 링크
+      - href : 다른페이지 or 파일로 연결, target = "_blank" : 새창열기
+   6. 리스트 태그 : ul, ol, dl
+      - ul : 순서없는 리스트
+      - ol : 순서있는 리스트
+      - dl : 설명 리스트 
+   7. 그룹핑 : div
+
+   `web002_basic.html`
+
+웹 접근성 연구소 : `https://www.wa.or.kr/`
+웹 접근성 확인(markup) 사이트 : `https://validator.w3.org/`
+ctrl + a : 전체 선택
+
+# ✅ Java 
+### 4. 
