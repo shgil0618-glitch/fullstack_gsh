@@ -82,6 +82,62 @@
  
 ===
 
+# ✅ Github   
+### 10. 기본  markdown 문법 
+📁 `track001_github/`  
+├── `me2.png` : 프로필 이미지  
+├── `markdown.md` : `**마크다운 문법 정리 파일**` 
+├── `README.md` : `**프로젝트 소개 및 기술스택 요약**`   
+
+```
+# 제목 (제일 큰 제목 - h1)
+## 중간 제목
+### 작은 제목
+#### step4
+##### step5
+###### step6
+
+<!-- 주석 : 제목 h1~h6 -->
+---
+🍟🍔  이모지 `윈도우 + .(점)`
+
+---
+
+- 🍟🍔 햄버거세트
+- 🍕  피자
+- 🌭 핫도그
+
+1. 주문한다
+2. 만든다.
+3. 커피를먹는다.
+
+---
+*기울이기*
+**굵은글씨**
+~~취소선~~    `~~`
+
+> 말풍선
+
+***`강조`***
+
+```
+여러줄 긴코드블록
+여러줄을 쓸때 이렇게
+```
+
+```java
+public class Hello{
+    public static void main(String []args){
+        System.out.println("Hello");
+    }
+}
+```
+
+[🔗링크걸기](https://github.com/sally03915/fullstack_20250825)
+
+![프로필](./me.png)
+
+---
 # ✅ WebBasic
 ### 3. Tag
    1. 웹 페이지의 구성요소를 알려주는 표시언어
@@ -108,5 +164,54 @@
 웹 접근성 확인 사이트 : `https://validator.w3.org/`
 ctrl + a : 전체 선택
 
-# ✅ Java 
-### 4. 
+# ✅ Java
+### 7. 출력
+System.out.print("Hello");   // 줄바꿈안됨.
+System.out.println("Hello");   // 줄바꿈 됨.
+System.out.println("Hello\nSally");   // 줄바꿈.
+// 포맷형식  %s , %d
+System.out.printf("이름 : %s  나이: %d " , "길동"  , 12 );
+
+```bash
+package com.company.java001;
+
+public class A002 {
+	public static void main(String[] args) {
+		System.out.println("A");
+		System.out.println("AB");
+		System.out.println("ABC"); // 여러줄사용
+		
+		// 한줄로만드는 방법은?
+		System.out.println("A\nAB\nABC");  // 줄바꿈  \n
+		
+		// 포맷형식  %s , %d
+		System.out.printf("이름 : %s  나이: %d " , "길동"  , 12 );
+	}
+}
+
+```
+```bash
+Q1
+package : com.company.java001_ex
+class   : A001_ex
+출력내용  : Hello World! 
+```
+
+```bash
+Q2
+package : com.company.java001_ex
+class   : A002_ex
+문제 : 다음을 한줄로, 포맷형식에 맞게 처리하시오
+    // 다음을 한 줄 출력
+        System.out.println("X");
+        System.out.println("XY");
+        System.out.println("XYZ");
+    // 포맷형식이용해서 출력	
+
+출력내용  : 
+	X
+	XY
+	XYZ
+
+	도시 : 인천  ,  인구:1000000
+```
