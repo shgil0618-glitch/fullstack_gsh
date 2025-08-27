@@ -105,7 +105,7 @@
    `web002_basic.html`
 
 웹 접근성 연구소 : `https://www.wa.or.kr/`
-웹 접근성 확인(markup) 사이트 : `https://validator.w3.org/`
+웹 접근성 확인 사이트 : `https://validator.w3.org/`
 ctrl + a : 전체 선택
 
 # ✅ Java 
