@@ -89,7 +89,7 @@
 ├── `markdown.md` : `**마크다운 문법 정리 파일**` 
 ├── `README.md` : `**프로젝트 소개 및 기술스택 요약**`   
 
-```
+
 # 제목 (제일 큰 제목 - h1)
 ## 중간 제목
 ### 작은 제목
@@ -120,10 +120,10 @@
 
 ***`강조`***
 
-```
+
 여러줄 긴코드블록
 여러줄을 쓸때 이렇게
-```
+
 
 ```java
 public class Hello{
@@ -135,7 +135,7 @@ public class Hello{
 
 [🔗링크걸기](https://github.com/sally03915/fullstack_20250825)
 
-![프로필](./me.png)
+![프로필](./userimage.png)
 
 ---
 # ✅ WebBasic
