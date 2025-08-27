@@ -242,7 +242,7 @@ Automatic merge failed; fix conflicts and then commit the result.
 - [Git 공식 문서](https://git-scm.com/doc)  
 - [Markdown 가이드](https://www.markdownguide.org/basic-syntax/)  
 - [VS Code 공식 사이트](https://code.visualstudio.com/)  
-- [AI 프롬프트 작성 팁](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/prompt-engineering)
+- [AI 프롬프트 작성 팁](https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/prompt-engineering?tabs=chat)
 
 <br/>
 <br/>
