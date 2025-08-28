@@ -237,6 +237,148 @@ Automatic merge failed; fix conflicts and then commit the result.
 <br/>
 
 ---
+## 📌 트러블 슈팅 (Web에서 발생)
+<br/>
+
+
+### ▶ 트러블슈팅 (1)
+
+```html
+<div style="width: 300px; border: 3px solid red; text-align: center;">
+    <p>박스 가운데 정렬 텍스트</p>
+</div>
+```
+
+1. **문제점**
+
+* `text-align: center;`를 적용했지만 박스가 **페이지 중앙에 위치하지 않음**
+* margin, padding, border 등 **박스 모델 이해 부족**으로 시각적으로 정렬이 맞지 않음
+
+2. **해결방안**
+
+* 박스를 화면 중앙으로 배치 → `margin: 0 auto;`
+* 박스 안 텍스트 중앙 정렬 → `text-align: center;`
+
+```html
+<div style="width: 300px; border: 3px solid red; margin: 0 auto; text-align: center;">
+    <p>박스 가운데 정렬 텍스트</p>
+</div>
+```
+
+3. **느낀점**
+
+* CSS에서 **박스 모델과 속성 상호작용**을 이해해야 레이아웃 문제를 해결할 수 있음
+* 단순 `text-align`만으로는 전체 레이아웃을 조정할 수 없다는 것을 깨달음
+* 앞으로 레이아웃 설계 시 **박스 모델 관점에서 접근**하는 습관을 갖게 됨
+
+<br/>
+
+### ▶ 트러블슈팅 (2)
+
+```html
+<img src="./img/userimage.png" style="width: 150px; border: 3px solid red;">
+```
+
+1. **문제점**
+
+* 테두리를 적용했지만 **이미지가 직사각형**으로 표시됨 → 원형 테두리 의도 실패
+* 디자인 디테일 부족으로 UI/UX 측면에서 시각적 불완전
+
+2. **해결방안**
+
+* 이미지 원형으로 만들기 → `border-radius: 50%;`
+* 테두리 유지 → `border: 3px solid red;`
+
+```html
+<img src="./img/userimage.png" style="width: 150px; border-radius: 50%; border: 3px solid red;">
+```
+
+3. **느낀점**
+
+* CSS 속성 하나로 **디자인 완성도가 크게 달라짐**을 체감
+* 작은 디테일도 사용자의 시각적 경험에 큰 영향을 준다는 것을 깨달음
+* 앞으로는 **UI 디테일에도 주의를 기울이는 습관**을 갖게 됨
+
+<br/>
+
+---
+
+## 📌 트러블 슈팅 (Java에서 발생)
+<br/>
+
+### ▶트러블 슈팅(1)
+
+```java
+package com.company.Java001_ex;
+
+public class A003_ex {
+    public static void main(string[] args) {
+        System.out.printf("이름 : %s  나이: %d", "길동", 12);
+    }
+}
+```
+```bash
+Error:(5, 24) java: cannot find symbol
+  symbol:   class string
+  location: class com.company.java001_ex.A003_ex
+```
+
+1. **문제점**
+   * Java는 **대소문자를 엄격히 구분**하기 때문에, `string`과 같은 잘못된 표기는 컴파일 에러를 발생시킨다. 또한, 패키지명은 관례적으로 **소문자**를 사용해야 가독성과 유지보수성이 높아진다.
+
+2. **해결방안**
+   * `string[] args` → `String[] args` 로 수정하여 올바른 타입 지정
+   * `package com.company.Java001_ex;` → `package com.company.java001_ex;` 로 변경하여 네이밍 컨벤션 준수
+
+3. **느낀점**
+   * 이번 오류를 통해 **사소해 보이는 대소문자 차이도 프로그램 실행 여부에 직접적인 영향을 준다는 것**을 다시 한 번 체감했다. 앞으로는 단순히 코드를 작성하는 것에서 끝나지 않고, **언어의 문법적 특징과 컨벤션을 의식적으로 지키는 습관**을 들여 더 안정적이고 읽기 쉬운 코드를 작성해야겠다.
+
+<br/>
+
+### ▶트러블 슈팅(2)
+
+```java
+public class VarEx002 {
+	public static void main(String[] args) {
+		int a;
+		a = 10;
+		int b;
+		b = 3;
+		float c;
+		c = a/b;
+		System.out.println("10 / 3 =" +(a/b));
+		System.out.println("10 / 3 = "+c);	
+		System.out.printf("%d / %d = %f\n",a,b,c);
+   }
+}
+```
+```bash
+결과값
+10 / 3 = 3
+10 / 3 = 3.0
+10 / 3 = 3.000000
+```
+
+1. **문제점**
+   * 변수 c를 float로 선언했음에도 불구하고 결과가 3.0, 3.000000으로 정수 나눗셈 결과를 그대로 보여줌
+   * 이유: a와 b가 정수형(int) 이므로, 나눗셈 연산 a/b가 정수 나눗셈으로 수행됨 → 소수점 이하가 버려짐
+   * 즉, 실수형 변수에 저장했더라도 연산 과정 자체가 정수라 실제 계산값은 이미 손실됨
+
+2. **해결방안**
+   * 나눗셈을 수행하기 전에 한쪽 혹은 양쪽을 실수형으로 캐스팅
+```java
+   c = (float)a / b;
+```
+
+3. **느낀점**
+   * 겉보기에는 변수 타입만 바꿔도 될 것 같지만, 연산 과정에서 자료형이 우선적으로 적용됨을 깨달음
+   * 사소한 타입 문제 하나가 결과를 완전히 달라지게 할 수 있다는 점에서 자료형 선택과 연산 순서의 중요성을 배웠음
+   * 앞으로는 실수 연산 시 정수/실수 타입 구분을 명확히 하고, 예상 결과와 실제 결과의 차이를 반드시 확인하는 습관을 갖기로 함
+
+<br/>
+
+---
+
 ## 참고문헌
 
 - [Git 공식 문서](https://git-scm.com/doc)  
