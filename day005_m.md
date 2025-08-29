@@ -9,13 +9,24 @@
       클라우드와 수정한 다른부분 수정 
 - Q4. Q3 발생하는 오류 수정 - 트러블 슈팅
 ```bash
-ㅁㄴㅇㅁㄴㅇㅁㄴㅇ
+$ git push origin master
+To https://github.com/shgil0618-glitch/fullstack_gsh.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'https://github.com/shgil0618-glitch/fullstack_gsh.git'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 ```
+발생문제 : 로컬 master 와 원격브랜치 (origin/master) 차이 발생
+해결방안 : 
+```
+git pull origin master --rebase
+```
+--rebase : 로컬변경사항을 원격변경사항위에 덮기
 
  ---
- 
-
-Q용 수정내용 123
 
 ## 📚 day004 복습  
 ■ WebBasic 주관식 빈칸 채우기 문제
