@@ -158,6 +158,168 @@ nothing to commit, working tree clean
 
 # ■ Java
  
+
+#### ■7. 출력 (1)   println, print, printf
+ 1)  System.out.println("문자열-하고싶은말");  // \n줄바꿈
+ 2)  System.out.print("문자열-하고싶은말");   //줄바꿈처리안됨
+ 3)  System.out.printf("내나이%d ,  내이름%s , 좋아하는 숫자  파이 %f" , 10 , "ab" , 1.23 );
+     %d 숫자정수 : 10,20,30  ( 소수점 안붙음)
+     %s  문자열   :  "abc"
+     %f 숫자실수 :  1.23 , 1.5, 3.14
+     
+   System.out.println("A");   
+   System.out.println("AB");   
+   System.out.println("ABC");   
+
+   System.out.println("A\nAB\nABC");   
+
+#### ■7. 출력 (2)   + 의미 , ()
+System.out.println( 1+ 2 );    //3
+System.out.println( 1+ 2 + "+" + 3 +4);  // 3 + 34    ?
+System.out.println( "" + 1+ 2);  // 12
+
+1)     +    연산(더하기)
+2)     숫자 + 숫자  - 더하기연산
+3)     숫자 + 문자열 ,   문자열 + 숫자 - 출력
+ 
+
+연습문제1)  
+패키지명 : com.company.java002_ex
+클래스명 : PrintEx001
+출력내용 : 
+   %s를 이용해서  다음과 같이 출력
+   
+    좋아하는 색상은 RED입니다.
+```java
+package com.company.java002_ex;
+
+public class PrintEx001 {
+	public static void main(String[] args) {
+		System.out.println("좋아하는 색상은 RED입니다.");
+		System.out.print("좋아하는 색상은 RED입니다.\n");
+		System.out.printf("좋아하는 색상은 %s입니다.","RED");
+	}
+}
+```
+
+연습문제2)  
+패키지명 : com.company.java002_ex
+클래스명 : PrintEx002
+출력내용 : 
+   다음의 코드를 10+3=13  나오게 도전!
+   System.out.println(  10+3=10+3  );   
+```java
+package com.company.java002_ex;
+
+public class PrintEx002 {
+	public static void main(String[] args) {
+		System.out.println(10 + "+" + 3 + "=" + 1+3);
+		System.out.printf("%d+%d=%d",10,3,13);
+
+      System.out.println(10 + 2 + 5 + "=" + 1 + 3);
+	}
+}
+```
+
+### 8.  변수
+1. 값?
+- 토큰 : 특정의미를 가진문자
+- 리터럴, 키워드, 식별자, 연산자,구분자
+
+  System.out.println("hello");
+
+2. 값의 보관
+- 값의 보관 == 메모리확보
+- 변수 : 변하는 수 (오픈박스) ,  한개의 값
+- 상수 : 변하지 않는(상) 수  (밀봉박스)
+- 변수이름규칙 :   $_소문자7
+
+3. 변수사용법
+   자료형  변수명   
+
+   int       a;         -       int  정수 1,2,3             a[ ]
+   double b;         - double  실수 1.23              b[ ]
+   
+   a=10;                                                      a[10]
+   a=20;                                                      a[20]
+
+※ 상수    final   int    JAVA_HOME ;   - 수정못해!
+
+
+기본문제1)  Var001
+
+
+연습문제1)  
+패키지명 : com.company.java002_ex
+클래스명 : VarEx001
+출력내용 : 
+   1-1.  apple라는 변수만들기
+   1-2.  1-1.에서 만든 변수에 1000이라는 데이터 대입하시오.  ( 자료형 int )
+   1-3.  1-1.에서 만든 변수이용해서 
+           사과가격은 1000원입니다 출력
+   1-4.  1-1.에서 만든 변수에 2000이라는 데이터 대입하시오.  
+   1-5.  1-1.에서 만든 변수이용해서 
+           사과가격은 2000원입니다 출력
+
+```bash
+package com.company.java002_ex;
+
+public class VarEx001 {
+	public static void main(String[] args) {
+		int apple;
+		apple = 1000;
+		System.out.println("어제 사과의 가격 : " + apple);
+		apple = 2000;
+		System.out.printf("오늘 사과의 가격 : %d",apple);
+	}
+
+}
+
+```
+
+연습문제2)  
+패키지명 : com.company.java002_ex
+클래스명 : VarEx002
+출력내용 : 
+   1-1.  정수형데이터를 담을수 있는 변수 a 만들고   
+   1-2.  a에 10대입하시오
+   1-3.  정수형데이터를 담을수 있는 변수 b 만들고   
+   1-4.  b에 3대입하시오
+   1-5.  System.out.println 을 4번사용해서 
+     10 + 3 = 13
+     10  - 3 = 7
+     10  * 3 = 30
+     10  / 3 = 3
+
+```bash
+package com.company.java002_ex;
+
+public class VarEx002 {
+	public static void main(String[] args) {
+		int a;
+		a = 10;
+		int b;
+		b = 3;
+		float c;
+		c = (float)a/b;
+		System.out.println(a + "+" + b + "=" + (a+b) );
+		System.out.println("10 + 3 = "+(a+b));
+		System.out.println("10 - 3 = "+(a-b));
+		System.out.println("10 * 3 = "+(a*b));
+		System.out.println("10 / 3 =" +(a/b));
+		System.out.println("10 / 3 = "+c);
+		System.out.println("10 / 3 = "+((float)a/b));	
+		System.out.printf("%d / %d = %.3f\n",a,b,c);
+		System.out.printf("%d / %d = %.2f\n",a,b,c);
+		System.out.printf("%d / %d = %.1f\n",a,b,c);
+		System.out.printf("%d / %d = %f\n",a,b,c);
+	}
+
+}
+
+```
+
+
 #### ■9. 자료형
  
 

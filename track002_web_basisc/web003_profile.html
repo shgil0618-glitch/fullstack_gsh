@@ -5,26 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
 </head>
-<body style="margin: 0px; padding: 30px; font-family: 'Segoe UI', sans-serif;
-                background:linear-gradient(135deg, #fdfbfb , #ebedee);">
+<body style="margin: 0px; padding: 30PX; font-family: 'Segoe UI', sans-serif;
+                background:#333 linear-gradient(135deg, #fdfbfb , rgb(0, 247, 255)) no-repeat;">
+                <!-- #333 : 이부분은 반복하지 않는 부분 #333색으로 칠하기, no-repeat : 한번만 적용하기-->
+                <!-- Q. BODY 안에 STYLE을 적용한거니까 페이지 전체에 한번에 적용되야하는거아닌가? 그라데이션의 크기를 어디서 정했는지..-->
+                <!-- ANS. 컨텐츠 크기만큼만 적용된다.-->
     <div>
         <h1 style=" text-align: center; color: #e1306c; margin-bottom: 40px;">사용자 프로필 카드</h1>
         <div style="background-color: #fdfbfb; width: 250px;  
                     margin: 0 auto; margin-bottom: 20px; border-radius: 20px;
                     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                     text-align: center; padding: 20px;">
-            <p>
+            <p style="font-size: 14px; color: #666; margin-bottom: 10px;">
                 <img src = "./img/userimage.png" 
-                style="width: 90PX; border-radius: 50%; border: 3px solid #e1306c;" 
+                style="width: 90PX; height: 90px; border-radius: 50%; border: 3px solid #e1306c;" 
                 alt = "userimage"/>
             </p>
             <h2 style="margin-top: 10px; margin-bottom: 5px; font-size: 18px; color: #333;">gil sang hyun</h2>
-            <p style="font-size: 14px; color: #666; margin-bottom: 10px;">백엔드 개발자 | Node.js & DB 전문가</p>
-            <p style="font-size: 14px; color: #666; margin-bottom: 10px;"><b>팔로워</b> : 3200명</p>
-            <p style="font-size: 14px; color: #666; margin-bottom: 10px;">
-                <a href="https://github.com/shgil0618-glitch/fullstack_gsh.git" 
-                style="margin-top: 5px; font-size: 13px; color: #e1306c;  text-decoration: none; "
-                target = "_blank" title="프로필 바로가기"> 깃허브 보기</a>
+            <div style="font-size: 14px; color: #666; margin-bottom: 10px;">
+                <p style="font-size: 14px; color: #666; margin-bottom: 10px;">백엔드 개발자 | Node.js & DB 전문가</p>
+                <p style="font-size: 14px; color: #666; margin-bottom: 10px;"><b>팔로워</b> : 3200명</p>
+                <p style="font-size: 14px; color: #666; margin-bottom: 10px;">
+                    <a href="https://github.com/shgil0618-glitch/fullstack_gsh.git" 
+                    style="margin-top: 5px; font-size: 13px; color: #e1306c;  text-decoration: none; "
+                    target = "_blank" title="프로필 바로가기"> 깃허브 보기</a>
+            </div>
             </p>   
         </div>
     </div>
