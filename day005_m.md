@@ -21,10 +21,33 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 ```
 발생문제 : 로컬 master 와 원격브랜치 (origin/master) 차이 발생
 해결방안 : 
+```bash
+git add .
+git commit -m "day005"
+git pull origin master
+git push origin master
 ```
+
+```bash
 git pull origin master --rebase
+git rebase --continue
 ```
+</br>
+
 --rebase : 로컬변경사항을 원격변경사항위에 덮기
+rebase를 열었으면 반드시 닫아줘야함
+```bash
+$ git commit -m "day5"
+interactive rebase in progress; onto bca6145
+Last command done (1 command done):
+   pick e48ba56 # day005
+No commands remaining.
+You are currently editing a commit while rebasing branch 'master' on 'bca6145'.
+  (use "git commit --amend" to amend the current commit)
+  (use "git rebase --continue" once you are satisfied with your changes)
+
+nothing to commit, working tree clean
+```
 
  ---
 
