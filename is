@@ -1,7 +1,0 @@
-      PID    PPID    PGID     WINPID   TTY         UID    STIME COMMAND
-     1991       1    1991       7104  ?         197609 10:47:30 /usr/bin/mintty
-     2032       1    2032      10384  cons0     197609 10:50:32 /usr/bin/bash
-     1992    1991    1992       3972  pty0      197609 10:47:30 /usr/bin/bash
-     2403       1    2403      12172  cons1     197609 10:58:25 /usr/bin/bash
-     2481       1    2481       6804  cons2     197609 11:00:43 /usr/bin/bash
-     2530    2481    2530      11732  cons2     197609 11:01:19 /usr/bin/ps
