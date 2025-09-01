@@ -353,7 +353,26 @@ fatal: unable to access 'https://github.com/tkasid00/fullstack_20250825.git/': T
 <br/>
 <br/>
 
+### ▶트러블 슈팅(7)
+### 문제점
+```bash
+PS D:\HYUNJU\workspace\fullstack_20250825> git push origin dev-tkasid00
+remote: Permission to tkasid00/fullstack_20250825.git denied to HSH703.
+fatal: unable to access 'https://github.com/tkasid00/fullstack_20250825.git/': The requested URL returned error: 403
+```
 
+### 해결방안
+```bash
+현재 Github에 로그인된 계정이 HSH703인데 이 계정은 tkasid00 저장소에 푸쉬 권한이 없었다.
+해결하기 위해서는 tkasid00 계정이 tkasid00 계정이 HSH703 계정에게 Collaborator 권한을 부여해야한다.
+
+권한 부여 방법
+GitHub에서 Settings -> Collaborators 메뉴로 이동 -> HSH703 계정을 초대
+```
+### 느낀점
+
+<br/>
+<br/>
 ---
 
 ## 📌 트러블 슈팅 (Web에서 발생)
