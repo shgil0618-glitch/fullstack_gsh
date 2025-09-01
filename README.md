@@ -285,6 +285,75 @@ the same ref. If you want to integrate the remote changes, use
 <br/>
 <br/>
 
+### ▶트러블 슈팅(5)
+
+```bash
+PS D:\gilsanghyun\teacher> git push origin dev-gsh
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (6/6), 505 bytes | 505.00 KiB/s, done.
+Total 6 (delta 2), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (2/2), completed with 1 local object.
+To https://github.com/tkasid00/fullstack_20250825.git/
+ ! [remote rejected] dev-gsh -> dev-gsh (permission denied)
+error: failed to push some refs to 'https://github.com/tkasid00/fullstack_20250825.git/'
+```
+
+1. **문제점**
+
+   * 푸시를 시도한 **`dev-gsh`** 브랜치에 대해 **`permission denied`** 에러가 발생
+   * **원격 리포지토리의 URL**이 **잘못 지정**되어 있어 푸시할 권한이 없는 다른 리포지토리로 푸시하려고 시도한 경우
+
+     * 에러 메시지에서 `https://github.com/tkasid00/fullstack_20250825.git/`와 같은 URL이 출력되는데, 이는 **원하는 리포지토리가 아닌 다른 리포지토리**에 푸시를 시도한 것
+   * 이 문제는 리모트 URL 설정을 꼼꼼히 확인하지 않았기 때문에 발생함
+
+2. **해결방안**
+
+   * **리모트 URL 확인**: 먼저, 현재 리모트 저장소 URL이 올바른지 확인
+
+     ```bash
+     git remote -v
+     ```
+
+     * 위 명령어로 출력된 리모트 URL이 **내 리포지토리**로 지정되어 있는지 점검
+
+   * **리모트 URL 수정**: 잘못된 URL이 설정된 경우, 올바른 리모트 URL로 수정
+
+     ```bash
+     git remote set-url origin https://github.com/내_사용자명/내_리포지토리.git
+     ```
+
+   * **다시 푸시 시도**: 리모트 URL을 수정한 후, 푸시 명령어를 다시 실행
+
+     ```bash
+     git push origin dev-gsh
+     ```
+
+3. **느낀점**
+
+   * Git을 사용할 때 **리모트 URL** 설정이 얼마나 중요한지 다시 한 번 깨달음. URL 설정이 잘못되면 푸시할 권한이 없는 리포지토리로 데이터를 보내는 상황이 발생할 수 있음
+   * **리모트 URL**은 **협업 환경**에서 특히 중요한 요소이므로, 작업을 시작하기 전에 항상 확인하는 습관을 들여야겠다고 생각함
+   * 문제를 해결하는 과정에서 **Git의 리모트 설정**을 보다 깊이 이해할 수 있었고, 앞으로는 꼼꼼히 점검할 필요성을 느꼈음
+
+
+<br/>
+<br/>
+
+### ▶트러블 슈팅(6)
+
+```bash
+NJU\workspace\fullstack_20250825> git push origin dev-tkasid00
+remote: Permission to tkasid00/fullstack_20250825.git denied to HSH703.
+fatal: unable to access 'https://github.com/tkasid00/fullstack_20250825.git/': The requested URL returned error: 403
+```
+
+
+<br/>
+<br/>
+
+
 ---
 
 ## 📌 트러블 슈팅 (Web에서 발생)
@@ -343,6 +412,7 @@ the same ref. If you want to integrate the remote changes, use
 <img src="./img/userimage.png" style="width: 150px; border-radius: 50%; border: 3px solid red;">
 ```
 
+
 3. **느낀점**
 
 * CSS 속성 하나로 **디자인 완성도가 크게 달라짐**을 체감
@@ -350,14 +420,9 @@ the same ref. If you want to integrate the remote changes, use
 * 앞으로는 **UI 디테일에도 주의를 기울이는 습관**을 갖게 됨
 
 <br/>
+<br/>
 
-좋은 아이디어예요 👍
-면접관이 보기에 “단순 에러 해결”을 넘어 **HTML 태그의 기본 구조와 웹 표준을 고려해서 작성한다**는 점을 강조하면 호감을 줄 수 있습니다.
-아래는 질문 주신 **`<dl><dt><dd>` 태그와 margin-left 기본값** 이슈를 트러블슈팅 형식으로 정리한 예시예요.
-
----
-
-### ▶ 트러블슈팅 (4)
+### ▶ 트러블슈팅 (3)
 
 ```html
 <dl>
