@@ -343,33 +343,35 @@ error: failed to push some refs to 'https://github.com/tkasid00/fullstack_202508
 
 ### ▶트러블 슈팅(6)
 
-```bash
-NJU\workspace\fullstack_20250825> git push origin dev-tkasid00
-remote: Permission to tkasid00/fullstack_20250825.git denied to HSH703.
-fatal: unable to access 'https://github.com/tkasid00/fullstack_20250825.git/': The requested URL returned error: 403
-```
 
-
-<br/>
-<br/>
-
-### ▶트러블 슈팅(7)
-### 문제점
 ```bash
 PS D:\HYUNJU\workspace\fullstack_20250825> git push origin dev-tkasid00
 remote: Permission to tkasid00/fullstack_20250825.git denied to HSH703.
 fatal: unable to access 'https://github.com/tkasid00/fullstack_20250825.git/': The requested URL returned error: 403
 ```
 
-### 해결방안
-```bash
-현재 Github에 로그인된 계정이 HSH703인데 이 계정은 tkasid00 저장소에 푸쉬 권한이 없었다.
-해결하기 위해서는 tkasid00 계정이 tkasid00 계정이 HSH703 계정에게 Collaborator 권한을 부여해야한다.
 
-권한 부여 방법
-GitHub에서 Settings -> Collaborators 메뉴로 이동 -> HSH703 계정을 초대
-```
-### 느낀점
+1. **문제점**
+
+   * 현재 GitHub에 로그인된 계정(HSH703)은 `tkasid00` 저장소에 푸쉬 권한이 없음.
+   * 권한 부족으로 인해 푸쉬 작업이 실패.
+
+2. **해결방안**
+
+   * `tkasid00` 계정에서 HSH703 계정에게 **Collaborator** 권한을 부여해야 함.
+   * 권한 부여 방법:
+
+     1. GitHub에서 `tkasid00` 계정으로 로그인
+     2. 해당 저장소로 이동하여 **Settings** 메뉴 클릭
+     3. **Collaborators** 메뉴로 이동
+     4. HSH703 계정을 초대하여 권한 부여
+
+3. **느낀점**
+
+   * 협업 시 **권한 관리**의 중요성을 실감함.
+   * 푸쉬 권한이 없을 경우 발생하는 **권한 에러**를 해결하는 방법을 배움.
+   * GitHub에서의 **접근 권한 설정**은 협업의 기본이고, 이를 제대로 관리하는 것이 매우 중요하다는 점을 깨달음.
+
 
 <br/>
 <br/>
