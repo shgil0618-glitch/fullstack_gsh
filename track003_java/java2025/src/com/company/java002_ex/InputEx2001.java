@@ -14,13 +14,12 @@ public class InputEx2001 {
 	public static void main(String[] args) {
 		//변수
 		Scanner scanner = new Scanner(System.in);
-		float f = 3.14f;
-		double d = 3.14;
+		double pi = 3.14;
 		//입력
 		System.out.print("파이값을 입력하시오 >");
-		d = scanner.nextDouble();
+		pi = scanner.nextDouble();
 		//출력
-		System.out.println("파이값은 "+d+" 입니다.");
+		System.out.println("파이값은 "+pi+" 입니다.");
 	}
 }
 

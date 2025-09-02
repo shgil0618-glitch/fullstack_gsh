@@ -28,7 +28,7 @@ public class InputEx2002 {
 		int mat = scanner.nextInt();
 		//처리
 		int sum = kor+eng+mat;
-		double average = (double)sum/3;
+		double average = (double)sum/3; //둘중 하나만 실수로 바꿔주면된다 (double)sum/3 or sum/3.0
 		//출력
 		System.out.println("총점 : "+sum);
 		System.out.println("평균 : "+average);
