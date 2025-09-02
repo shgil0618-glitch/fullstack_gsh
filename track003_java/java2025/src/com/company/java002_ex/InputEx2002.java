@@ -1,29 +1,3 @@
-package com.company.java002_ex;
-
-import java.util.Scanner;
-
-public class InputEx2002 {
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		System.out.print("국어점수를 입력하시오 : ");
-		double kor = scanner.nextDouble();
-		
-		System.out.print("영어점수를 입력하시오 : ");
-		double eng = scanner.nextDouble();
-		
-		System.out.print("수학점수를 입력하시오 : ");
-		double mat = scanner.nextDouble();
-		
-		double sum = kor+eng+mat;
-		double average = sum/3;
-		
-		System.out.println("총점 : "+sum);
-		System.out.println("평균 : "+average);
-		System.out.printf("평균 : %.2f",average);
-
-	}
-}
-
 /*연습문제2)
 패키지명 : com.company.java002_ex
 클래스명 : InputEx2002
@@ -34,3 +8,32 @@ public class InputEx2002 {
 
    총점 :  299
    평균 :  99*/
+
+package com.company.java002_ex;
+
+import java.util.Scanner;
+
+public class InputEx2002 {
+	public static void main(String[] args) {
+		//변수
+		Scanner scanner = new Scanner(System.in);
+		//입력
+		System.out.print("국어점수를 입력하시오 : ");
+		int kor = scanner.nextInt();
+		
+		System.out.print("영어점수를 입력하시오 : ");
+		int eng = scanner.nextInt();
+		
+		System.out.print("수학점수를 입력하시오 : ");
+		int mat = scanner.nextInt();
+		//처리
+		int sum = kor+eng+mat;
+		double average = (double)sum/3;
+		//출력
+		System.out.println("총점 : "+sum);
+		System.out.println("평균 : "+average);
+		System.out.printf("평균 : %.2f",average);
+
+	}
+}
+

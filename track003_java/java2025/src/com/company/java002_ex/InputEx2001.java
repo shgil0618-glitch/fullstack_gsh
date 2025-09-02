@@ -5,17 +5,21 @@
      파이값을 입력하시오 > _입력받기    3.141592    ( 자료형선택 )
      파이값은 **입니다.*/
 
+
 package com.company.java002_ex;
 
 import java.util.Scanner;
 
 public class InputEx2001 {
 	public static void main(String[] args) {
+		//변수
 		Scanner scanner = new Scanner(System.in);
 		float f = 3.14f;
 		double d = 3.14;
+		//입력
 		System.out.print("파이값을 입력하시오 >");
 		d = scanner.nextDouble();
+		//출력
 		System.out.println("파이값은 "+d+" 입니다.");
 	}
 }
