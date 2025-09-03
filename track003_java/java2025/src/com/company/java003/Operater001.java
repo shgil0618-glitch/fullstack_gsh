@@ -47,8 +47,6 @@ public class Operater001 {
 		int q3 = scanner.nextInt();
 		//				조건		?	참 : (조건 ? 참 : 거짓)
 		String result = q3 >0 ? "양수" : (q3 < 0 ? "음수" : "0");
-		
-		
-		
+	
 	}
 }
