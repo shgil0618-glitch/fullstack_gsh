@@ -146,147 +146,6 @@
 ---
 -->
 <!-- 매일 올리기 -->
-## 📌 트러블 슈팅 (github에서 발생)
-<br/>
-
-### ▶트러블 슈팅(1)
-
-```bash
-$ git commit -m "git 수정 후 다시올리기"
-On branch master
-Changes not staged for commit:
-        modified:   day001.md
-no changes added to commit (use "git add" and/or "git commit -a")
-```
-
-1. **문제점**
-
-   * 파일을 수정했지만 `git add` 단계 없이 커밋을 시도
-   * 실제 원인은 수정한 파일을 **저장하지 않고 커밋**하려 한 것
-
-2. **해결방안**
-
-   * 저장 후 다시 `git add` 및 `git commit` 진행
-
-
-3. **느낀점**
-
-   * 너무 기본적인 부분에서 문제가 발생할 수 있음을 깨달음
-   * 사소한 습관(파일 저장)을 소홀히 하면 불필요하게 시간을 낭비하게 됨
-   * 앞으로는 **커밋 전 저장 확인 → ctrl+s 혹은 git status 확인** 습관을 들여야 함
-
-<br/>
-
-### ▶트러블 슈팅(2)
-
-```bash
-$ git push origin master
-! [rejected]        master -> master (fetch first)
-error: failed to push some refs to '...'
-hint: Updates were rejected because the remote contains work that you do not
-hint: have locally. ...
-```
-
-1. **문제점**
-
-   * 로컬 브랜치가 GitHub 최신 상태보다 뒤처져 있었음
-   * 협업 상황에서 최신 내용을 가져오지 않고 곧바로 `push` 시도
-
-2. **해결방안**
-
-   1. `git add .`
-   2. `git commit -m "메시지"`
-   3. `git pull origin master` (원격 변경사항 병합)
-   4. `git push origin master`
-
-3. **느낀점**
-
-   * 협업 환경에서는 언제든 원격 상태가 바뀔 수 있다는 사실을 명심해야 함
-   * `push` 전에 **반드시 pull → 상태 확인 → 병합** 과정을 거쳐야 충돌을 줄일 수 있음
-   * 습관적으로 **git pull → 코드 확인 → push** 루틴을 가져야 함
-
-<br/>
-
-### ▶트러블 슈팅(3)
-
-```bash
-$ git pull origin master
-...
-CONFLICT (content): Merge conflict in day002.md
-Automatic merge failed; fix conflicts and then commit the result.
-```
-
-1. **문제점**
-
-   * 원격 저장소와 로컬 저장소의 동일 파일(day002.md)이 서로 다르게 수정됨
-   * 자동 병합 불가능 → **merge conflict 발생**
-
-2. **해결방안**
-
-   * 충돌 난 로컬파일(`day002.md`)을 열어 수동으로 수정
-   * 수정 후 `git add day002.md` → `git commit` 으로 병합 완료
-   * 이후 정상적으로 `git push`
-
-3. **느낀점**
-
-   * 충돌은 협업 개발에서 자연스러운 과정이라는 점을 이해
-   * 무조건 에러로 인식하기보다, **내용 비교 & 합의된 기준으로 수정**하는 습관 필요
-   * 충돌 상황은 **커뮤니케이션 역량 + 코드 이해력**이 함께 요구된다는 점을 배움
-
-<br/>
-<br/>
-
-
-### ▶트러블 슈팅(4)
-
-```bash
-$ git push origin master
-To https://github.com/shgil0618-glitch/fullstack_gsh.git
- ! [rejected]        master -> master (fetch first)
-error: failed to push some refs to 'https://github.com/shgil0618-glitch/fullstack_gsh.git'
-hint: Updates were rejected because the remote contains work that you do not
-hint: have locally. This is usually caused by another repository pushing to
-the same ref. If you want to integrate the remote changes, use
-'git pull' before pushing again.
-```
-
-1. **문제점**
-
-   * 로컬 브랜치(master)와 원격 브랜치(origin/master)의 커밋 히스토리가 서로 달라 발생
-   * 원격 저장소에 추가된 커밋을 로컬이 반영하지 못한 상태에서 push를 시도했기 때문에 거절됨
-   * 단순 `git pull`을 하면 자동으로 merge commit이 생성되어, 커밋 히스토리가 지저분해질 수 있음
-
-2. **해결방안**
-
-   * `--rebase` 옵션을 사용하여 원격 브랜치의 커밋을 먼저 가져온 뒤, 로컬 커밋을 그 위에 재적용
-
-   ```bash
-   git pull origin master --rebase
-   ```
-
-   * rebase 도중 충돌(conflict) 발생 시 → 해당 파일을 수정하고 `git add` 후 진행
-   ```bash
-   git rebase --continue
-   ```
-
-   * 불필요한 merge commit 없이, 선형적인 커밋 히스토리 유지 가능
-   
-   * 모든 충돌 해결 및 rebase 종료 후 정상적으로 push
-   ```bash
-   git push origin master
-   ```
-
-3. **느낀점**
-
-   * 단순히 충돌을 피하는 것보다, **프로젝트 히스토리를 깔끔하게 관리하는 방법**이 더 중요하다는 걸 깨달음
-   * `git pull --rebase`는 협업 시 발생할 수 있는 "불필요한 merge commit" 문제를 줄여주어, 로그 가독성을 크게 높임
-   * 단순 문제 해결을 넘어서, 왜 특정 전략(rebase)을 선택해야 하는지를 이해하고 설명할 수 있게 됨
-
-<br/>
-<br/>
-
----
-
 ## 📌 트러블 슈팅 (Web에서 발생)
 <br/>
 
@@ -343,6 +202,7 @@ the same ref. If you want to integrate the remote changes, use
 <img src="./img/userimage.png" style="width: 150px; border-radius: 50%; border: 3px solid red;">
 ```
 
+
 3. **느낀점**
 
 * CSS 속성 하나로 **디자인 완성도가 크게 달라짐**을 체감
@@ -350,80 +210,64 @@ the same ref. If you want to integrate the remote changes, use
 * 앞으로는 **UI 디테일에도 주의를 기울이는 습관**을 갖게 됨
 
 <br/>
-
----
-
-## 📌 트러블 슈팅 (Java에서 발생)
 <br/>
 
-### ▶트러블 슈팅(1)
+### ▶ 트러블슈팅 (3)
 
-```java
-package com.company.Java001_ex;
+```html
+<dl>
+  <dt>문제점</dt>
+  <dd>트러블슈팅 작성 시, 설명 부분이 자동으로 들여쓰기(margin-left: 40px)가 적용됨</dd>
 
-public class A003_ex {
-    public static void main(string[] args) {
-        System.out.printf("이름 : %s  나이: %d", "길동", 12);
-    }
-}
+  <dt>해결방안</dt>
+  <dd>CSS 초기화 또는 사용자 정의 스타일 적용</dd>
+</dl>
 ```
-```bash
-Error:(5, 24) java: cannot find symbol
-  symbol:   class string
-  location: class com.company.java001_ex.A003_ex
-```
+
 
 1. **문제점**
-   * Java는 **대소문자를 엄격히 구분**하기 때문에, `string`과 같은 잘못된 표기는 컴파일 에러를 발생시킨다. 또한, 패키지명은 관례적으로 **소문자**를 사용해야 가독성과 유지보수성이 높아진다.
+
+* `<dd>` 태그는 브라우저 기본 스타일로 \*\*`margin-left: 40px`\*\*가 적용됨
+* 문서에서 일정한 레이아웃을 만들고 싶은데, 의도치 않은 들여쓰기로 인해 디자인 불균형 발생
+* 웹 표준 태그를 사용했지만, 브라우저 기본 스타일을 그대로 두면 **UI 일관성 저해**
+
 
 2. **해결방안**
-   * `string[] args` → `String[] args` 로 수정하여 올바른 타입 지정
-   * `package com.company.Java001_ex;` → `package com.company.java001_ex;` 로 변경하여 네이밍 컨벤션 준수
+
+* CSS로 기본 margin을 초기화 후, 원하는 값으로 재설정
+* 필요 시, `<dl>`을 문서 뼈대로 유지하면서 **공통 스타일 정의**
+
+```html
+<style>
+  dl {
+    margin: 0;
+    padding: 0;
+  }
+  dt {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  dd {
+    margin: 0 0 10px 20px; /* 기본 40px 대신 원하는 값으로 조정 */
+  }
+</style>
+
+<dl>
+  <dt>문제점</dt>
+  <dd>브라우저 기본 margin-left로 인해 문서 레이아웃이 어긋남</dd>
+
+  <dt>해결방안</dt>
+  <dd>CSS 초기화 후 원하는 margin 값으로 통일</dd>
+</dl>
+```
+
 
 3. **느낀점**
-   * 이번 오류를 통해 **사소해 보이는 대소문자 차이도 프로그램 실행 여부에 직접적인 영향을 준다는 것**을 다시 한 번 체감했다. 앞으로는 단순히 코드를 작성하는 것에서 끝나지 않고, **언어의 문법적 특징과 컨벤션을 의식적으로 지키는 습관**을 들여 더 안정적이고 읽기 쉬운 코드를 작성해야겠다.
 
-<br/>
-
-### ▶트러블 슈팅(2)
-
-```java
-public class VarEx002 {
-	public static void main(String[] args) {
-		int a;
-		a = 10;
-		int b;
-		b = 3;
-		float c;
-		c = a/b;
-		System.out.println("10 / 3 =" +(a/b));
-		System.out.println("10 / 3 = "+c);	
-		System.out.printf("%d / %d = %f\n",a,b,c);
-   }
-}
-```
-```bash
-결과값
-10 / 3 = 3
-10 / 3 = 3.0
-10 / 3 = 3.000000
-```
-
-1. **문제점**
-   * 변수 c를 float로 선언했음에도 불구하고 결과가 3.0, 3.000000으로 정수 나눗셈 결과를 그대로 보여줌
-   * 이유: a와 b가 정수형(int) 이므로, 나눗셈 연산 a/b가 정수 나눗셈으로 수행됨 → 소수점 이하가 버려짐
-   * 즉, 실수형 변수에 저장했더라도 연산 과정 자체가 정수라 실제 계산값은 이미 손실됨
-
-2. **해결방안**
-   * 나눗셈을 수행하기 전에 한쪽 혹은 양쪽을 실수형으로 캐스팅
-```java
-   c = (float)a / b;
-```
-
-3. **느낀점**
-   * 겉보기에는 변수 타입만 바꿔도 될 것 같지만, 연산 과정에서 자료형이 우선적으로 적용됨을 깨달음
-   * 사소한 타입 문제 하나가 결과를 완전히 달라지게 할 수 있다는 점에서 자료형 선택과 연산 순서의 중요성을 배웠음
-   * 앞으로는 실수 연산 시 정수/실수 타입 구분을 명확히 하고, 예상 결과와 실제 결과의 차이를 반드시 확인하는 습관을 갖기로 함
+* HTML 태그는 단순 구조뿐 아니라 **브라우저 기본 스타일**까지 이해해야 안정적인 뼈대를 설계할 수 있다는 점을 배움
+* 개발 단계에서 기본값을 의식하고, **CSS로 일관된 디자인을 컨트롤**하는 습관이 필요함
+* 웹 개발은 기능뿐만 아니라 **“구조(HTML) → 기본 스타일(CSS Reset/Normalize) → 커스터마이징”** 흐름이 중요함을 깨달음
+* 단순 문제 해결이 아니라, **웹의 뼈대를 설계한다는 관점**에서 접근해야 협업 시 높은 완성도를 유지할 수 있음
 
 <br/>
 

@@ -93,9 +93,6 @@ q1-4 char형 변수 ch가 영문자(대문자 또는 소문자) 일때   true인
 
 
 ■1. Web  Basic  복습문제
-■1. Web  Basic  복습문제
-■1. Web  Basic  복습문제
-■1. Web  Basic  복습문제
 
 ### 1. block vs inline
 
@@ -136,9 +133,7 @@ q1-4 char형 변수 ch가 영문자(대문자 또는 소문자) 일때   true인
 
  
 
-■1. Web  Basic  복습문제 - Answer
-■1. Web  Basic  복습문제 - Answer
-■1. Web  Basic  복습문제 - Answer
+
 ■1. Web  Basic  복습문제 - Answer
 
 ### 1. block vs inline
@@ -154,7 +149,7 @@ q1-4 char형 변수 ch가 영문자(대문자 또는 소문자) 일때   true인
 3) inline 요소  
 - width/height 설정이 (O/X): __X__  
 - 앞뒤 줄바꿈이 (O/X): __X__  
-- 대표 태그: __a, span, strong__
+- 대표 태그: __a, span, strong, img__
  
 
 ### 2. 배치(1) - float
@@ -182,8 +177,7 @@ q1-4 char형 변수 ch가 영문자(대문자 또는 소문자) 일때   true인
 
 
 
-■1. Java  복습문제
-■1. Java  복습문제
+
 ■1. Java  복습문제
 
 복습문제1) 
@@ -212,8 +206,7 @@ q1-4 char형 변수 ch가 영문자(대문자 또는 소문자) 일때   true인
 
 
 
-■1. Java  복습문제 - Answewr
-■1. Java  복습문제 - Answewr
+
 ■1. Java  복습문제 - Answewr
 
 ## 복습문제1: 자료형

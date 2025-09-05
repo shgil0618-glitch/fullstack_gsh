@@ -54,27 +54,18 @@
      animation: fadeInUp      0.8s    ease          forwards;  
          /* ##  애니메이션이름  지속시간  처음과끝느리게  애니메이션끝나도마지막상태유지  */
   } 
-/* Q5: 두 번째 카드에 애니메이션 지연을 주려면?  - 지연 시간: 0.3초 
-      .card를 대상으로  nth-of-type
-       부모를 기준으로   nth-child
-*/
-   .card:nth-of-type(1){ 
-      animation-delay: 0.3s;
+/* Q5: 두 번째 카드에 애니메이션 지연을 주려면?  - 지연 시간: 0.3초 */
+   .card:nth-child(1){
+      animation-delay: 1s;
    }
-   .card:nth-of-type(2){ 
-      animation-delay: 0.6s;
-   }
-   .card:nth-of-type(3){ 
-      animation-delay: 0.9s;
-   }
-  
+ 
 
 /* Q6: 카드에 마우스를 올렸을 때 효과를 주려면?
    - 위로 이동: 5px
    - 그림자 강조: 15px
    - 테두리 색상 변경: #00796b */
  .card:hover{
-   transform: translateY(-5px);
+   transform: translateY(5px);
    box-shadow: 0 0 15px rgba(0,0,0,0.2);
    border:3px solid #00796b;
  }
@@ -83,24 +74,8 @@
    - 위치: 카드 바깥쪽 (-3px)
    - 배경: 45도 방향의 그라디언트 (#00c9ff → #92fe9d)
    - 둥근 테두리: 18px
-   - 투명도: hover 시 1로 변경 
-
-   css에서는 border에 그라디언트색상을 줄수 없음!
-   1) ::before  가상요소 카드보다 살짝 크게 만들기
-*/
-  .card::before {
-     content:"";
-     position: absolute;
-     top:-3px;  left:-3px; right:-3px;  bottom:-3px; 
-     background-image: linear-gradient(45deg, #00c9ff , #92fe9d);
-     border-radius: 15px;
-     opacity: 0;
-     z-index:-1;
-     transition: opacity 0.5s ease;
-  }
-  .card:hover::before {
-   opacity: 1;
-  }
+   - 투명도: hover 시 1로 변경 */
+ 
 
 /* Q8: 카드 이미지에 크기와 스타일을 주려면?
    - 너비: 120px
@@ -135,23 +110,20 @@
    - 둥근 모서리: 12px
    - 글자 크기: 13px */
    .card  .more-btn{
-      position: absolute;  top:10px; right:10px;  background-color:#00796b;    
-      color:white; padding:8px 12px; border-radius: 12px;  font-size:13px; 
-      text-decoration: none;  transition:background 0.3s  ease;  /* ## */
+      position: absolute;  top:10px; right:10px;
+      background-color:#00796b;    color:white;
+      padding:8px 12px; border-radius: 12px;  font-size:13px; text-decoration: none;
    }
-/* Q12: 버튼에 마우스를 올렸을 때 색상 변경과 흔들림 효과를 주려면?  - 배경색 변경: #004d40    - 애니메이션: shake (0.3초) ####### */
+ 
+/* Q12: 버튼에 마우스를 올렸을 때 색상 변경과 흔들림 효과를 주려면?
+   - 배경색 변경: #004d40
+   - 애니메이션: shake (0.3초) ####### */
    .card  .more-btn:hover{
       background-color:#004d40;
-      animation: shake  0.3s  ease-in-out;  /* ## */
    }
-/* Q13: 흔들림(shake) 애니메이션을 정의하려면?   - 좌우/상하로 2px씩 이동 반복 */
-  @keyframes shake { /* ## */
-    0% {   transform: translate(0,0);} 
-    25%{   transform: translate(2px,2px);} 
-    50%{   transform: translate(-2px,-2px);} 
-    75%{   transform: translate(2px,-2px);} 
-   100%{   transform: translate(0,0);} 
-  }
+ 
+/* Q13: 흔들림(shake) 애니메이션을 정의하려면?
+   - 좌우/상하로 2px씩 이동 반복 */
  
 /* Q14: 카드가 아래에서 위로 부드럽게 등장하도록 애니메이션을 정의하려면?
    - 시작: opacity 0, translateY(20px)
@@ -179,7 +151,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>나의 포트폴리오</h1>   
+    <h1>나의 포트폴리오</h1>
 
     <div class="card">
       <img src="./img/portfolio1.jpg" alt="프로젝트1 썸네일">
@@ -190,16 +162,8 @@
     </div>
 
     <div class="card">
-      <img src="./img/portfolio2.jpg" alt="프로젝트2 썸네일">
+      <img src="./img/portfolio3.jpg" alt="프로젝트2 썸네일">
       <h2>AI 챗봇 서비스</h2>
-      <p>Python 기반의 자연어 처리 챗봇 시스템</p>
-      <p>사용 기술: Flask, TensorFlow, NLP</p>
-      <a href="https://github.com/mychatbot" class="more-btn" target="_blank">더보기</a>
-    </div>
-
-    <div class="card">
-      <img src="./img/portfolio3.jpg" alt="프로젝트3 썸네일">
-      <h2>자연어 챗봇 서비스</h2>
       <p>Python 기반의 자연어 처리 챗봇 시스템</p>
       <p>사용 기술: Flask, TensorFlow, NLP</p>
       <a href="https://github.com/mychatbot" class="more-btn" target="_blank">더보기</a>
