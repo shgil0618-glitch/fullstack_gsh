@@ -8,7 +8,7 @@ public class IfEx008 {
 		
 		int kor,eng,mat,total;
 		double avg;
-		String ch,a,level,b;
+		String ch,a,level,b="";
 		
 		
 		System.out.print("학번 입력 : ");

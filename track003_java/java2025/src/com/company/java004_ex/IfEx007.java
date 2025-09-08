@@ -31,7 +31,7 @@ public class IfEx007 {
             System.out.printf(
                 (result == (int) result) ? "%d %c %d = %d\n" : "%d %c %d = %.2f\n",
                 num1, ch, num2,
-                (result == (int) result) ? ((int) result) : result
+                (result == (int) result) ? (Object)(Integer)((int) result) : (Object)(Double) result
             );
         } else {
             System.out.println("올바른 연산자를 입력하시오");
