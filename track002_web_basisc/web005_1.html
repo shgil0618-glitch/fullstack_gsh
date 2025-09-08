@@ -44,7 +44,11 @@
 
         .p2 .me {position: fixed; bottom: 100px; right: 0px; /* 브라우저 기준 */
              background-color: red;}
-
+        
+        /* Q8. display */
+        .d1 li {display: inline;}
+        .d2 li {display: inline-block;
+                width: 100px; padding: 10px; background-color: #333; text-align: center;}
         
 </style>
 </head>
@@ -72,6 +76,22 @@
         <h3>3. 배치(2) position - fixed </h3>
         <p class="me">where i am?</p>
         
+    </div>
+
+    <div class="container">
+        <h3>4. display 요소속성변경</h3>
+        <ul>
+            <li>APPLE</li><li>BANANA</li><li>COCONUT</li>   <!--width사이즈 잡을수 있으면 block-->
+        </ul>
+        <hr/>
+        <ul class="d1">
+            <li>APPLE</li><li>BANANA</li><li>COCONUT</li>
+        </ul>
+        <hr/>
+        <ul class="d2">
+            <li>APPLE</li><li>BANANA</li><li>COCONUT</li>
+        </ul>
+
     </div>
 
 </body>
