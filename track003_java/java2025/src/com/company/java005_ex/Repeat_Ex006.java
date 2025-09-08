@@ -15,7 +15,7 @@ public class Repeat_Ex006 {
 		str = ch.length();
 		for(int i=0;i<str;i++) {
 		val = ch.charAt(i);
-		hap += (int)val-48;
+		hap += (int)val;
 		}
 		System.out.println(hap);
 		
