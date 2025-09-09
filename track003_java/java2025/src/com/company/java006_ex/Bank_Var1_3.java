@@ -30,6 +30,7 @@ public class Bank_Var1_3 {
 					if(add==false && level != 1) {System.out.println("로그인 혹은 회원가입 부탁드립니다. (1번)"); level=0; continue;}
 					else {break;}}
 				else {System.out.println("올바른 메뉴를 눌러주세요"); level=0; continue;}
+				
 			case 1 : 
 				System.out.println("추가 기능입니다.");
 				System.out.print("id : ");
@@ -40,12 +41,13 @@ public class Bank_Var1_3 {
 				System.out.print("나이 : ");
 				age = scanner.nextInt();		
 				System.out.print("잔액 : ");
-				left = scanner.nextInt();				//ID 중복불가
-				scanner.nextLine();						//트러블슈팅(2) - nextline과 nextint가 같이 사용될때는 nextline를 사용하여 개행문자(엔터)를 먼저 처리해야한다.
+				left = scanner.nextInt();				
+				scanner.nextLine();						
 				id_oks = ids; pw_oks = pws;
 				add = true;
 				level = 0;
 				break;
+				
 			case 2 : 
 				if(login==true) {login = false;}
 				else {System.out.println("조회 기능입니다."); old_level = level; level = 6; break;}
@@ -53,6 +55,7 @@ public class Bank_Var1_3 {
 				System.out.println("잔액 : "+left );
 				level = 0;
 				break;
+				
 			case 3 : 
 				if(login==true) {login = false;}
 				else {System.out.println("입금 기능입니다."); old_level = level; level = 6; break;}
@@ -66,6 +69,7 @@ public class Bank_Var1_3 {
 				else {System.out.println("0또는 음수의 값은 허용하지 않습니다."); continue;}
 				}
 				break;
+				
 			case 4 :
 				if(login==true) {login = false;}
 				else {System.out.println("출금 기능입니다."); old_level = level; level = 6; break;}
@@ -79,6 +83,7 @@ public class Bank_Var1_3 {
 				else {System.out.println("출금 금액은 잔액보다 클 수 업습니다.");}
 				}
 				break;
+				
 			case 5 :
 				if(login==true) {login = false;}
 				else {System.out.println("삭제 기능입니다."); old_level = level; level = 6; break;}
@@ -88,6 +93,7 @@ public class Bank_Var1_3 {
 				add = false;
 				level = 0;
 				break;
+				
 			case 6 :
 				for(;;) {
 					System.out.print("id : ");
@@ -105,11 +111,8 @@ public class Bank_Var1_3 {
 					
 			} // end switch
 			
-			
 		if(check == true) {System.out.println("프로그램이 종료되었습니다."); break;}	
-		}// end 반복
-		
-			
+		}// end 반복		
 	}
 }
 /*
