@@ -8,14 +8,13 @@
    - 배경: 135도 방향의 그라디언트 (#f0f9ff → #e0f7fa)
    - 글꼴: Arial
    - 안쪽 여백: 30px */
-   *{ margin:0; padding:0;  box-sizing: border-box;}
+   *{ margin:0; padding:0;  box-sizing: border-box; }
    body{
       font-family: 'Arial';
       background-image:linear-gradient(135deg,#f0f9ff, #e0f7fa );
-      padding:30px; 
+      padding:30px;
    }
  
-   
 /* Q2: 제목(h1)을 가운데 정렬하고 색상과 아래 여백을 주려면?
    - 정렬: 가운데
    - 글자 색상: #00796b (청록색 계열)
@@ -24,12 +23,29 @@
       text-align: center;
       color:#00796b ;
       margin-bottom:40px;
+      width:100%; 
    }
 
 /* Q3: 콘텐츠 박스를 가운데 배치하고 너비를 50%로 설정하려면?
    - 너비: 50%
-   - 좌우 자동 마진으로 가운데 정렬 */
-  .container {  width:50%;  margin:auto;} 
+   - 좌우 자동 마진으로 가운데 정렬 
+  .container {  width:50%;  margin:auto;}*/
+
+
+/* Q16: 콘텐츠 박스를 가운데 배치하고 너비를 80%로 설정하려면?
+   - 너비: 80%
+   - 좌우 자동 마진으로 가운데 정렬  
+   - display:flex를 이용해서 카드들을 가로로 나열하고 
+   - 가운데 정렬
+*/
+   .container {  
+       width:80%;  
+       margin:auto; 
+       display: flex;  /*  자식요소들 가로방향나열해줘   */
+       justify-content: center;   /*   space-between 좌우 끝에 배치  */
+       flex-wrap:wrap;  /*  넘치는 콘텐츠가 있다면 줄바꿈 허용 ( 한줄에 안들어가면 다음줄로) */
+       gap:20px;  /* 카드사이간격 20px */
+   }
 
 
 /* Q4: 카드 박스를 가로로 배치하고 시각적 스타일을 주려면?
@@ -44,7 +60,9 @@
    - 텍스트 가운데 정렬
    - 애니메이션: 등장 시 아래에서 위로 이동 (translateY)
    - 테두리: 투명 3px, 배경 클립 설정(배경이 패딩까지) */
-  .card{  float:left; width:250px; margin:20px;  padding:20px; 
+  .card{  
+     /* float:left;  */
+     width:250px; margin:20px;  padding:20px; 
      background-color:#fff;  border-radius:15px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
      position:relative;
      text-align: center;
@@ -171,22 +189,98 @@
    - 배경색: #e0f2f1
    - 둥근 모서리: 10px
    - 텍스트 가운데 정렬, 글자색: #333 */
-  .clear{  clear:both;  
-   margin-top: 390px;  padding:15px; background-color:#e0f2f1;
+  .clear{  
+   width:100%;   /* clear:both;     margin-top: 390px;   */
+   padding:15px; background-color:#e0f2f1;
    border-radius: 10px;  text-align: center;  color:#333;
   }
 
- 
+    /* Q17: 물방울 요소를 화면 아래에서 시작하도록 고정하려면?
+      - 위치: fixed
+      - 시작 위치: bottom -100px
+      - 크기: 20px × 20px
+      - 배경색: 청록색 반투명 (rgba)
+      - 모양: 원형
+      - 애니메이션: rise (8초, 반복, ease-in)
+      - z-index: 0 (다른 요소보다 뒤에 배치)
+    */ 
+.bubble {
+  position: fixed;
+  bottom: -100px;
+  width: 20px;
+  height: 20px;
+  background: rgba(0, 121, 107, 0.4); 
+  border-radius: 50%;
+  animation: rise 8s ease-in infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+    /* Q18: 물방울이 위로 떠오르며 크기와 투명도가 변하도록 애니메이션을 정의하려면?
+      - 시작: 아래 위치, scale(1), opacity 0.5
+      - 중간: 위로 이동 -300px, scale(1.2), opacity 1
+      - 끝: 더 위로 -600px, scale(0.8), opacity 0
+    */ 
+@keyframes rise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-300px) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-600px) scale(0.8);
+    opacity: 0;
+  }
+}
+    /* Q19: 여러 개의 물방울을 화면에 흩뿌리듯 배치하려면?
+      - nth-of-type를 사용해 위치(left), 크기(width/height), 애니메이션 지연(animation-delay) 설정
+      - 각 물방울마다 다른 위치와 크기, 시작 시간 부여
+    */   
+.bubble:nth-of-type(1) {
+  left: 10%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 0s;
+}
+
+.bubble:nth-of-type(2) {
+  left: 30%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 2s;
+}
+
+.bubble:nth-of-type(3) {
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 4s;
+}
+
+.bubble:nth-of-type(4) {
+  left: 70%;
+  width: 30px;
+  height: 30px;
+  animation-delay: 1s;
+}
+
+.bubble:nth-of-type(5) {
+  left: 85%;
+  width: 18px;
+  height: 18px;
+  animation-delay: 3s;
+}
+
   </style>
 </head>
 <body>
-   <div class="bubbles">
-      <div class="bubble"></div>
-      <div class="bubble"></div>
-      <div class="bubble"></div>
-   </div>
+
+   
   <div class="container">
     <h1>나의 포트폴리오</h1>   
+
     <div class="card">
       <img src="./img/portfolio1.jpg" alt="프로젝트1 썸네일">
       <h2>쇼핑몰 웹앱</h2>
@@ -215,5 +309,10 @@
       이 포트폴리오는 실제 프로젝트를 기반으로 구성되었으며, 각 프로젝트는 GitHub에서 확인할 수 있습니다.
     </div>
   </div>
+  <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
 </body>
 </html>
