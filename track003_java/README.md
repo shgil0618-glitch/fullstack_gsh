@@ -557,6 +557,145 @@ pw = sc.next();
 
 ---
 
+### ▶ 트러블슈팅 (9) - 배열 초기화 누락으로 인한 `NullPointerException`
+
+```java
+public class ArrayExUpgrade1 { 
+    public static void main(String[] args) { 
+        char[] answer = {'A', 'C', 'B', 'D', 'A'}; 
+        char[] correct = null; // 문제 지점
+        Scanner sc = new Scanner(System.in); 
+        for(int i = 0; i < answer.length; i++) { 
+            System.out.print("입력 > "); 
+            correct[i] = sc.next().charAt(0); // 여기서 예외 발생
+        } 
+        ...
+    } 
+}
+```
+
+<br/>
+
+
+
+### 1. **문제점**
+
+* 배열 `correct`가 선언만 되어 있고, 실제 메모리 공간은 할당되지 않음 (`null` 상태)
+* 이후 `correct[i] = ...`에서 **존재하지 않는 배열에 접근하려 하면서 `NullPointerException` 발생**
+* 코드 실행 시점에는 **컴파일 에러 없이 실행되지만**, 런타임에서 예외가 발생해 프로그램이 중단됨
+
+
+
+### 2. **원인 분석**
+
+* 자바에서 배열도 객체이므로, `char[] correct = null;`은 **객체 참조 변수만 선언**한 상태
+* `null`은 참조 대상이 없음을 의미하며, 이 상태에서 `correct[i]`로 접근하면 **존재하지 않는 객체의 멤버에 접근**하는 것이므로 예외 발생
+* 자바에서 `NullPointerException`은 **가장 흔하면서도 치명적인 런타임 오류** 중 하나로, 보통 아래 상황에서 발생:
+
+  * 객체 생성 없이 필드/메서드 호출
+  * null 배열 접근
+  * 메서드 리턴값이 null인데 바로 접근
+
+
+
+### 3. **해결 방안**
+
+#### ✅ 올바른 배열 생성
+
+```java
+char[] correct = new char[answer.length];
+```
+
+* `correct` 배열을 `answer.length` 크기로 생성함으로써, **입력값 저장을 위한 메모리 공간을 확보**
+* 이제 `correct[i]`로 접근해도 예외 없이 정상 작동
+* `answer.length`를 기준으로 배열 크기를 동적으로 지정하면, 추후 answer 배열이 바뀌더라도 유연하게 대응 가능
+
+
+
+### 4. **느낀점**
+
+* `null` 상태는 단순한 "빈 값"이 아니라, **메모리에 아예 존재하지 않는 객체 상태**라는 점을 실감했다
+* 배열은 객체이므로 **생성 (`new`) 없이는 사용 불가** — 선언과 동시에 생성하는 습관이 중요함
+* 자바에서는 선언과 동시에 초기화를 하지 않으면 참조형 변수는 `null`로 초기화되므로, 해당 상태에서 직접 접근은 금물
+
+<br/>
+<br/>
+
+
+---
+
+### ▶ 트러블슈팅 (10) - 배열 인덱스 초과 오류 (`ArrayIndexOutOfBoundsException`)
+
+```java
+Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 5 out of bounds for length 5  
+	at com.company.java007_ex.ArrayEx008.main(ArrayEx008.java:17)
+```
+
+
+
+### 1. **문제점**
+
+```java
+int i = 0;
+
+for(i = 0; i < name.length; i++) {
+    aver[i] = (int) ((kor[i] + eng[i] + mat[i]) / 3.0);
+}
+
+System.out.println(aver[i]); // <-- 여기서 예외 발생!
+```
+
+* 위 코드에서 마지막 `System.out.println(aver[i]);` 문장에서 **`ArrayIndexOutOfBoundsException` 예외 발생**
+* 콘솔 메시지: `Index 5 out of bounds for length 5` → `aver[5]` 접근 시도 → 유효 인덱스 범위 `[0 ~ 4]`
+
+
+
+### 2. **원인 분석**
+
+#### 📌 핵심 원인
+
+* `for` 루프가 끝난 후 `i` 값은 `name.length`와 동일한 값 (예: 5)
+* 자바 배열의 유효 인덱스는 `0 ~ length - 1`까지이며, `aver[5]`는 존재하지 않음
+* 따라서 `System.out.println(aver[i]);`는 **배열의 범위를 초과한 접근 시도로 인해 런타임 예외 발생**
+
+#### 🔍 디버깅 흐름
+
+* `for(i = 0; i < name.length; i++)` → i는 0부터 4까지 증가
+* 반복문 종료 시 `i == name.length` → 즉, `i == 5`
+* 그 상태에서 `aver[i]`는 `aver[5]`를 의미 → **배열 경계 초과**
+
+
+
+### 3. **해결 방안**
+
+#### ✅ 방법 1: 반복문 내에서 출력하기
+
+```java
+for(int i = 0; i < name.length; i++) {
+    aver[i] = (int) ((kor[i] + eng[i] + mat[i]) / 3.0);
+    System.out.println(aver[i]); // 안전하게 접근 가능
+}
+```
+
+#### ✅ 방법 2: 루프 외부에서 출력 시 `i - 1` 사용
+
+```java
+System.out.println(aver[i - 1]); // 루프 종료 후 i == name.length 이므로 마지막 인덱스는 i - 1
+```
+
+### 4. **느낀점**
+
+* 배열 인덱스는 항상 **0부터 시작**하고, **`length - 1`까지 접근 가능**하다는 점을 실수로 간과함
+* 반복문이 끝난 뒤 루프 변수 `i`가 얼마나 증가했는지 **루프 외부에서 사용하는 경우 반드시 주의**해야 함
+* 자바는 **배열 범위 초과에 대해 런타임에서 엄격하게 예외를 발생시키므로**, 경계 조건을 정확히 확인해야 함
+* 이 경험을 통해 **루프 인덱스를 외부에서 사용할 경우 상태 추적이 필수적**이며, 명시적인 인덱스 사용의 중요성을 인식함
+
+
+<br/>
+<br/>
+
+---
+
 ## 참고문헌
 
 - [Git 공식 문서](https://git-scm.com/doc)  

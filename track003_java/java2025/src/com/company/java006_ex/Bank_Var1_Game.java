@@ -58,7 +58,9 @@ public class Bank_Var1_Game {
                     System.out.print("초기 잔액 : ");
                     left = scanner.nextInt();
                     scanner.nextLine();
-
+                    
+                    if(age <=18) {System.out.println("⚠만 19세 미만은 해당 서비스를 이용하실 수 없습니다. "); level=0; break;}
+                    
                     id_oks = ids;
                     pw_oks = pws;
                     add = true;
