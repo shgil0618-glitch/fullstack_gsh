@@ -15,7 +15,7 @@ public class ArrayEx08_3 {
 		int rank[] = new int[5];
 		int rank2[] = new int[5];
 		int store = 0;
-		int same=0;
+		int same = 0;
 
 		System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
 		System.out.println("이름\t\t국어\t영어\t수학\t평균\t합격여부\t장학생\t오름차순\t등수");
@@ -49,7 +49,7 @@ public class ArrayEx08_3 {
 		for (int i = 0; i < name.length; i++) {
 			for (int z = 0; z < name.length; z++) {
 				if (temp[i] == aver[z]) {
-					rank2[z] = i+1;
+					rank2[z] = i + 1;
 				}
 			}
 		}
@@ -58,13 +58,10 @@ public class ArrayEx08_3 {
 			rank[i] = 1;
 			for (int j = 0; j < name.length; j++) {
 				if (aver[i] < aver[j]) {
-					for(int z=0; z<name.length-1;z++) {
-						if(aver[z]==aver[z+1]) {
+						if (aver[i] == aver[j]) {
 							same++;
 						}
-					}
 					rank[i]++;
-					
 				}
 				
 			}
