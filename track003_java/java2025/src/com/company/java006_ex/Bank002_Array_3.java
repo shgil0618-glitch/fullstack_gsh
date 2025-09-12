@@ -52,7 +52,7 @@ public class Bank002_Array_3 {
 					continue;
 				}
 				break;
-
+/*
 			case 1:
 				if (userCount >= MAX_USERS) {
 					boolean hasSpace = false;
@@ -125,7 +125,7 @@ public class Bank002_Array_3 {
 				System.out.println("🎉 [뱅키] 환영합니다, " + newId + "님!");
 				level = 0;
 				break;
-
+*/
 			case 2:
 				if (!login) {
 					System.out.println("\n🔒 [조회 기능] 로그인이 필요합니다.");
@@ -307,7 +307,7 @@ public class Bank002_Array_3 {
 				}
 				level = 0;
 				break;
-
+/*
 			case 6: // 로그인
 				System.out.println("\n🔐 [로그인]");
 				for (;;) {
@@ -333,7 +333,7 @@ public class Bank002_Array_3 {
 						System.out.println("❌ ID 또는 PW가 틀렸습니다.");
 				}
 				break;
-
+*/
 			case 7: // 등급 판별
 				if (balance[loginuser] >= 1000000) {
 					rank[loginuser] = "💎 Diamond VIP";
