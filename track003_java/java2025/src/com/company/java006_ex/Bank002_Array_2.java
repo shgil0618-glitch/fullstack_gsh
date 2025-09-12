@@ -282,7 +282,7 @@ public class Bank002_Array_2 {
 				level = 0;
 				break;
 
-			case 6:
+			case 6:	//로그인 기능
 				System.out.println("\n🔐 [로그인]");
 				for (;;) {
 					System.out.print("ID : ");
@@ -308,7 +308,7 @@ public class Bank002_Array_2 {
 				}
 				break;
 
-			case 7:
+			case 7:	//랭크 기능
 				if (balance[loginuser] >= 1000000) {
 					rank[loginuser] = "💎 Diamond VIP";
 				} else if (balance[loginuser] >= 500000) {
