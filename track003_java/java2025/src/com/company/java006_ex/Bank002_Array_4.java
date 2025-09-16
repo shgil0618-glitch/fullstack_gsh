@@ -2,10 +2,10 @@ package com.company.java006_ex;
 
 import java.util.Scanner;
 
-public class Bank002_Array_3 {
+public class Bank002_Array_4 {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		final int MAX_USERS = 3;
+		final int MAX_USERS = 3; 
 
 		String ids[] = new String[MAX_USERS];
 		String pws[] = new String[MAX_USERS];
@@ -13,8 +13,8 @@ public class Bank002_Array_3 {
 		int age[] = new int[MAX_USERS];
 		int exp[] = new int[MAX_USERS];
 		String rank[] = new String[MAX_USERS];
-		boolean add[] = new boolean[MAX_USERS]; // 가입 여부
-		int userCount = 0;
+
+		int userCount = 0; 
 
 		int level = 0, old_level = 0;
 		int come = 0, out = 0;
@@ -22,9 +22,10 @@ public class Bank002_Array_3 {
 		boolean login = false;
 		boolean level_up = false;
 		boolean rank_check = false;
-		int loginuser = -1;
+		int loginuser = -1; 
 
 		System.out.println("🧠 [뱅키] 안녕하세요! GSH_BANK에 오신 것을 환영합니다!");
+		System.out.println("🎮 뱅키와 함께하는 은행 시스템을 즐겨보세요!");
 
 		for (;;) {
 			switch (level) {
@@ -41,7 +42,7 @@ public class Bank002_Array_3 {
 				scanner.nextLine();
 
 				if ((level >= 1 && level <= 5) || level == 9) {
-					if (userCount == 0 && level != 1) {
+					if (userCount == 0 && level != 1 && level != 9) { 
 						System.out.println("🧠 [뱅키] 먼저 회원가입 해주세요! (1번)");
 						level = 0;
 						continue;
@@ -53,18 +54,18 @@ public class Bank002_Array_3 {
 				}
 				break;
 
-			case 1:
+			case 1: // 회원가입
 				if (userCount >= MAX_USERS) {
-					boolean hasSpace = false;
-					for (boolean a : add) {
-						if (!a) {
-							hasSpace = true;
-							break;
-						}
-					}
-					if (!hasSpace) {
-						System.out.println("⚠ 더 이상 회원가입 할 수 없습니다.");
-						level = 0;
+					System.out.println("⚠ 회원 공간이 가득 찼습니다. 더 이상 가입할 수 없습니다.");
+					level = 0;
+					break;
+				}
+
+				
+				int newUserIndex = -1;
+				for (int i = 0; i < MAX_USERS; i++) {
+					if (ids[i] == null) { 
+						newUserIndex = i;
 						break;
 					}
 				}
@@ -73,9 +74,10 @@ public class Bank002_Array_3 {
 				System.out.print("ID : ");
 				String newId = scanner.nextLine();
 
+				
 				boolean idExists = false;
 				for (int i = 0; i < MAX_USERS; i++) {
-					if (add[i] && ids[i].equals(newId)) {
+					if (ids[i] != null && ids[i].equals(newId)) {
 						idExists = true;
 						break;
 					}
@@ -100,33 +102,19 @@ public class Bank002_Array_3 {
 				double newBalance = scanner.nextDouble();
 				scanner.nextLine();
 
-				boolean inserted = false;
-				for (int i = 0; i < MAX_USERS; i++) {
-					if (!add[i]) {
-						ids[i] = newId;
-						pws[i] = newPw;
-						age[i] = newAge;
-						balance[i] = newBalance;
-						exp[i] = 0;
-						add[i] = true;
-						loginuser = i;
-						userCount++;
-						inserted = true;
-						break;
-					}
-				}
-
-				if (!inserted) {
-					System.out.println("⚠ 시스템 오류로 회원가입을 진행할 수 없습니다.");
-					level = 0;
-					break;
-				}
-
+				
+				ids[newUserIndex] = newId;
+				pws[newUserIndex] = newPw;
+				age[newUserIndex] = newAge;
+				balance[newUserIndex] = newBalance;
+				exp[newUserIndex] = 0;
+				userCount++; 
+				
 				System.out.println("🎉 [뱅키] 환영합니다, " + newId + "님!");
 				level = 0;
 				break;
 
-			case 2:
+			case 2: // 조회
 				if (!login) {
 					System.out.println("\n🔒 [조회 기능] 로그인이 필요합니다.");
 					old_level = level;
@@ -147,7 +135,7 @@ public class Bank002_Array_3 {
 				level = 0;
 				break;
 
-			case 3:
+			case 3: // 입금
 				if (!login) {
 					System.out.println("\n🔒 [입금 기능] 로그인이 필요합니다.");
 					old_level = level;
@@ -207,7 +195,6 @@ public class Bank002_Array_3 {
 								System.out.println("🎉 [레벨업 복권 보너스] 보너스 " + bonus + "원 지급!");
 								balance[loginuser] += bonus;
 							}
-
 							level_up = false;
 						}
 
@@ -225,7 +212,6 @@ public class Bank002_Array_3 {
 								System.out.println("😢 아깝네요. 다음 기회에!");
 							}
 						}
-
 						level = 0;
 						break;
 					} else {
@@ -234,7 +220,7 @@ public class Bank002_Array_3 {
 				}
 				break;
 
-			case 4:
+			case 4: // 출금
 				if (!login) {
 					System.out.println("\n🔒 [출금 기능] 로그인이 필요합니다.");
 					old_level = level;
@@ -250,6 +236,7 @@ public class Bank002_Array_3 {
 						scanner.nextLine();
 					}
 					if (out <= balance[loginuser]) {
+
 						if (!rank_check) {
 							balance[loginuser] -= out;
 							exp[loginuser] += 10;
@@ -275,40 +262,32 @@ public class Bank002_Array_3 {
 				}
 				break;
 
-			case 5:
+			case 5: // 삭제
 				if (!login) {
 					System.out.println("\n🔒 [삭제 기능] 로그인이 필요합니다.");
 					old_level = level;
 					level = 6;
 					break;
 				}
+				login = false;
 
 				System.out.println("\n🗑️ [계정 삭제]");
-				System.out.print("정말 삭제하시겠습니까? (Y/N) : ");
-				char confirm = scanner.next().charAt(0);
-				scanner.nextLine();
+				
+				
+				ids[loginuser] = null;
+				pws[loginuser] = null;
+				balance[loginuser] = 0;
+				age[loginuser] = 0;
+				exp[loginuser] = 0;
+				rank[loginuser] = null;
 
-				if (confirm == 'Y' || confirm == 'y') {
-					ids[loginuser] = null;
-					pws[loginuser] = null;
-					age[loginuser] = 0;
-					balance[loginuser] = 0;
-					exp[loginuser] = 0;
-					rank[loginuser] = null;
-					add[loginuser] = false;
-
-					userCount--;
-					loginuser = -1;
-					login = false;
-
-					System.out.println("👋 계정이 성공적으로 삭제되었습니다.");
-				} else {
-					System.out.println("삭제가 취소되었습니다.");
-				}
+				userCount--; 
+				loginuser = -1;
+				System.out.println("👋 계정이 성공적으로 삭제되었습니다.");
 				level = 0;
 				break;
 
-			case 6: // 로그인
+			case 6:	
 				System.out.println("\n🔐 [로그인]");
 				for (;;) {
 					System.out.print("ID : ");
@@ -317,8 +296,9 @@ public class Bank002_Array_3 {
 					String inputPw = scanner.nextLine();
 
 					boolean found = false;
+					
 					for (int i = 0; i < MAX_USERS; i++) {
-						if (add[i] && ids[i].equals(inputId) && pws[i].equals(inputPw)) {
+						if (ids[i] != null && ids[i].equals(inputId) && pws[i].equals(inputPw)) {
 							loginuser = i;
 							level = old_level;
 							login = true;
@@ -334,7 +314,7 @@ public class Bank002_Array_3 {
 				}
 				break;
 
-			case 7: // 등급 판별
+			case 7:	//랭크 기능
 				if (balance[loginuser] >= 1000000) {
 					rank[loginuser] = "💎 Diamond VIP";
 				} else if (balance[loginuser] >= 500000) {
@@ -348,8 +328,8 @@ public class Bank002_Array_3 {
 				level = old_level;
 				break;
 
-			case 9:
-				if (loginuser != -1) {
+			case 9:	//종료
+				if (loginuser != -1 && ids[loginuser] != null) { 
 					System.out.println("\n👋 [뱅키] 이용해주셔서 감사합니다, " + ids[loginuser] + "님!");
 				} else {
 					System.out.println("\n👋 [뱅키] 이용해주셔서 감사합니다!");
@@ -363,6 +343,6 @@ public class Bank002_Array_3 {
 				break;
 			}
 		}
-		scanner.close();
+		
 	}
 }

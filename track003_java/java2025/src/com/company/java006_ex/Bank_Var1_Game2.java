@@ -2,7 +2,7 @@ package com.company.java006_ex;
 
 import java.util.Scanner;
 
-public class Bank_Var1_Game {
+public class Bank_Var1_Game2 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int level = 0, age = 0, left = 0, come = 0, out = 0, old_level = 0, exp = 0;
@@ -13,7 +13,7 @@ public class Bank_Var1_Game {
         boolean login = false;
         boolean level_up = false;
         boolean rank_check = false;
-        
+
         System.out.println("🧠 [뱅키] 안녕하세요! GSH_BANK에 오신 것을 환영합니다!");
         System.out.println("🎮 뱅키와 함께하는 게임형 은행 시스템을 즐겨보세요!");
 
@@ -59,9 +59,13 @@ public class Bank_Var1_Game {
                     System.out.print("초기 잔액 : ");
                     left = scanner.nextInt();
                     scanner.nextLine();
-                    
-                    if(age <=18) {System.out.println("⚠만 19세 미만은 해당 서비스를 이용하실 수 없습니다. "); level=0; break;}
-                    
+
+                    if (age <= 18) {
+                        System.out.println("⚠만 19세 미만은 해당 서비스를 이용하실 수 없습니다.");
+                        level = 0;
+                        break;
+                    }
+
                     id_oks = ids;
                     pw_oks = pws;
                     add = true;
@@ -81,7 +85,17 @@ public class Bank_Var1_Game {
 
                     System.out.println("\n📊 [잔액 조회]");
                     System.out.println("현재 잔액: " + left + "원");
-                    printRank(left);
+                    // 등급 직접 출력
+                    if (left >= 1000000) {
+                        System.out.println("🏅 고객 등급: 💎 Diamond VIP");
+                    } else if (left >= 500000) {
+                        System.out.println("🏅 고객 등급: 🥇 Gold 고객");
+                    } else if (left >= 100000) {
+                        System.out.println("🏅 고객 등급: 🥈 Silver 고객");
+                    } else {
+                        System.out.println("🏅 고객 등급: 🥉 Bronze 고객");
+                    }
+
                     level = 0;
                     break;
 
@@ -104,10 +118,21 @@ public class Bank_Var1_Game {
 
                         if (come > 0) {
                             left += come;
-                            exp += (come/10);
+                            exp += (come / 10);
                             System.out.println("✅ 입금 완료! 현재 잔액: " + left + "원");
                             System.out.println("✨ 경험치 +10 ▶ 현재 경험치: " + exp);
-                            printRank(left);
+
+                            // 등급 직접 출력
+                            if (left >= 1000000) {
+                                System.out.println("🏅 고객 등급: 💎 Diamond VIP");
+                            } else if (left >= 500000) {
+                                System.out.println("🏅 고객 등급: 🥇 Gold 고객");
+                            } else if (left >= 100000) {
+                                System.out.println("🏅 고객 등급: 🥈 Silver 고객");
+                            } else {
+                                System.out.println("🏅 고객 등급: 🥉 Bronze 고객");
+                            }
+
                             if (exp >= 100) {
                                 System.out.println("🎉 레벨업! 보너스 지급 예정!");
                                 exp = 0;
@@ -115,30 +140,30 @@ public class Bank_Var1_Game {
                             }
 
                             // 🎁 복권 이벤트
-							if (level_up == true) {
-								int bonus = (int) (Math.random() * 3000);
-								System.out.println("🎉 [레벨업 복권 보너스] 보너스 " + bonus + "원 당첨!");
-								System.out.println("[묻고 떠블로가!] 주사위 숫자가 50미만일 경우 - 보너스*2 / 50이상일경우 - 0원");
-								System.out.println("[묻고 떠블로가!] 이벤트에 도전하시겠습니까? (Y / N)");
-								yes = scanner.next().charAt(0);
-								if (yes == 'Y') {
-									int chance = (int) (Math.random() * 100);
-									if (chance < 50) {
-										bonus *= 2;
-										left += bonus;
-										System.out.println("🎉 축하드립니다!");
-										System.out.println("🎉 [묻고 떠블로가!] 이벤트 당첨! " + bonus + "원 지급!");
-									} else {
-										System.out.println("주사위의 숫자는 " + chance + " 입니다.");
-										System.out.println("😢 아깝네요. 다음 기회에!");
-									}
-								} else {
-									System.out.println("🎉 [레벨업 복권 보너스] 보너스 " + bonus + "원 지급!");
-									left += bonus;
-								}
+                            if (level_up == true) {
+                                int bonus = (int) (Math.random() * 3000);
+                                System.out.println("🎉 [레벨업 복권 보너스] 보너스 " + bonus + "원 당첨!");
+                                System.out.println("[묻고 떠블로가!] 주사위 숫자가 50미만일 경우 - 보너스*2 / 50이상일경우 - 0원");
+                                System.out.println("[묻고 떠블로가!] 이벤트에 도전하시겠습니까? (Y / N)");
+                                yes = scanner.next().charAt(0);
+                                if (yes == 'Y' || yes == 'y') {
+                                    int chance = (int) (Math.random() * 100);
+                                    if (chance < 50) {
+                                        bonus *= 2;
+                                        left += bonus;
+                                        System.out.println("🎉 축하드립니다!");
+                                        System.out.println("🎉 [묻고 떠블로가!] 이벤트 당첨! " + bonus + "원 지급!");
+                                    } else {
+                                        System.out.println("주사위의 숫자는 " + chance + " 입니다.");
+                                        System.out.println("😢 아깝네요. 다음 기회에!");
+                                    }
+                                } else {
+                                    System.out.println("🎉 [레벨업 복권 보너스] 보너스 " + bonus + "원 지급!");
+                                    left += bonus;
+                                }
 
-								level_up = false;
-							}
+                                level_up = false;
+                            }
 
                             // 🎲 잔액 이스터에그
                             if (left == 77777) {
@@ -146,12 +171,12 @@ public class Bank_Var1_Game {
                                 System.out.print("주사위를 선택하세요 (1~6): ");
                                 int choice = scanner.nextInt();
                                 scanner.nextLine();
-                                int rolled = (int)(Math.random() * 6) + 1;
+                                int rolled = (int) (Math.random() * 6) + 1;
                                 if (choice == rolled) {
                                     System.out.println("🎊 주사위 대성공! 보너스 50000원 지급!");
                                     left += 50000;
                                 } else {
-                                	System.out.println("주사위의 숫자는 "+rolled+" 입니다.");
+                                    System.out.println("주사위의 숫자는 " + rolled + " 입니다.");
                                     System.out.println("😢 아깝네요. 다음 기회에!");
                                 }
                             }
@@ -183,11 +208,24 @@ public class Bank_Var1_Game {
                             exp += 10;
                             System.out.println("✅ 출금 완료! 현재 잔액: " + left + "원");
                             System.out.println("✨ 경험치 +10 ▶ 현재 경험치: " + exp);
-                            printRank(left);
+
+                            // 등급 직접 출력
+                            if (left >= 1000000) {
+                                System.out.println("🏅 고객 등급: 💎 Diamond VIP");
+                            } else if (left >= 500000) {
+                                System.out.println("🏅 고객 등급: 🥇 Gold 고객");
+                            } else if (left >= 100000) {
+                                System.out.println("🏅 고객 등급: 🥈 Silver 고객");
+                            } else {
+                                System.out.println("🏅 고객 등급: 🥉 Bronze 고객");
+
+                            } // 등급 출력 끝
+
                             if (exp >= 100) {
                                 System.out.println("🎉 레벨업! 보너스 지급 예정!");
                                 exp = 0;
                             }
+
                             level = 0;
                             break;
                         } else {
@@ -234,22 +272,11 @@ public class Bank_Var1_Game {
                         }
                     }
                     break;
-                    
-            	case 7: // 등급 판별
-            		String rank;
-    				if (left >= 1000000) {
-    					rank = "💎 Diamond VIP";
-    				} else if (left >= 500000) {
-    					rank = "🥇 Gold 고객";
-    				} else if (left >= 100000) {
-    					rank = "🥈 Silver 고객";
-    				} else {
-    					rank = "🥉 Bronze 고객";
-    				}
-    				
-    				rank_check = true;
-    				level = old_level;
-    				break;
+
+                case 7:
+                    // case 7은 필요 없으므로 제거해도 됩니다 (등급 출력이 메서드 없이 구현됨)
+                    level = old_level;
+                    break;
 
                 case 9:
                     System.out.println("\n👋 [뱅키] 이용해주셔서 감사합니다, " + id_oks + "님!");
@@ -263,19 +290,5 @@ public class Bank_Var1_Game {
             }
         }
     }
-
-    // 등급 출력 메서드
-	public static void printRank(int balance) {
-        String rank;
-		if (balance >= 1000000) {
-            rank = "💎 Diamond VIP";
-        } else if (balance >= 500000) {
-            rank = "🥇 Gold 고객";
-        } else if (balance >= 100000) {
-            rank = "🥈 Silver 고객";
-        } else {
-            rank = "🥉 Bronze 고객";
-        }
-        System.out.println("🏅 고객 등급: " + rank);
-    }
 }
+
