@@ -137,161 +137,137 @@ public class Test {
             break;
 
          case 3: // 입금
-            if (!login) {
-               System.out.println("\n🔒 [입금 기능] 로그인이 필요합니다.");
-               old_level = level;
-               level = 6;
-               break;
-            }
+        	    if (!login) {
+        	        System.out.println("\n🔒 [입금 기능] 로그인이 필요합니다.");
+        	        old_level = level;
+        	        level = 6;
+        	        break;
+        	    }
 
-            if (!rank_check) {
-               System.out.println("\n💰 [입금 기능]");
-               System.out.printf("현재 잔액: %.2f원\n", balance[loginuser]);
-            }
+        	    if (!rank_check) {
+        	        System.out.println("\n💰 [입금 기능]");
+        	        System.out.printf("현재 잔액: %.2f원\n", balance[loginuser]);
+        	        System.out.print("입금 금액 입력: ");
+        	        come = scanner.nextInt();
+        	        scanner.nextLine();
 
-            for (;;) {
-               if (!rank_check) {
-                  System.out.print("입금 금액 입력: ");
-                  come = scanner.nextInt();
-                  scanner.nextLine();
-               }
+        	        if (come <= 0) {
+        	            System.out.println("❌ 음수나 0은 입금할 수 없습니다.");
+        	            level = 0;
+        	            break;
+        	        }
 
-               if (come > 0) {
-                  if (!rank_check) {
-                     balance[loginuser] += come;
-                     exp[loginuser] += (come / 10);
-                     old_level = level;
-                     level = 7;
-                     break;
-                  }
-                  
-                  
-                  //  ###### rank_check가 false일 때만 실행되므로 이 조건문은 도달하지 않음. 구조 개선 필요.
-                  System.out.printf("✅ 입금 완료! 현재 잔액: %.2f원\n", balance[loginuser]);
-                  System.out.println("✨ 경험치 +10 ▶ 현재 경험치: " + exp[loginuser]);
-                  System.out.println("🏅 고객 등급: " + rank[loginuser]);
-                  rank_check = false;
-                  login = false;
-                  if (exp[loginuser] >= 100) {
-                     System.out.println("🎉 레벨업! 보너스 지급 예정!");
-                     exp[loginuser] = 0;
-                     level_up = true;
-                  }
+        	        balance[loginuser] += come;
+        	        exp[loginuser] += (come / 10);
+        	        old_level = level;
+        	        level = 7; // 랭크 업데이트 후 후처리 진행
+        	        break;
+        	    }
 
-                  if (level_up) {
-                     int bonus = (int) (Math.random() * 3000);
-                     System.out.println("🎉 [레벨업 복권 보너스] 보너스 " + bonus + "원 당첨!");
-                     System.out.println("[묻고 떠블로가!] 주사위 숫자가 50미만일 경우 - 보너스*2 / 50이상일경우 - 0원");
-                     System.out.println("[묻고 떠블로가!] 이벤트에 도전하시겠습니까? (Y / N)");
-                     char yes = scanner.next().charAt(0);
-                     scanner.nextLine();
-                     if (yes == 'Y' || yes == 'y') {
-                        int chance = (int) (Math.random() * 100);
-                        if (chance < 50) {
-                           bonus *= 2;
-                           balance[loginuser] += bonus;
-                           System.out.println("🎉 축하드립니다!");
-                           System.out.println("🎉 [묻고 떠블로가!] 이벤트 당첨! " + bonus + "원 지급!");
-                        } else {
-                           System.out.println("주사위의 숫자는 " + chance + " 입니다.");
-                           System.out.println("😢 아깝네요. 다음 기회에!");
-                        }
-                     } else {
-                        System.out.println("🎉 [레벨업 복권 보너스] 보너스 " + bonus + "원 지급!");
-                        balance[loginuser] += bonus;
-                     }
-                     level_up = false;
-                  }
+        	    // rank_check가 true인 경우 후처리
+        	    System.out.printf("✅ 입금 완료! 현재 잔액: %.2f원\n", balance[loginuser]);
+        	    System.out.println("✨ 경험치 +10 ▶ 현재 경험치: " + exp[loginuser]);
+        	    System.out.println("🏅 고객 등급: " + rank[loginuser]);
+        	    rank_check = false;
+        	    login = false;
 
-                  if (balance[loginuser] == 77777) {
-                     System.out.println("🎰 [럭키세븐 이벤트]");
-                     System.out.print("주사위를 선택하세요 (1~6): ");
-                     int choice = scanner.nextInt();
-                     scanner.nextLine();
-                     int rolled = (int) (Math.random() * 6) + 1;
-                     if (choice == rolled) {
-                        System.out.println("🎊 주사위 대성공! 보너스 50000원 지급!");
-                        balance[loginuser] += 50000;
-                     } else {
-                        System.out.println("주사위의 숫자는 " + rolled + " 입니다.");
-                        System.out.println("😢 아깝네요. 다음 기회에!");
-                     }
-                  }
-                  level = 0;
-                  break;
-               } else {
-                  System.out.println("❌ 음수나 0은 입금할 수 없습니다.");
-               }
-            }
-            break;
-        /* 개선제안?
-         case 3: // 입금
-            if (!login) {
-               System.out.println("\n🔒 [입금 기능] 로그인이 필요합니다.");
-               old_level = level;
-               level = 6;
-               break;
-            }
+        	    if (exp[loginuser] >= 100) {
+        	        System.out.println("🎉 레벨업! 보너스 지급 예정!");
+        	        exp[loginuser] = 0;
+        	        level_up = true;
+        	    }
 
-            System.out.println("\n💰 [입금 기능]");
-            System.out.printf("현재 잔액: %.2f원\n", balance[loginuser]);
-            System.out.print("입금 금액 입력: ");
-            come = scanner.nextInt();
-            scanner.nextLine();
+        	    if (level_up) {
+        	        int bonus = (int) (Math.random() * 3000);
+        	        System.out.println("🎉 [레벨업 복권 보너스] 보너스 " + bonus + "원 당첨!");
+        	        System.out.println("[묻고 떠블로가!] 주사위 숫자가 50미만일 경우 - 보너스*2 / 50이상일경우 - 0원");
+        	        System.out.println("[묻고 떠블로가!] 이벤트에 도전하시겠습니까? (Y / N)");
+        	        char yes = scanner.next().charAt(0);
+        	        scanner.nextLine();
+        	        if (yes == 'Y' || yes == 'y') {
+        	            int chance = (int) (Math.random() * 100);
+        	            if (chance < 50) {
+        	                bonus *= 2;
+        	                balance[loginuser] += bonus;
+        	                System.out.println("🎉 축하드립니다!");
+        	                System.out.println("🎉 [묻고 떠블로가!] 이벤트 당첨! " + bonus + "원 지급!");
+        	            } else {
+        	                System.out.println("주사위의 숫자는 " + chance + " 입니다.");
+        	                System.out.println("😢 아깝네요. 다음 기회에!");
+        	            }
+        	        } else {
+        	            System.out.println("🎉 [레벨업 복권 보너스] 보너스 " + bonus + "원 지급!");
+        	            balance[loginuser] += bonus;
+        	        }
+        	        level_up = false;
+        	    }
 
-            if (come <= 0) {
-               System.out.println("❌ 음수나 0은 입금할 수 없습니다.");
-               level = 0;
-               break;
-            }
-
-            balance[loginuser] += come;
-            exp[loginuser] += (come / 10);
-
-            // #### 개선: rank_check 조건 제거하고 공통 후처리로 이동
-            old_level = level;
-            level = 7;
-            break; 
-         */
-            
+        	    if (balance[loginuser] == 77777) {
+        	        System.out.println("🎰 [럭키세븐 이벤트]");
+        	        System.out.print("주사위를 선택하세요 (1~6): ");
+        	        int choice = scanner.nextInt();
+        	        scanner.nextLine();
+        	        int rolled = (int) (Math.random() * 6) + 1;
+        	        if (choice == rolled) {
+        	            System.out.println("🎊 주사위 대성공! 보너스 50000원 지급!");
+        	            balance[loginuser] += 50000;
+        	        } else {
+        	            System.out.println("주사위의 숫자는 " + rolled + " 입니다.");
+        	            System.out.println("😢 아깝네요. 다음 기회에!");
+        	        }
+        	    }
+        	    level = 0;
+        	    break;
+    
             
          case 4: // 출금
-            if (!login) {
-               System.out.println("\n🔒 [출금 기능] 로그인이 필요합니다.");
-               old_level = level;
-               level = 6;
-               break;
-            }
+        	    if (!login) {
+        	        System.out.println("\n🔒 [출금 기능] 로그인이 필요합니다.");
+        	        old_level = level;
+        	        level = 6;
+        	        break;
+        	    }
 
-            if (!rank_check) {
-               System.out.println("\n🏧 [출금 기능]");
-               System.out.print("출금 금액 입력: ");
-               out = scanner.nextInt();
-               scanner.nextLine();
-            }
+        	    if (!rank_check) {
+        	        System.out.println("\n🏧 [출금 기능]");
+        	        System.out.print("출금 금액 입력: ");
+        	        out = scanner.nextInt();
+        	        scanner.nextLine();
 
-            if (out <= balance[loginuser]) {
-               if (!rank_check) {
-                  balance[loginuser] -= out;
-                  exp[loginuser] += 10;
-                  old_level = level;
-                  level = 7;
-                  break;
-               }
+        	        if (out <= 0) {
+        	            System.out.println("❌ 음수나 0은 출금할 수 없습니다.");
+        	            level = 0;
+        	            break;
+        	        }
 
-               // ####### rank_check가 false일 때만 실행되므로 이 조건문은 도달하지 않음. 구조 개선 필요.
-               System.out.printf("✅ 출금 완료! 현재 잔액: %.2f원\n", balance[loginuser]);
-               System.out.println("✨ 경험치 +10 ▶ 현재 경험치: " + exp[loginuser]);
-               System.out.println("🏅 고객 등급: " + rank[loginuser]);
-               rank_check = false;
-               login = false;
-               level = 0;
-               break;
-            } else {
-               System.out.println("❌ 출금 금액이 잔액보다 많습니다!");
-               level = 0;
-               break;
-            }
+        	        if (out > balance[loginuser]) {
+        	            System.out.println("❌ 출금 금액이 잔액보다 많습니다!");
+        	            level = 0;
+        	            break;
+        	        }
+
+        	        balance[loginuser] -= out;
+        	        exp[loginuser] += 10;
+        	        old_level = level;
+        	        level = 7;
+        	        break;
+        	    }
+
+        	    // rank_check가 true인 경우 후처리
+        	    System.out.printf("✅ 출금 완료! 현재 잔액: %.2f원\n", balance[loginuser]);
+        	    System.out.println("✨ 경험치 +10 ▶ 현재 경험치: " + exp[loginuser]);
+        	    System.out.println("🏅 고객 등급: " + rank[loginuser]);
+        	    rank_check = false;
+        	    login = false;
+
+        	    if (exp[loginuser] >= 100) {
+        	        System.out.println("🎉 레벨업! 보너스 지급 예정!");
+        	        exp[loginuser] = 0;
+        	        // level_up 등의 추가 기능이 있다면 여기에 넣을 수 있음
+        	    }
+
+        	    level = 0;
+        	    break;
 
          case 5: // 삭제
             if (!login) {

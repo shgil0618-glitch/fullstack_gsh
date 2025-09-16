@@ -25,6 +25,7 @@
 |이름|길상현|
 |이메일|shgil0618@gmail.com|
 |깃허브주소|https://github.com/shgil0618-glitch/fullstack_gsh.git|
+|유튜브 채널|https://youtu.be/M0sg6rhlKfI|
 <!--
 |포트폴리오|**추후 추가예정**|
 -->
