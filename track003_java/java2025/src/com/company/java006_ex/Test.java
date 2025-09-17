@@ -1,5 +1,5 @@
  
-package com.company.java008;
+package com.company.java006_ex;
 
 import java.util.Scanner;
 
