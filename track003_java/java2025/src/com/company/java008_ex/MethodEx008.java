@@ -10,7 +10,7 @@ public class MethodEx008 {
 	    upper(ch);   
 		lower(ch1);
 		System.out.println("ch1값" + ch1);
-	    System.out.println("main. 배열값 : "      +  Arrays.toString(ch)          ); 	
+	    System.out.println("main. 배열값 : "  +  Arrays.toString(ch)); 	
 	}
 	public static void upper(char[] ch) {
 		for(int i=0; i<ch.length;i++) {

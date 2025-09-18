@@ -1,145 +1,336 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>홍길동 | Full-Stack Developer</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-  /* 기본 세팅 */
-  * { box-sizing: border-box; margin:0; padding:0; }
-  body { font-family: 'Inter', sans-serif; background:#f5f7fa; color:#1a1a1a; line-height:1.5; }
-  a { text-decoration:none; color:inherit; }
-  img { max-width:100%; display:block; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>홍길동 - Full-Stack Developer Portfolio</title>
+  <style>
+    /* 기본 스타일 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-  /* 컨테이너 */
-  .container { width:90%; max-width:1200px; margin:0 auto; }
+    body {
+      background-color: #0d0d0d;
+      color: #fff;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
 
-  /* 헤더 */
-  header { display:flex; justify-content: space-between; align-items:center; padding:30px 0; }
-  .logo { font-weight:800; font-size:24px; color:#4f46e5; }
-  nav a { margin-left:20px; font-weight:600; color:#4b5563; transition: color 0.2s; }
-  nav a:hover { color:#4f46e5; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-  /* 히어로 */
-  .hero { display:flex; align-items:center; justify-content: space-between; flex-wrap:wrap; margin:60px 0; }
-  .hero-text { flex:1; min-width:280px; }
-  .hero-text h1 { font-size:48px; font-weight:800; color:#111827; margin-bottom:20px; }
-  .hero-text h1 .accent { background: linear-gradient(90deg,#4f46e5,#3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .hero-text p { font-size:18px; color:#4b5563; margin-bottom:30px; max-width:600px; }
-  .hero-text .btn { padding:14px 28px; border-radius:12px; font-weight:700; background: linear-gradient(90deg,#4f46e5,#3b82f6); color:white; margin-right:15px; display:inline-block; transition:opacity 0.2s; }
-  .hero-text .btn:hover { opacity:0.9; }
-  .hero-img { flex:1; min-width:280px; text-align:center; }
-  .hero-img img { border-radius:20px; box-shadow:0 20px 40px rgba(0,0,0,0.1); }
+    section {
+      padding: 80px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
 
-  /* 섹션 제목 */
-  section { margin:80px 0; }
-  section h2 { font-size:32px; font-weight:800; color:#111827; margin-bottom:15px; }
-  section p.sub { color:#6b7280; font-weight:500; margin-bottom:30px; }
+    h1, h2, h3 {
+      color: #00ffe0;
+    }
 
-  /* 스킬 */
-  .skills { display:flex; flex-wrap:wrap; gap:12px; }
-  .skills span { background:#e0e7ff; color:#1e3a8a; padding:10px 14px; border-radius:999px; font-weight:600; font-size:14px; }
+    /* Header */
+    header {
+      padding: 60px 20px;
+      text-align: center;
+      background: #111;
+    }
 
-  /* 프로젝트 */
-  .projects { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; }
-  .card { background:white; border-radius:16px; box-shadow:0 10px 20px rgba(0,0,0,0.05); padding:20px; transition: transform 0.3s; }
-  .card:hover { transform: translateY(-8px); }
-  .card img { border-radius:12px; margin-bottom:15px; }
-  .card h3 { font-size:20px; font-weight:700; margin-bottom:10px; }
-  .card p { font-size:14px; color:#4b5563; margin-bottom:10px; }
-  .tags { display:flex; flex-wrap:wrap; gap:8px; }
-  .tags span { background:#e0e7ff; color:#1e3a8a; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:600; }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      animation: slideIn 1s ease-out forwards;
+      opacity: 0;
+      transform: translateY(-30px);
+    }
 
-  /* 연락 */
-  .contact-form { display:flex; flex-direction:column; gap:15px; max-width:500px; }
-  .contact-form label { font-weight:600; color:#111827; margin-bottom:5px; }
-  .contact-form input, .contact-form textarea { padding:12px; border-radius:10px; border:1px solid #d1d5db; font-size:16px; }
-  .contact-form button { padding:14px; border:none; border-radius:12px; font-weight:700; background:#4f46e5; color:white; cursor:pointer; transition:opacity 0.2s; }
-  .contact-form button:hover { opacity:0.9; }
+    header p {
+      font-size: 1.2rem;
+      color: #aaa;
+      animation: slideIn 1s ease-out forwards 0.3s;
+      opacity: 0;
+      transform: translateY(-30px);
+    }
 
-  /* Footer */
-  footer { text-align:center; padding:40px 0; color:#6b7280; font-size:14px; }
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(20,20,20,0.8);
+      padding: 10px 20px;
+      border-radius: 20px;
+      z-index: 1000;
+    }
 
-  /* 반응형 */
-  @media (max-width:768px){ .hero { flex-direction:column; text-align:center; } .hero-text { margin-bottom:30px; } }
-</style>
+    nav a {
+      margin: 0 10px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #00ffe0;
+    }
+
+    /* About Me Card */
+    .about-card {
+      background: linear-gradient(145deg, #1a1a1a, #262626);
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,255,224,0.4);
+      transform: rotate(-1deg);
+      animation: cardPop 0.6s forwards;
+      text-align: center;
+    }
+
+    .about-card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      border: 3px solid #00ffe0;
+      transition: transform 0.3s;
+    }
+
+    .about-card img:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .about-card h2 {
+      margin-bottom: 10px;
+      font-size: 1.8rem;
+    }
+
+    .about-card p {
+      color: #ccc;
+      font-size: 1rem;
+    }
+
+    /* Section Titles */
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: #00ffe0;
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    /* Skills & Tools */
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .skill {
+      background: #1a1a1a;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0, 255, 224, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .skill:hover {
+      transform: translateY(-10px) rotate(-2deg);
+      box-shadow: 0 10px 25px rgba(0,255,224,0.5);
+    }
+
+    /* Career */
+    .career {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .career-item {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0,255,224,0.2);
+      transform: translateX(-50px);
+      opacity: 0;
+      animation: slideInLeft 0.6s forwards;
+    }
+
+    .career-item:nth-child(1) { animation-delay: 0.2s; }
+    .career-item:nth-child(2) { animation-delay: 0.4s; }
+    .career-item:nth-child(3) { animation-delay: 0.6s; }
+
+    /* Portfolio */
+    .portfolio {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .project {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0,255,224,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .project:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 12px 25px rgba(0,255,224,0.5);
+    }
+
+    /* Contact */
+    .contact {
+      text-align: center;
+    }
+
+    .contact a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      border: 1px solid #00ffe0;
+      border-radius: 20px;
+      transition: all 0.3s;
+    }
+
+    .contact a:hover {
+      background: #00ffe0;
+      color: #111;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Animations */
+    @keyframes slideIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes cardPop {
+      to { transform: rotate(0deg); }
+    }
+
+    @keyframes slideInLeft {
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+  </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="logo">홍길동</div>
-      <nav>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </header>
 
-    <section class="hero">
-      <div class="hero-text">
-        <h1>안녕하세요, 저는 <span class="accent">홍길동</span>입니다</h1>
-        <p>프론트엔드부터 백엔드, 클라우드까지 책임지는 풀스택 개발자입니다. React, Node.js, AWS 기반 웹 서비스를 만듭니다.</p>
-        <a href="#projects" class="btn">프로젝트 보기</a>
-        <a href="#contact" class="btn">연락하기</a>
+  <nav>
+    <a href="#about">About Me</a>
+    <a href="#skills">Skills & Tools</a>
+    <a href="#career">Career</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <header>
+    <h1>길상현</h1>
+    <p>Full-Stack Developer | Passionate about Web & Tech</p>
+  </header>
+
+  <!-- About Me -->
+  <section id="about" class="about-card">
+    <img src="https://via.placeholder.com/120" alt="Profile Picture">
+    <h2>About Me</h2>
+    <p>
+      안녕하세요! 풀스택 개발자 홍길동입니다. <br>
+      프론트엔드와 백엔드 경험을 바탕으로 사용자 중심의 웹 애플리케이션을 개발하며, <br>
+      새로운 기술에 도전하고 최적화된 코드를 작성하는 것을 즐깁니다.
+    </p>
+  </section>
+
+  <!-- Skills & Tools -->
+  <section id="skills">
+    <div class="section-title">Skills & Tools</div>
+    <div class="skills">
+      <div class="skill">HTML & CSS</div>
+      <div class="skill">JavaScript</div>
+      <div class="skill">React</div>
+      <div class="skill">Node.js</div>
+      <div class="skill">Express</div>
+      <div class="skill">MongoDB</div>
+      <div class="skill">Git & GitHub</div>
+      <div class="skill">Docker</div>
+      <div class="skill">Figma</div>
+      <div class="skill">VSCode</div>
+    </div>
+  </section>
+
+  <!-- Career -->
+  <section id="career">
+    <div class="section-title">Career</div>
+    <div class="career">
+      <div class="career-item">
+        <h3>2024 - Present | ABC Corp</h3>
+        <p>웹 애플리케이션 개발 및 유지보수, 팀 프로젝트 관리</p>
       </div>
-      <div class="hero-img">
-        <img src="https://via.placeholder.com/500x350.png?text=Hero+Image" alt="Hero Banner">
+      <div class="career-item">
+        <h3>2022 - 2024 | XYZ Studio</h3>
+        <p>프론트엔드 개발과 UI/UX 최적화, 클라이언트 맞춤 솔루션 제공</p>
       </div>
-    </section>
-
-    <section id="skills">
-      <h2>Technical Skills</h2>
-      <p class="sub">프로그래밍 언어, 프레임워크, 클라우드 및 협업 도구</p>
-      <div class="skills">
-        <span>React</span><span>TypeScript</span><span>Node.js</span><span>Express</span>
-        <span>PostgreSQL</span><span>MongoDB</span><span>AWS</span><span>Docker</span>
-        <span>Kubernetes</span><span>Git</span><span>Jest</span><span>GraphQL</span>
+      <div class="career-item">
+        <h3>2021 | Freelance</h3>
+        <p>다양한 개인/스타트업 웹 프로젝트 진행, React + Node.js 기반</p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="projects">
-      <h2>Projects</h2>
-      <p class="sub">주요 프로젝트 사례</p>
-      <div class="projects">
-        <div class="card">
-          <img src="https://via.placeholder.com/400x200.png?text=Project+1" alt="Project 1">
-          <h3>Prodify — SaaS Analytics</h3>
-          <p>실시간 데이터 분석과 대시보드를 제공하는 B2B SaaS 플랫폼.</p>
-          <div class="tags"><span>React</span><span>Node.js</span><span>AWS</span></div>
-        </div>
-        <div class="card">
-          <img src="https://via.placeholder.com/400x200.png?text=Project+2" alt="Project 2">
-          <h3>ShopEase — E-Commerce</h3>
-          <p>확장 가능한 마이크로서비스 기반 쇼핑몰 플랫폼.</p>
-          <div class="tags"><span>Docker</span><span>Kubernetes</span><span>PostgreSQL</span></div>
-        </div>
-        <div class="card">
-          <img src="https://via.placeholder.com/400x200.png?text=Project+3" alt="Project 3">
-          <h3>ChatAssist — 실시간 채팅</h3>
-          <p>웹소켓 기반 실시간 채팅 + AI 응답 연동.</p>
-          <div class="tags"><span>WebSocket</span><span>Node.js</span><span>Redis</span></div>
-        </div>
+  <!-- Portfolio Projects -->
+  <section id="portfolio">
+    <div class="section-title">Portfolio Projects</div>
+    <div class="portfolio">
+      <div class="project">
+        <h3>프로젝트 A</h3>
+        <p>React와 Node.js를 사용한 전자상거래 웹앱 개발</p>
       </div>
-    </section>
+      <div class="project">
+        <h3>프로젝트 B</h3>
+        <p>MongoDB 기반 데이터 시각화 대시보드 구축</p>
+      </div>
+      <div class="project">
+        <h3>프로젝트 C</h3>
+        <p>팀 협업 툴 웹 앱 개발, REST API 설계 및 구현</p>
+      </div>
+    </div>
+  </section>
 
-    <section id="contact">
-      <h2>Contact Me</h2>
-      <p class="sub">프로젝트 협업 및 면접 문의</p>
-      <form class="contact-form">
-        <label for="name">이름</label>
-        <input type="text" id="name" placeholder="홍길동">
-        <label for="email">이메일</label>
-        <input type="email" id="email" placeholder="hong@example.com">
-        <label for="message">메시지</label>
-        <textarea id="message" placeholder="간단한 메시지를 남겨주세요."></textarea>
-        <button type="submit">메시지 보내기</button>
-      </form>
-    </section>
+  <!-- Contact -->
+  <section id="contact" class="contact">
+    <div class="section-title">Contact</div>
+    <p>언제든지 연락주세요!</p>
+    <a href="mailto:youremail@example.com">Email</a>
+    <a href="https://github.com/yourgithub" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/yourlinkedin" target="_blank">LinkedIn</a>
+  </section>
 
-    <footer>
-      © 2025 홍길동 — Full-Stack Developer Portfolio
-    </footer>
-  </div>
+  <footer>
+    © 2025 홍길동. All Rights Reserved.
+  </footer>
+
 </body>
 </html>
