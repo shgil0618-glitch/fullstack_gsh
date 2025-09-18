@@ -34,26 +34,26 @@
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         }
 
-        /* Q1. about me   각부분들 여백주기  */
+   
         .info h4 {
             margin: 5% 0;
         }
 
-        /* Q2. KeyWord 나와있는 ul태그에 class="keyWord"  */
+       
         .keyWord li {
             list-style-type: none;
             margin-right: 10px;
         }
 
-        /* Q3. h3태그에 중앙배치 , 밑줄  */
+       
         .info h3 {
             text-decoration: underline;
             font-size: 2.2em;
         }
-        /* display : none 은 쓰지마!*/
+      
         .hidden {position:absolute; left : -9999px; width: 1px; height: 1px; 
-            overflow: hidden; clip: rect(0,0,0,0);/*요소를 잘라서 시각적으로 완전히 숨김 - 구형 브라우저 호환*/
-        border: 0; white-space: nowrap;/*줄바꿈 방지 - 텍스트가 한줄로 유지*/}
+            overflow: hidden; clip: rect(0,0,0,0);
+        border: 0; white-space: nowrap;}
     </style>
 </head>
 
@@ -129,7 +129,7 @@
         <div class="container">
             <h3 class="p-5 text-center">About Me</h3>
             <div class="row">
-                <div class="col-sm-4"> <!-- w-25  w-50 w-75 w-100 -->
+                <div class="col-sm-4"> 
                     <p><img src="./img/one.png" class="w-50" alt="" /></p>
                     <h4>Gil Sang Hyun</h4>
                     <ul>
@@ -220,16 +220,6 @@
             </div><!--end row-->
         </div><!--end container-->
     </section>
-
-
-  <!--
-                <iframe class="w=100 no-border" src="https://www.youtube.com/embed/vPgugGnh1l8?si=iE9aC7v_aiR8wULN"
-                    title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
-                    picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen></iframe>
-                <p class="text-center m-3"><a href="#" class="btn btn-primary">더보기</a></p>
-    
-     -->
 
     <!-- contact  - form  text-start   text-center   text-end  -->
     <section class="contact m-5">

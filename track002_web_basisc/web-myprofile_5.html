@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>홍길동 — Full-Stack Developer Portfolio</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f1724;
+    --card:#0b1220aa;
+    --glass: rgba(255,255,255,0.06);
+    --accent-1: #7c3aed; /* purple */
+    --accent-2: #06b6d4; /* teal */
+    --muted: #98a0b3;
+    --glass-border: rgba(255,255,255,0.06);
+    --glass-hover: rgba(255,255,255,0.09);
+    --max-width: 1100px;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+
+  /* Reset & base */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.10), transparent 12%),
+      radial-gradient(800px 400px at 90% 90%, rgba(6,182,212,0.06), transparent 10%),
+      var(--bg);
+    color:#e6eef8;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.45;
+    padding:40px 20px;
+    display:flex;
+    justify-content:center;
+  }
+
+  .wrap{
+    width:100%;
+    max-width:var(--max-width);
+    margin:0 auto;
+  }
+
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    margin-bottom:28px;
+  }
+  .brand{
+    display:flex;
+    gap:14px;
+    align-items:center;
+    text-decoration:none;
+    color:inherit;
+  }
+  .logo{
+    width:56px;height:56px;border-radius:12px;
+    display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--accent-1),var(--accent-2));
+    box-shadow: 0 6px 18px rgba(7,10,20,0.6);
+    font-weight:800;
+    font-size:20px;
+    color:white;
+  }
+  nav{display:flex;gap:14px;align-items:center}
+  nav a{
+    color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px;font-weight:600;font-size:14px;
+  }
+  nav a:hover{color:white;background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));}
+
+  /* Hero */
+  .hero{
+    display:grid;
+    grid-template-columns: 1fr 420px;
+    gap:36px;
+    align-items:center;
+    margin-bottom:36px;
+  }
+  @media (max-width:980px){ .hero{grid-template-columns:1fr} }
+
+  .hero-left{
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    padding:28px;border-radius:16px;
+    backdrop-filter: blur(8px);
+    border:1px solid var(--glass-border);
+  }
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--accent-2);font-weight:700;margin-bottom:12px;font-size:13px}
+  .title{
+    font-size:34px;font-weight:800;line-height:1.02;margin:4px 0 14px;
+  }
+  .title .accent{
+    background: linear-gradient(90deg,var(--accent-1),var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .desc{color:var(--muted);margin-bottom:18px;max-width:66ch}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{
+    padding:12px 16px;border-radius:12px;text-decoration:none;font-weight:700;
+    background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:white;border:none;cursor:pointer;
+    box-shadow: 0 8px 30px rgba(7,10,20,0.5);
+  }
+  .btn.secondary{
+    background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--accent-2);
+  }
+
+  /* Stats strip */
+  .stats{
+    display:flex;gap:14px;margin-top:20px;
+  }
+  .stat{
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    padding:12px;border-radius:12px;min-width:120px;text-align:center;border:1px solid var(--glass-border);
+  }
+  .stat strong{display:block;font-size:20px;font-weight:800}
+  .stat span{display:block;color:var(--muted);font-weight:600;margin-top:6px;font-size:13px;}
+
+  /* Hero right (card preview) */
+  .hero-right{
+    border-radius:16px;padding:20px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid var(--glass-border);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+  }
+  .preview{
+    border-radius:12px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  }
+  .preview .title{font-size:18px;margin:0}
+  .preview .meta{color:var(--muted);font-size:13px;margin-bottom:12px}
+  .preview .screenshot{
+    height:220px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);
+    display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg, rgba(124,58,237,0.12), rgba(6,182,212,0.08));
+  }
+  .screenshot svg{width:80%;opacity:0.95}
+
+  /* Sections */
+  section{margin-bottom:36px}
+  .section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:14px}
+  .section-title{font-size:18px;font-weight:800}
+  .section-sub{color:var(--muted);font-size:13px}
+
+  /* Skills */
+  .skills{display:flex;flex-wrap:wrap;gap:10px}
+  .skill{
+    padding:10px 12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02),transparent);
+    border:1px solid var(--glass-border);font-weight:700;font-size:13px;color:var(--muted)
+  }
+
+  /* Projects grid */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+  }
+  @media (max-width:1100px){ .grid{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:620px){ .grid{grid-template-columns:1fr} }
+
+  .card{
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:12px;padding:16px;border:1px solid var(--glass-border);overflow:hidden;
+    transition: transform .35s cubic-bezier(.2,.9,.2,1), box-shadow .35s;
+  }
+  .card:hover{transform:translateY(-10px);box-shadow:0 30px 60px rgba(2,6,23,0.6)}
+  .card .card-top{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-bottom:12px}
+  .card .proj-title{font-weight:800;font-size:16px}
+  .card .proj-desc{color:var(--muted);font-size:13px;margin-bottom:12px}
+  .tags{display:flex;gap:8px;flex-wrap:wrap}
+  .tag{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:999px;font-weight:700;font-size:12px;color:var(--muted);border:1px solid rgba(255,255,255,0.02)}
+
+  .card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+  .link-btn{font-weight:700;border-radius:10px;padding:8px 10px;text-decoration:none;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--accent-2);font-size:13px}
+
+  /* Experience / Timeline */
+  .timeline{display:flex;flex-direction:column;gap:12px}
+  .exp{
+    padding:12px;border-radius:10px;border:1px solid var(--glass-border);background:linear-gradient(180deg, rgba(255,255,255,0.01),transparent)
+  }
+  .exp .role{font-weight:800}
+  .exp .company{color:var(--muted);font-size:13px;margin-top:6px}
+
+  /* Contact */
+  .contact-grid{display:grid;grid-template-columns:1fr 340px;gap:18px}
+  @media (max-width:980px){ .contact-grid{grid-template-columns:1fr} }
+  .contact-card{padding:18px;border-radius:12px;border:1px solid var(--glass-border);background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent)}
+  .field{display:flex;flex-direction:column;margin-bottom:12px}
+  .field label{font-weight:700;font-size:13px;margin-bottom:6px}
+  .field input,.field textarea{
+    background:transparent;border:1px solid rgba(255,255,255,0.04);padding:10px;border-radius:8px;color:inherit;
+    outline:none;font-size:14px;
+  }
+  .field textarea{min-height:120px;resize:vertical}
+
+  footer{margin-top:8px;color:var(--muted);font-size:13px;text-align:center;padding:12px 0}
+
+  /* Tiny utilities */
+  .muted{color:var(--muted)}
+  .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);border:1px solid var(--glass-border)}
+</style>
+</head>
+<body>
+  <div class="wrap" role="main">
+    <header>
+      <a class="brand" href="#" aria-label="홈">
+        <div class="logo">HG</div>
+        <div>
+          <div style="font-weight:800">홍길동</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px">Full-Stack Developer • React / Node / Cloud</div>
+        </div>
+      </a>
+
+      <nav aria-label="주요 섹션">
+        <a href="#projects">프로젝트</a>
+        <a href="#skills">기술</a>
+        <a href="#experience">경력</a>
+        <a href="#contact" class="pill">컨택하기</a>
+      </nav>
+    </header>
+
+    <section class="hero" aria-labelledby="intro">
+      <div class="hero-left" id="intro">
+        <div class="eyebrow">Full-Stack • 시스템 설계 • 팀 리딩</div>
+        <h1 class="title">안녕하세요, 저는 <span class="accent">홍길동</span>입니다.<br><small style="font-weight:600;color:var(--muted)">사용자 중심의 확장 가능한 웹 서비스를 만듭니다.</small></h1>
+        <p class="desc">
+          프론트엔드에서 백엔드, 클라우드 배포까지 책임지는 풀스택 개발자입니다.
+          React + TypeScript 기반 프론트, Node.js/Express와 클라우드 인프라(AWS/GCP)를 활용한 백엔드를 주로 다룹니다.
+        </p>
+
+        <div class="cta-row">
+          <a class="btn" href="#projects">주요 프로젝트 보기</a>
+          <a class="btn secondary" href="#contact">이력서 다운로드</a>
+        </div>
+
+        <div class="stats" aria-hidden="true">
+          <div class="stat"><strong>7+</strong><span>Years Experience</span></div>
+          <div class="stat"><strong>30+</strong><span>Projects</span></div>
+          <div class="stat"><strong>5</strong><span>오픈소스 기여</span></div>
+        </div>
+      </div>
+
+      <aside class="hero-right" aria-label="포트폴리오 미리보기">
+        <div class="preview" role="article">
+          <h3 class="title">Prodify — SaaS Analytics Platform</h3>
+          <div class="meta">React · TypeScript · Node.js · PostgreSQL · AWS</div>
+          <div class="screenshot" aria-hidden="true">
+            <!-- Placeholder SVG representing a screenshot -->
+            <svg viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0" y="0" width="600" height="360" fill="url(#g)"/>
+              <defs>
+                <linearGradient id="g" x1="0" x2="1">
+                  <stop offset="0" stop-color="rgba(255,255,255,0.08)"/>
+                  <stop offset="1" stop-color="rgba(255,255,255,0.02)"/>
+                </linearGradient>
+              </defs>
+              <g fill="white" opacity="0.95">
+                <rect x="30" y="28" width="120" height="16" rx="6" fill="white" opacity="0.14"/>
+                <rect x="30" y="62" width="520" height="70" rx="8" fill="white" opacity="0.06"/>
+                <rect x="30" y="150" width="200" height="12" rx="6" fill="white" opacity="0.08"/>
+                <rect x="30" y="174" width="520" height="120" rx="8" fill="white" opacity="0.03"/>
+              </g>
+            </svg>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:12px">
+            <span class="tag">웹앱</span>
+            <span class="tag">실시간 분석</span>
+            <span class="tag">데이터 파이프라인</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" aria-labelledby="skills-title">
+      <div class="section-head">
+        <div>
+          <h3 id="skills-title" class="section-title">Technical Skills</h3>
+          <div class="section-sub">언어 · 프레임워크 · 인프라 · 협업 도구</div>
+        </div>
+        <div class="muted">주력 스택: React · TypeScript · Node.js · PostgreSQL · AWS</div>
+      </div>
+
+      <div class="skills" role="list">
+        <span class="skill">React</span>
+        <span class="skill">TypeScript</span>
+        <span class="skill">Node.js / Express</span>
+        <span class="skill">GraphQL / REST</span>
+        <span class="skill">PostgreSQL</span>
+        <span class="skill">MongoDB</span>
+        <span class="skill">Docker / Kubernetes</span>
+        <span class="skill">AWS (EC2, ECS, S3, RDS)</span>
+        <span class="skill">GCP</span>
+        <span class="skill">CI/CD (GitHub Actions)</span>
+        <span class="skill">Testing (Jest, Cypress)</span>
+        <span class="skill">DDD / TDD</span>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" aria-labelledby="projects-title">
+      <div class="section-head">
+        <div>
+          <h3 id="projects-title" class="section-title">Selected Projects</h3>
+          <div class="section-sub">실제 기술 적용 사례와 성과를 중심으로</div>
+        </div>
+        <div class="muted">전체 프로젝트 보려면 연락 주세요</div>
+      </div>
+
+      <div class="grid" role="list">
+        <!-- Card 1 -->
+        <article class="card" role="listitem" aria-labelledby="p1">
+          <div class="card-top">
+            <div>
+              <div id="p1" class="proj-title">Prodify — SaaS Analytics</div>
+              <div class="proj-desc">제품 사용량 실시간 대시보드·알림·A/B 분석을 제공하는 B2B Saa스.</div>
+            </div>
+            <div class="muted">2024 · Team Lead</div>
+          </div>
+          <div class="tags" aria-hidden="true">
+            <span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Node.js</span>
+          </div>
+          <div class="card-footer">
+            <div class="muted">성과: API 응답속도 40% 개선 • 사용자 유지율 +12%</div>
+            <a class="link-btn" href="#">Case Study</a>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card" role="listitem" aria-labelledby="p2">
+          <div class="card-top">
+            <div>
+              <div id="p2" class="proj-title">ShopEase — E-Commerce Platform</div>
+              <div class="proj-desc">마이크로서비스 아키텍처로 확장 가능한 쇼핑몰 플랫폼 구축.</div>
+            </div>
+            <div class="muted">2023 · Backend</div>
+          </div>
+          <div class="tags" aria-hidden="true">
+            <span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Postgres</span>
+          </div>
+          <div class="card-footer">
+            <div class="muted">성과: 배포 단축 → 30분 → 5분</div>
+            <a class="link-btn" href="#">Repo</a>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card" role="listitem" aria-labelledby="p3">
+          <div class="card-top">
+            <div>
+              <div id="p3" class="proj-title">ChatAssist — 실시간 채팅 봇</div>
+              <div class="proj-desc">웹소켓 기반 실시간 채팅 + AI 응답 연동 PoC.</div>
+            </div>
+            <div class="muted">2022 · Full-Stack</div>
+          </div>
+          <div class="tags" aria-hidden="true">
+            <span class="tag">WebSocket</span><span class="tag">Node.js</span><span class="tag">Redis</span>
+          </div>
+          <div class="card-footer">
+            <div class="muted">성과: 평균 응답시간 120ms</div>
+            <a class="link-btn" href="#">데모</a>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="card" role="listitem" aria-labelledby="p4">
+          <div class="card-top">
+            <div>
+              <div id="p4" class="proj-title">OpenSource-Lib</div>
+              <div class="proj-desc">프론트 성능 최적화 유틸리티 라이브러리 (오픈소스).</div>
+            </div>
+            <div class="muted">2021 · OSS</div>
+          </div>
+          <div class="tags" aria-hidden="true">
+            <span class="tag">TypeScript</span><span class="tag">Monorepo</span>
+          </div>
+          <div class="card-footer">
+            <div class="muted">성과: 5k+ 다운로드 / month</div>
+            <a class="link-btn" href="#">GitHub</a>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="card" role="listitem" aria-labelledby="p5">
+          <div class="card-top">
+            <div>
+              <div id="p5" class="proj-title">Portfolio Redesign</div>
+              <div class="proj-desc">이 포트폴리오 페이지 자체의 초기 설계 및 UI/UX.</div>
+            </div>
+            <div class="muted">2025 · Personal</div>
+          </div>
+          <div class="tags" aria-hidden="true">
+            <span class="tag">Design</span><span class="tag">Accessibility</span>
+          </div>
+          <div class="card-footer">
+            <div class="muted">성과: 인터뷰 합격률 향상</div>
+            <a class="link-btn" href="#">This Page</a>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="card" role="listitem" aria-labelledby="p6">
+          <div class="card-top">
+            <div>
+              <div id="p6" class="proj-title">Infra-Automate</div>
+              <div class="proj-desc">IaC로 인프라 자동화 · 비용 최적화 파이프라인 구성.</div>
+            </div>
+            <div class="muted">2022 · DevOps</div>
+          </div>
+          <div class="tags" aria-hidden="true">
+            <span class="tag">Terraform</span><span class="tag">CI/CD</span>
+          </div>
+          <div class="card-footer">
+            <div class="muted">성과: 비용 22% 절감</div>
+            <a class="link-btn" href="#">블로그</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" aria-labelledby="exp-title">
+      <div class="section-head">
+        <div>
+          <h3 id="exp-title" class="section-title">Experience</h3>
+          <div class="section-sub">주요 직무 및 리더십</div>
+        </div>
+        <div class="muted">주요 역할: 기술 리드, 시스템 설계, 코드 리뷰</div>
+      </div>
+
+      <div class="timeline">
+        <div class="exp">
+          <div class="role">시니어 풀스택 개발자 — ABC 테크</div>
+          <div class="company">2021 — 현재 · 서울</div>
+          <div class="muted" style="margin-top:8px">API 설계 · 마이크로서비스 전환 · 팀 내 코드 표준화 주도</div>
+        </div>
+
+        <div class="exp">
+          <div class="role">풀스택 개발자 — XYZ 스타트업</div>
+          <div class="company">2018 — 2021 · 서울</div>
+          <div class="muted" style="margin-top:8px">고가용성 시스템 구성 및 성능 튜닝</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="section-head">
+        <div>
+          <h3 id="contact-title" class="section-title">Contact</h3>
+          <div class="section-sub">프로젝트 협업, 면접 일정, 이직 문의 환영합니다.</div>
+        </div>
+        <div class="muted">이메일: hong.gildong@example.com · GitHub: @honggd</div>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-card" aria-label="간단 소개">
+          <h4 style="margin-top:0">간단 소개</h4>
+          <p class="muted">관심사: 고성능 웹 아키텍처, 확장성 있는 백엔드, 팀 내 기술 성장</p>
+
+          <div style="margin-top:12px">
+            <div style="font-weight:800;margin-bottom:6px">원하는 협업</div>
+            <div class="muted">제품 개발 · 기술 리더십 · 오픈소스 협업</div>
+          </div>
+        </div>
+
+        <form class="contact-card" onsubmit="event.preventDefault(); alert('이 예제 폼은 데모입니다. 이메일로 연락 주세요.');" aria-label="연락 폼">
+          <div class="field">
+            <label for="name">이름</label>
+            <input id="name" type="text" placeholder="홍길동">
+          </div>
+          <div class="field">
+            <label for="email">이메일</label>
+            <input id="email" type="email" placeholder="hong@example.com">
+          </div>
+          <div class="field">
+            <label for="message">메시지</label>
+            <textarea id="message" placeholder="간단한 메시지를 남겨주세요."></textarea>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <button class="btn" type="submit">메시지 전송</button>
+            <a class="btn secondary" href="mailto:hong.gildong@example.com">이메일로 연락</a>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      © <strong>홍길동</strong> — Full-Stack Developer &nbsp;•&nbsp; Built with care for interviews
+    </footer>
+  </div>
+</body>
+</html>
