@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Q1. 전체여백빼기  
+            box-sizing : border-box; 박스크기계산을 통일,
+            width 와 height에 padding과 border까지 포함하여 계산
+            박스크기가 100px, padding:10px 자동으로 크기조절
+        */
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+
+        /* Q2. BODY 글꼴, 전체배경색상  */
+        body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         background: #333 linear-gradient(135deg,#fff,#543ac5) no-repeat;}
+
+        /* Q3. H3 왼쪽에 선넣기, 배경색  */
+         h3 {background-color: white;
+            border-left: 3px solid #b92727;
+            border-bottom: 3px solid #123456;}
+        
+        /* Q4. STRONG 배경색  */
+        strong {background-color: bisque; color: #b92727; padding: 2px;
+        width: 500px;} /* ★inline 여서 적용 안됨★ */
+        
+        /* Q5. . box 예) 기본적으로 끝에서 끝까지 차지하기때문에 줄바꿈 적용됨? */
+        .container {width: 60%; margin: 50px auto; background-color: #e0d14b;
+        padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);}
+        
+        .item {padding: 10px; background-color: #fff; color: #333; }
+        /* Q6. float */
+        .i1 {float: left; width: 100px; } /*inline은 전체가 아니라.컨텐츠 크기밖에 공간 할당이 안됨.., block은 기본적으로 한줄 전체 할당*/
+        .i2 {float: right;} /*inline이라 줄바꿈 없이 left의 옆쪽으로 이동함*/
+        .i3 {clear: both; margin: 80px 0;}
+
+        /* Q7. position */
+        .me {background-color: goldenrod; padding: 10px; color: white;
+        position: relative; top: 10px; left: 10px; width: 100px; height: 50px;}
+
+        .p1 {position: relative;}   /* 1. 보모 (감싸는 박스에 공간 확보) */
+        .p1 .me {position: absolute; right: 0; bottom: 0;}  /*2. 자식 (absolute) */
+
+        .p2 .me {position: fixed; bottom: 100px; right: 0px; /* 브라우저 기준 */
+             background-color: red;}
+        
+        /* Q8. display */
+        .d1 li {display: inline;}
+        .d2 li {display: inline-block;
+                width: 100px; padding: 10px; background-color: #333; text-align: center;}
+        
+</style>
+</head>
+<body>
+    <div class="container">
+        <h3>1. block vs inline</h3>
+        <p><strong>block?</strong> 컨텐츠-간장그릇 width/height 0, 줄바꿈ㅇ</p>
+        <p><strong>inline?</strong> 컨텐츠-간장 width/height x, 줄바꿈 x</p>
+    </div>
+
+    <div class="container f1">
+        <h3>2. 배치(1) - float </h3>   
+        <p class="item i1">LEFT</p>
+        <p class="item i2">RIGHT</p>
+        <p class="item i3">float : left, float : right 사용시 왼쪽, 오른쪽 배치 / clear:both (양쪽다 안따라가) </p>
+    </div>
+
+    <div class="container p1">
+        <h3>3. 배치(2) position - relative + absolute</h3>
+        <p class="me">where i am?</p>
+        <p>부모 : ralative (공간확보) / 자식요소 absolute (공간유지 안됨.)</p>
+    </div>
+
+    <div class="container p2">
+        <h3>3. 배치(2) position - fixed </h3>
+        <p class="me">where i am?</p>
+        
+    </div>
+
+    <div class="container">
+        <h3>4. display 요소속성변경</h3>
+        <ul>
+            <li>APPLE</li><li>BANANA</li><li>COCONUT</li>   <!--width사이즈 잡을수 있으면 block-->
+        </ul>
+        <hr/>
+        <ul class="d1">
+            <li>APPLE</li><li>BANANA</li><li>COCONUT</li>
+        </ul>
+        <hr/>
+        <ul class="d2">
+            <li>APPLE</li><li>BANANA</li><li>COCONUT</li>
+        </ul>
+
+    </div>
+
+</body>
+</html>

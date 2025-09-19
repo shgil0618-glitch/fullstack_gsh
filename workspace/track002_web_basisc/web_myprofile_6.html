@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>홍길동 - Full-Stack Developer Portfolio</title>
+  <style>
+    /* 기본 스타일 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #0d0d0d;
+      color: #fff;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    section {
+      padding: 80px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h1, h2, h3 {
+      color: #00ffe0;
+    }
+
+    /* Header */
+    header {
+      padding: 60px 20px;
+      text-align: center;
+      background: #111;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      animation: slideIn 1s ease-out forwards;
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #aaa;
+      animation: slideIn 1s ease-out forwards 0.3s;
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(20,20,20,0.8);
+      padding: 10px 20px;
+      border-radius: 20px;
+      z-index: 1000;
+    }
+
+    nav a {
+      margin: 0 10px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #00ffe0;
+    }
+
+    /* About Me Card */
+    .about-card {
+      background: linear-gradient(145deg, #1a1a1a, #262626);
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,255,224,0.4);
+      transform: rotate(-1deg);
+      animation: cardPop 0.6s forwards;
+      text-align: center;
+    }
+
+    .about-card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      border: 3px solid #00ffe0;
+      transition: transform 0.3s;
+    }
+
+    .about-card img:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .about-card h2 {
+      margin-bottom: 10px;
+      font-size: 1.8rem;
+    }
+
+    .about-card p {
+      color: #ccc;
+      font-size: 1rem;
+    }
+
+    /* Section Titles */
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: #00ffe0;
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    /* Skills & Tools */
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .skill {
+      background: #1a1a1a;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0, 255, 224, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .skill:hover {
+      transform: translateY(-10px) rotate(-2deg);
+      box-shadow: 0 10px 25px rgba(0,255,224,0.5);
+    }
+
+    /* Career */
+    .career {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .career-item {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0,255,224,0.2);
+      transform: translateX(-50px);
+      opacity: 0;
+      animation: slideInLeft 0.6s forwards;
+    }
+
+    .career-item:nth-child(1) { animation-delay: 0.2s; }
+    .career-item:nth-child(2) { animation-delay: 0.4s; }
+    .career-item:nth-child(3) { animation-delay: 0.6s; }
+
+    /* Portfolio */
+    .portfolio {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .project {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0,255,224,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .project:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 12px 25px rgba(0,255,224,0.5);
+    }
+
+    /* Contact */
+    .contact {
+      text-align: center;
+    }
+
+    .contact a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      border: 1px solid #00ffe0;
+      border-radius: 20px;
+      transition: all 0.3s;
+    }
+
+    .contact a:hover {
+      background: #00ffe0;
+      color: #111;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Animations */
+    @keyframes slideIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes cardPop {
+      to { transform: rotate(0deg); }
+    }
+
+    @keyframes slideInLeft {
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#about">About Me</a>
+    <a href="#skills">Skills & Tools</a>
+    <a href="#career">Career</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <header>
+    <h1>길상현</h1>
+    <p>Full-Stack Developer | Passionate about Web & Tech</p>
+  </header>
+
+  <!-- About Me -->
+  <section id="about" class="about-card">
+    <img src="https://via.placeholder.com/120" alt="Profile Picture">
+    <h2>About Me</h2>
+    <p>
+      안녕하세요! 풀스택 개발자 홍길동입니다. <br>
+      프론트엔드와 백엔드 경험을 바탕으로 사용자 중심의 웹 애플리케이션을 개발하며, <br>
+      새로운 기술에 도전하고 최적화된 코드를 작성하는 것을 즐깁니다.
+    </p>
+  </section>
+
+  <!-- Skills & Tools -->
+  <section id="skills">
+    <div class="section-title">Skills & Tools</div>
+    <div class="skills">
+      <div class="skill">HTML & CSS</div>
+      <div class="skill">JavaScript</div>
+      <div class="skill">React</div>
+      <div class="skill">Node.js</div>
+      <div class="skill">Express</div>
+      <div class="skill">MongoDB</div>
+      <div class="skill">Git & GitHub</div>
+      <div class="skill">Docker</div>
+      <div class="skill">Figma</div>
+      <div class="skill">VSCode</div>
+    </div>
+  </section>
+
+  <!-- Career -->
+  <section id="career">
+    <div class="section-title">Career</div>
+    <div class="career">
+      <div class="career-item">
+        <h3>2024 - Present | ABC Corp</h3>
+        <p>웹 애플리케이션 개발 및 유지보수, 팀 프로젝트 관리</p>
+      </div>
+      <div class="career-item">
+        <h3>2022 - 2024 | XYZ Studio</h3>
+        <p>프론트엔드 개발과 UI/UX 최적화, 클라이언트 맞춤 솔루션 제공</p>
+      </div>
+      <div class="career-item">
+        <h3>2021 | Freelance</h3>
+        <p>다양한 개인/스타트업 웹 프로젝트 진행, React + Node.js 기반</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Projects -->
+  <section id="portfolio">
+    <div class="section-title">Portfolio Projects</div>
+    <div class="portfolio">
+      <div class="project">
+        <h3>프로젝트 A</h3>
+        <p>React와 Node.js를 사용한 전자상거래 웹앱 개발</p>
+      </div>
+      <div class="project">
+        <h3>프로젝트 B</h3>
+        <p>MongoDB 기반 데이터 시각화 대시보드 구축</p>
+      </div>
+      <div class="project">
+        <h3>프로젝트 C</h3>
+        <p>팀 협업 툴 웹 앱 개발, REST API 설계 및 구현</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact">
+    <div class="section-title">Contact</div>
+    <p>언제든지 연락주세요!</p>
+    <a href="mailto:youremail@example.com">Email</a>
+    <a href="https://github.com/yourgithub" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/yourlinkedin" target="_blank">LinkedIn</a>
+  </section>
+
+  <footer>
+    © 2025 홍길동. All Rights Reserved.
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<body style="margin: 0px; padding: 30PX; font-family: 'Segoe UI', sans-serif;
+                background:#333 linear-gradient(135deg, #fdfbfb , rgb(0, 247, 255)) no-repeat;">
+                <!-- #333 : 이부분은 반복하지 않는 부분 #333색으로 칠하기, no-repeat : 한번만 적용하기-->
+                <!-- Q. BODY 안에 STYLE을 적용한거니까 페이지 전체에 한번에 적용되야하는거아닌가? 그라데이션의 크기를 어디서 정했는지..-->
+                <!-- ANS. 컨텐츠 크기만큼만 적용된다.-->
+    <div>
+        <h1 style=" text-align: center; color: #e1306c; margin-bottom: 40px;">사용자 프로필 카드</h1>
+        <div style="background-color: #fdfbfb; width: 250px;  
+                    margin: 0 auto; margin-bottom: 20px; border-radius: 20px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                    text-align: center; padding: 20px;">
+            <p style="font-size: 14px; color: #666; margin-bottom: 10px;">
+                <img src = "./img/userimage.png" 
+                style="width: 90PX; height: 90px; border-radius: 50%; border: 3px solid #e1306c;" 
+                alt = "userimage"/>
+            </p>
+            <h2 style="margin-top: 10px; margin-bottom: 5px; font-size: 18px; color: #333;">gil sang hyun</h2>
+            <div style="font-size: 14px; color: #666; margin-bottom: 10px;">
+                <p style="font-size: 14px; color: #666; margin-bottom: 10px;">백엔드 개발자 | Node.js & DB 전문가</p>
+                <p style="font-size: 14px; color: #666; margin-bottom: 10px;"><b>팔로워</b> : 3200명</p>
+                <p style="font-size: 14px; color: #666; margin-bottom: 10px;">
+                    <a href="https://github.com/shgil0618-glitch/fullstack_gsh.git" 
+                    style="margin-top: 5px; font-size: 13px; color: #e1306c;  text-decoration: none; "
+                    target = "_blank" title="프로필 바로가기"> 깃허브 보기</a>
+                </p> 
+            </div>
+              
+        </div>
+    </div>
+</body>
+</html>
+
+
+<!--
+다음과 같이 작성하시오.
+✅ <body> 태그
+1) 바깥쪽 여백 없음 →  : 0
+2) 안쪽 여백 30px →  
+3) 글꼴 → "Segoe UI", sans-serif 사용
+4) 배경 → 135도 방향의 그라디언트 (#fdfbfb → #ebedee)       
+
+✅ <div> 카드
+1) 배경색 흰색 →    #fff          
+2) 너비 250px
+3) 가운데 정렬 →   0 auto   
+4) 아래 여백 20px   
+5) 모서리 둥글게 →   20px
+6) 그림자 효과 →  0 4px 12px rgba(0,0,0,0.1)
+7) 텍스트 가운데 정렬 →   center
+8) 안쪽 여백 20px   
+
+✅ 프로필 이미지
+9) 크기 90x90px
+10)원형 이미지 →  50%
+11) 테두리 색상 → #e1306c, 두께 3px
+
+✅ <h1> 태그
+12) 텍스트 가운데 정렬 →  
+13) 글자 색상 → color: #e1306c
+14) 아래 여백 40px →  
+===
+
+✅ <h2> 태그
+15)위쪽 여백 10px, 아래 여백 5px →  
+16)글자 크기 18px →  
+17) 글자 색상 →  : #333
+
+✅ <p> 태그 (설명 및 팔로워 텍스트)
+18) 글자 크기 14px →  
+19) 글자 색상 →   #666
+20) 아래 여백 10px →  : 10px
+
+✅ <a> 태그 (깃허브 링크)
+21) 위쪽 여백 5px →   5px
+22) 글자 크기 13px →   13px
+23) 글자 색상 →  #e1306c
+25) 밑줄 제거 →
+-->
