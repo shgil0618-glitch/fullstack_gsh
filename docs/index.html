@@ -48,7 +48,8 @@
     <p class="lead animate__animated animate__fadeInUp animate__delay-1s">
       Java, Spring, React, AWS로 사용자 경험을 설계합니다.
     </p>
-    <a href="#portfolio" class="btn btn-outline-light btn-lg mt-3 animate__animated animate__fadeInUp animate__delay-2s">
+    <a href="#portfolio"
+      class="btn btn-outline-light btn-lg mt-3 animate__animated animate__fadeInUp animate__delay-2s">
       포트폴리오 보기
     </a>
   </section>
@@ -131,7 +132,56 @@
   <section class="container py-5" id="contact">
     <h2 class="text-center section-title">Contact Me</h2>
     <p class="text-center">문의나 협업 제안은 언제든 환영합니다!</p>
-    <form>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+      (function () {
+        emailjs.init({
+          publicKey: "7JSe1bOb2aHbwUnek",
+        });
+      })();
+      function sendEmail(e) {  //sendEmail(event)로 받은 event를 e로 받는다
+        e.preventDefault(); //무조건 전송기능 막기
+        var templateParams = {
+          name: document.getElementById("name").value,
+          title: document.getElementById("title").value,
+          email: document.getElementById("email").value,
+          message: document.getElementById("message").value,
+        };
+
+        emailjs.send('shgil0618', 'template_92471ys', templateParams).then(
+          (response) => {
+            alert("메일이 성공적으로 전송되었습니다.")
+            console.log('SUCCESS!', response.status, response.text);
+          },
+          (error) => {
+            alert("메일 전송에 실패했습니다.")
+            console.log('FAILED...', error);
+          },
+        );
+      }
+
+    </script>
+
+    <form onsubmit="sendEmail(event)">
+       <div class="mb-3">
+        <label for="name" class="form-label">name : </label>
+        <input type="text" class="form-control" id="name" placeholder="이름을 입력하세요" name="name">
+      </div>
+       <div class="mb-3">
+        <label for="title" class="form-label">title : </label>
+        <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요" name="title">
+      </div>
+       <div class="mb-3">
+        <label for="email" class="form-label">email : </label>
+        <input type="email" class="form-control" id="email" placeholder="이메일을 입력하세요" name="email">
+      </div>
+       <div class="mb-3">
+        <label for="message" class="form-label">comment : </label>
+        <input type="text" class="form-control" id="message" placeholder="이름을 입력하세요" name="message">
+      </div>
+
       <div class="mb-3">
         <label for="title" class="form-label">제목</label>
         <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요">
