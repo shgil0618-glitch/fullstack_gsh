@@ -1,182 +1,199 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>홍길동 | Full-Stack Developer</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-  /* 기본 스타일 */
-  * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-  body { scroll-behavior: smooth; background: radial-gradient(circle at top, #0b0c10, #1c1c2b); color:#e0e0e0; }
-  a { text-decoration:none; color:inherit; }
-  h2 { margin-bottom:30px; font-size:2.5rem; text-align:center; color:#e0e0e0; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>풀스택 개발자 자기소개</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background: radial-gradient(circle at center, #0d0d0d 0%, #000000 100%);
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+    }
 
-  /* 네비게이션 */
-  nav { position:fixed; top:0; left:0; width:100%; background: rgba(20,20,40,0.9); display:flex; justify-content:center; padding:15px 0; z-index:1000; box-shadow:0 2px 10px rgba(0,0,0,0.5);}
-  nav a { margin:0 15px; font-weight:600; color:#e0e0e0; transition: color 0.3s; }
-  nav a.active, nav a:hover { color:#4f46e5; }
+    section {
+      padding: 80px 0;
+    }
 
-  /* Hero */
-  #hero {
-    background:url('your-photo.jpg') center/cover no-repeat;
-    position:relative; text-align:center;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh;
-  }
-  #hero::after { content:''; position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); }
-  #hero-content { position:relative; z-index:1; animation: fadeInUp 1s forwards; }
-  #hero h1 { font-size:4rem; margin-bottom:15px; animation: fadeInUp 1s 0.3s forwards; opacity:0; color:#fff; }
-  #hero p { font-size:1.5rem; margin-bottom:30px; animation: fadeInUp 1s 0.6s forwards; opacity:0; color:#fff; }
-  #hero a { display:inline-block; padding:10px 20px; border:2px solid #fff; border-radius:5px; color:#fff; font-weight:600; transition: all 0.3s; animation: fadeInUp 1s 0.9s forwards; opacity:0; }
-  #hero a:hover { background:#fff; color:#4f46e5; transform:translateY(-3px); }
+    .navbar {
+      background-color: #000000;
+    }
 
-  @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .navbar-nav .nav-link {
+      color: #ffffff !important;
+    }
 
-  /* Sections */
-  section { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:50px 20px; opacity:0; transform:translateY(50px); transition: all 0.8s ease; }
-  section.show { opacity:1; transform:translateY(0); }
+    .hero {
+      background: url('https://images.unsplash.com/photo-1585155777340-9a19b4d3de7d') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
 
-  /* About Me 명함 */
-  #about { background:none; display:flex; justify-content:center; align-items:center; }
-  .about-card {
-    background:#1c1c2b; padding:40px; border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.7); max-width:500px; text-align:center;
-  }
-  .about-card h3 { margin-bottom:15px; color:#4f46e5; }
-  .about-card p { line-height:1.6; font-size:1.1rem; color:#e0e0e0; }
-  .about-card .info { margin-top:20px; display:flex; justify-content:space-around; }
-  .about-card .info div { display:flex; flex-direction:column; align-items:center; }
-  .about-card .info div i { font-size:1.5rem; margin-bottom:5px; color:#4f46e5; }
-  .about-card .info div span { font-size:0.9rem; color:#ccc; }
+    .hero h1 {
+      font-size: 4rem;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    }
 
-  /* Skills */
-  #skills { background:none; text-align:center; }
-  .skills-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:20px; max-width:900px; margin:0 auto; }
-  .skill { display:flex; flex-direction:column; align-items:center; padding:20px; border-radius:10px; background:#2a2a3b; transition: all 0.3s; font-weight:600; cursor:default; }
-  .skill i { font-size:2rem; margin-bottom:10px; transition: color 0.3s; color:#4f46e5; }
-  .skill:hover { transform:translateY(-5px) scale(1.05); background:#4f46e5; color:white; }
-  .skill:hover i { color:white; }
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      text-align: center;
+    }
 
-  /* Career */
-  #career { background:none; text-align:center; }
-  .timeline { max-width:700px; margin:0 auto; position:relative; }
-  .timeline::before { content:''; position:absolute; left:50%; top:0; width:4px; height:100%; background:#555; transform:translateX(-50%); }
-  .timeline-item { padding:20px; position:relative; width:50%; transition: transform 0.3s; }
-  .timeline-item:nth-child(odd) { left:0; text-align:right; }
-  .timeline-item:nth-child(even) { left:50%; text-align:left; }
-  .timeline-item:hover { transform:translateY(-5px); }
-  .timeline-item::before { content:''; position:absolute; top:20px; width:15px; height:15px; background:#4f46e5; border-radius:50%; border:3px solid #1c1c2b; z-index:1; }
-  .timeline-item:nth-child(odd)::before { right:-8px; }
-  .timeline-item:nth-child(even)::before { left:-8px; }
+    .skills-icons i {
+      font-size: 3rem;
+      margin: 15px;
+    }
 
-  /* Portfolio */
-  #portfolio { background:none; text-align:center; }
-  .projects { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px; max-width:1000px; margin:0 auto; }
-  .project { border:1px solid #444; border-radius:10px; padding:15px; transition:all 0.3s; cursor:pointer; background:#2a2a3b; box-shadow:0 3px 6px rgba(0,0,0,0.7); color:#e0e0e0; }
-  .project:hover { transform:translateY(-5px) scale(1.03); box-shadow:0 8px 20px rgba(0,0,0,0.9); }
+    .project-card {
+      background-color: #1a1a1a;
+      border: none;
+    }
 
-  /* Contact */
-  #contact { background:none; text-align:center; }
-  #contact a { margin:0 10px; padding:10px 20px; border:2px solid #4f46e5; border-radius:5px; color:#4f46e5; font-weight:600; transition: all 0.3s; display:inline-block; }
-  #contact a:hover { background:#4f46e5; color:white; transform:translateY(-3px); }
-
-  /* 반응형 */
-  @media(max-width:768px){
-    .timeline-item { width:100%; left:0 !important; text-align:left !important; margin-bottom:30px; }
-    .timeline::before { left:20px; }
-    .timeline-item::before { left:-8px !important; }
-  }
-</style>
+    footer {
+      background-color: #111;
+      color: #ccc;
+      padding: 30px 0;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
 
-<nav>
-  <a href="#hero" class="active">Home</a>
-  <a href="#about">About</a>
-  <a href="#skills">Skills</a>
-  <a href="#career">Career</a>
-  <a href="#portfolio">Portfolio</a>
-  <a href="#contact">Contact</a>
-</nav>
-
-<section id="hero">
-  <div id="hero-content">
-    <h1>홍길동</h1>
-    <p>Full-Stack Developer</p>
-    <a href="#about">▼ Scroll Down</a>
-  </div>
-</section>
-
-<section id="about">
-  <div class="about-card">
-    <h3>홍길동</h3>
-    <p>최신 웹 기술을 활용하여 효율적이고 아름다운 웹을 만드는 풀스택 개발자입니다. 문제 해결과 새로운 도전을 즐깁니다.</p>
-    <div class="info">
-      <div><i>📧</i><span>youremail@example.com</span></div>
-      <div><i>💼</i><span>Full-Stack Developer</span></div>
-      <div><i>📍</i><span>Seoul, Korea</span></div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">🚀 Fullstack Dev</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#career">Career</a></li>
+          <li class="nav-item"><a class="nav-link" href="#portfolio">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-</section>
+  </nav>
 
-<section id="skills">
-  <h2>Skills & Tools</h2>
-  <div class="skills-grid">
-    <div class="skill"><i>💻</i> HTML</div>
-    <div class="skill"><i>🎨</i> CSS</div>
-    <div class="skill"><i>⚡</i> JavaScript</div>
-    <div class="skill"><i>🔷</i> React</div>
-    <div class="skill"><i>🟢</i> Node.js</div>
-    <div class="skill"><i>🗂️</i> Git</div>
-    <div class="skill"><i>🍃</i> MongoDB</div>
-    <div class="skill"><i>🔷</i> TypeScript</div>
-  </div>
-</section>
+  <!-- Hero Section -->
+  <section class="hero text-white">
+    <div class="container">
+      <h1>안녕하세요, 저는 풀스택 개발자입니다.</h1>
+      <p class="lead mt-3">Frontend와 Backend를 넘나드는 창조자 🚀</p>
+    </div>
+  </section>
 
-<section id="career">
-  <h2>Career</h2>
-  <div class="timeline">
-    <div class="timeline-item">
-      <h3>2023 - Present</h3>
-      <p>ABC Company - Frontend Developer</p>
+  <!-- About Me -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <p>안녕하세요! 저는 열정적인 풀스택 개발자로서 웹 애플리케이션의 프론트엔드와 백엔드 모두를 개발하는 것을 좋아합니다. React, Node.js, MongoDB, PostgreSQL 등 다양한 기술을 사용하여 빠르고 안정적인 서비스를 만듭니다.</p>
+        </div>
+        <div class="col-md-6">
+          <p>깔끔한 UI/UX와 효율적인 시스템 설계에 관심이 많으며, 협업과 커뮤니케이션을 중요하게 생각합니다. 새로운 기술을 배우는 데에 적극적이며 항상 더 나은 코드를 추구합니다.</p>
+        </div>
+      </div>
     </div>
-    <div class="timeline-item">
-      <h3>2021 - 2023</h3>
-      <p>XYZ Startup - Full-Stack Developer</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section id="portfolio">
-  <h2>Portfolio Projects</h2>
-  <div class="projects">
-    <div class="project">
-      <h3>Project A</h3>
-      <p>React 기반 웹앱 제작</p>
+  <!-- Skills & Tools -->
+  <section id="skills" class="bg-dark">
+    <div class="container">
+      <h2 class="section-title">Skills & Tools</h2>
+      <div class="row text-center skills-icons">
+        <div class="col-6 col-md-2">💻<p>HTML</p></div>
+        <div class="col-6 col-md-2">🎨<p>CSS</p></div>
+        <div class="col-6 col-md-2">⚛️<p>React</p></div>
+        <div class="col-6 col-md-2">🟨<p>JavaScript</p></div>
+        <div class="col-6 col-md-2">🌐<p>Node.js</p></div>
+        <div class="col-6 col-md-2">🐘<p>PostgreSQL</p></div>
+      </div>
     </div>
-    <div class="project">
-      <h3>Project B</h3>
-      <p>Node.js API 서버 개발</p>
-    </div>
-    <div class="project">
-      <h3>Project C</h3>
-      <p>풀스택 프로젝트 통합</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section id="contact">
-  <h2>Contact</h2>
-  <p>
-    <a href="mailto:youremail@example.com">Email</a>
-    <a href="https://github.com/yourgithub" target="_blank">GitHub</a>
-    <a href="https://linkedin.com/in/yourlinkedin" target="_blank">LinkedIn</a>
-  </p>
-</section>
+  <!-- Career -->
+  <section id="career">
+    <div class="container">
+      <h2 class="section-title">Career</h2>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item bg-transparent text-white">
+          <strong>2022 - 현재:</strong> ABC 테크 - 풀스택 개발자
+        </li>
+        <li class="list-group-item bg-transparent text-white">
+          <strong>2020 - 2022:</strong> 스타트업 XYZ - 프론트엔드 엔지니어
+        </li>
+        <li class="list-group-item bg-transparent text-white">
+          <strong>2018 - 2020:</strong> 프리랜서 웹 개발자
+        </li>
+      </ul>
+    </div>
+  </section>
 
-<script>
-  // 섹션 fade-in
-  const sections = document.querySelectorAll('section');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('show'); });
-  }, { threshold: 0.2 });
-  section
+  <!-- Portfolio Projects -->
+  <section id="portfolio" class="bg-dark">
+    <div class="container">
+      <h2 class="section-title">Portfolio Projects</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card project-card text-white">
+            <div class="card-body">
+              <h5 class="card-title">👨‍🚀 우주 블로그</h5>
+              <p class="card-text">React + Node.js 기반 블로그 플랫폼</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card project-card text-white">
+            <div class="card-body">
+              <h5 class="card-title">🛒 쇼핑몰 프로젝트</h5>
+              <p class="card-text">MERN 스택을 활용한 전자상거래 사이트</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card project-card text-white">
+            <div class="card-body">
+              <h5 class="card-title">📊 대시보드</h5>
+              <p class="card-text">데이터 시각화 SPA 대시보드</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">Contact</h2>
+      <p class="text-center">프로젝트, 채용 문의는 언제든지 환영입니다!</p>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <form>
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="이름">
+            </div>
+            <div class="mb-3">
+              <input type="email" class="form-control" placeholder="이메일">
+            </div>
+            <div class="mb-3">
+              <textarea class="form-control" rows="4" placeholder="메시지"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">보내기</button>
+          </form
+
