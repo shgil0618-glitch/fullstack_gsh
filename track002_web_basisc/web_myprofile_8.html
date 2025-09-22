@@ -101,97 +101,121 @@
         }
 
         /* hero */
-        .hero {
-            min-height: 80vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 80px 20px;
-        }
+       /* Hero 섹션 전체 배경 */
+.hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 20px;
 
-        .hero-card {
-            width: 100%;
-            max-width: 960px;
-            border-radius: 18px;
-            padding: 48px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
+    /* 배경 그림 적용 */
+    background-image: url('./img/portfolio1.jpg'); /* 카드 밖 배경 이미지 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
 
-        .hero-title {
-            font-size: clamp(28px, 4vw, 44px);
-            font-weight: 800;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.8));
-            -webkit-background-clip: text;
-            color: transparent;
-        }
+/* 카드에 반투명 배경 유지 */
+.hero-card {
+    width: 100%;
+    max-width: 960px;
+    border-radius: 18px;
+    padding: 60px 48px;
+    background: rgba(15, 23, 36, 0.6); /* 카드 내부 배경만 반투명 */
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    position: relative;
+    z-index: 1;
+}
 
-        .hero-sub {
-            opacity: .85;
-            margin-bottom: 18px;
-        }
+/* 텍스트 스타일 */
+.hero-title {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800;
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.8));
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.hero-sub {
+    opacity: 0.85;
+    font-size: 18px;
+}
+
+
 
         /* about me */
-        .card-horizontal {
+        .about-card {
             display: flex;
-            gap: 22px;
             align-items: center;
+            max-width: 700px;
+            /* 기존 500px → 700px로 확대 */
+            margin: auto;
             background: var(--glass);
-            border-radius: 14px;
-            padding: 20px;
-            flex-wrap: wrap;
+            border-radius: 22px;
+            /* 라운드 살짝 더 부드럽게 */
+            padding: 30px 36px;
+            /* 여백 확대 */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            /* 그림자 강화 */
+            font-family: "Noto Sans KR", sans-serif;
         }
 
-        .me-photo {
-            width: 130px;
-            height: 130px;
-            border-radius: 14px;
-            overflow: hidden;
-            display: grid;
-            place-items: center;
+        .photo {
+            width: 140px;
+            /* 사진 영역 확대 */
+            height: 140px;
+            border-radius: 20px;
             background: linear-gradient(135deg, var(--accent), var(--accent-2));
             color: white;
-            font-size: 28px;
+            font-weight: 800;
+            font-size: 40px;
+            /* 글자 확대 */
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            margin-right: 30px;
+            /* 카드 여백 확대 */
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            /* 정보 간격 확대 */
+        }
+
+        .name {
+            font-size: 24px;
+            /* 이름 폰트 확대 */
             font-weight: 800;
         }
 
-        .me-info {
-            flex: 1;
-        }
-
-        .me-contact {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-            flex-wrap: wrap
-        }
-
-        .chip {
-            background: var(--glass);
-            padding: 8px 10px;
-            border-radius: 999px;
+        .role {
+            font-size: 18px;
+            /* 직무 폰트 확대 */
+            color: var(--accent-2);
             font-weight: 600;
         }
 
-        .interview {
-            margin-top: 18px;
-            display: grid;
-            gap: 12px;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        .contact span {
+            display: inline-block;
+            font-size: 16px;
+            /* 연락처 폰트 확대 */
+            color: var(--muted);
+            margin-right: 12px;
         }
 
-        .qa {
-            background: var(--glass);
-            padding: 14px;
-            border-radius: 10px;
+        .quote {
+            font-size: 16px;
+            /* 한 줄 소개 폰트 확대 */
+            color: var(--muted);
+            margin-top: 8px;
         }
 
-        .qa strong {
-            display: block;
-            margin-bottom: 6px
-        }
 
         /* skills */
         .skill-grid {
@@ -263,13 +287,14 @@
 
         /* career */
         .timeline {
+            position: relative;
             border-left: 2px dashed rgba(255, 255, 255, 0.04);
             padding-left: 20px;
         }
 
         .timeline-item {
             position: relative;
-            padding: 18px 0
+            padding: 18px 0;
         }
 
         .timeline-item::before {
@@ -284,51 +309,73 @@
             border: 3px solid var(--bg);
         }
 
+        /* 오른쪽 배치용 */
+        .timeline-item.right {
+            padding-left: 0;
+            padding-right: 40px;
+            text-align: right;
+        }
+
+        .timeline-item.right::before {
+            left: auto;
+            right: -28px;
+        }
+
+
         /* portfolio */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 18px
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
 
         .flip-card {
-            perspective: 1000px
+            perspective: 1000px;
         }
 
         .flip-inner {
             position: relative;
             width: 100%;
-            padding-top: 70%;
+            padding-top: 75%;
+            /* 카드 비율 4:3 */
             transform-style: preserve-3d;
-            transition: transform .7s
+            transition: transform 0.7s ease;
         }
 
         .flip-card:hover .flip-inner {
-            transform: rotateY(180deg)
+            transform: rotateY(180deg) scale(1.05);
+            /* 살짝 확대 */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .flip-face {
             position: absolute;
             inset: 0;
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
             backface-visibility: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 18px;
-        }
-
-        .flip-front {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01))
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .flip-back {
             background: linear-gradient(135deg, var(--accent), var(--accent-2));
             color: white;
-            transform: rotateY(180deg)
+            transform: rotateY(180deg);
         }
+
+        .project-desc {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 8px;
+        }
+
 
         /* contact */
         .thanks {
@@ -339,20 +386,38 @@
         }
 
         .contact-form {
-            max-width: 520px;
+            max-width: 700px;
+            /* 기존 520px → 700px로 늘림 */
+            width: 100%;
+            /* 화면이 좁으면 100% 차지 */
             margin: auto;
             display: grid;
-            gap: 12px
+            gap: 12px;
         }
 
         input,
         textarea {
             width: 100%;
+            /* input, textarea가 form의 전체 폭 차지 */
             background: transparent;
             border: 1px solid rgba(255, 255, 255, 0.06);
             padding: 12px;
             border-radius: 10px;
-            color: var(--panel)
+            color: var(--panel);
+        }
+
+        .contact-form button {
+            align-self: end;
+            /* 세로 기준으로 끝에 배치 */
+            justify-self: end;
+            /* 가로 기준으로 끝에 배치 */
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
         }
 
         .muted {
@@ -380,35 +445,32 @@
         <button class="btn" id="themeToggle">Light</button>
     </div>
     <main class="wrap">
-        <header class="hero" id="hero">
-            <div class="hero-card">
-                <div class="hero-title">길상현</div>
-                <div class="hero-sub">Fullstack Engineer · 제품 중심 개발자</div>
-            </div>
-        </header>
+        <section id="hero" class="hero">
+    <div class="hero-card">
+        <div class="hero-title">길상현</div>
+        <div class="hero-sub">Fullstack Engineer · 제품 중심 개발자</div>
+    </div>
+</section>
+
+
 
         <section id="about" class="block">
             <h2 class="section-title">About Me</h2>
-            <div class="card-horizontal">
-                <div class="me-photo">KS</div>
-                <div class="me-info">
-                    <h3>길상현 <span class="muted">· Fullstack Engineer</span></h3>
-                    <div class="me-contact">
-                        <div class="chip">📧 shgil0618@gmail.com</div>
-                        <div class="chip">🔗 github.com/shgil0618</div>
-                        <div class="chip">📍 Seoul, Korea</div>
+            <div class="about-card">
+                <div class="photo">KS</div>
+                <div class="info">
+                    <div class="name">길상현</div>
+                    <div class="role">Fullstack Engineer</div>
+                    <div class="contact">
+                        <span>📧 shgil0618@gmail.com</span>
+                        <span>🔗 github.com/shgil0618</span>
+                        <span>📍 Seoul, Korea</span>
                     </div>
-                    <div class="interview">
-                        <div class="qa"><strong>Q. 본인을 한 줄로?</strong>
-                            <div>A. 제품의 문제를 깔끔하게 풀어내는 개발자.</div>
-                        </div>
-                        <div class="qa"><strong>Q. 가장 자신 있는 영역?</strong>
-                            <div>A. 백엔드 아키텍처 설계 + 프론트엔드 사용자 흐름 최적화</div>
-                        </div>
-                    </div>
+                    <div class="quote">제품의 문제를 깔끔하게 풀어내는 개발자</div>
                 </div>
             </div>
         </section>
+
 
         <section id="skills" class="block">
             <h2 class="section-title">Skills & Tools</h2>
@@ -457,11 +519,20 @@
                     <p>리액트 기반 SaaS 개발</p>
                 </div>
                 <div class="timeline-item">
+                    <h4>2023 — 현재 · 프론트엔드 엔지니어 · XYZ 스타트업</h4>
+                    <p>리액트 기반 SaaS 개발</p>
+                </div>
+                <div class="timeline-item right">
                     <h4>2020 — 2023 · 웹 개발자 · ABC 테크</h4>
                     <p>관리자 대시보드/데이터 시각화</p>
                 </div>
+                <div class="timeline-item right">
+                    <h4>2018 — 2020 · 백엔드 개발자 · DEF 회사</h4>
+                    <p>REST API 및 데이터베이스 설계</p>
+                </div>
             </div>
         </section>
+
 
         <section id="portfolio" class="block">
             <h2 class="section-title">Selected Projects</h2>
@@ -470,6 +541,7 @@
                     <div class="flip-inner">
                         <div class="flip-face flip-front">
                             <h3>Smart Scheduler</h3>
+                            <p class="project-desc">일정 관리 최적화 앱</p>
                         </div>
                         <div class="flip-face flip-back">
                             <h3>핵심기술</h3>
@@ -481,6 +553,7 @@
                     <div class="flip-inner">
                         <div class="flip-face flip-front">
                             <h3>DataViz Dashboard</h3>
+                            <p class="project-desc">데이터 시각화 대시보드</p>
                         </div>
                         <div class="flip-face flip-back">
                             <h3>핵심기술</h3>
@@ -488,8 +561,45 @@
                         </div>
                     </div>
                 </div>
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-face flip-front">
+                            <h3>Task Manager App</h3>
+                            <p class="project-desc">업무 관리 애플리케이션</p>
+                        </div>
+                        <div class="flip-face flip-back">
+                            <h3>핵심기술</h3>
+                            <p>React · Spring Boot</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-face flip-front">
+                            <h3>Portfolio Website</h3>
+                            <p class="project-desc">개인 포트폴리오 웹사이트</p>
+                        </div>
+                        <div class="flip-face flip-back">
+                            <h3>핵심기술</h3>
+                            <p>HTML · CSS · JS</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-face flip-front">
+                            <h3>Realtime Chat</h3>
+                            <p class="project-desc">실시간 채팅 애플리케이션</p>
+                        </div>
+                        <div class="flip-face flip-back">
+                            <h3>핵심기술</h3>
+                            <p>Socket.io · Node.js</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
+
 
         <section id="contact" class="block">
             <h2 class="section-title"></h2>

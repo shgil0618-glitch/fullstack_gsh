@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -37,6 +36,18 @@
     footer {
       margin-top: 60px;
     }
+
+    /* 반응형 이미지 + 높이 제한 */
+    .profile-img {
+      max-width: 150px;
+      height: auto;
+    }
+
+    /* 프로그레스 바 너비 제한 */
+    .skill-bars {
+      max-width: 300px;
+      margin: 0 auto;
+    }
   </style>
 </head>
 
@@ -57,13 +68,16 @@
   <section class="container" id="about">
     <h2 class="text-center section-title">About Me</h2>
     <div class="row text-center">
-      <div class="col-md-4">
-        <img src="./img/one.png" alt="내사진" class="w-50 rounded-circle mb-3">
+      <!-- 프로필 -->
+      <div class="col-sm-12 col-md-4 mb-4">
+        <img src="./img/one.png" alt="내사진" class="profile-img rounded-circle mb-3">
         <h4>길상현</h4>
         <p>shgil0618@gmail.com</p>
         <a href="https://github.com/shgil0618-glitch/fullstack_gsh.git" class="btn btn-dark">GitHub</a>
       </div>
-      <div class="col-md-4">
+
+      <!-- 교육 & 키워드 -->
+      <div class="col-sm-12 col-md-4 mb-4">
         <h4>Education</h4>
         <p>MSA 기반 풀스택 웹 개발 과정<br>25.08.25 ~ 26.02.27</p>
         <h4>KeyWords</h4>
@@ -73,22 +87,26 @@
           <span class="btn btn-info keyword-btn">끈기</span>
         </div>
       </div>
-      <div class="col-md-4">
+
+      <!-- 스킬 -->
+      <div class="col-sm-12 col-md-4 mb-4">
         <h4>Skills</h4>
-        <div class="progress my-2">
-          <div class="progress-bar bg-info" style="width: 80%">JAVA 80%</div>
-        </div>
-        <div class="progress my-2">
-          <div class="progress-bar bg-warning" style="width: 90%">SPRING 90%</div>
-        </div>
-        <div class="progress my-2">
-          <div class="progress-bar bg-danger" style="width: 90%">ORACLE 90%</div>
-        </div>
-        <div class="progress my-2">
-          <div class="progress-bar bg-primary" style="width: 85%">REACT 85%</div>
-        </div>
-        <div class="progress my-2">
-          <div class="progress-bar bg-success" style="width: 85%">AWS 85%</div>
+        <div class="skill-bars">
+          <div class="progress my-2">
+            <div class="progress-bar bg-info" style="width: 80%">JAVA 80%</div>
+          </div>
+          <div class="progress my-2">
+            <div class="progress-bar bg-warning" style="width: 90%">SPRING 90%</div>
+          </div>
+          <div class="progress my-2">
+            <div class="progress-bar bg-danger" style="width: 90%">ORACLE 90%</div>
+          </div>
+          <div class="progress my-2">
+            <div class="progress-bar bg-primary" style="width: 85%">REACT 85%</div>
+          </div>
+          <div class="progress my-2">
+            <div class="progress-bar bg-success" style="width: 85%">AWS 85%</div>
+          </div>
         </div>
       </div>
     </div>
@@ -100,25 +118,21 @@
       <h2 class="text-center section-title">Portfolio</h2>
       <div class="row">
         <div class="col-md-6 mb-4">
-          <div class="card shadow-sm">
+          <div class="card shadow-sm h-100">
             <img src="./img/portfolio1.jpg" class="card-img-top" alt="Project 1">
             <div class="card-body">
               <h5 class="card-title">Spring Boot + React 프로젝트</h5>
-              <p class="card-text">
-                JWT 기반 인증, REST API, SPA 구현 등 풀스택 웹 서비스
-              </p>
+              <p class="card-text">JWT 기반 인증, REST API, SPA 구현 등 풀스택 웹 서비스</p>
               <a href="#" class="btn btn-primary">자세히 보기</a>
             </div>
           </div>
         </div>
         <div class="col-md-6 mb-4">
-          <div class="card shadow-sm">
+          <div class="card shadow-sm h-100">
             <img src="./img/portfolio2.jpg" class="card-img-top" alt="Project 2">
             <div class="card-body">
               <h5 class="card-title">CI/CD 자동 배포 환경</h5>
-              <p class="card-text">
-                GitHub Actions 기반의 테스트 및 배포 자동화 파이프라인 구축
-              </p>
+              <p class="card-text">GitHub Actions 기반의 테스트 및 배포 자동화 파이프라인 구축</p>
               <a href="#" class="btn btn-primary">자세히 보기</a>
             </div>
           </div>
@@ -153,5 +167,4 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
