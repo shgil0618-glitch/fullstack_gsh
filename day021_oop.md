@@ -49,3 +49,12 @@ class A{
 
 
 # ■ WEB BASIC
+
+```js
+window.addEventlistener("load", function(){
+    document.getElementById("addEventEx").onclick = function(){
+        let like = prompt("좋아하는 숫자", "1~5");
+        alert("좋아하는 숫자는" +like+" 입니다.);
+    };
+});
+```
