@@ -7,6 +7,12 @@ public class Score{
 	   private String p  , s  , rank="";
 	   
 	   
+	   
+	   @Override
+	public String toString() {
+		return "Score [name=" + name + ", kor=" + kor + ", eng=" + eng + ", math=" + math + ", total=" + total
+				+ ", aver=" + aver + ", p=" + p + ", s=" + s + ", rank=" + rank + "]";
+	}
 	   public String getName() {
 		   return name;
 	   }
@@ -77,10 +83,10 @@ public class Score{
 	}
 	   
 	   public void total() {
-		   this.total = kor+eng+math;
+		   this.total = this.kor+this.eng+this.math;
 	   } 
 	   public void aver() {
-		   this.aver = total/3.0;
+		   this.aver = this.total/3.0;
 	   }
 	   public void p() {
 		   if(this.aver >70) {this.p = "합격";}
@@ -98,7 +104,7 @@ public class Score{
 	   
 	   public static void info(){			
 		   System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
-		   System.out.println("이름\t국어\t영어\t수학\t총점\t평균\t합격여부\t장학생\t랭킹");
+		   System.out.println("이름\t국어\t영어\t수학\t총점\t평균\t합격여부\t장학생\t랭킹\t");
 		   System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
 	   }
 	   public void show(){
