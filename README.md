@@ -556,6 +556,71 @@ fatal: unable to access 'https://github.com/tkasid00/fullstack_20250825.git/': T
 > `.a .b` → **자식 선택자** (공간적으로 분리된 요소)
 > `.a.b` → **동일 요소 내 다중 클래스 선택자** (띄어쓰기 없이!)
 
+<br/>
+<br/>
+
+
+### ▶ 트러블슈팅 (5) - border 스타일 적용 오류
+
+```html
+<input type="button" value="Change Border Style" 
+       id="borderStyleBtn" class="btn btn-danger" />
+
+<script>
+  window.addEventListener("load", function(){
+    document.getElementById("borderStyleBtn").onclick = function(){
+      let style = prompt("테두리 스타일을 입력하시오 : ");
+      document.getElementById("test2").style.border = "10px" + style + "red";
+    }
+  });
+</script>
+```
+
+<br/>
+
+1. **문제점**
+
+* `prompt`로 입력한 테두리 스타일(border-style)을 적용하려 했으나, CSS가 제대로 적용되지 않는 문제 발생
+* 예를 들어 `solid`를 입력했을 때 기대한 `"10px solid red"` 대신 `"10pxsolidred"`로 인식되어 브라우저가 스타일을 무시함
+
+<br/>
+
+2. **원인 분석**
+
+* CSS 속성값은 `"굵기 스타일 색상"` 형태로 **각 값 사이에 반드시 공백이 필요**함
+* 문자열 연결 시 `" "` (공백)을 넣지 않으면 `"10pxsolidred"`와 같은 잘못된 값이 되어 CSS 파싱 불가 → 결과적으로 스타일이 적용되지 않음
+
+<br/>
+
+3. **해결 방안**
+
+* 문자열 결합 시 각 속성 사이에 **공백을 명시적으로 추가**해야 함
+* 수정된 코드:
+
+```javascript
+document.getElementById("test2").style.border = "10px " + style + " red";
+```
+
+* 또는 가독성을 위해 **템플릿 리터럴**을 사용하는 것도 추천:
+
+```javascript
+document.getElementById("test2").style.border = `10px ${style} red`;
+```
+
+* 이 경우 `"solid"`, `"dashed"`, `"dotted"` 등 입력 시 의도한 대로 정상 적용됨
+
+<br/>
+
+4. **느낀점**
+
+* CSS 속성은 값의 순서와 공백 규칙이 엄격하므로, **문자열 결합 시 공백 하나 차이로도 오류가 발생**할 수 있음을 체감
+* 특히 자바스크립트로 동적으로 스타일을 지정할 때는 `"문자열 연결 시 공백 여부"`를 꼼꼼히 확인하는 습관이 필요함
+* 이번 경험을 통해 작은 오타나 공백 누락이 **런타임 오류 없이도 스타일 적용 실패**로 이어질 수 있음을 알게 되었고,
+  앞으로는 **템플릿 리터럴**처럼 가독성이 높은 방식을 사용하여 실수를 줄이는 것이 좋겠다고 느꼈음
+
+<br/>
+<br/>
+
 ---
 
 ## 📌 트러블 슈팅 (Java에서 발생)
@@ -1109,6 +1174,81 @@ System.out.println(aver[i - 1]); // 루프 종료 후 i == name.length 이므로
 * 자바는 **배열 범위 초과에 대해 런타임에서 엄격하게 예외를 발생시키므로**, 경계 조건을 정확히 확인해야 함
 * 이 경험을 통해 **루프 인덱스를 외부에서 사용할 경우 상태 추적이 필수적**이며, 명시적인 인덱스 사용의 중요성을 인식함
 
+
+<br/>
+<br/>
+
+
+
+### ▶ 트러블슈팅 (11) - private 멤버 접근 및 getter/setter 미구현 문제
+
+```java
+class LunchTray {
+    private String owner;   // private 멤버
+}
+
+public class MemberVarEx003 {
+    public static void main(String[] args) {
+        LunchTray tray1 = new LunchTray();
+        tray1.owner = "std-1";   // 오류 발생
+    }
+}
+```
+
+<br/>
+
+1. **문제점**
+
+* `LunchTray` 클래스의 `owner` 변수를 `private`으로 선언하자,
+  외부 클래스에서 `tray1.owner = "std-1";` 과 같이 접근할 때 **컴파일 오류 발생**
+* 현재는 단순 예제라 직접 접근만 하면 될 것 같지만, 실제 프로젝트에서는 **캡슐화 원칙을 지키지 않으면 유지보수 시 큰 문제**가 발생할 수 있음
+
+<br/>
+
+2. **원인 분석**
+
+* `private` 접근 제어자는 해당 클래스 내부에서만 접근 가능 → 외부에서는 직접 접근 불가
+* 이를 해결하기 위해서는 반드시 **getter/setter 메서드**를 통해 값을 읽거나 수정해야 함
+* 문제는, **getter/setter를 미리 만들어두지 않으면 이후 요구사항 변경 시 모든 코드를 수정해야 하는 불편**이 발생함
+
+<br/>
+
+3. **해결 방안**
+
+* 지금 당장은 사용하지 않더라도, **getter/setter 메서드를 미리 정의**해 두는 것이 바람직
+* 이렇게 하면 후에 새로운 기능이 추가되거나 외부 클래스에서 해당 변수를 사용해야 할 때, 코드를 대규모로 수정하지 않고도 쉽게 대응 가능
+
+```java
+class LunchTray {
+    private String owner;   
+
+    // Getter
+    public String getOwner() {
+        return owner;
+    }
+
+    // Setter
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+}
+
+public class MemberVarEx003 {
+    public static void main(String[] args) {
+        LunchTray tray1 = new LunchTray();
+        tray1.setOwner("std-1");   // setter로 값 설정
+        System.out.println(tray1.getOwner()); // getter로 값 출력
+    }
+}
+```
+
+<br/>
+
+4. **느낀점**
+
+* **캡슐화는 단순히 멤버 변수를 private으로 가리는 것에 그치지 않고, getter/setter 같은 안정적인 접근 통로를 함께 제공해야 완성**된다는 점을 깨달음
+* 지금 당장은 외부 접근이 필요 없어 보여도, **미래에 요구사항이 변경되면 코드 전체를 손봐야 하는 리스크**가 커짐
+* 따라서 클래스 설계 단계에서부터 **사용 여부와 관계없이 getter/setter를 만들어 두는 습관**이 유지보수성과 확장성을 높이는 좋은 방법임을 배움
 
 <br/>
 <br/>
