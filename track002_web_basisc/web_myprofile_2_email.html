@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -36,18 +37,6 @@
     footer {
       margin-top: 60px;
     }
-
-    /* 반응형 이미지 + 높이 제한 */
-    .profile-img {
-      max-width: 150px;
-      height: auto;
-    }
-
-    /* 프로그레스 바 너비 제한 */
-    .skill-bars {
-      max-width: 300px;
-      margin: 0 auto;
-    }
   </style>
 </head>
 
@@ -59,7 +48,8 @@
     <p class="lead animate__animated animate__fadeInUp animate__delay-1s">
       Java, Spring, React, AWS로 사용자 경험을 설계합니다.
     </p>
-    <a href="#portfolio" class="btn btn-outline-light btn-lg mt-3 animate__animated animate__fadeInUp animate__delay-2s">
+    <a href="#portfolio"
+      class="btn btn-outline-light btn-lg mt-3 animate__animated animate__fadeInUp animate__delay-2s">
       포트폴리오 보기
     </a>
   </section>
@@ -68,16 +58,13 @@
   <section class="container" id="about">
     <h2 class="text-center section-title">About Me</h2>
     <div class="row text-center">
-      <!-- 프로필 -->
-      <div class="col-sm-12 col-md-4 mb-4">
-        <img src="./img/one.png" alt="내사진" class="profile-img rounded-circle mb-3">
+      <div class="col-md-4">
+        <img src="./img/one.png" alt="내사진" class="w-50 rounded-circle mb-3">
         <h4>길상현</h4>
         <p>shgil0618@gmail.com</p>
         <a href="https://github.com/shgil0618-glitch/fullstack_gsh.git" class="btn btn-dark">GitHub</a>
       </div>
-
-      <!-- 교육 & 키워드 -->
-      <div class="col-sm-12 col-md-4 mb-4">
+      <div class="col-md-4">
         <h4>Education</h4>
         <p>MSA 기반 풀스택 웹 개발 과정<br>25.08.25 ~ 26.02.27</p>
         <h4>KeyWords</h4>
@@ -87,26 +74,22 @@
           <span class="btn btn-info keyword-btn">끈기</span>
         </div>
       </div>
-
-      <!-- 스킬 -->
-      <div class="col-sm-12 col-md-4 mb-4">
+      <div class="col-md-4">
         <h4>Skills</h4>
-        <div class="skill-bars">
-          <div class="progress my-2">
-            <div class="progress-bar bg-info" style="width: 80%">JAVA 80%</div>
-          </div>
-          <div class="progress my-2">
-            <div class="progress-bar bg-warning" style="width: 90%">SPRING 90%</div>
-          </div>
-          <div class="progress my-2">
-            <div class="progress-bar bg-danger" style="width: 90%">ORACLE 90%</div>
-          </div>
-          <div class="progress my-2">
-            <div class="progress-bar bg-primary" style="width: 85%">REACT 85%</div>
-          </div>
-          <div class="progress my-2">
-            <div class="progress-bar bg-success" style="width: 85%">AWS 85%</div>
-          </div>
+        <div class="progress my-2">
+          <div class="progress-bar bg-info" style="width: 80%">JAVA 80%</div>
+        </div>
+        <div class="progress my-2">
+          <div class="progress-bar bg-warning" style="width: 90%">SPRING 90%</div>
+        </div>
+        <div class="progress my-2">
+          <div class="progress-bar bg-danger" style="width: 90%">ORACLE 90%</div>
+        </div>
+        <div class="progress my-2">
+          <div class="progress-bar bg-primary" style="width: 85%">REACT 85%</div>
+        </div>
+        <div class="progress my-2">
+          <div class="progress-bar bg-success" style="width: 85%">AWS 85%</div>
         </div>
       </div>
     </div>
@@ -118,21 +101,25 @@
       <h2 class="text-center section-title">Portfolio</h2>
       <div class="row">
         <div class="col-md-6 mb-4">
-          <div class="card shadow-sm h-100">
+          <div class="card shadow-sm">
             <img src="./img/portfolio1.jpg" class="card-img-top" alt="Project 1">
             <div class="card-body">
               <h5 class="card-title">Spring Boot + React 프로젝트</h5>
-              <p class="card-text">JWT 기반 인증, REST API, SPA 구현 등 풀스택 웹 서비스</p>
+              <p class="card-text">
+                JWT 기반 인증, REST API, SPA 구현 등 풀스택 웹 서비스
+              </p>
               <a href="#" class="btn btn-primary">자세히 보기</a>
             </div>
           </div>
         </div>
         <div class="col-md-6 mb-4">
-          <div class="card shadow-sm h-100">
+          <div class="card shadow-sm">
             <img src="./img/portfolio2.jpg" class="card-img-top" alt="Project 2">
             <div class="card-body">
               <h5 class="card-title">CI/CD 자동 배포 환경</h5>
-              <p class="card-text">GitHub Actions 기반의 테스트 및 배포 자동화 파이프라인 구축</p>
+              <p class="card-text">
+                GitHub Actions 기반의 테스트 및 배포 자동화 파이프라인 구축
+              </p>
               <a href="#" class="btn btn-primary">자세히 보기</a>
             </div>
           </div>
@@ -145,7 +132,56 @@
   <section class="container py-5" id="contact">
     <h2 class="text-center section-title">Contact Me</h2>
     <p class="text-center">문의나 협업 제안은 언제든 환영합니다!</p>
-    <form>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+      (function () {
+        emailjs.init({
+          publicKey: "7JSe1bOb2aHbwUnek",
+        });
+      })();
+      function sendEmail(e) {  //sendEmail(event)로 받은 event를 e로 받는다
+        e.preventDefault(); //무조건 전송기능 막기
+        var templateParams = {
+          name: document.getElementById("name").value,
+          title: document.getElementById("title").value,
+          email: document.getElementById("email").value,
+          message: document.getElementById("message").value,
+        };
+
+        emailjs.send('shgil0618', 'template_92471ys', templateParams).then(
+          (response) => {
+            alert("메일이 성공적으로 전송되었습니다.")
+            console.log('SUCCESS!', response.status, response.text);
+          },
+          (error) => {
+            alert("메일 전송에 실패했습니다.")
+            console.log('FAILED...', error);
+          },
+        );
+      }
+
+    </script>
+
+    <form onsubmit="sendEmail(event)">
+       <div class="mb-3">
+        <label for="name" class="form-label">name : </label>
+        <input type="text" class="form-control" id="name" placeholder="이름을 입력하세요" name="name">
+      </div>
+       <div class="mb-3">
+        <label for="title" class="form-label">title : </label>
+        <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요" name="title">
+      </div>
+       <div class="mb-3">
+        <label for="email" class="form-label">email : </label>
+        <input type="email" class="form-control" id="email" placeholder="이메일을 입력하세요" name="email">
+      </div>
+       <div class="mb-3">
+        <label for="message" class="form-label">comment : </label>
+        <input type="text" class="form-control" id="message" placeholder="이름을 입력하세요" name="message">
+      </div>
+<!--
       <div class="mb-3">
         <label for="title" class="form-label">제목</label>
         <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요">
@@ -154,6 +190,7 @@
         <label for="message" class="form-label">내용</label>
         <textarea class="form-control" id="message" rows="5" placeholder="메시지를 입력하세요"></textarea>
       </div>
+-->
       <div class="text-end">
         <button type="submit" class="btn btn-success">메일 보내기</button>
       </div>
@@ -167,4 +204,5 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

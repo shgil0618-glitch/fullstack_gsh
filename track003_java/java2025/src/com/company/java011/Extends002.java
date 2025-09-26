@@ -1,9 +1,9 @@
 package com.company.java011;
 
-/* 1. 상속 : 클래스의 재사용 
+/* 1. 상속 : 클래스의 재사용 (재활용)
 	Object	(실선-속이빈화살표)	3) Object {							4) (열고/닫고의 뜻인가? 여는 순이랑 닫는순(생성)이랑 역순)}
 	  ↑
-  	Animal	2) Animal()	{name, age / eat(), sleep(), poo() 		5)	}
+  	Animal	2) Animal()	{name=null, age=0 / eat(), sleep(), poo() 		5)	}
   	↑	↑	1) Cat() 	{{animal_card / qukquk()				6)	}
 Person	Cat 0) 1번지  	{ }	
 ----------------------------------------------------

@@ -2,207 +2,635 @@
 <html lang="ko">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🚀 길상현의 포트폴리오</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Noto Sans KR', sans-serif;
-    }
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>🚀 길상현 — 포트폴리오</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f1724;
+            --panel: #ffffff;
+            --muted: #6b7280;
+            --accent: #6366f1;
+            --accent-2: #f59e0b;
+            --glass: rgba(255, 255, 255, 0.06);
+            --glass-2: rgba(255, 255, 255, 0.03);
+        }
 
-    .hero {
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: white;
-      padding: 100px 20px;
-      text-align: center;
-    }
+        body.light {
+            --bg: #f6f8fb;
+            --panel: #0b1220;
+            --muted: #374151;
+            --glass: rgba(11, 18, 32, 0.03);
+            --glass-2: rgba(11, 18, 32, 0.02);
+            --accent: #0ea5a4;
+            --accent-2: #fb7185;
+        }
 
-    .section-title {
-      margin-top: 60px;
-      margin-bottom: 40px;
-      font-weight: bold;
-    }
+        * {
+            
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
 
-    .card:hover {
-      transform: translateY(-5px);
-      transition: 0.3s;
-    }
+        body {
+            font-family: "Noto Sans KR", "Inter", system-ui;
+            background: var(--bg);
+            color: var(--panel);
+            margin: 0 auto;
+            line-height: 1.5;
+            max-width: 80%;
+        }
 
-    .keyword-btn {
-      margin: 5px;
-    }
+        .wrap {
+            
+            max-width : 80%;
+       /*   padding: 40px 0px ;*/
+            margin: 0 auto;
+            
+        }
 
-    footer {
-      margin-top: 60px;
-    }
-  </style>
+
+        h2.section-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        p.lead {
+            opacity: .85;
+            margin-bottom: 20px
+        }
+
+        .block {
+            margin: 80px 50px;
+            /* 위아래로 80px 간격 */
+        }
+
+        /* floating controls */
+        .top-controls {
+            position: fixed;
+            right: 18px;
+            top: 18px;
+            z-index: 60;
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            color: white;
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+        }
+
+        .icon-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: var(--glass);
+            display: grid;
+            place-items: center;
+            color: var(--panel);
+            cursor: pointer;
+        }
+
+        /* hero */
+       /* Hero 섹션 전체 배경 */
+.hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 20px;
+
+
+    /* 배경 그림 적용 */
+    background-image: url('./img/codeimg/은하수\(1\).jpg'); /* 카드 밖 배경 이미지 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+/* 카드에 반투명 배경 유지 */
+.hero-card {
+    width: 100%;
+    max-width: 960px;
+    border-radius: 18px;
+    padding: 60px 48px;
+    background: rgba(15, 23, 36, 0.6); /* 카드 내부 배경만 반투명 */
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    position: relative;
+    z-index: 1;
+}
+
+/* 텍스트 스타일 */
+.hero-title {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800;
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.8));
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.hero-sub {
+    opacity: 0.85;
+    font-size: 18px;
+}
+
+
+
+        /* about me */
+        .about-card {
+            display: flex;
+            align-items: center;
+            max-width: 700px;
+            /* 기존 500px → 700px로 확대 */
+            margin: auto;
+            background: var(--glass);
+            border-radius: 22px;
+            /* 라운드 살짝 더 부드럽게 */
+            padding: 30px 36px;
+            /* 여백 확대 */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            /* 그림자 강화 */
+            font-family: "Noto Sans KR", sans-serif;
+        }
+
+        .photo {
+            width: 140px;
+            /* 사진 영역 확대 */
+            height: 140px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: white;
+            font-weight: 800;
+            font-size: 40px;
+            /* 글자 확대 */
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            margin-right: 30px;
+            /* 카드 여백 확대 */
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            /* 정보 간격 확대 */
+        }
+
+        .name {
+            font-size: 24px;
+            /* 이름 폰트 확대 */
+            font-weight: 800;
+        }
+
+        .role {
+            font-size: 18px;
+            /* 직무 폰트 확대 */
+            color: var(--accent-2);
+            font-weight: 600;
+        }
+
+        .contact span {
+            display: inline-block;
+            font-size: 16px;
+            /* 연락처 폰트 확대 */
+            color: var(--muted);
+            margin-right: 12px;
+        }
+
+        .quote {
+            font-size: 16px;
+            /* 한 줄 소개 폰트 확대 */
+            color: var(--muted);
+            margin-top: 8px;
+        }
+
+
+        /* skills */
+        .skill-grid {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center
+        }
+
+        .skill-circle {
+            --p: 0;
+            /* 기본 퍼센트 */
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+            border: 6px solid rgba(255, 255, 255, 0.05);
+            background: var(--glass);
+            /* 밑판 */
+            overflow: hidden;
+        }
+
+        .skill-circle::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent) calc(var(--p) * 1%), transparent 0);
+            mask: radial-gradient(circle, #000 99%, transparent 100%);
+            -webkit-mask: radial-gradient(circle, #000 99%, transparent 100%);
+        }
+
+        .skill-circle .value {
+            z-index: 1;
+        }
+
+        .skill-wrap {
+            text-align: center;
+        }
+
+        .skill-label {
+            margin-top: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--panel);
+        }
+
+        .tool-list {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+            justify-content: center
+        }
+
+        .tool {
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: var(--glass);
+            font-weight: 600;
+        }
+
+        /* career */
+        .timeline {
+            position: relative;
+            border-left: 2px dashed rgba(255, 255, 255, 0.04);
+            padding-left: 20px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 18px 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent);
+            position: absolute;
+            left: -28px;
+            top: 18px;
+            border: 3px solid var(--bg);
+        }
+
+        /* 오른쪽 배치용 */
+        .timeline-item.right {
+            padding-left: 0;
+            padding-right: 40px;
+            text-align: right;
+        }
+
+        .timeline-item.right::before {
+            left: auto;
+            right: -28px;
+        }
+
+
+        /* portfolio */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .flip-card {
+            perspective: 1000px;
+        }
+
+        .flip-inner {
+            position: relative;
+            width: 100%;
+            padding-top: 75%;
+            /* 카드 비율 4:3 */
+            transform-style: preserve-3d;
+            transition: transform 0.7s ease;
+        }
+
+        .flip-card:hover .flip-inner {
+            transform: rotateY(180deg) scale(1.05);
+            /* 살짝 확대 */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .flip-face {
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            overflow: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .flip-back {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .project-desc {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 8px;
+        }
+
+
+        /* contact */
+        .thanks {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px
+        }
+
+        .contact-form {
+            max-width: 700px;
+            /* 기존 520px → 700px로 늘림 */
+            width: 100%;
+            /* 화면이 좁으면 100% 차지 */
+            margin: auto;
+            display: grid;
+            gap: 12px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            /* input, textarea가 form의 전체 폭 차지 */
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 12px;
+            border-radius: 10px;
+            color: var(--panel);
+        }
+
+        .contact-form button {
+            align-self: end;
+            /* 세로 기준으로 끝에 배치 */
+            justify-self: end;
+            /* 가로 기준으로 끝에 배치 */
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        @media(max-width:600px) {
+            .skill-circle {
+                width: 90px;
+                height: 90px;
+                font-size: 16px;
+            }
+
+            .skill-label {
+                font-size: 13px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
-  <!-- Hero -->
-  <section class="hero">
-    <h1 class="display-4 animate__animated animate__fadeInDown">👨‍💻 풀스택 개발자 길상현</h1>
-    <p class="lead animate__animated animate__fadeInUp animate__delay-1s">
-      Java, Spring, React, AWS로 사용자 경험을 설계합니다.
-    </p>
-    <a href="#portfolio"
-      class="btn btn-outline-light btn-lg mt-3 animate__animated animate__fadeInUp animate__delay-2s">
-      포트폴리오 보기
-    </a>
-  </section>
-
-  <!-- About Me -->
-  <section class="container" id="about">
-    <h2 class="text-center section-title">About Me</h2>
-    <div class="row text-center">
-      <div class="col-md-4">
-        <img src="./img/one.png" alt="내사진" class="w-50 rounded-circle mb-3">
-        <h4>길상현</h4>
-        <p>shgil0618@gmail.com</p>
-        <a href="https://github.com/shgil0618-glitch/fullstack_gsh.git" class="btn btn-dark">GitHub</a>
-      </div>
-      <div class="col-md-4">
-        <h4>Education</h4>
-        <p>MSA 기반 풀스택 웹 개발 과정<br>25.08.25 ~ 26.02.27</p>
-        <h4>KeyWords</h4>
-        <div>
-          <span class="btn btn-danger keyword-btn">열정</span>
-          <span class="btn btn-warning keyword-btn">성실</span>
-          <span class="btn btn-info keyword-btn">끈기</span>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <h4>Skills</h4>
-        <div class="progress my-2">
-          <div class="progress-bar bg-info" style="width: 80%">JAVA 80%</div>
-        </div>
-        <div class="progress my-2">
-          <div class="progress-bar bg-warning" style="width: 90%">SPRING 90%</div>
-        </div>
-        <div class="progress my-2">
-          <div class="progress-bar bg-danger" style="width: 90%">ORACLE 90%</div>
-        </div>
-        <div class="progress my-2">
-          <div class="progress-bar bg-primary" style="width: 85%">REACT 85%</div>
-        </div>
-        <div class="progress my-2">
-          <div class="progress-bar bg-success" style="width: 85%">AWS 85%</div>
-        </div>
-      </div>
+    <div class="top-controls">
+        <button class="icon-btn" id="contrast" title="명함 프린트">🧾</button>
+        <button class="icon-btn" id="download" title="이력서 다운로드">📄</button>
+        <button class="btn" id="themeToggle">Light</button>
     </div>
-  </section>
-
-  <!-- Portfolio -->
-  <section class="bg-light py-5" id="portfolio">
-    <div class="container">
-      <h2 class="text-center section-title">Portfolio</h2>
-      <div class="row">
-        <div class="col-md-6 mb-4">
-          <div class="card shadow-sm">
-            <img src="./img/portfolio1.jpg" class="card-img-top" alt="Project 1">
-            <div class="card-body">
-              <h5 class="card-title">Spring Boot + React 프로젝트</h5>
-              <p class="card-text">
-                JWT 기반 인증, REST API, SPA 구현 등 풀스택 웹 서비스
-              </p>
-              <a href="#" class="btn btn-primary">자세히 보기</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 mb-4">
-          <div class="card shadow-sm">
-            <img src="./img/portfolio2.jpg" class="card-img-top" alt="Project 2">
-            <div class="card-body">
-              <h5 class="card-title">CI/CD 자동 배포 환경</h5>
-              <p class="card-text">
-                GitHub Actions 기반의 테스트 및 배포 자동화 파이프라인 구축
-              </p>
-              <a href="#" class="btn btn-primary">자세히 보기</a>
-            </div>
-          </div>
-        </div>
-      </div>
+    <main class="wrap">
+        <section id="hero" class="hero">
+    <div class="hero-card">
+        <div class="hero-title">길상현</div>
+        <div class="hero-sub">Fullstack Engineer · 제품 중심 개발자</div>
     </div>
-  </section>
+</section>
 
-  <!-- Contact -->
-  <section class="container py-5" id="contact">
-    <h2 class="text-center section-title">Contact Me</h2>
-    <p class="text-center">문의나 협업 제안은 언제든 환영합니다!</p>
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+
+        <section id="about" class="block">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-card">
+                <div class="photo">KS</div>
+                <div class="info">
+                    <div class="name">길상현</div>
+                    <div class="role">Fullstack Engineer</div>
+                    <div class="contact">
+                        <span>📧 shgil0618@gmail.com</span>
+                        <span>🔗 github.com/shgil0618</span>
+                        <span>📍 Seoul, Korea</span>
+                    </div>
+                    <div class="quote">제품의 문제를 깔끔하게 풀어내는 개발자</div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="skills" class="block">
+            <h2 class="section-title">Skills & Tools</h2>
+            <p class="lead">실무에서 쓰는 기술과 툴을 시각적으로 빠르게 파악할 수 있도록 구성했습니다.</p>
+            <div class="skill-grid">
+                <div class="skill-wrap">
+                    <div class="skill-circle" style="--p:90">
+                        <div class="value">90%</div>
+                    </div>
+                    <div class="skill-label">React</div>
+                </div>
+                <div class="skill-wrap">
+                    <div class="skill-circle" style="--p:80">
+                        <div class="value">80%</div>
+                    </div>
+                    <div class="skill-label">Spring</div>
+                </div>
+                <div class="skill-wrap">
+                    <div class="skill-circle" style="--p:85">
+                        <div class="value">85%</div>
+                    </div>
+                    <div class="skill-label">AWS</div>
+                </div>
+                <div class="skill-wrap">
+                    <div class="skill-circle" style="--p:75">
+                        <div class="value">75%</div>
+                    </div>
+                    <div class="skill-label">TypeScript</div>
+                </div>
+            </div>
+            <div class="tool-list">
+                <div class="tool">React</div>
+                <div class="tool">Spring Boot</div>
+                <div class="tool">Docker</div>
+                <div class="tool">GitHub Actions</div>
+                <div class="tool">Postgres</div>
+                <div class="tool">AWS (ECS, S3)</div>
+            </div>
+        </section>
+
+        <section id="career" class="block">
+            <h2 class="section-title">Career</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>2023 — 현재 · 프론트엔드 엔지니어 · XYZ 스타트업</h4>
+                    <p>리액트 기반 SaaS 개발</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2023 — 현재 · 프론트엔드 엔지니어 · XYZ 스타트업</h4>
+                    <p>리액트 기반 SaaS 개발</p>
+                </div>
+                <div class="timeline-item right">
+                    <h4>2020 — 2023 · 웹 개발자 · ABC 테크</h4>
+                    <p>관리자 대시보드/데이터 시각화</p>
+                </div>
+                <div class="timeline-item right">
+                    <h4>2018 — 2020 · 백엔드 개발자 · DEF 회사</h4>
+                    <p>REST API 및 데이터베이스 설계</p>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="portfolio" class="block">
+            <h2 class="section-title">Selected Projects</h2>
+            <div class="project-grid">
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-face flip-front">
+                            <h3>Smart Scheduler</h3>
+                            <p class="project-desc">일정 관리 최적화 앱</p>
+                        </div>
+                        <div class="flip-face flip-back">
+                            <h3>핵심기술</h3>
+                            <p>React · Node.js</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-face flip-front">
+                            <h3>DataViz Dashboard</h3>
+                            <p class="project-desc">데이터 시각화 대시보드</p>
+                        </div>
+                        <div class="flip-face flip-back">
+                            <h3>핵심기술</h3>
+                            <p>D3.js · AWS</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-face flip-front">
+                            <h3>Task Manager App</h3>
+                            <p class="project-desc">업무 관리 애플리케이션</p>
+                        </div>
+                        <div class="flip-face flip-back">
+                            <h3>핵심기술</h3>
+                            <p>React · Spring Boot</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-face flip-front">
+                            <h3>Portfolio Website</h3>
+                            <p class="project-desc">개인 포트폴리오 웹사이트</p>
+                        </div>
+                        <div class="flip-face flip-back">
+                            <h3>핵심기술</h3>
+                            <p>HTML · CSS · JS</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-face flip-front">
+                            <h3>Realtime Chat</h3>
+                            <p class="project-desc">실시간 채팅 애플리케이션</p>
+                        </div>
+                        <div class="flip-face flip-back">
+                            <h3>핵심기술</h3>
+                            <p>Socket.io · Node.js</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="contact" class="block">
+            <h2 class="section-title"></h2>
+            <div class="thanks">
+                <div style="font-size:18px;font-weight:700">길상현</div>
+                <div class="muted">Email · shgil0618@gmail.com</div>
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('감사합니다!');">
+                    <input type="text" placeholder="이름" required>
+                    <input type="email" placeholder="이메일" required>
+                    <textarea placeholder="메시지" rows="5" required></textarea>
+                    <button type="submit">보내기</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer style="padding:28px 0;text-align:center;color:var(--muted)">© 2025 길상현</footer>
+    <script>
+        const themeBtn = document.getElementById('themeToggle');
+        function setMode(mode) { if (mode === 'light') document.body.classList.add('light'); else document.body.classList.remove('light'); themeBtn.textContent = document.body.classList.contains('light') ? 'Dark' : 'Light'; }
+        setMode('dark');
+        themeBtn.addEventListener('click', () => { document.body.classList.toggle('light'); themeBtn.textContent = document.body.classList.contains('light') ? 'Dark' : 'Light'; });
+
+        document.getElementById('download').addEventListener('click', () => { alert('이력서 다운로드!'); });
+        document.getElementById('contrast').addEventListener('click', () => { alert('명함 인쇄 미리보기'); });
     </script>
-    <script type="text/javascript">
-      (function () {
-        emailjs.init({
-          publicKey: "7JSe1bOb2aHbwUnek",
-        });
-      })();
-      function sendEmail(e) {  //sendEmail(event)로 받은 event를 e로 받는다
-        e.preventDefault(); //무조건 전송기능 막기
-        var templateParams = {
-          name: document.getElementById("name").value,
-          title: document.getElementById("title").value,
-          email: document.getElementById("email").value,
-          message: document.getElementById("message").value,
-        };
-
-        emailjs.send('shgil0618', 'template_92471ys', templateParams).then(
-          (response) => {
-            alert("메일이 성공적으로 전송되었습니다.")
-            console.log('SUCCESS!', response.status, response.text);
-          },
-          (error) => {
-            alert("메일 전송에 실패했습니다.")
-            console.log('FAILED...', error);
-          },
-        );
-      }
-
-    </script>
-
-    <form onsubmit="sendEmail(event)">
-       <div class="mb-3">
-        <label for="name" class="form-label">name : </label>
-        <input type="text" class="form-control" id="name" placeholder="이름을 입력하세요" name="name">
-      </div>
-       <div class="mb-3">
-        <label for="title" class="form-label">title : </label>
-        <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요" name="title">
-      </div>
-       <div class="mb-3">
-        <label for="email" class="form-label">email : </label>
-        <input type="email" class="form-control" id="email" placeholder="이메일을 입력하세요" name="email">
-      </div>
-       <div class="mb-3">
-        <label for="message" class="form-label">comment : </label>
-        <input type="text" class="form-control" id="message" placeholder="이름을 입력하세요" name="message">
-      </div>
-<!--
-      <div class="mb-3">
-        <label for="title" class="form-label">제목</label>
-        <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요">
-      </div>
-      <div class="mb-3">
-        <label for="message" class="form-label">내용</label>
-        <textarea class="form-control" id="message" rows="5" placeholder="메시지를 입력하세요"></textarea>
-      </div>
--->
-      <div class="text-end">
-        <button type="submit" class="btn btn-success">메일 보내기</button>
-      </div>
-    </form>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-dark text-white text-center py-4">
-    © 2025 길상현. All rights reserved.
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

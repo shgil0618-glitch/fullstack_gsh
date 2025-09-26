@@ -34,6 +34,9 @@
       <script>
        // if(조건){조건이 true }
        // else    {조건이 false}
+       let data = 1;
+       if(data==1){console.log("1이다.");}
+       else {console.log("1이 아니다.")}
  
       </script>
   </div>
@@ -48,6 +51,14 @@
     </pre>
     <input type="button" value="ex1"  id="ex1"  title="버튼을 클릭하세요" class="btn btn-success"      />
     <script>
+      window.addEventListener("load",function(){
+        document.querySelector("#ex1").onclick = function(){
+          let num = prompt("평균을 입력하시오");
+          console.log(typeof(num));
+          if(num>=60){alert("합격");}   // 트러블 슈팅 ) 조건중 ==은 무조건 같은 자료형끼리 해야하지만 >=는 꼭 같을필요는 없다...?
+          else {alert("불합격");}
+        };
+      });
  
     </script>
   </div>
@@ -70,6 +81,13 @@
           case 대상의상태:    처리;  break;
           default : 기본처리
       } */
+     let data2 =2;
+     switch(data2){
+      case 1 : console.log("1이다"); break;
+      case 2 : console.log("2이다"); break;
+      case 3 : console.log("3이다"); break;
+      default : console.log("1,2,3이 아니다"); break;
+     }
  
       </script>
   </div>
@@ -84,6 +102,28 @@
     </pre>
     <input type="button" value="switch1"  id="switch1"  title="버튼을 클릭하세요" class="btn btn-success"      />
     <script>
+      window.addEventListener("load",function(){
+        document.querySelector("#switch1").onclick = function(){
+         let num3 = prompt("숫자를 입력하시오");
+         /*
+         switch(num3){
+            case '4' : alert("4번 월드콘"); break;
+            case '5' : alert("5번 구구콘"); break;
+            case '6' : alert("6번 설레임"); break;
+            default :  alert("올바른 번호를 입력하시오"); break;
+          }
+            */  
+           switch(num3){    //or Number(num3)
+            case '4' : console.log(num3+"번 월드콘"); break;
+            case '5' : console.log(num3+"번 구구콘"); break;
+            case '6' : console.log(num3+"번 설레임"); break;
+            default :  alert("올바른 번호를 입력하시오"); break;
+           }
+          console.log("콘 문제"+num3);
+          
+        };
+        
+      });
       
     </script>
   </div>
@@ -113,8 +153,28 @@
 
         STEP4 향상된 for
         for( index  in 객체 ){   }*/
+        console.log("step1-for");
+        for(let i=1;i<4;i++){console.log(i);}
 
- 
+        console.log("step2-while");
+        let i=1;
+        while(i<4){console.log(i); i++;}
+
+        console.log("step3-do-while");
+        let i2=1;
+        do{console.log(i2); i2++;} while(i2<4);
+
+        console.log("step4-향상된 for");
+        const list = ['a','b','c'];
+        for(let i in list){console.log(i + "/" + list[i]);}
+
+        console.log("step4-향상된 for 2");
+        list.forEach((ele,index,list) => {    // e-i-l
+          console.log(ele+"/" + index + "/" + list);
+        });
+
+
+
       </script>
   </div>
   <!--     -->
@@ -133,21 +193,41 @@
     <script>
       // for, while, do while
       //A1)		1	2	3	4	5
-     
+      console.log("A1");
+     for (let i=1; i<=5;i++){console.log(i);}
 
       //A2)		5	4	3	2	1
-        
+      let j =5;
+      console.log("A2");
+      while(j>=1){console.log(j); j--;}
 
       //A3)		2	4	6
+      console.log("A3");
+      let j2 = 1;
+      do{
+        console.log(j*2);
+        j2++;
+      }while(j2>=3)
         
 
       //A4)		hello1		hello2		hello3
-        
+      console.log("A4");
+        for(let j3=1;j3<=3;j3++){
+          console.log("hello" + j3);
+        }
 
 
       // 향상된 for , forEach
       //A5)		const list1 = [1	2	3	4	5];
-       
+      console.log("A5 FOR");
+        const list1 = ['1','2','3','4','5'];
+        for(let i in list1){console.log(list1[i]);}
+
+        console.log("A5 EACH");
+        list1.forEach((list1) => {    // e-i-l
+          console.log( list1);
+        });
+
 
     </script>
   </div>
