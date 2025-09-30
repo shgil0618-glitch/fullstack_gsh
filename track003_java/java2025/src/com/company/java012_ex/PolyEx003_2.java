@@ -30,7 +30,7 @@ public class PolyEx003_2 {
 	      // TestB4 / TestA4
 	      //Q5. new TestB4() 는  heap area 에서 호출되는 생성자의 순서와 객체가 만들어지는 순서는?
 	      // 생성자 : testb4 -> testa4() -> object / 객체 object -> testa4 -> testb4
-	      ta = new TestB42();
+	     ta = new TestB42();
 	      //Q6. ta가 사용할수 있는 보장하는 변수와 메서드는?
 	      // TestA4 
 	      //Q7.ta = new TestB4(); 에서 new TestB4() 에서 사용할수 있는 범위는? 
@@ -42,7 +42,7 @@ public class PolyEx003_2 {
 	      // 다운캐스팅 상황인데 위에서 부모가 자식을 참조하는 파트가 있고 형변환을 통해 자료형을 맞춰줬기때문에 오류 x
 
 	  
-	      System.out.println(tb);  //Q10. 출력내용과 그이유는? 	// TestB4 [b=20]
+	      System.out.println(ta);  //Q10. 출력내용과 그이유는? 	// TestB4 [b=20]
 	      System.out.println(tb.b);//Q11. 출력내용?		// 20
 	      System.out.println(tb.a);//Q12. 출력내용?		// 10
 	      

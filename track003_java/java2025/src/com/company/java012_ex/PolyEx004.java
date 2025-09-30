@@ -6,7 +6,7 @@ object									3		4
   ↑
  Papa	{int money, sing()}				2		5
   ↑
- Son	{int money, sing()}				1		6
+ Son	{int money, @sing()}			1		6
 
 */
 //Q2. 각클래스에서 사용할수있는 멤버변수/멤버메서드
