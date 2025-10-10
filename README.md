@@ -27,7 +27,7 @@
 |깃허브주소|https://github.com/shgil0618-glitch/fullstack_gsh.git|
 |유튜브 채널|https://youtu.be/M0sg6rhlKfI|
 |팀프로젝트 주소|https://github.com/shgil0618-glitch/Bug-Hunters.git|
-|자기소개 페이지|추후 추가 예정|
+|자기소개 페이지|https://shgil0618-glitch.github.io/fullstack_gsh/|
 
 
 <br/>
