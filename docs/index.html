@@ -35,20 +35,36 @@
             margin: 0;
             padding: 0
         }
-
+        body, html {
+        margin: 0;
+        padding: 0;
+        height: 100vh; /* 브라우저 높이에 맞춤 */
+        }
         body {
             font-family: "Noto Sans KR", "Inter", system-ui;
             background: var(--bg);
             color: var(--panel);
             margin: 0 auto;
             line-height: 1.5;
-            max-width: 80%;
+            max-width: 100%;
+            background-image: url(./img/codeimg/은하수\(1\).jpg);
+            background-size: cover;
+            background-position: 0 0;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .star-bg {
+        height: 100vh; /* 브라우저 높이에 맞춤 */
+        width: 100%;
+
         }
 
+        .wrap-bg {background-color : #0f1724;
+              padding: 40px 0px ;}
         .wrap {
 
-            max-width: 80%;
-            /*   padding: 40px 0px ;*/
+            max-width: 1200px;
+            
             margin: 0 auto;
 
         }
@@ -105,8 +121,7 @@
             cursor: pointer;
         }
 
-        /* hero */
-        /* Hero 섹션 전체 배경 */
+        /* Hero 이미지 및 카드 컨테이너 */
         .hero {
             min-height: 80vh;
             display: flex;
@@ -114,23 +129,20 @@
             justify-content: center;
             text-align: center;
             padding: 80px 20px;
-
-
-            /* 배경 그림 적용 */
-            background-image: url('./img/codeimg/은하수\(1\).jpg');
-            /* 카드 밖 배경 이미지 */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             position: relative;
+            overflow: hidden;
+            transition: transform 0.1s linear;
+            /* 스크롤에 맞춰 부드럽게 */
         }
+
+
 
         /* 카드에 반투명 배경 유지 */
         .hero-card {
             width: 100%;
             max-width: 960px;
             border-radius: 18px;
-            padding: 60px 48px;
+            padding: 60px 200px;
             background: rgba(15, 23, 36, 0.6);
             /* 카드 내부 배경만 반투명 */
             border: 1px solid rgba(255, 255, 255, 0.04);
@@ -454,16 +466,34 @@
         <button class="btn" id="themeToggle">Light</button>
         -->
     </div>
-    <main class="wrap">
-        <section id="hero" class="hero">
-            <div class="hero-card">
-                <div class="hero-title">길상현</div>
-                <div class="hero-sub">Fullstack Engineer · 도전하는 개발자</div>
+  
+        <section id="hero" class="hero star-bg">
+            <div class="container">
+                <div class="hero-card">
+                    <div class="hero-title">길상현</div>
+                    <div class="hero-sub">Fullstack Engineer · 도전하는 개발자</div>
+                </div>
+                <script>
+                    const hero = document.getElementById('hero');
+                    const heroHeight = hero.offsetHeight;
+
+                    window.addEventListener('scroll', () => {
+                        const scrollY = window.scrollY;
+
+                        // 스크롤 양을 0~1 사이 비율로 계산
+                        let progress = scrollY / heroHeight;
+                        if (progress > 1) progress = 1; // 최대 1
+
+                        // Hero 위로 이동 (px 단위)
+                        hero.style.transform = `translateY(-${progress * heroHeight}px)`;
+                    });
+                </script>
+
             </div>
         </section>
 
-
-
+<div class = "wrap-bg">
+  <main class="wrap">
         <section id="about" class="block">
             <h2 class="section-title">About Me</h2>
             <div class="about-card">
@@ -527,42 +557,37 @@
             </div>
         </section>
 
- <section id="career" class="block">
-  <h2 class="section-title">Career</h2>
-  <div class="timeline">
+        <section id="career" class="block">
+            <h2 class="section-title">Career</h2>
+            <div class="timeline">
 
-    <div class="timeline-item">
-      <h4>2018 - 2024 | 컴퓨터공학부 정보통신학과</h4>
-      <p>운영체제, 네트워크, 알고리즘 등 전공 지식을 기반으로 개발의 기초를 체계적으로 익힘</p>
-    </div>
+                <div class="timeline-item">
+                    <h4>2018 - 2024 | 컴퓨터공학부 정보통신학과</h4>
+                    <p>운영체제, 네트워크, 알고리즘 등 전공 지식을 기반으로 개발의 기초를 체계적으로 익힘</p>
+                </div>
 
-    <div class="timeline-item">
-      <h4>2022 - 2023 | 정보통신공학과 부학생회장</h4>
-      <p>행사 기획과 학생 간 소통을 주도하며 리더십과 협업의 중요성에 대한 깊은 배움</p>
-    </div>
+                <div class="timeline-item">
+                    <h4>2022 - 2023 | 정보통신공학과 부학생회장</h4>
+                    <p>행사 기획과 학생 간 소통을 주도하며 리더십과 협업의 중요성에 대한 깊은 배움</p>
+                </div>
 
-    <div class="timeline-item right">
-      <h4>2023 — 2024 | 코딩 동아리 활동</h4>
-      <p>교과 외 프로젝트와 코드 리뷰를 통해 실무에 가까운 개발 방식에 대한 경험</p>
-    </div>
+                <div class="timeline-item right">
+                    <h4>2023 — 2024 | 코딩 동아리 활동</h4>
+                    <p>교과 외 프로젝트와 코드 리뷰를 통해 실무에 가까운 개발 방식에 대한 경험</p>
+                </div>
 
-    <div class="timeline-item right">
-      <h4>2024 — 2024 | SI기업 소프트웨어 유지보수</h4>
-      <p>실제 자동화 설비 시스템을 다루며 문제 해결 중심의 유지보수 업무 경험</p>
-    </div>
+                <div class="timeline-item right">
+                    <h4>2024 — 2024 | SI기업 소프트웨어 유지보수</h4>
+                    <p>실제 자동화 설비 시스템을 다루며 문제 해결 중심의 유지보수 업무 경험</p>
+                </div>
 
-    <div class="timeline-item">
-      <h4>2025 — 2026 | 풀스택 개발자 교육 이수</h4>
-      <p>프론트엔드부터 백엔드까지 웹 개발 전반의 기술을 프로젝트 중심으로 체계적으로 습득</p>
-    </div>
+                <div class="timeline-item">
+                    <h4>2025 — 2026 | 풀스택 개발자 교육 이수</h4>
+                    <p>프론트엔드부터 백엔드까지 웹 개발 전반의 기술을 프로젝트 중심으로 체계적으로 습득</p>
+                </div>
 
-  </div>
-</section>
-
-
-
-
-
+            </div>
+        </section>
         <section id="portfolio" class="block">
             <h2 class="section-title">Selected Projects</h2>
             <div class="project-grid">
@@ -575,8 +600,7 @@
                         <div class="flip-face flip-back">
                             <h3>핵심기술</h3>
                             <p>상태 기반 흐름 제어 · 로그인 및 인증 시스템 · 입출금 및 잔액 관리 로직 (분기 제어문, 조건문, 반복문)</p>
-                            <a href="https://youtu.be/M0sg6rhlKfI" target="_blank"
-                                style="color: inherit;">
+                            <a href="https://youtu.be/M0sg6rhlKfI" target="_blank" style="color: inherit;">
                                 Project 보러가기
                             </a>
                         </div>
@@ -589,10 +613,9 @@
                             <p class="project-desc">주제와 배열을 추가한 뱅크시스템 기반의 레시피 추천</p>
                         </div>
                         <div class="flip-face flip-back">
-                            <h3>핵심기술</h3> 
+                            <h3>핵심기술</h3>
                             <p>상태 전이 기반 흐름 제어 · 2차원 배열 데이터 구조 · 조건문 기반 사용자 중심 결과 피드백 </p>
-                            <a href="https://youtu.be/HlCufIWsLj0" target="_blank"
-                                style="color: inherit;">
+                            <a href="https://youtu.be/HlCufIWsLj0" target="_blank" style="color: inherit;">
                                 Project 보러가기
                             </a>
                         </div>
@@ -607,8 +630,7 @@
                         <div class="flip-face flip-back">
                             <h3>핵심기술</h3>
                             <p>React · Spring Boot</p>
-                            <a href="https://youtu.be/FZA7DU0ptlA" target="_blank"
-                                style="color: inherit;">
+                            <a href="https://youtu.be/FZA7DU0ptlA" target="_blank" style="color: inherit;">
                                 Project 보러가기
                             </a>
                         </div>
@@ -622,7 +644,7 @@
                         </div>
                         <div class="flip-face flip-back">
                             <h3>핵심기술</h3>
-                            <p>HTML · CSS · JS</p>      
+                            <p>HTML · CSS · JS</p>
                         </div>
                     </div>
                 </div>
@@ -705,8 +727,8 @@
         </section>
     -->
     </main>
-
     <footer style="padding:28px 0;text-align:center;color:var(--muted)">© 2025 길상현</footer>
+</div>
     <!--
     <script>
         const themeBtn = document.getElementById('themeToggle');

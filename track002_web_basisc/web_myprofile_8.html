@@ -30,7 +30,7 @@
         }
 
         * {
-            
+
             box-sizing: border-box;
             margin: 0;
             padding: 0
@@ -42,15 +42,15 @@
             color: var(--panel);
             margin: 0 auto;
             line-height: 1.5;
-            max-width: 80%;
+            max-width: 100%;
         }
 
         .wrap {
-            
-            max-width : 80%;
-       /*   padding: 40px 0px ;*/
+
+            max-width: 1000px;
+            /*   padding: 40px 0px ;*/
             margin: 0 auto;
-            
+
         }
 
 
@@ -105,51 +105,53 @@
             cursor: pointer;
         }
 
-        /* hero */
-       /* Hero 섹션 전체 배경 */
-.hero {
-    min-height: 80vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 80px 20px;
+        /* Hero 이미지 및 카드 컨테이너 */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 20px;
+            background-image: url('./img/codeimg/은하수\(1\).jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.1s linear;
+            /* 스크롤에 맞춰 부드럽게 */
+        }
 
 
-    /* 배경 그림 적용 */
-    background-image: url('./img/codeimg/은하수\(1\).jpg'); /* 카드 밖 배경 이미지 */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
-}
 
-/* 카드에 반투명 배경 유지 */
-.hero-card {
-    width: 100%;
-    max-width: 960px;
-    border-radius: 18px;
-    padding: 60px 48px;
-    background: rgba(15, 23, 36, 0.6); /* 카드 내부 배경만 반투명 */
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    position: relative;
-    z-index: 1;
-}
+        /* 카드에 반투명 배경 유지 */
+        .hero-card {
+            width: 100%;
+            max-width: 960px;
+            border-radius: 18px;
+            padding: 60px 48px;
+            background: rgba(15, 23, 36, 0.6);
+            /* 카드 내부 배경만 반투명 */
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            position: relative;
+            z-index: 1;
+        }
 
-/* 텍스트 스타일 */
-.hero-title {
-    font-size: clamp(28px, 4vw, 44px);
-    font-weight: 800;
-    margin-bottom: 12px;
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.8));
-    -webkit-background-clip: text;
-    color: transparent;
-}
+        /* 텍스트 스타일 */
+        .hero-title {
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.8));
+            -webkit-background-clip: text;
+            color: transparent;
+        }
 
-.hero-sub {
-    opacity: 0.85;
-    font-size: 18px;
-}
+        .hero-sub {
+            opacity: 0.85;
+            font-size: 18px;
+        }
 
 
 
@@ -448,15 +450,34 @@
     <div class="top-controls">
         <button class="icon-btn" id="contrast" title="명함 프린트">🧾</button>
         <button class="icon-btn" id="download" title="이력서 다운로드">📄</button>
+        <!--
         <button class="btn" id="themeToggle">Light</button>
+        -->
     </div>
     <main class="wrap">
         <section id="hero" class="hero">
-    <div class="hero-card">
-        <div class="hero-title">길상현</div>
-        <div class="hero-sub">Fullstack Engineer · 제품 중심 개발자</div>
-    </div>
-</section>
+            <div class="hero-card">
+                <div class="hero-title">길상현</div>
+                <div class="hero-sub">Fullstack Engineer · 도전하는 개발자</div>
+            </div>
+            <script>
+                const hero = document.getElementById('hero');
+                const heroHeight = hero.offsetHeight;
+
+                window.addEventListener('scroll', () => {
+                    const scrollY = window.scrollY;
+
+                    // 스크롤 양을 0~1 사이 비율로 계산
+                    let progress = scrollY / heroHeight;
+                    if (progress > 1) progress = 1; // 최대 1
+
+                    // Hero 위로 이동 (px 단위)
+                    hero.style.transform = `translateY(-${progress * heroHeight}px)`;
+                });
+            </script>
+
+
+        </section>
 
 
 
@@ -469,13 +490,19 @@
                     <div class="role">Fullstack Engineer</div>
                     <div class="contact">
                         <span>📧 shgil0618@gmail.com</span>
-                        <span>🔗 github.com/shgil0618</span>
+                        <span>🔗
+                            <a href="https://github.com/shgil0618-glitch/fullstack_gsh.git" target="_blank"
+                                style="text-decoration: none; color: inherit;">
+                                github.com/shgil0618
+                            </a>
+                        </span>
                         <span>📍 Seoul, Korea</span>
                     </div>
-                    <div class="quote">제품의 문제를 깔끔하게 풀어내는 개발자</div>
+                    <div class="quote">끊임없이 도전하고 성장하는 풀스택 개발자</div>
                 </div>
             </div>
         </section>
+
 
 
         <section id="skills" class="block">
@@ -520,62 +547,79 @@
         <section id="career" class="block">
             <h2 class="section-title">Career</h2>
             <div class="timeline">
+
                 <div class="timeline-item">
-                    <h4>2023 — 현재 · 프론트엔드 엔지니어 · XYZ 스타트업</h4>
-                    <p>리액트 기반 SaaS 개발</p>
+                    <h4>2018 - 2024 | 컴퓨터공학부 정보통신학과</h4>
+                    <p>운영체제, 네트워크, 알고리즘 등 전공 지식을 기반으로 개발의 기초를 체계적으로 익힘</p>
                 </div>
+
                 <div class="timeline-item">
-                    <h4>2023 — 현재 · 프론트엔드 엔지니어 · XYZ 스타트업</h4>
-                    <p>리액트 기반 SaaS 개발</p>
+                    <h4>2022 - 2023 | 정보통신공학과 부학생회장</h4>
+                    <p>행사 기획과 학생 간 소통을 주도하며 리더십과 협업의 중요성에 대한 깊은 배움</p>
                 </div>
+
                 <div class="timeline-item right">
-                    <h4>2020 — 2023 · 웹 개발자 · ABC 테크</h4>
-                    <p>관리자 대시보드/데이터 시각화</p>
+                    <h4>2023 — 2024 | 코딩 동아리 활동</h4>
+                    <p>교과 외 프로젝트와 코드 리뷰를 통해 실무에 가까운 개발 방식에 대한 경험</p>
                 </div>
+
                 <div class="timeline-item right">
-                    <h4>2018 — 2020 · 백엔드 개발자 · DEF 회사</h4>
-                    <p>REST API 및 데이터베이스 설계</p>
+                    <h4>2024 — 2024 | SI기업 소프트웨어 유지보수</h4>
+                    <p>실제 자동화 설비 시스템을 다루며 문제 해결 중심의 유지보수 업무 경험</p>
                 </div>
+
+                <div class="timeline-item">
+                    <h4>2025 — 2026 | 풀스택 개발자 교육 이수</h4>
+                    <p>프론트엔드부터 백엔드까지 웹 개발 전반의 기술을 프로젝트 중심으로 체계적으로 습득</p>
+                </div>
+
             </div>
         </section>
-
-
         <section id="portfolio" class="block">
             <h2 class="section-title">Selected Projects</h2>
             <div class="project-grid">
                 <div class="flip-card">
                     <div class="flip-inner">
                         <div class="flip-face flip-front">
-                            <h3>Smart Scheduler</h3>
-                            <p class="project-desc">일정 관리 최적화 앱</p>
+                            <h3>Bank System - Control.Ver </h3>
+                            <p class="project-desc">기본적인 뱅크 시스템</p>
                         </div>
                         <div class="flip-face flip-back">
                             <h3>핵심기술</h3>
-                            <p>React · Node.js</p>
+                            <p>상태 기반 흐름 제어 · 로그인 및 인증 시스템 · 입출금 및 잔액 관리 로직 (분기 제어문, 조건문, 반복문)</p>
+                            <a href="https://youtu.be/M0sg6rhlKfI" target="_blank" style="color: inherit;">
+                                Project 보러가기
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="flip-card">
                     <div class="flip-inner">
                         <div class="flip-face flip-front">
-                            <h3>DataViz Dashboard</h3>
-                            <p class="project-desc">데이터 시각화 대시보드</p>
+                            <h3>Bank System - Array.Ver</h3>
+                            <p class="project-desc">주제와 배열을 추가한 뱅크시스템 기반의 레시피 추천</p>
                         </div>
                         <div class="flip-face flip-back">
                             <h3>핵심기술</h3>
-                            <p>D3.js · AWS</p>
+                            <p>상태 전이 기반 흐름 제어 · 2차원 배열 데이터 구조 · 조건문 기반 사용자 중심 결과 피드백 </p>
+                            <a href="https://youtu.be/HlCufIWsLj0" target="_blank" style="color: inherit;">
+                                Project 보러가기
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="flip-card">
                     <div class="flip-inner">
                         <div class="flip-face flip-front">
-                            <h3>Task Manager App</h3>
-                            <p class="project-desc">업무 관리 애플리케이션</p>
+                            <h3>Bank System - Method.Ver</h3>
+                            <p class="project-desc">SOLID기법을 활용한 코드 구조 추상화</p>
                         </div>
                         <div class="flip-face flip-back">
                             <h3>핵심기술</h3>
                             <p>React · Spring Boot</p>
+                            <a href="https://youtu.be/FZA7DU0ptlA" target="_blank" style="color: inherit;">
+                                Project 보러가기
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -594,24 +638,72 @@
                 <div class="flip-card">
                     <div class="flip-inner">
                         <div class="flip-face flip-front">
-                            <h3>Realtime Chat</h3>
-                            <p class="project-desc">실시간 채팅 애플리케이션</p>
+                            <h3></h3>
+                            <p class="project-desc"></p>
                         </div>
                         <div class="flip-face flip-back">
                             <h3>핵심기술</h3>
-                            <p>Socket.io · Node.js</p>
+                            <p></p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-
         <section id="contact" class="block">
             <h2 class="section-title"></h2>
             <div class="thanks">
-                <div style="font-size:18px;font-weight:700">길상현</div>
-                <div class="muted">Email · shgil0618@gmail.com</div>
+                <div style="font-size:18px;font-weight:700">Contact Me</div>
+                <div class="muted">문의나 협업 제안은 언제든 환영합니다!</div>
+
+                <form class="contact-form" onsubmit="sendEmail2(event)">
+                    <input type="text" id="name2" name="name" placeholder="이름" required>
+                    <input type="email" id="email2" name="email" placeholder="이메일" required>
+                    <textarea id="message2" name="message" placeholder="메시지" rows="5" required></textarea>
+                    <button type="submit">보내기</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- EmailJS Script -->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+        <script type="text/javascript">
+            (function () {
+                emailjs.init({
+                    publicKey: "7JSe1bOb2aHbwUnek",
+                });
+            })();
+
+            function sendEmail2(e) {
+                e.preventDefault();
+
+                var templateParams = {
+                    name: document.getElementById("name2").value,
+                    email: document.getElementById("email2").value,
+                    message: document.getElementById("message2").value,
+                    title: "No title" // 제목 입력란이 없으므로 기본값 설정
+                };
+
+                emailjs.send('shgil0618', 'template_92471ys', templateParams).then(
+                    (response) => {
+                        alert("메일이 성공적으로 전송되었습니다.");
+                        console.log('SUCCESS!', response.status, response.text);
+                    },
+                    (error) => {
+                        alert("메일 전송에 실패했습니다.");
+                        console.log('FAILED...', error);
+                    }
+                );
+            }
+        </script>
+
+
+        <!--
+        <section id="contact" class="block">
+            <h2 class="section-title"></h2>
+            <div class="thanks">
+                <div style="font-size:18px;font-weight:700">Contact Me</div>
+                <div class="muted">문의나 협업 제안은 언제든 환영합니다!</div>
                 <form class="contact-form" onsubmit="event.preventDefault(); alert('감사합니다!');">
                     <input type="text" placeholder="이름" required>
                     <input type="email" placeholder="이메일" required>
@@ -620,8 +712,11 @@
                 </form>
             </div>
         </section>
+    -->
     </main>
+
     <footer style="padding:28px 0;text-align:center;color:var(--muted)">© 2025 길상현</footer>
+    <!--
     <script>
         const themeBtn = document.getElementById('themeToggle');
         function setMode(mode) { if (mode === 'light') document.body.classList.add('light'); else document.body.classList.remove('light'); themeBtn.textContent = document.body.classList.contains('light') ? 'Dark' : 'Light'; }
@@ -631,6 +726,7 @@
         document.getElementById('download').addEventListener('click', () => { alert('이력서 다운로드!'); });
         document.getElementById('contrast').addEventListener('click', () => { alert('명함 인쇄 미리보기'); });
     </script>
+    -->
 </body>
 
 </html>
