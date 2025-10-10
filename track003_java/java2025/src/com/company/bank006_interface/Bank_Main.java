@@ -12,9 +12,9 @@ public class Bank_Main {
 	public Bank_Main() {
 		users      = new ArrayList<>();
 		controller = new Bank_Controller[]{
-			new Login(),     new Add(), new Show(),new Deposit(),new Withdraw(), new Delete() 
-			//controller[0]     1           2             3              4             5
-		};
+			new Login(),     new Add(), new Show(),new Deposit(),new Withdraw(), new Transfer(), new TransactionHistory(), new Delete() 
+			//controller[0]     1           2             3              4             5				6				7
+		};	
 	}
 	//멤버함수
 	public void menu() {
@@ -24,7 +24,7 @@ public class Bank_Main {
 		//입력 + 처리
 		while(num!=9) {
 			System.out.print("\n\n🌟💰 WELCOME TO BANK SYSTEM 💰🌟\n" + 
-		             "\n[1] ➕ 계좌 추가" + "\n[2] 🔍 계좌 조회" + "\n[3] 💵 입금하기" + "\n[4] 💸 출금하기" + "\n[5] 🗑️ 계좌 삭제  "
+		             "\n[1] ➕ 계좌 추가" + "\n[2] 🔍 계좌 조회" + "\n[3] 💵 입금하기" + "\n[4] 💸 출금하기" + "\n[5] 계좌 이체  " + "\n[6] 거래 내역" + "\n[7] 🗑️ 계좌 삭제"
 		             +"\n\n👉 번호를 선택하세요:");
 			
 			num = scanner.nextInt();
@@ -37,7 +37,7 @@ public class Bank_Main {
 			//  리턴값 메서드명 (파라미터)
 			//  int  exec(users, user번호)
 			
-			if(num>=2 && num<=5) {find = controller[0].exec(users, 0);
+			if(num>=2 && num<=7) {find = controller[0].exec(users, 0);
 				if(find == -1) {continue;}
 			}
 			controller[num].exec(users, find);
