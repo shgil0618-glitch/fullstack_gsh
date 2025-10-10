@@ -1,6 +1,6 @@
 package com.company.javaex_test;
 
-
+/*
 public class Repeat001_oop5 {
 	  public static void main(String[] args) {
 			Score_ver2[] std = new Score_ver2[3]; // std = {null, null, null}  std:  3개 객체의 주소묶음
@@ -18,3 +18,4 @@ public class Repeat001_oop5 {
 			// public  void show(Score_ver2[] std) {  }
 	  }
 }
+*/

@@ -2,11 +2,13 @@ package com.company.javaex_test;
 
 class Sawon005{  
 	   // (1)  인스턴스변수 , heap, new  O, 실체화, this 각각
-	   int pay      =10000;  
+	   int pay      =10000;
+	   
 	   // (2)  클래스변수  , method, new X, 공유      
 	   static int su=10;  
-	   // (3)  클래스(static)  인스턴스사용불가
-	   //static int basicpay=pay;  
+	   
+	   // (3)  클래스(static)  static에서는 인스턴스사용불가
+	   // static int basicpay=pay;  
 
 	   // (4)  클래스변수  , method, new X, 공유      
 	   static int basicpay2;
