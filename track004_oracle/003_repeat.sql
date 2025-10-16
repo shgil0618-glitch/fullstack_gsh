@@ -41,7 +41,7 @@ select * from emp where job in ('MANAGER','SALESMAN','CLERK');
 
 -- Ex7. EMP테이블에서 ENAME이 S로 시작하는 행
 select * from emp where ename like 'S%';
- 
+
 -- Ex8. EMP테이블에서 ENAME의 두번째 글자가 L인 행을 조회
 select * from emp where ename like '_L%';
  
