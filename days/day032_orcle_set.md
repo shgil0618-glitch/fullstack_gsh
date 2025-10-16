@@ -12,7 +12,7 @@
 3. 관계(Relationship) - 외래키   - 대상간의 연결 - 고객은 주문을 한다.
 
 #3.  데이터베이스 언어  ★
-1. 정의어(DDL) - CREATE(생성), ALTER(수정), DROP(삭제) --- CAD
+1. (DDL) - CREATE(생성), ALTER(수정), DROP(삭제) --- CAD
 2. 조작어(DML) - INSERT(삽입), SELECT(조회), UPDATE(수정), DELETE(지우기) --- CRUD
 3. 제어어(DCL) - GRANT, REVOKE
 
