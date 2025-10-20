@@ -1,4 +1,4 @@
-package com.company.java016_ex;
+package com.company.java016_repeat;
 import com.company.javaex_test.Score;
 import com.company.javaex_test.ScorePrint;
 import com.company.javaex_test.ScoreProcess;

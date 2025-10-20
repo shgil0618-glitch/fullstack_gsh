@@ -1,4 +1,4 @@
-package com.company.java016_ex;
+package com.company.java016_repeat;
 
 /*  
 1. 상속을 사용하는 이유는 재사용에 용이하게 만들기 위해서이다.

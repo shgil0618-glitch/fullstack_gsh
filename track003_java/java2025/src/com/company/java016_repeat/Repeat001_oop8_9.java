@@ -1,4 +1,4 @@
-package com.company.java016_ex;
+package com.company.java016_repeat;
 
 // abstract 과 interface 의 공통점과 차이점
 // 공통점 : 둘 다 객체의 설계를 정의하며, 인스턴스를 직접 만들 수 없음.

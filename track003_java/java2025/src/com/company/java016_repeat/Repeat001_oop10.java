@@ -1,4 +1,4 @@
-package com.company.java016_ex;
+package com.company.java016_repeat;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
