@@ -1,4 +1,4 @@
-package com.company.java016_ex;
+package com.company.java016_repeat;
 
 class Papa{  
 	int money = 10000;     

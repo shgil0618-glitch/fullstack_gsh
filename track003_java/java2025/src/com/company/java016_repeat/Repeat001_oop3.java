@@ -1,4 +1,4 @@
-package com.company.java016_ex;
+package com.company.java016_repeat;
 
 class Sawon005{  
 	   int pay      =10000;      
