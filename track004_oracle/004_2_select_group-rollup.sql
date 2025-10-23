@@ -254,23 +254,49 @@ GROUP BY DEPTNO;
 --EMP 테이블을 이용하여 다음과 같이 출력하시오.
 --부서번호(DEPTNO) , 평균급여(AVG_SAL) , 최고급여(MAX_SAL) , 최저급여(MIN_SAL) , 사원수(CNT) 를 조회하시오
 --평균급여를 출력시 소수점을 제외하고 각 부서번호별로 출력하시오.
+select deptno, round(avg(sal),0), max(sal), min(sal),count(deptno)
+from emp
+group by deptno;
 
 
 --Ex002
 --EMP 테이블을 이용하여 다음과 같이 출력하시오.
 --같은직책(JOB)에 종사하는 사원이 3명 이상인 직책과 인원수를 출력하시오.
-
+select job,count(*)
+from emp
+group by job
+having count(*)>=3;
 
 --Ex003
 --EMP 테이블을 이용하여 다음과 같이 출력하시오.
 --사원들의 입사년도(HIRE_YEAR)를 기준으로 부서별 몇명이 입사했는지 조회하시오.
+select TO_CHAR(hiredate, 'YYYY'), deptno,count(*)
+from emp
+group by TO_CHAR(hiredate, 'YYYY'),deptno
+order by TO_CHAR(hiredate, 'YYYY'),deptno;
+
+ 
 
 --Ex004
 --EMP 테이블을 이용하여 다음과 같이 출력하시오.
 --추가수당(COMM)을 받는 사원수와 받지않는 사원수를 조회하시오.
+select decode(comm,null,'x','o'),count(*)
+from emp
+group by decode(comm,null,'x','o')
+order by count(*) desc;
+
+select nvl2(comm,'o','x'), count(*)
+from emp
+group by nvl2(comm,'o','x');
+
+
 
 --Ex005
 --EMP 테이블을 이용하여 다음과 같이 출력하시오.
 --각 부서의 입사연도별 사원수, 최고급여, 급여합, 평균급여를 출력하고
 --각 부서별 소계와 총계를 출력하시오. (ROLLUP)
+select deptno,TO_CHAR(hiredate, 'YYYY'), count(*), max(sal), sum(sal), avg(sal)
+from emp
+group by rollup(deptno,TO_CHAR(hiredate, 'YYYY'));
+
 
