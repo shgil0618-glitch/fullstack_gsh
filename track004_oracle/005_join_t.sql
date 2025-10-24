@@ -10,6 +10,45 @@
 -- ERD : Entity(테이블) , Relationship(관계) , diagram(표)
 --       Entity(테이블) , Relationship(관계) , Attribute(속성)
 
+
+-- (0) 비표준
+select empno , ename, d.deptno, dname
+from emp e, dept d
+where e.deptno = d.deptno;
+group by
+having
+order by
+
+-- (1) JOIN ON      sqp-99 표쥰
+select empno , ename, d.deptno, dname
+from emp e join  dept d on (e.deptno = d.deptno);
+
+-- (2) JOIN USING       sqp-99 표쥰
+select empno , ename, deptno, dname
+from emp e join  dept d using (deptno);
+
+-- (3) NATURAL JOIN     sqp-99 표쥰
+select empno , ename, deptno, dname
+from emp e natural join  dept d;
+
+-- (4) (+) null 값 붙여줄게 - spl 99 이전
+select empno , ename, d.deptno, dname
+from emp e, dept d
+where e.deptno(+) = d.deptno;
+
+-- (5) RIGHT OUTER JOIN
+select empno , ename, d.deptno, dname
+from EMP E RIGHT OUTER JOIN DEPT D ON (e.deptno = d.deptno);
+
+-- (6) LEFT OUTER JOIN
+select empno , ename, d.deptno, dname
+from DEPT D LEFT OUTER JOIN EMP E ON (e.deptno = d.deptno);
+
+-- (7) FULL OUTER JOIN
+select empno , ename, d.deptno, dname
+from DEPT D FULL OUTER JOIN EMP E ON (e.deptno = d.deptno);
+
+
 -- #1. 내부조인 (등가조인)
 select *
 from   emp e, dept  d
@@ -431,7 +470,6 @@ order by d.deptno,e1.deptno;
 --SELECT   DEPTNO , DNAME, EMPNO, ENAME, MGR ,  SAL, DEPTNO_1, LOSAL, HISAL, GRADE, MGR_EMPNO, MGR_ENAME
 --FROM     EMP E1 , DEPT D ,  SALGRADE S, EMP E2
 --WHERE    JOIN의 조건  
-
 
 
 
