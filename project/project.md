@@ -1,3 +1,41 @@
+[설계]
+
+view
+    1. list.jsp
+    2. write.jsp
+    3. detail.jsp
+    4. deit.jsp
+    5. delete.jsp
+
+controller
+          1. frontcontroller
+         1-1. @WebServlet 개발용     *.do   , *.member , *.hj
+         1-2. web.xml     배포용
+         [com.thejoa703.controller] - MbtiController
+         ㄴ index.jsp
+            ㄴ [전체글보기] /list.do        ■  MbtiList          /          mbtiBoard/list.jsp
+            ㄴ [글쓰기폼  ] /writeView.do   □                    /         mbtiBoard/write.jsp
+            ㄴ [글쓰기기능]  /write.do      ■  MbtiInsert        / 알림창 +  list.do
+            ㄴ [상세보기 ]   /detail.do     ■  MbtiDetail       /          mbtiBoard/detail.jsp 
+            ㄴ [글수정폼  ]  /editView.do   ■  MbtiUpdateView   /          mbtiBoard/edit.jsp  
+            ㄴ [글수정기능]   /edit.do        ■  MbtiUpdate      /  알림창 +  mbtiBoard/detail.jsp 
+            ㄴ [글삭제폼  ]  /deleteView.do □                    /         mbtiBoard/delete.jsp   
+            ㄴ [글삭제기능]   /delete.do      ■  MbtiDelete      /  알림창 +  list.do
+      2. service 
+         [com.thejoa703.service] 
+         MbtiService <<interface>>
+            △....  MbtiList         데이터 x / selectAll()
+            △....  MbtiInsert       데이터 o / insert( PostDto dto )
+            △....  MbtiDetail       데이터 o / select(int id) , update_hit( int id )
+            △....  MbtiUpdateView   데이터 o / select(int id)
+            △....  MbtiUpdate       데이터 o /  update( PostDto dto )
+            △....  MbtiDelete       데이터 o /  update( PostDto dto )
+             
+
+
+
+
+-----------------------------------------------------------------
 ■ 전체컨셉 : MBTI 기반 성향 맞춤 플렛폼
 - 단계별 기술 확장
 
@@ -57,4 +95,6 @@
 ※주제 : 모바일 UX
  6. Flutter
  > 모바일용
+
+
 
