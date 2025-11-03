@@ -6,11 +6,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class MbtiEdit implements MbtiService {
+import com.thejoa703.dao.PostDao;
+
+public class MbtiList implements MbtiService {
 
 	@Override
 	public void exec(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+		// 1. 데이터 넘겨받기 x
+		// 2. 드커프리(PostDao)
+		PostDao dao = new PostDao();
+		// 3. 데이터 넘겨주기
+		request.setAttribute("list", dao.selectAll());
 
 	}
 
