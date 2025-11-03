@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.thejoa703.dto.ComuDto;
-import com.thejoa703.dto.PostDto;
+import com.thejoa703.dao.ComuDao;
 
 /*
 

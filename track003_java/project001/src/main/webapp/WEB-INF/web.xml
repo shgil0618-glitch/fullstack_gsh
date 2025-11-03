@@ -21,5 +21,16 @@
   <servlet-name>MbtiController</servlet-name>
   <url-pattern>*.do</url-pattern>
   </servlet-mapping>
+
+
+  <servlet>
+  <servlet-name>ComuController</servlet-name>
+  <servlet-class>com.thejoa703.controller.ComuController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>ComuController</servlet-name>
+  <url-pattern>*.co</url-pattern>
+  </servlet-mapping>
 </web-app>
 
