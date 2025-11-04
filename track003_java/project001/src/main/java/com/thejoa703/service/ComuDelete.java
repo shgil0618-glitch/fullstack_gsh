@@ -17,17 +17,15 @@ public class ComuDelete implements ComuService {
 	public void exec(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 
 		   request.setCharacterEncoding("UTF-8");
-		   int id = Integer.parseInt(request.getParameter("id"));
 		   int postId = Integer.parseInt(request.getParameter("postId"));
 		   
 		   //2.
 		   ComuDao dao = new ComuDao();
 		   ComuDto dto = new ComuDto();
-		   dto.setId(id);
 		   dto.setPostId(postId);
-		   
+
 		   // 3.
-		   request.setAttribute("id", postId);
+		   request.setAttribute("postId", postId);
 	       request.setAttribute("result", String.valueOf(dao.delete(dto)));
 		   
 	}

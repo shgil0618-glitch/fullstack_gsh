@@ -1,5 +1,6 @@
-<%@page import="com.thejoa703.dto.PostDto"%>
-<%@page import="com.thejoa703.dao.PostDao"%>
+<%@page import="com.thejoa703.dto.ComuDto"%>
+<%@page import="com.thejoa703.dao.ComuDao"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,29 +18,29 @@
    <div class="container card  my-5">
       <h3  class="card-header"> DAO TEST </h3>
 	  <pre class="alert alert_success">1. insert
-	  insert into post (id, app_user_id, title, content, pass)"
-        			+ "        values(post_seq.nextval, ?,?,?,?)
 	  </pre>
-	   <!-- 
- 	  %
-      PostDao dao = new PostDao();
-	  PostDto dto = new PostDto();
-	  dto.setAppuserid(1);
+
+ 	  <%-- <%
+      ComuDao dao = new ComuDao();
+	  ComuDto dto = new ComuDto();
+	  
 	  dto.setTitle("첫번째 글쓰기입니다.");
 	  dto.setContent("내용");
-	  dto.setPass("1111");
-	  out.println(dao.insert(dto));	
-	  %>
-	  -->
+	  dto.setCategoryId(1);
+	  dto.setId(1);
+	  out.println(dao.insert(dto));
+
+	  %> --%>
+	  
 	 
 	  <pre class="alert alert-success">
 	  2. select all
 	  </pre>
-<%--   
-	  <%
-	  PostDao dao = new PostDao();
+   
+	  <%-- <%
+	  ComuDao dao = new ComuDao();
 	  out.println(dao.selectAll());
-	  %> --%>
+	  %>  --%>
 	 
 
 	  
@@ -48,27 +49,30 @@
 	  3. select
 	  </pre>
 	
-	  <%
-	  PostDao dao = new PostDao();
-	  out.println(dao.update_hit(3));
-	  out.println(dao.select(3));
-	  %>
+	 <%-- <%
+	  ComuDao dao = new ComuDao();
+	  out.println(dao.update_views(1));
+	  out.println(dao.select(1));
+	  %>  --%>
  
 	  
 	  <pre class="alert alert-success">
 	  3. update
 	  </pre>
- <!--  
-	  %
-	  PostDao dao = new PostDao();
-	  PostDto dto = new PostDto();
+  
+	 <%--  <%
+	  ComuDao dao = new ComuDao();
+	  ComuDto dto = new ComuDto();
 	  dto.setTitle("첫번째 글쓰기입니다.new");
 	  dto.setContent("내용-new");
-	  dto.setPass("1111");
-	  dto.setId(6);
+	  dto.setCategoryId(2);
+	  dto.setPostId(1);
+	  dto.setId(1);
 	  out.println(dao.update(dto));
-		%>
-		-->
+	 %>  --%>
+		
+
+		
 		
 
 
@@ -76,13 +80,13 @@
 	   <pre class="alert alert-success">
 	  4. delete
 	  </pre>
-	  <%-- <%
-	  PostDao dao = new PostDao();
-	  PostDto dto = new PostDto();
-	  dto.setId(2);
-	  dto.setPass("1111");
+	 <%-- <%
+	 ComuDao dao = new ComuDao();
+	 ComuDto dto = new ComuDto();
+	  dto.setPostId(1);
+	  dto.setId(1);
 	  out.println(dao.delete(dto));
-	  %> --%>
+	  %>  --%> 
 
 	  
    </div>

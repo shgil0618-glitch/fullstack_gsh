@@ -1,73 +1,51 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<%-- <%@include file="../inc/header.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="../inc/header.jsp" %>
 
-   <div class="container card  my-5 p-4">
-      <h3 class="card-header"> MBTI BOARD</h3> 
- 					한개			향상된 for 게시판리스트
-	  <c:forEach  var="변수명"  items="서버에서넘겨받은값"  varStatus="status">
-      </c:forEach>    
+<div class="container my-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">커뮤니티 게시판</h4>
+            <a href="writeView.co" class="btn btn-light btn-sm">글쓰기</a>
+        </div>
 
-      
-      <table class="table table-striped table-bordered table-hover">
-      	<caption>mbti </caption>
-      	<thead>
-      		<tr>
-      			<th scope="col">NO</th>
-      			<th scope="col">TITLE</th>
-      			<th scope="col">NAME</th>
-      			<th scope="col">DATE</th>
-      			<th scope="col">HIT</th>
-      		</tr>	
-      	</thead>
-      	<tbody> 
-	      	<c:forEach  var="dto"  items="${list}"  varStatus="status">
-	      		<tr>	
-	      			<td>${ list.size() - status.index }</td>
-	      			<td>
-	      				<a href="<%=request.getContextPath()%>/detail.do?id=${dto.id}">
-	      					${dto.title}
-	      				</a>
-	      			</td>
-	      			<td>${dto.email}</td>
-	      			<td>${dto.createdAt}</td>
-	      			<td>${dto.hit}</td>
-	      		</tr>
-	      	</c:forEach>
-      	</tbody>
-      </table>
-	  <p class="text-end"><a href="<%=request.getContextPath()%>/writeView.do" class="btn btn-primary">글쓰기</a></p>	
-   </div>
-   
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle text-center mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col" style="width: 7%">번호</th>
+                        <th scope="col" style="width: 30%">제목</th>
+                        <th scope="col" style="width: 15%">작성자</th>
+                        <th scope="col" style="width: 15%">카테고리</th>
+                        <th scope="col" style="width: 10%">조회수</th>
+                        <th scope="col" style="width: 20%">작성일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="dto" items="${list}">
+                        <tr>
+                            <td>${dto.postId}</td>
+                            <td class="text-start ps-3">
+                                <a href="<%=request.getContextPath()%>/detail.co?postId=${dto.postId}" 
+                                   class="text-decoration-none fw-semibold text-dark">
+                                    ${dto.title}
+                                </a>
+                            </td>
+                            <td>${dto.id}</td>
+                            <td>${dto.categoryId}</td>
+                            <td>${dto.views}</td>
+                            <td>${dto.createdAt}</td>
+                        </tr>
+                    </c:forEach>
+                    <c:if test="${empty list}">
+                        <tr>
+                            <td colspan="6" class="text-muted py-4">등록된 게시글이 없습니다.</td>
+                        </tr>
+                    </c:if>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 <%@include file="../inc/footer.jsp" %>
- --%>
-<!-- [ mbtiBoard - list.jsp ]  -->
-
-<%@ page import="java.util.*, com.thejoa703.dto.ComuDto" %>
-
-<h2>커뮤니티 게시판</h2>
-<a href="writeView.co">글쓰기</a>
-<table border="1">
-    <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>카테고리</th>
-        <th>조회수</th>
-        <th>작성일</th>
-    </tr>
-    <%
-        ArrayList<ComuDto> list = (ArrayList<ComuDto>) request.getAttribute("list");
-        for(ComuDto dto : list){
-    %>
-    <tr>
-        <td><%= dto.getPostId() %></td>
-        <td><a href="detail.co?PostId=<%= dto.getPostId() %>"><%= dto.getTitle() %></a></td>
-        <td><%= dto.getId() %></td>
-        <td><%= dto.getCategoryId() %></td>
-        <td><%= dto.getViews() %></td>
-        <td><%= dto.getCreatedAt() %></td>
-    </tr>
-    <% } %>
-</table>

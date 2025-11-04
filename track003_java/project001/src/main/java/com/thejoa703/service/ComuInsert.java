@@ -24,10 +24,19 @@ public class ComuInsert implements ComuService {
 		 * pstmt.setString(3, dto.getContent()); pstmt.setInt(4, dto.getCategoryId());
 		 */
 		HttpSession session = request.getSession();
-		int id = (Integer)session.getAttribute("id");
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+		 // 
+			/*
+			 * if (session == null || session.getAttribute("id") == null) {
+			 * response.setContentType("text/html; charset=UTF-8"); response.getWriter().
+			 * println("<script>alert('로그인이 필요합니다.'); location.href='/login.jsp';</script>"
+			 * ); return; }
+			 */
+		
+			/* int id = (Integer)session.getAttribute("id"); */ 
+			int id = Integer.parseInt(request.getParameter("id"));
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 		
 		// 2. 디커프리(PostDao) db처리
 		ComuDao dao = new ComuDao();

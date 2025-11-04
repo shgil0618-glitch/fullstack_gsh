@@ -18,7 +18,7 @@ public class ComuEditView implements ComuService {
 		// 2. 드커프리
 		ComuDao dao = new ComuDao();
 		// 3. 데이터 넘겨받기
-		request.setAttribute("dao", dao.select(postId));
+		request.setAttribute("dto", dao.select(postId));
 
 	}
 

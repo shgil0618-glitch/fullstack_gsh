@@ -25,7 +25,7 @@ public class ComuDtail implements ComuService {
 		System.out.println("....." + result);
 		// 3. 데이터 넘겨주기
 		request.setAttribute("dto", result);
-		request.getRequestDispatcher("MBTIboard/comudetail.jsp").forward(request, response);
+		request.getRequestDispatcher("COMUboard/detail.jsp").forward(request, response);
 	}
 
 }

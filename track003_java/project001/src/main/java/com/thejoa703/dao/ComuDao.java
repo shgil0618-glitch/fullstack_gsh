@@ -10,74 +10,7 @@ import java.util.ArrayList;
 import com.thejoa703.dto.ComuDto;
 import com.thejoa703.dao.ComuDao;
 
-/*
 
-CREATE TABLE COMMUNITY_TB (
-    postId      NUMBER(8) PRIMARY KEY,      -- 게시글 ID
-    id      number(30) NOT NULL,      -- 작성자
-    title        VARCHAR2(200) NOT NULL,    -- 제목
-    content      CLOB NOT NULL,             -- 본문
-    categoryId  NUMBER(3) NOT NULL,           -- 카테고리 번호
-    views        NUMBER(6) DEFAULT 0,       -- 조회수
-    createdAt   DATE DEFAULT SYSDATE,       -- 작성일
-    updatedAt   DATE,                       -- 수정일
-    FOREIGN KEY (id) REFERENCES users(id),
-    FOREIGN KEY (categoryId) REFERENCES CATEGORY_TB(categoryId)
-);
-
-view
-    1. list.jsp
-    2. write.jsp
-    3. detail.jsp
-    4. edit.jsp
-    5. delete.jsp
-
-controller
-    1. frontcontroller
-        1-1. @webservlet 개발용     *.do, *.member, *.gsh
-        1-2. web.xml     배포용           
-        [com.thejoa703.controller] - MbtiController
-        ㄴ index.jsp
-            ㄴ [전체글보기]/MBTIboard/list.do           ■ MbtiList /           MbTIBoard/list.jsp
-            ㄴ [글쓰기폼]/MBTIboard/writeView.do        □           /         MbTIBoard/write.jsp
-            ㄴ [글쓰기기능]/MBTIboard/write.do          ■ MbtiInsert /알림창 + list.do
-            ㄴ [상세보기]/MBTIboard/detail.do           ■ MbtiDetail /        MbTIBoard/detail.jsp
-            ㄴ [글수정폼]/MBTIboard/editView.do         ■ MbtiUpdateView /    MbTIBoard/edit.jsp
-            ㄴ [글수정기능]/MBTIboard/edit.do           ■ MbtiUpdate /알림창 + MbTIBoard/detail.jsp
-            ㄴ [글수정폼]/MBTIboard/deleteView.do       □           /         MbTIBoard/delete.jsp
-            ㄴ [글수정삭제]/MBTIboard/delete.do         ■ MbtiDelete /알림창 + list.do
-            
-        1-1. frontcontroller web.xml	[com.thejoa703.controller] - MbtiController
-        1-2. view 연결확인
-
-    2. service
-        [com.thejoa703.service]
-        MbtiService <<interface>>
-            △... MbtiList			데이터 x / dao.selectAll()
-            △... MbtiInsert			데이터 o / selectAll() / insert(PostDto dto)
-            △... MbtiDetail			데이터 o / insert(int id) , update_hit(int id)
-            △... MbtiUpdateview		데이터 o / select(int id)
-            △... MbtiUpdate			데이터 o / update(PostDto dto)
-            △... MbtiDelete			데이터 o / update(PostDto dto)
-            
-C : 게시글 작성	(comInsert.jsp)			
-R : 게시글 보기	(comlist.jsp)		
-				(comdetail.jsp)
-U : 게시글 수정	(comupdate.jsp)
-D : 게시글 삭제	(comdelete.jsp)
-
-  ㄴ [전체글보기]/MBTIboard/list.do           ■ ComList /           MbTIBoard/list.jsp
-            ㄴ [글쓰기폼]/MBTIboard/ComwriteView.do        □           /         MbTIBoard/write.jsp
-            ㄴ [글쓰기기능]/MBTIboard/Comwrite.do          ■ ComInsert /알림창 + list.do
-            ㄴ [상세보기]/MBTIboard/Comdetail.do           ■ ComDetail /        MbTIBoard/detail.jsp
-            ㄴ [글수정폼]/MBTIboard/ComeditView.do         ■ ComUpdateView /    MbTIBoard/edit.jsp
-            ㄴ [글수정기능]/MBTIboard/Comedit.do           ■ ComiUpdate /알림창 + MbTIBoard/detail.jsp
-            ㄴ [글수정폼]/MBTIboard/ComdeleteView.do       □           /         MbTIBoard/delete.jsp
-            ㄴ [글수정삭제]/MBTIboard/Comdelete.do         ■ ComDelete /알림창 + list.do
-
-controller
-1. frontcontroller
-*/ 
  
 public class ComuDao {
 
@@ -93,10 +26,17 @@ public class ComuDao {
 	 * NUMBER(3) NOT NULL, -- 카테고리 번호 views NUMBER(6) DEFAULT 0, -- 조회수 createdAt
 	 * DATE DEFAULT SYSDATE, -- 작성일 updatedAt DATE, -- 수정일
 	 */
+	
+		//    postId      NUMBER(8) PRIMARY KEY,      -- 게시글 ID
+		//    id           NUMBER(30) NOT NULL,      -- 작성자
+		//    title        VARCHAR2(200) NOT NULL,    -- 제목
+		//    content      CLOB NOT NULL,             -- 본문
+		//    categoryId  NUMBER(3) NOT NULL,           -- 카테고리 번호
+	
 	 public int insert(ComuDto dto){
      	int result = -1;
-     	String sql = "insert into Comu (postId, id, title, content, categoryId, createdAt)"
-     			+ "        values(post_seq.nextval, ?,?,?,?,sysdate)";
+     	String sql = "insert into COMMUNITY_TB (postId, id, title, content, categoryId)"
+     			+ " values(COMMUNITY_TB_seq.nextval,?,?,?,?)";
      	//String sql = "select * from dept where deptno=?";
      	
      	Connection conn = null; PreparedStatement pstmt = null; ResultSet rset=null;
@@ -138,7 +78,7 @@ public class ComuDao {
 	 public  ArrayList<ComuDto> selectAll(){
          ArrayList<ComuDto> result = new ArrayList<>();
          String sql = " SELECT      *     "
-                    + " FROM      Comu ";
+                    + " FROM      COMMUNITY_TB " + "ORDER BY postId DESC";
          // 드 커 프 리
          Connection conn = null; PreparedStatement pstmt = null;  ResultSet rset = null;
          String driver="oracle.jdbc.driver.OracleDriver";
@@ -188,7 +128,7 @@ public class ComuDao {
 
 	 public ComuDto select(int postId){
 		 ComuDto result = new ComuDto();
-		 String sql = "select * from Comu where postId=?";
+		 String sql = "select * from COMMUNITY_TB where postId=?";
 		        	// 드 커 프 리
 		 Connection conn = null; PreparedStatement pstmt = null; ResultSet rset=null;
 		 String driver ="oracle.jdbc.driver.OracleDriver";
@@ -231,7 +171,7 @@ public class ComuDao {
 		        
 		 public int update_views(int postId){
 		 int result = -1;
-		 String sql = "update Comu set views = views+1 where postId=?";
+		 String sql = "update COMMUNITY_TB set views = views+1 where postId=?";
 		 // 드 커 프 리
 		 Connection conn = null; PreparedStatement pstmt = null; ResultSet rset=null;
 		 String driver ="oracle.jdbc.driver.OracleDriver";
@@ -267,7 +207,7 @@ public class ComuDao {
 //4. 글수정하기 sql
 		 public int update(ComuDto dto){			//매개변수 많은면 dto 받아!
 			 int result = -1;
-			 String sql = "update Comu set title=?, content=?, categoryId=? where postId=? and id=?";
+			 String sql = "update COMMUNITY_TB set title=?, content=?, categoryId=? where postId=? and id=?";
 			 // 드 커 프 리
 			 Connection conn = null; PreparedStatement pstmt = null; ResultSet rset=null;
 			 String driver ="oracle.jdbc.driver.OracleDriver";
@@ -305,7 +245,7 @@ public class ComuDao {
 //5. 글번호 해당하는 삭제
 		 public int delete(ComuDto dto){			//매개변수 많은면 dto 받아!
 			 int result = -1;
-			 String sql = "delete from Comu where postId=? and id =?";
+			 String sql = "delete from COMMUNITY_TB where postId=?";
 			 // 드 커 프 리
 			 Connection conn = null; PreparedStatement pstmt = null; ResultSet rset=null;
 			 String driver ="oracle.jdbc.driver.OracleDriver";
@@ -321,7 +261,6 @@ public class ComuDao {
 			 	//3. pstmt
 			 	pstmt = conn.prepareStatement(sql);
 			 	pstmt.setInt(1, dto.getPostId());
-			 	pstmt.setInt(2, dto.getId());
 			 	//4. result
 			 	if(pstmt.executeUpdate()>0) {result=1;} 
 			 	
@@ -334,7 +273,5 @@ public class ComuDao {
 			 }
 			 return result;
 			  }
-		 
-		 
-	
+
 }

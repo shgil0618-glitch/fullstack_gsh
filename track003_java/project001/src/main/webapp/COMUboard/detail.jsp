@@ -1,59 +1,50 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<%-- <%@include file="../inc/header.jsp" %> 
-   <div class="container card  my-5 p-4">
-      <h3 class="card-header"> MBTI 글상세보기</h3>
-	  <div> 
-	      <input type="hidden"   name="app_user_id"  value=""> 
-		  <div class="mb-3 mt-3">
-		    <label for="hit" class="form-label">조회수</label>
-		    <input type="text" class="form-control" id="hit" name="hit"  readonly   value="${dto.hit}">
-		  </div> 
-		  <div class="mb-3 mt-3">
-		    <label for="title" class="form-label">TITLE:</label>
-		    <input type="text" class="form-control" id="title" 
-		    		placeholder="내용을 입력해주세요" name="title"  readonly  value="${dto.title}">
-		  </div>  
-		  <div class="mb-3">
-		    <label for="content" class="form-label">CONTENT:</label>
-		    <textarea class="form-control" id="content" placeholder="내용을 입력해주세요"   
-		    	readonly name="content">${dto.content}</textarea>
-		  </div> 
-		  <div class="mb-3">
-		  	<a href="<%=request.getContextPath()%>/editView.do?id=${dto.id}" class="btn btn-success form-control">글수정</a>
-		  </div>
-		  <div class="mb-3">
-		  	<a href="<%=request.getContextPath()%>/deleteView.do?id=${dto.id}" class="btn btn-secondary form-control">글삭제</a>
-		  </div>
-		  <div class="mb-3">
-		  	<a href="<%=request.getContextPath()%>/list.do" class="btn btn-primary form-control">목록보기</a>
-		  </div>
-	 </div>
-   </div> 
-<%@include file="../inc/footer.jsp" %> --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="../inc/header.jsp" %>
 
-<!-- [ mbtiBoard - list.jsp ]  -->
+<div class="container my-5">
+    <div class="card shadow border-0">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">게시글 상세보기</h4>
+        </div>
 
+        <div class="card-body">
+            <table class="table table-borderless">
+                <tr>
+                    <th style="width: 120px;">제목</th>
+                    <td>${dto.title}</td>
+                </tr>
+                <tr>
+                    <th>작성자</th>
+                    <td>${dto.id}</td>
+                </tr>
+                <tr>
+                    <th>카테고리</th>
+                    <td>${dto.categoryId}</td>
+                </tr>
+                <tr>
+                    <th>조회수</th>
+                    <td>${dto.views}</td>
+                </tr>
+                <tr>
+                    <th>작성일</th>
+                    <td>${dto.createdAt}</td>
+                </tr>
+                <tr>
+                    <th>내용</th>
+                    <td class="border rounded p-3" style="white-space: pre-line;">
+                        ${dto.content}
+                    </td>
+                </tr>
+            </table>
 
-
-<%@ page import="com.thejoa703.dto.ComuDto" %>
-<%@include file="../inc/header.jsp" %> 
-
-<%
-    ComuDto dto = (ComuDto) request.getAttribute("dto");
-%>
-
-<h2>게시글 상세보기</h2>
-<p>제목: <%= dto.getTitle() %></p>
-<p>작성자: <%= dto.getId() %></p>
-<p>카테고리: <%= dto.getCategoryId() %></p>
-<p>조회수: <%= dto.getViews() %></p>
-<p>작성일: <%= dto.getCreatedAt() %></p>
-<p>내용: <br/> <%= dto.getContent() %></p>
-
-<a href="editView.co?PostId=<%= dto.getPostId() %>">수정</a> |
-<a href="deleteView.co?PostId=<%= dto.getPostId() %>">삭제</a> |
-<a href="list.co">목록</a>
+            <div class="mb-3 text-end">
+                <a href="<%=request.getContextPath()%>/editView.co?postId=${dto.postId}" class="btn btn-success">게시글 수정</a>
+                <a href="<%=request.getContextPath()%>/delete.co?postId=${dto.postId}" class="btn btn-danger">게시글 삭제</a>
+                <a href="list.co" class="btn btn-secondary">목록</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <%@include file="../inc/footer.jsp" %>

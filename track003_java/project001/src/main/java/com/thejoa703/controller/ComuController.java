@@ -17,7 +17,8 @@ import com.thejoa703.service.ComuList;
 import com.thejoa703.service.ComuService;
 
 
-public class ComuController {
+
+public class ComuController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
     
     /**
@@ -53,7 +54,9 @@ public class ComuController {
 ///////////////////////////////////////////////////////
 		if(path.equals("/list.co")) {
 			// ■ MbtiList - 데이터 받고 처리 /         MBTIboard/list.jsp
+			System.out.println("[Controller] /list.co 요청 받음");
 			service = new ComuList();  service.exec(request, response);
+			 System.out.println("[Controller] list 조회 완료 → JSP 포워딩");
 			request.getRequestDispatcher("COMUboard/list.jsp").forward(request, response);
 ///////////////////////////////////////////////////////
 		} else if(path.equals("/writeView.co")) {
@@ -75,6 +78,7 @@ public class ComuController {
 		} else if(path.equals("/detail.co")) {
 			//■ MbtiDetail /        MbTIBoard/detail.jsp
 			service = new ComuDtail();  service.exec(request, response);
+			request.getRequestDispatcher("COMUboard/detail.jsp").forward(request, response);
 ///////////////////////////////////////////////////////			
 		} else if(path.equals("/editView.co")) {
 			//■ MbtiUpdateView /    MbTIBoard/edit.jsp
@@ -83,11 +87,11 @@ public class ComuController {
 		} else if(path.equals("/edit.co")) {
 			//■ MbtiUpdate /알림창 + MbTIBoard/detail.jsp
 			service = new ComuEdit();  service.exec(request, response);
-			int PostId = Integer.parseInt(request.getParameter("PostId"));
-			System.out.println(PostId);
+			int postId = Integer.parseInt(request.getParameter("postId"));
+			System.out.println(postId);
 			String result = (String)request.getAttribute("result");
 			if(result.equals("1")) {
-			out.println("<script>alert('글수정에 성공했습니다.'); location.href='detail.co?PostId="+request.getParameter("PostId")+"';</script>");
+			out.println("<script>alert('글수정에 성공했습니다.'); location.href='detail.co?postId="+request.getParameter("postId")+"';</script>");
 			}else {
 				out.println("<script>alert('아이디를 확인해주세요.'); history.go(-1);'</script>");
 			}
@@ -98,7 +102,14 @@ public class ComuController {
 		} else if(path.equals("/delete.co")) {
 			//■ MbtiDelete /알림창 + list.do
 			service = new ComuDelete();  service.exec(request, response);
-			out.println("<script>alert('글삭제에 성공했습니다.'); location.href='list.co';</script>");
+			int postId = Integer.parseInt(request.getParameter("postId"));
+			System.out.println(postId);
+			String result = (String) request.getAttribute("result");
+			if(result.equals("1")) {
+				 out.println("<script>alert('글삭제에 성공했습니다.'); location.href='list.co'; </script>");
+				 } else {
+					 out.println("<script>alert('아이디를 확인해주세요.'); history.go(-1) </script>");
+				 }
 		}
 		
 		}

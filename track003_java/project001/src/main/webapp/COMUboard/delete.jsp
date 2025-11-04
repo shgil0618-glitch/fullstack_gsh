@@ -1,23 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@include file="../inc/header.jsp" %>
 
+<%@include file="../inc/header.jsp" %>
 <%@ page import="com.thejoa703.dto.ComuDto" %>
 
-<%
-    ComuDto dto = (ComuDto) request.getAttribute("dto");
-%>
+     <div class="container card  my-5 p-4 ">
+      <h3 class="card-header"> 커뮤니티 글삭제</</h3>
+	  <form action="<%=request.getContextPath()%>/delete.co"  method="post"> 
+      	<input type="hidden" name="postId" value="${dto.postId}">
+		  <div class="my-3">
+		    <label for="id" class="form-label">ID:</label>
+		    <input type="id" class="form-control" 
+		    	id="id"  placeholder="아이디를 입력해주세요" name="id" >
+		  </div> 
+		  <div class="my-3  text-end">
+		  	<button type="submit" class="btn btn-primary">글삭제</button>
+		  	<a href="javascript:history.go(-1)"  class="btn btn-danger">BACK</a>
+		  </div>
+	 </form>
+   </div>
 
-<h2>게시글 삭제</h2>
-<p>정말 게시글 "<%= dto.getTitle() %>"을 삭제하시겠습니까?</p>
-<form action="delete.co" method="post">
-    <input type="hidden" name="PostId" value="<%= dto.getPostId() %>">
-    <input type="hidden" name="id" value="<%= dto.getId() %>">
-    <input type="submit" value="삭제">
-</form>
-<a href="detail.co?PostId=<%= dto.getPostId() %>">취소</a>
 <%@include file="../inc/footer.jsp" %>
-
-<!-- [ mbtiBoard - list.jsp ]  -->
-
