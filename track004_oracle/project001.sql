@@ -108,6 +108,7 @@ INSERT INTO users (id, password, nickname, email, mobile)
 VALUES (5, '5555', '테스트유저5', 'test5@example.com', '010-1234-8766');
 
 commit;
+
 SELECT postId, id, title, content, categoryId, views, createdAt FROM COMMUNITY_TB;
 select * from users;
 select * from COMMUNITY_TB;

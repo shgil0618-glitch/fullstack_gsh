@@ -1,3 +1,8 @@
+create table mbtitype(
+ MBTI_TYPE_ID  NUMBER(3) NOT NULL,
+ NAME VARCHAR2(10),
+ DESCRIPTION VARCHAR2(100)
+);
 
 
 -- 제약조건
@@ -26,6 +31,8 @@ CREATE  TABLE  DEPT_FK(
     DEPTNO  NUMBER        PRIMARY KEY,   
     DNAME   VARCHAR2(50)
 );
+
+select * from post;
 
 
 
