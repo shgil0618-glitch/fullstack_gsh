@@ -26,7 +26,7 @@ public class mbtiDao {
  		String driver ="oracle.jdbc.driver.OracleDriver";
  		String url = "jdbc:oracle:thin:@localhost:1521:xe";
  		String user = "scott", pass ="tiger";
- 		
+	 }
      	
 	
 	
@@ -43,7 +43,7 @@ public class mbtiDao {
          String    url="jdbc:oracle:thin:@localhost:1521:xe";
          String   user="scott" , pass="tiger";
          	
-	
+	 }
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //3. [상세보기]글번호 해당하는 글가져오기 sql :  
@@ -75,7 +75,7 @@ public class mbtiDao {
 			 String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			 String user = "scott", pass ="tiger";
 
-			 
+		 }
 	
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -90,5 +90,5 @@ public class mbtiDao {
 			 String user = "scott", pass ="tiger";
 
 			 
-
+		 }
 }
