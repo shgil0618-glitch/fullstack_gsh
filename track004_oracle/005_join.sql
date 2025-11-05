@@ -9,6 +9,8 @@
 -- ERD : Entity(테이블), Relationship(관계), Diagram(표)
 -- 특징 : Entity(테이블), Relationship(관계), Attribute(속성)
 
+
+
 -- #1. 등가조인
 select *
 from emp e, dept d

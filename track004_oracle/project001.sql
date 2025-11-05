@@ -54,6 +54,7 @@ CREATE TABLE COMMUNITY_TB (
 
 drop table COMMUNITY_TB;
 select * from COMMUNITY_TB;
+delete COMMUNITY_TB;
 
 CREATE TABLE COMMUNITY_TB (
     postId      NUMBER(8) PRIMARY KEY,      -- 게시글 ID
@@ -69,7 +70,12 @@ CREATE TABLE COMMUNITY_TB (
     FOREIGN KEY (categoryId) REFERENCES CATEGORY_TB(categoryId)
 );
 
+delete  COMMUNITY_TB;
+select * from COMMUNITY_TB;
+commit;
+
 create sequence COMMUNITY_TB_seq;
+
 
 
 INSERT INTO COMMUNITY_TB (
