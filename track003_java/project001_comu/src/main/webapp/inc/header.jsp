@@ -1,15 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-
-<!-- Bootstrap CSS/JS는 기존과 동일 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Header 영역 -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <title>PROJECT1 메뉴추천</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+  .fakeimg {
+    height: 200px;
+    background: #aaa;
+  }
+  </style>
+</head>
+<body>
 <div class="p-4 bg-primary text-white text-center">
-    <h1>🍽 PROJECT1 메뉴 추천</h1>
-    <p>AI 맞춤 추천과 다양한 레시피를 한 눈에!</p>
+    <h1>🍽오늘 뭐 먹지?🍽</h1>
+    <p>사용자 맞춤 추천과 다양한 레시피를 한 눈에!</p>
 </div>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -71,11 +81,16 @@
             String email = (String)session.getAttribute("email");  
             Integer sid = (Integer)session.getAttribute("APP_USER_ID"); 
             if(email != null){ %>
-              <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/member/mypage.jsp?APP_USER_ID=<%=sid%>">
-                  <%=email%>
-                </a>
-              </li>
+            <li class="nav-item dropdown">
+          		<a class="nav-link dropdown-toggle" href="#" role="button" 
+            		 data-bs-toggle="dropdown"><%=email%></a>
+         		 <ul class="dropdown-menu">
+            		<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member/mypage.jsp?APP_USER_ID=<%=sid%>">마이페이지</a></li>
+            		<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member/mypage.jsp?APP_USER_ID=<%=sid%>">프로필 설정</a></li>
+            		<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member/mypage.jsp?APP_USER_ID=<%=sid%>">알림 설정</a></li>
+            		<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member/mypage.jsp?APP_USER_ID=<%=sid%>">계정 관리</a></li>
+          		</ul>
+       		 </li>
               <li class="nav-item">
                 <a class="nav-link" href="<%=request.getContextPath()%>/member/logout.jsp">로그아웃</a>
               </li>
