@@ -5,6 +5,7 @@ create table mbtitype(
 );
 
 
+
 -- 제약조건
 1. not null null 입력 금지
 2. unique        중복금지, null 금지

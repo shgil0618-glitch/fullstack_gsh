@@ -1,4 +1,18 @@
        
+  
+CREATE TABLE users (
+    APPUSERID   VARCHAR2(30)     PRIMARY KEY,           
+    PASSWORD    VARCHAR2(100)    NOT NULL,              
+    NICKNAME    VARCHAR2(50)     NOT NULL,               
+    EMAIL       VARCHAR2(100)    UNIQUE,                  
+    MOBILE      VARCHAR2(20)    UNIQUE,                   
+    JOINDATE   DATE            DEFAULT SYSDATE               -
+);
+
+drop table users;
+drop table  
+select * from users;     
+       
 create sequence post_seq;
 create table post (
 			ID                                       NUMBER  NOT NULL ,
