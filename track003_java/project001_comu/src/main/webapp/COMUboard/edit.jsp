@@ -8,11 +8,12 @@
   <form action="${pageContext.request.contextPath}/edit.co" method="post">
     <!-- 글번호 -->
     <input type="hidden" name="postId" value="${dto.postId}">
+    <input type="hidden" name="id" value="${dto.id}">
 
     <!-- 작성자 -->
     <div class="mb-3 mt-3">
-      <label for="id" class="form-label">작성자 ID:</label>
-      <input type="text" class="form-control" id="id" name="id" value="${dto.id}"  readonly>
+      <label for="nickname" class="form-label">작성자</label>
+      <input type="text" class="form-control" id="nickname" name="nickname" value="${dto.nickname}"  readonly>
     </div>
 
     <!-- 제목 -->

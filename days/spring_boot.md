@@ -219,7 +219,78 @@ DI : 각 클래스간의 의존관계
    </dependency>
    <!-- HikariCP -->
    <!-- HikariCP -->
-   <!-- HikariCP -->          
+   <!-- HikariCP -->        
+
+
+      
+  <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-webmvc</artifactId>
+    <version>3.2.17.RELEASE</version>
+  </dependency>
+  
+     <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+   <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+   </dependency>
+   
+   <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+   </dependency>
+   
+   <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
+   <dependency>
+       <groupId>org.aspectj</groupId>
+       <artifactId>aspectjrt</artifactId>
+       <version>1.7.3</version>
+       <!-- <scope>runtime</scope> -->
+   </dependency>
+   <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+   <dependency>
+       <groupId>org.aspectj</groupId>
+       <artifactId>aspectjweaver</artifactId>
+       <version>1.7.3</version>
+      <!-- <scope>runtime</scope> -->
+   </dependency>
+   <!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
+   <dependency>
+       <groupId>org.springframework</groupId>
+       <artifactId>spring-aop</artifactId>
+       <version>4.3.28.RELEASE</version>
+   </dependency>
+   
+
+     <!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
+   <dependency>
+       <groupId>org.codehaus.jackson</groupId>
+       <artifactId>jackson-mapper-asl</artifactId>
+       <version>1.9.13</version>
+   </dependency>
+
+   <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+   <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.3.1</version>
+   </dependency>
+   <!-- https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-core -->
+   <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-core</artifactId>
+      <version>2.3.0.1</version>
+   </dependency>
+   <!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl -->
+   <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-impl</artifactId>
+      <version>2.3.1</version>
+   </dependency>   
+     
          
 </dependencies>
 <!-- 수정 -->

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.thejoa703.dao.MilkDao">
+
+    <!-- INSERT -->
+    <insert id="insert" parameterType="com.thejoa703.dto.MilkDto">
+    INSERT INTO milk (MNO, MNAME, MNUM, MTOTAL)
+    VALUES (milk_seq.NEXTVAL, #{mname}, #{mnum}, #{mtotal})
+	</insert>
+
+
+    <!-- 전체 조회 -->
+    <select id="selectAll" resultType="com.thejoa703.dto.MilkDto">
+        SELECT * FROM milk ORDER BY mno DESC
+    </select>
+
+    <!-- 단건 조회 -->
+    <select id="select" parameterType="int" resultType="com.thejoa703.dto.MilkDto">
+        SELECT * FROM milk WHERE MNO = #{mno}
+    </select>
+
+    <!-- 수정 -->
+    <update id="update" parameterType="com.thejoa703.dto.MilkDto">
+        UPDATE milk
+        SET MNAME = #{mname}, MNUM = #{mnum}, MTOTAL = #{mtotal}
+        WHERE MNO = #{mno}
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="delete" parameterType="int">
+        DELETE FROM milk WHERE MNO = #{mno}
+    </delete>
+
+</mapper>

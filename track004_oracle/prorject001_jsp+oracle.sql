@@ -1,3 +1,91 @@
+CREATE TABLE sboard(
+      ID                                         NUMBER primary key,
+      APP_USER_ID                                NUMBER NOT NULL,
+      BTITLE                                    VARCHAR2(1000)  NOT NULL,
+      BCONTENT                                   CLOB NOT NULL,
+      BPASS                                      VARCHAR2(255) NOT NULL,
+      BFILE                                        VARCHAR2(255),
+      BHIT                                     NUMBER(10) default 0,
+      BIP                                       VARCHAR2(255) NOT NULL ,
+      CREATED_AT                                 TIMESTAMP(6) default sysdate
+);
+DROP TABLE SBOARD;
+
+CREATE SEQUENCE sboard_seq;
+  
+INSERT INTO sboard (    ID, APP_USER_ID, BTITLE, BCONTENT, BPASS, BIP
+) VALUES (    sboard_seq.nextval, 1001, '첫 번째 게시글입니다', '이것은 게시글 내용입니다.', '1234', '192.168.0.1');
+
+SELECT   * from  sboard WHERE ID = 2;
+
+SELECT    * FROM   sboard ORDER BY     ID DESC;
+
+UPDATE sboard SET  BTITLE = '수정된 게시글 제목',    BCONTENT = '수정된 게시글 내용입니다.'  WHERE ID = 1 and BPASS='1234';
+
+DELETE FROM sboard WHERE ID = 3 and BPASS='1234';
+
+commit;
+
+
+
+
+--------------------------------------------------
+create table milk(
+ MNO                                      NUMBER  primary key ,
+ MNAME                                     VARCHAR2(100) NOT NULL,
+ MNUM                                      NUMBER NOT NULL ,
+ MTOTAL                                     NUMBER
+);
+
+CREATE SEQUENCE milk_seq;
+drop table milk;
+commit;
+
+
+INSERT INTO milk (MNO, MNAME, MNUM, MTOTAL)
+VALUES (milk_seq.NEXTVAL, 'gsh', 10, 10);
+
+SELECT * FROM milk WHERE MNO = 1;
+SELECT * FROM milk;
+UPDATE milk SET MNAME = 'banana milk', MNUM = 20, MTOTAL = 200 WHERE MNO = 1;
+DELETE FROM milk WHERE MNO = 1;
+
+
+
+
+
+
+
+
+CREATE TABLE userinfo (
+    NO      NUMBER  NOT NULL PRIMARY KEY,
+    EMAIL   VARCHAR(100) NOT NULL,
+    AGE     NUMBER
+);
+
+drop table userinfo;
+CREATE SEQUENCE userinfo_seq;
+
+INSERT INTO userinfo VALUES (userinfo_seq.NEXTVAL, 'asdasd@asd', 10);
+INSERT INTO userinfo VALUES (userinfo_seq.NEXTVAL, 'qweqwe@asd', 20);
+INSERT INTO userinfo VALUES (userinfo_seq.NEXTVAL, 'zxczxc@asd', 30);
+
+select * from userinfo;
+SELECT * FROM userinfo WHERE NO = 2;
+UPDATE userinfo SET EMAIL = 'rtyrty@asd', AGE = 40 WHERE NO = 2;
+DELETE FROM userinfo WHERE NO = 2; 
+
+commit;
+
+insert into userinfo values (1,'asdasd@asd',10);
+insert into userinfo values (2,'qweqwe@asd',20);
+insert into userinfo values (3,'zxczxc@asd',30);
+select * from userinfo;
+select * from userinfo where no=2;
+update userinfo set NO=4,email='rtyrty@asd',age=40 where no=2;
+delete from userinfo where NO=40;
+
+ 
  
 
 --## ✅ 공통 사용자 모듈 (필수 테이블만)
