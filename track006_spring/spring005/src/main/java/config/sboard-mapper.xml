@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.thejoa703.dao.SboardDao">
+	 <!-- 명시적 맵핑 -->
+  <resultMap id="sboardMap" type="SboardDto">
+  	<result property="id" column="ID" />
+  	<result property="appUserId" column="APP_USER_ID" />
+  	<result property="btitle" column="BTITLE" />
+  	<result property="bcontent" column="BCONTENT" />
+  	<result property="bpass" column="BPASS" />
+  	<result property="bfile" column="BFILE" />
+  	<result property="bhit" column="BHIT" />
+  	<result property="bip" column="BIP" />
+  	<result property="createdAt" column="CREATED_AT" />
+  </resultMap>
+
+
+	<insert id="insert" parameterType="com.thejoa703.dto.SboardDto">
+    INSERT INTO sboard (
+        id, app_user_id, btitle, bcontent, bpass, bip
+    ) VALUES (
+        sboard_seq.nextval, #{appUserId}, #{btitle}, #{bcontent},
+        #{bpass}, #{bip}
+    )
+	</insert>
+
+	<select resultMap="sboardMap" id="selectAll">
+		   SELECT * FROM sboard ORDER BY ID DESC
+	</select>
+	
+	<!-- resultType는 리턴값이 있을때만 작성 -->
+	<select id="select" resultMap="sboardMap" parameterType="int">
+   SELECT * FROM sboard WHERE id = #{id}
+	</select>
+	
+	<update  id="update" parameterType="SboardDto">
+		UPDATE sboard SET  btitle=#{btitle},    bcontent =#{bcontent}
+		 WHERE id=#{id} and bpass=#{bpass}
+	</update>
+	
+	<delete id="delete" parameterType="SboardDto">
+		DELETE FROM sboard WHERE id=#{id} and bpass=#{bpass}
+	</delete>
+	
+	<update id="selectUpdateForm" parameterType="int">
+    UPDATE sboard SET BHIT = BHIT + 1 WHERE id = #{id}
+</update>
+
+</mapper>

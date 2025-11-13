@@ -7,8 +7,6 @@ CREATE TABLE users (
     MOBILE      VARCHAR2(20)   ,                   
     JOINDATE   DATE            DEFAULT SYSDATE              
 );
-insert into users values (1000,'123','123','asd@123','0106666555','');
-create sequence USERS_SEQ;
 
     
     CREATE TABLE COMMUNITY_TB (
@@ -24,12 +22,17 @@ create sequence USERS_SEQ;
     FOREIGN KEY (categoryId) REFERENCES CATEGORY_TB(categoryId)
 );
 
+select * from COMMUNITY_TB;
+insert into users values (1000,'123','123','asd@123','0106666555','');
+create sequence USERS_SEQ;
+
 
 CREATE TABLE CATEGORY_TB (
     categoryId   NUMBER(3)       PRIMARY KEY,   -- 카테고리 ID
     categoryName VARCHAR2(50)    NOT NULL       -- 카테고리명 (예: 한식, 양식, 중식, 일식)
 );
 create sequence COMMUNITY_TB_seq;
+select * from CATEGORY_TB;
 
 drop table users;
 drop table COMMUNITY_TB_seq;

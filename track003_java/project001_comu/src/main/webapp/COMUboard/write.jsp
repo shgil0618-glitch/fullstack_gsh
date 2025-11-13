@@ -1,16 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../inc/header.jsp" %>
+
+
+
 <div class="container card my-5 p-4">
     <h3 class="card-header"> COMMUNITY 글쓰기 </h3>
 
     <!-- 컨트롤러로 데이터 전송 -->
     <form action="/project001_comu/write.co" method="post">
+    <input type="hidden" name="email" value="${sessionScope.email}"> 
         <!-- 작성자 -->
-        <div class="mb-3 mt-3">
-            <label for="id" class="form-label">작성자:</label>
-            <input type="text" class="form-control" id="id" name="id"
-                   placeholder="작성자 ID를 입력해주세요" value="">
-        </div>
+        <%-- <div class="mb-3 mt-3">
+            <label for="email" class="form-label">작성자:</label>
+            <input type="text" class="form-control" id="email" name="email"
+                   placeholder="" value="${sessionScope.email}" readonly>
+        </div> --%>
 
         <!-- 제목 -->
         <div class="mb-3">
