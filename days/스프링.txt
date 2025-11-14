@@ -122,7 +122,8 @@ MVC
  3. [Service-context.xml] Controller위치설정, ViewResolver
  4. [Controller] list.do(처리,view) ,,,,, 설정
  5. [VIEW] 연동
-
+ 
+ 
 ■ Q13. VIEW 
  5. [VIEW] 연동
  ```
