@@ -1,3 +1,20 @@
+
+      
+create table appuser(
+    APP_USER_ID                                NUMBER(5) primary key,
+      EMAIL                                    VARCHAR2(100) NOT NULL,
+      PASSWORD                                           VARCHAR2(100),
+      MBTI_TYPE_ID                                       NUMBER(3),
+      CREATED_AT                                   TIMESTAMP(6) default sysdate
+);
+
+select * from appuser;
+select * from appuser_seq;
+create sequence appuser_seq;
+
+
+
+
 CREATE TABLE sboard(
       ID                                         NUMBER primary key,
       APP_USER_ID                                NUMBER NOT NULL,
