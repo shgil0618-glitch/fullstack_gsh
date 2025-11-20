@@ -197,3 +197,45 @@ MVC
  ```
 
 ■ Q14. 
+---------------------
+#6. Upload
+---------------------
+1. model
+   > table : 이미지 경로필드
+
+   SQL> desc sboard1;
+   Name                                      Null?    Type
+   ----------------------------------------- -------- ----------------------------
+   ID                                        NOT NULL NUMBER
+   APP_USER_ID                               NOT NULL NUMBER
+   BTITLE                                    NOT NULL VARCHAR2(1000)
+   BCONTENT                                  NOT NULL CLOB
+   BPASS                                     NOT NULL VARCHAR2(255)
+   BFILE                                              VARCHAR2(255)
+   BHIT                                               NUMBER(10)
+   BIP                                       NOT NULL VARCHAR2(255)
+   CREATED_AT                                         TIMESTAMP(6)
+
+   > dto :  bfile
+   > dao :  insert, update
+
+2. view
+   form :  encType = "multipart/form-data"   method="post"
+         <input type="file"  />
+
+3. controller
+   pom.xml
+      <!-- img upload   start -->
+      <!-- img upload   start -->
+      <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+      <dependency>
+          <groupId>commons-fileupload</groupId>
+          <artifactId>commons-fileupload</artifactId>
+          <version>1.3.1</version>
+      </dependency>
+      <!-- img upload end -->
+      <!-- img upload end -->      
+
+   servlet-context.xml
+   FilUplad.java
+   Controller.java - service

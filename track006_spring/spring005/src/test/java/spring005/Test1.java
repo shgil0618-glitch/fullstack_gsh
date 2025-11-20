@@ -4,6 +4,7 @@ package spring005;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.Provider.Service;
+import java.util.HashMap;
 
 import javax.sql.DataSource;
 
@@ -37,7 +38,7 @@ public class Test1 {
 	@Ignore @Test public void test2() { System.out.println(ds);      }
 	@Ignore @Test public void test3() { System.out.println(session);      }
 	
-	@Test public void test5() throws UnknownHostException { 
+	@Ignore @Test public void test5() throws UnknownHostException { 
 		// 5. 
 		//		Sboard1Dto dto = new Sboard1Dto();
 		//		dto.setId(41);   dto.setBpass("1"); ie
@@ -83,5 +84,11 @@ public class Test1 {
 //    	//1. selectAll
 //   	    System.out.println(dao.selectAll());
    }
+	@Test public void test7() {
+		HashMap<String,String> para = new HashMap<>();
+		para.put("search", "%t%");
+		
+		System.out.println(dao.selectSearch(para));
+	}
 
 }

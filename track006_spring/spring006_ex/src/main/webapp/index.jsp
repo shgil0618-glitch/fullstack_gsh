@@ -2,4 +2,4 @@
     pageEncoding="UTF-8"%>
 <%-- <% response.sendRedirect( request.getContextPath() + "/list.quest"); %> --%>
 
- <%response.sendRedirect(request.getContextPath() + "/list.user");%>
+ <%response.sendRedirect(request.getContextPath() + "/login.user");%>

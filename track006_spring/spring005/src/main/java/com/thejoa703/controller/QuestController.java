@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thejoa703.dto.SboardDto;
@@ -69,7 +71,25 @@ public class QuestController {
 		rttr.addFlashAttribute("success",result);
 		return "redirect:/list.quest"; }
 	//Q2. 삭제기능도 실패시 알림창 + /LIST.QUEST
+	
+	// 업로드 추가
+	// upload
+	@RequestMapping(value ="/upload.quest",	method = RequestMethod.POST)
+	public String upload_post(@RequestParam("file")MultipartFile file  //그냥 파일을 던져주면 너무 크니까 이렇게 파일로 덤짐
+			,SboardDto dto ,RedirectAttributes rttr){ 
+		String result = "글쓰기 실패";
+		if(service.insert2(file, dto) > 0) {result="글쓰기 성공";}
+		rttr.addFlashAttribute("success",result);
+		return "redirect:/list.quest"; }
 
+	
+	// 수정 업로드
+	@RequestMapping(value ="/updateEdit.quest",	method = RequestMethod.POST)
+	public String updateEdit_post(@RequestParam("file")MultipartFile file ,SboardDto dto ,RedirectAttributes rttr){ 
+		String result = "비밀번호 실패";
+		if(service.update2(file,dto) > 0) {result="수정 성공";}
+		rttr.addFlashAttribute("success",result);
+		return "redirect:/detail.quest?id=" + dto.getId(); }
 }
 
 /*

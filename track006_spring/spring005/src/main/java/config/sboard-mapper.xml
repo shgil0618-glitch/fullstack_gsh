@@ -26,6 +26,15 @@
         #{bpass}, #{bip}
     )
 	</insert>
+	
+	<insert id="insert2" parameterType="com.thejoa703.dto.SboardDto">
+    INSERT INTO sboard (
+        id, app_user_id, btitle, bcontent, bpass, bfile , bip
+    ) VALUES (
+        sboard_seq.nextval, #{appUserId}, #{btitle}, #{bcontent},
+        #{bpass},#{bfile} ,#{bip}
+    )
+	</insert>
 
 	<select resultMap="sboardMap" id="selectAll">
 		   SELECT * FROM sboard ORDER BY ID DESC
@@ -41,6 +50,11 @@
 		 WHERE id=#{id} and bpass=#{bpass}
 	</update>
 	
+	<update  id="update2" parameterType="SboardDto">
+		UPDATE sboard SET  btitle=#{btitle},    bcontent =#{bcontent}, bfile=#{bfile}
+		 WHERE id=#{id} and bpass=#{bpass}
+	</update>
+	
 	<delete id="delete" parameterType="SboardDto">
 		DELETE FROM sboard WHERE id=#{id} and bpass=#{bpass}
 	</delete>
@@ -48,5 +62,10 @@
 	<update id="selectUpdateForm" parameterType="int">
     UPDATE sboard SET BHIT = BHIT + 1 WHERE id = #{id}
 </update>
+
+<!-- ajax search -->
+	<select id="selectSearch" resultMap="sboardMap" parameterType="java.util.HashMap">
+		select * from sboard where BTITLE like #{search}
+	</select>
 
 </mapper>

@@ -9,5 +9,6 @@
 		<!-- <typeAlias type="com.thejoa703.dto.SboardDto" alias="SboardDto"/> -->
 		<typeAlias type="com.thejoa703.dto.UserDto" alias="UserDto"/>
 	</typeAliases>
+	
 
 </configuration>
