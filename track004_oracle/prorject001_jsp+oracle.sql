@@ -1,5 +1,3 @@
-
-      
 create table appuser(
     APP_USER_ID                                NUMBER(5) primary key,
       EMAIL                                    VARCHAR2(100) NOT NULL,
@@ -8,11 +6,26 @@ create table appuser(
       CREATED_AT                                   TIMESTAMP(6) default sysdate
 );
 
+commit;
+
+ALTER TABLE appuser
+ADD CONSTRAINT uq_appuser_email UNIQUE (EMAIL);
+
+ALTER TABLE appuser
+ADD ufile VARCHAR2(255) DEFAULT 'default.png';
+
+
+SELECT email, COUNT(*)
+FROM appuser
+GROUP BY email
+HAVING COUNT(*) > 1;
+
+
 select * from appuser;
 select * from appuser_seq;
 create sequence appuser_seq;
 
-
+commit;
 
 
 CREATE TABLE sboard(

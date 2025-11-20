@@ -28,6 +28,11 @@
 		    <textarea class="form-control" id="bcontent" placeholder="내용을 입력해주세요"   
 		    	readonly name="bcontent">${dto.bcontent}</textarea>
 		  </div> 
+		  
+		  <div class="mb-3">
+		    <label for="bfile" class="form-label">파일:</label>
+		    <img src="${pageContext.request.contextPath}/upload/${dto.bfile}" alt="" />
+		  </div> 
 		   
 			<div class="mb-3">
 			<a href="${pageContext.request.contextPath}/edit.quest?id=${dto.id}" class="btn btn-success form-control">글수정</a>

@@ -28,16 +28,16 @@
   <div class="container-fluid">
     <ul class="navbar-nav"> 
 	      <li class="nav-item">
-	        <a class="nav-link" href="">로그아웃</a>
+	        <a class="nav-link" href="${pageContext.request.contextPath}/logout.user?appUserId=${appUserId}">로그아웃</a>
 	      </li>   
 	      <li class="nav-item">
-	        <a class="nav-link" href="">LOGIN</a>
+	        <a class="nav-link" href="${pageContext.request.contextPath}/login.user">LOGIN</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="">JOIN</a>
+	        <a class="nav-link" href="${pageContext.request.contextPath}/join.user">JOIN</a>
 	      </li>    
 	      <li class="nav-item">
-	        <a class="nav-link" href="">Quest Board</a>
+	        <a class="nav-link" href="${pageContext.request.contextPath}/list.user??appUserId=${appUserId}"> ${sessionScope.loginEmail} Board</a>
 	      </li>  
     </ul> 
   </div>

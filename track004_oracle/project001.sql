@@ -1,4 +1,3 @@
-
 CREATE TABLE users (
     APPUSERID    NUMBER  primary key  ,           
     PASSWORD    VARCHAR2(100)    NOT NULL,              
@@ -7,6 +6,10 @@ CREATE TABLE users (
     MOBILE      VARCHAR2(20)   ,                   
     JOINDATE   DATE            DEFAULT SYSDATE              
 );
+ALTER TABLE users
+ADD CONSTRAINT uq_users_email UNIQUE (EMAIL);
+commit;
+select * from users;
 
     
     CREATE TABLE COMMUNITY_TB (
@@ -41,6 +44,8 @@ select * from users;
 select * from COMMUNITY_TB;
 select * from COMMUNITY_TB_seq;
 commit;
+
+
 
 
 --------------------------------------------------
