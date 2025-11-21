@@ -48,7 +48,7 @@
 				<c:choose>
 
 					<%-- 로그인 상태 --%>
-					<c:when test="${sessionScope.loginUser != null}">
+					<c:when test="${not empty sessionScope.email}">
 						<li class="nav-item"><a class="nav-link"
 							href="${pageContext.request.contextPath}/mypage.user">
 								${sessionScope.loginUser.email} Page </a></li>
