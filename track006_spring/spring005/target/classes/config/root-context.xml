@@ -27,6 +27,7 @@
 	<property name="mapperLocations">
 		<list>
 			<value>classpath:config/sboard-mapper.xml</value>
+			<value>classpath:config/emp-mapper.xml</value>
 		</list>
 	</property>
 </bean>
