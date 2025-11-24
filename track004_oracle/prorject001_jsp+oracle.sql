@@ -1,3 +1,30 @@
+create table authorities(
+    email varchar2(100),
+    auth   varchar2(100)
+);
+
+drop table authorities;
+
+ALTER TABLE authorities
+RENAME COLUMN userid TO email;
+
+insert into authorities (email, auth) values ('q3@q3','MEMBER');
+insert into authorities (email, auth) values ('q3@q3','ADMIN');
+
+SELECT u.email, u.password, a.auth
+FROM appuser u
+JOIN authorities a
+  ON u.email = a.email
+where u.email = 'q3@q3';
+
+SELECT u.email, u.password, a.auth
+FROM appuser u
+LEFT JOIN authorities a
+  ON u.email = a.email
+  where u.email = 'q3@q3';
+   
+select * from authorities;
+
 create table appuser(
     APP_USER_ID                                NUMBER(5) primary key,
       EMAIL                                    VARCHAR2(100) NOT NULL,
@@ -21,7 +48,7 @@ GROUP BY email
 HAVING COUNT(*) > 1;
 
 
-select * from appuser;
+select * from appuser; 
 select * from appuser_seq;
 create sequence appuser_seq;
 
@@ -57,7 +84,21 @@ DELETE FROM sboard WHERE ID = 3 and BPASS='1234';
 commit;
 
 
+CREATE TABLE sboard1(
+      ID                                         NUMBER primary key,
+      APP_USER_ID                                NUMBER NOT NULL,
+      BTITLE                                    VARCHAR2(1000)  NOT NULL,
+      BCONTENT                                   CLOB NOT NULL,
+      BPASS                                      VARCHAR2(255) NOT NULL,
+      BFILE                                        VARCHAR2(255),
+      BHIT                                     NUMBER(10) default 0,
+      BIP                                       VARCHAR2(255) NOT NULL ,
+      CREATED_AT                                 TIMESTAMP(6) default sysdate
+);
 
+CREATE SEQUENCE sboard1_seq;
+
+select * from sboard1;
 
 --------------------------------------------------
 create table milk(
