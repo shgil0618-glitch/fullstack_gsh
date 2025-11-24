@@ -28,6 +28,7 @@
 		<list>
 			<value>classpath:config/sboard-mapper.xml</value>
 			<value>classpath:config/emp-mapper.xml</value>
+			<value>classpath:config/user-mapper.xml</value>
 		</list>
 	</property>
 </bean>

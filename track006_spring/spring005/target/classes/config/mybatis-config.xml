@@ -8,6 +8,8 @@
 		<typeAlias type="com.thejoa703.dto.MilkDto" alias="MilkDto"/> -->
 		<typeAlias type="com.thejoa703.dto.SboardDto" alias="SboardDto"/>
 		<typeAlias type="com.thejoa703.dto.EmpDto" alias="EmpDto"/>
+		<typeAlias type="com.thejoa703.dto.AppUserAuthDto" alias="AppUserAuthDto"/>
+		<typeAlias type="com.thejoa703.dto.AuthDto" alias="AuthDto"/>
 	</typeAliases>
 
 </configuration>
