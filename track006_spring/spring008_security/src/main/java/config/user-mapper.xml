@@ -86,4 +86,24 @@
     WHERE app_user_id=#{appUserId}
   </update>
   
+     <!-- SECURITY -->
+   <!-- SECURITY -->
+   <insert  id="insertAuth"    parameterType="AuthDto">
+      insert into  authorities  (email, auth)  values (#{email} , #{auth})
+   </insert>   
+      
+   <resultMap id="authMap" type="AuthDto">
+      <result property="email" column="email" />
+      <result property="auth" column="auth" />
+   </resultMap>
+   <resultMap id="appUserAuthMap" type="AppUserAuthDto">
+      <result property="email" column="email" />
+      <result property="password" column="password" />
+      <collection property="authList" resultMap="authMap" />
+   </resultMap>
+   <select resultMap="appUserAuthMap" id="readAuth"
+      parameterType="AppUserAuthDto"> select u.email, u.password, a.auth from appuser u left
+      outer join authorities a on u.email = a.email where u.email = #{email}
+   </select> 
+  
 </mapper>

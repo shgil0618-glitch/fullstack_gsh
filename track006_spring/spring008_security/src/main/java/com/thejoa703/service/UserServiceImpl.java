@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.thejoa703.dao.UserDao;
+import com.thejoa703.dto.AppUserAuthDto;
+import com.thejoa703.dto.AuthDto;
 import com.thejoa703.dto.UserDto;
 
 @Service
@@ -80,12 +82,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int insert2(MultipartFile file, UserDto dto) {
-        String fileName = file.getOriginalFilename(); // ¿øº» ÆÄÀÏ ÀÌ¸§
+        String fileName = file.getOriginalFilename(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
         String uploadPath = "C:/file/";
 
-        if(file.isEmpty()) { // ÆÄÀÏÀÌ ºñ¾îÀÖ´Ù¸é
-            int randomNum = (int)(Math.random() * 7) + 1; // 1~7 ·£´ý
-            fileName = randomNum + ".png"; // ±âº» È®ÀåÀÚ
+        if(file.isEmpty()) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´Ù¸ï¿½
+            int randomNum = (int)(Math.random() * 7) + 1; // 1~7 ï¿½ï¿½ï¿½ï¿½
+            fileName = randomNum + ".png"; // ï¿½âº» È®ï¿½ï¿½ï¿½ï¿½
         }
 
         File img = new File(uploadPath + fileName);
@@ -104,12 +106,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int update2(MultipartFile file, UserDto dto) {
-		if(!file.isEmpty()) {	// ÆÄÀÏÀÌ ºñ¾îÀÖ´Â°Ô ¾Æ´Ï¶ó¸é
-			String fileName = file.getOriginalFilename();	//¿øº» ÆÄÀÏ ÀÌ¸§
+		if(!file.isEmpty()) {	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´Â°ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½
+			String fileName = file.getOriginalFilename();	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 			String uploadPath = "C:/file/";
 			File img = new File(uploadPath+fileName);
 			try {
-				file.transferTo(img);	// ÆÄÀÏ ¿Ã¸®±â
+				file.transferTo(img);	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½
 				dto.setUfile(fileName);
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
@@ -148,6 +150,17 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();  
             return 0; 
         }
+	}
+
+	@Override
+	public int insertAuth(AuthDto dto) {
+		return dao.insertAuth(dto);
+	}
+
+	@Override
+	public AppUserAuthDto readAuth(String email) {
+		AppUserAuthDto dto = new AppUserAuthDto(); dto.setEmail(email);
+		return dao.readAuth(dto);
 	}
 	
 }
