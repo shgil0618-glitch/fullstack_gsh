@@ -2,6 +2,8 @@ package com.thejoa703.dto;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +21,9 @@ public class Sboard1Dto {
     private int bhit;             // BHIT (default: 0)
     private String bip;           // BIP
     //private LocalDateTime createdAt; // CREATE_AT (default: SYSTIMESTAMP)
-    private String createdAt;
+	 private String createdAt; 
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+//    private LocalDateTime createdAt;
 }
 
 

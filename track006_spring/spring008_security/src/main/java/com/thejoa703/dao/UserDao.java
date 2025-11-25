@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.thejoa703.dto.AppUserAuthDto;
+import com.thejoa703.dto.AuthDto;
 import com.thejoa703.dto.UserDto;
 
 @MbtiDao
@@ -14,17 +16,23 @@ public interface UserDao {
     public int delete(UserDto dto);
     public List<UserDto> selectAll();
     public UserDto select(int appUserId);
-    public UserDto login(UserDto dto); // ÀÌ¸ÞÀÏ, ºñ¹Ð¹øÈ£·Î ·Î±×ÀÎ Ã³¸®
+    public UserDto login(UserDto dto); // ï¿½Ì¸ï¿½ï¿½ï¿½, ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
     
-    //ÀÌ¹ÌÁö Ãß°¡
+    //ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
     public int insert2(UserDto dto);
     public int update2(UserDto dto);
     
 	/* iddoutble */
     public int iddouble(String email);
     
-    /*°ü¸®ÀÚ »èÁ¦ Á¶È¸*/
+    /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸*/
     public int deleteAdmin(UserDto dto);
     public int updateAdmin(UserDto dto);
+    
+    /* security */
+    /* security */
+    public int insertAuth(AuthDto dto);
+    public AppUserAuthDto readAuth (AppUserAuthDto dto);
+    
     
 }
