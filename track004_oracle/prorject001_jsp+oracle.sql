@@ -31,8 +31,10 @@ create table appuser(
       PASSWORD                                           VARCHAR2(100),
       MBTI_TYPE_ID                                       NUMBER(3),
       CREATED_AT                                   TIMESTAMP(6) default sysdate
+      UFILE                                       VARCHAR2(255)
 );
 
+desc appuser;
 commit;
 
 ALTER TABLE appuser

@@ -11,8 +11,7 @@ CREATE TABLE users (
 
 drop table users;
 drop table  
-select * from users;     
-       
+select * from users; 
 create sequence post_seq;
 create table post (
 			ID                                       NUMBER  NOT NULL ,
