@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.thejoa703.dao.UserDao;
@@ -19,6 +21,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao dao;
+    
+    @Autowired PasswordEncoder pwencoder;
 
     @Override
     public int insert(UserDto dto) {
@@ -40,6 +44,8 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override public UserDto selectEmail(String email) { return dao.selectEmail(email); }
+    
     @Override
     public int delete(UserDto dto) {
         try {
@@ -162,5 +168,48 @@ public class UserServiceImpl implements UserService {
 		AppUserAuthDto dto = new AppUserAuthDto(); dto.setEmail(email);
 		return dao.readAuth(dto);
 	}
+	
+	
+
+	@Transactional
+	@Override
+	public int insert3(MultipartFile file, UserDto dto) {
+
+	    // 🔥 1) 이메일 중복 체크
+	    if (dao.iddouble(dto.getEmail()) > 0) {
+	        throw new RuntimeException("이미 존재하는 이메일입니다.");
+	    }
+
+	    // 2. 권한 등록
+	    AuthDto adto = new AuthDto();
+	    adto.setEmail(dto.getEmail());
+	    adto.setAuth("ROLE_MEMBER");
+	    dao.insertAuth(adto);
+
+	    // 3. 파일 처리
+	    String fileName = null;
+	    if(!file.isEmpty()) {
+	        fileName = file.getOriginalFilename();
+	        String uploadPath = "C:/file/";
+	        File img = new File(uploadPath + fileName);
+	        try {
+				file.transferTo(img);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    } else {
+	        fileName = "user" + ((int)((Math.random()*7)+1)) + ".png";
+	    }
+
+	    // 4. 패스워드 암호화
+	    dto.setPassword(pwencoder.encode(dto.getPassword()));
+	    dto.setUfile(fileName);
+
+	    // 5. 유저 저장
+	    return dao.insert2(dto);
+	}
+
 	
 }

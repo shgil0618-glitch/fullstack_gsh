@@ -30,6 +30,13 @@
 		 authentication-success-handler-ref="successHandler" 
 		 authentication-failure-url="/security/fail" 
 		 />
+		 <security:logout
+		 	logout-url="/security/logout"
+		 	logout-success-url="/security/login"
+		 	invalidate-session="true"
+		 />
+		 
+		 
 	</security:http>
 	
 	<security:authentication-manager>

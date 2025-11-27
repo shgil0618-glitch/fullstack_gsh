@@ -24,8 +24,10 @@ public class loginSuccessHandler implements AuthenticationSuccessHandler {
 		});
 //		if(roles.contains("ROLE_ADMIN")) {response.sendRedirect("security/admin"); return;}
 //		if(roles.contains("ROLE_MEMBER")) {response.sendRedirect("security/member"); return;}
-		if(roles.contains("ROLE_ADMIN")) {response.sendRedirect(request.getContextPath() + "/security/admin"); return;}
-		if(roles.contains("ROLE_MEMBER")) {response.sendRedirect(request.getContextPath() + "/security/member"); return;}
-		response.sendRedirect("/");
+//		if(roles.contains("ROLE_ADMIN")) {response.sendRedirect(request.getContextPath() + "/security/admin"); return;}
+//		if(roles.contains("ROLE_MEMBER")) {response.sendRedirect(request.getContextPath() + "/security/member"); return;}
+//		response.sendRedirect("/");
+		
+		response.sendRedirect(request.getContextPath() + "/security/mypage");
 	}
 }

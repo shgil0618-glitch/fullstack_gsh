@@ -30,9 +30,115 @@ create table appuser(
       EMAIL                                    VARCHAR2(100) NOT NULL,
       PASSWORD                                           VARCHAR2(100),
       MBTI_TYPE_ID                                       NUMBER(3),
-      CREATED_AT                                   TIMESTAMP(6) default sysdate
-      UFILE                                       VARCHAR2(255)
+      CREATED_AT                                   TIMESTAMP(6) default sysdate,
+      UFILE                                       VARCHAR2(255),
+      MOBILE                                    VARCHAR2(50),
+      NICKNAME                                   VARCHAR2(50)
 );
+--------------------------------------------------------------------------------------
+
+
+# ✅ 1. 회원가입 (CREATE)
+
+```sql
+INSERT INTO appuser (
+    APP_USER_ID,
+    EMAIL,
+    PASSWORD,
+    MBTI_TYPE_ID,
+    UFILE,
+    MOBILE,
+    NICKNAME
+) VALUES (
+    1,
+    'test@example.com',
+    '1234',
+    10,
+    'profile.png',
+    '010-1111-2222',
+    'hsh'
+);
+```
+---
+# ✅ 2. 로그인 (READ: 이메일 + 비밀번호)
+
+```sql
+SELECT *
+FROM appuser
+WHERE email = 'test@example.com'
+  AND password = '1234';
+```
+---
+
+# ✅ 3. 아이디 찾기 (READ: 해당 이메일 존재 여부)
+
+```sql
+SELECT APP_USER_ID, EMAIL
+FROM appuser
+WHERE email = 'test@example.com';
+```
+---
+
+# ✅ 4. 비밀번호 찾기 (READ: 이메일 기준)
+
+```sql
+SELECT PASSWORD
+FROM appuser
+WHERE email = 'test@example.com';
+```
+---
+
+# ✅ 5. 이메일로 EMAIL, PASSWORD, MBTI, UFILE, MOBILE 가져오기
+```sql
+SELECT EMAIL, PASSWORD, MBTI_TYPE_ID, UFILE, MOBILE, NICKNAME
+FROM appuser
+WHERE email = 'test@example.com';
+```
+---
+
+
+select u.email, u.password, a.auth
+from appuser u left join  authorities a on  u.email = a.email
+where u.email='1@1';
+
+
+```
+
+# ✅ 6. 정보 수정 (UPDATE: 특정 ID의 회원 정보 수정)
+```sql
+UPDATE appuser
+SET
+    EMAIL = 'new@example.com',
+    PASSWORD = 'abcd1234',
+    MBTI_TYPE_ID = 15,
+    UFILE = 'new_profile.png',
+    MOBILE = '010-2222-3333',
+    NICKNAME = 'HSH2'
+WHERE APP_USER_ID = 1;
+```
+---
+# ✅ 7. 회원 삭제 (DELETE)
+
+```sql
+DELETE FROM appuser
+WHERE APP_USER_ID = 1;
+```
+
+---
+
+
+
+
+
+--------------------------------------------------------------------------------------
+
+
+ALTER TABLE appuser
+ADD MOBILE VARCHAR2(50);
+
+ALTER TABLE appuser
+ADD NICKNAME VARCHAR2(50);
+
 
 desc appuser;
 commit;

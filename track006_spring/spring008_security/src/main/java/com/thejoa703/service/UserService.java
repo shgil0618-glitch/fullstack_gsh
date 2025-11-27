@@ -15,6 +15,7 @@ public interface UserService {
 	public int delete(UserDto dto);			 
 	public List<UserDto> selectAll();	
 	public UserDto select(int appUserId);	
+	public UserDto  selectEmail(String email);
 	public UserDto login(UserDto dto);
 	
 	//�̹��� ���ε�
@@ -31,5 +32,8 @@ public interface UserService {
     public int insertAuth(AuthDto dto);
 	/* public AppUserAuthDto readAuth (AppUserAuthDto dto); */
 	public AppUserAuthDto readAuth(String email);
+	
+	public int insert3(MultipartFile file, UserDto dto);
+	
     
 }

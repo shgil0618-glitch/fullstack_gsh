@@ -1,8 +1,11 @@
 package com.thejoa703.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.thejoa703.dto.AppUserAuthDto;
+import com.thejoa703.dto.AuthDto;
 import com.thejoa703.dto.UserDto;
 import com.thejoa703.service.UserService;
 
@@ -20,6 +25,7 @@ public class UserController {
 
     @Autowired 
     UserService service;
+   
 
     ///////////////////////////////////////////////////////////
     // ȸ�� ��� ������
@@ -49,6 +55,9 @@ public class UserController {
         rttr.addFlashAttribute("success", msg);
         return "redirect:/login.user";
     }
+    
+   
+
 
     ///////////////////////////////////////////////////////////
     // �α��� ��
@@ -93,12 +102,16 @@ public class UserController {
     ///////////////////////////////////////////////////////////
     // ����������
     @RequestMapping("/mypage.user")
-    public String myPage(HttpSession session, Model model) {
-        UserDto loginUser = (UserDto)session.getAttribute("loginUser");
-        if(loginUser == null) return "redirect:/login.user"; 
-
-        model.addAttribute("dto", service.select(loginUser.getAppUserId()));
-        return "member/mypage"; 
+    public String myPage(HttpServletRequest  request , Model model) {
+    	HttpSession session = request.getSession(); 
+		String email = (String)session.getAttribute("email"); 
+		model.addAttribute("dto", service.selectEmail(email)); 
+		return "member/mypage"; 
+//        UserDto loginUser = (UserDto)session.getAttribute("loginUser");
+//        if(loginUser == null) return "redirect:/login.user"; 
+//
+//        model.addAttribute("dto", service.select(loginUser.getAppUserId()));
+//        return "member/mypage"; 
     }
 
     ///////////////////////////////////////////////////////////
@@ -171,17 +184,16 @@ public class UserController {
     }
 ///////////////////////////////////////////////////////////
  // ȸ������ ���ε� ���
-    @RequestMapping(value="/join2.user", method=RequestMethod.POST)
-    public String joinUser2(@RequestParam("file")MultipartFile file,UserDto dto, RedirectAttributes rttr) {
-
-        String msg = "회원가입 실패";
-        if(service.insert2(file,dto) > 0) {
-            msg = "회원가입에 성공했습니다.";
-        }
-        rttr.addFlashAttribute("success", msg);
-        return "redirect:/login.user";
-    }
-    
+	
+	  @RequestMapping(value="/join2.user", method=RequestMethod.POST) public String
+	  joinUser2(@RequestParam("file")MultipartFile file,UserDto dto,
+	  RedirectAttributes rttr) {
+	  
+	  String msg = "회원가입 실패"; if(service.insert2(file,dto) > 0) { msg =
+	  "회원가입에 성공했습니다."; } rttr.addFlashAttribute("success", msg); return
+	  "redirect:/login.user"; }
+	  
+	  
     
 ///////////////////////////////////////////////////////////
     // ȸ������ ���� ���ε� ���
