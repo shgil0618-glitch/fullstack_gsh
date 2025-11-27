@@ -78,6 +78,7 @@
     DELETE FROM appuser WHERE app_user_id=#{appUserId} 
   </delete>
   
+  <select resultMap="userMap" id="selectEmail" parameterType="com.thejoa703.dto.UserDto"> select * from appuser where email=#{email} </select>
   
   <!-- 관리자 업데이트 -->
   <update id="updateAdmin" parameterType="com.thejoa703.dto.UserDto">

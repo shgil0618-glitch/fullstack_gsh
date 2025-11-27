@@ -7,6 +7,7 @@
       <!-- APP_USER_ID , BTITLE , BCONTENT , BPASS  -->
 	  <form action="${pageContext.request.contextPath}/upload.quest"  
 	  		method="post"  encType="multipart/form-data" > 
+	  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	      <input type="hidden"   name="appUserId"  value="1"> 
 		  <div class="mb-3 mt-3">
 		    <label for="btitle" class="form-label">TITLE:</label>
@@ -24,10 +25,14 @@
 		    <label for="file" class="form-label">FILE:</label>
 		    <input type="file" class="form-control" id="file" placeholder="파일을 입력해주세요" name="file">
 		  </div>
+		  
 		  <div class="mb-3  text-end">
 		  	<button type="submit" class="btn btn-primary">글쓰기</button>  
 		  	<a href="${pageContext.request.contextPath}/list.quest"  class="btn btn-primary">목록보기</a>
 		  </div>
+		  
+		
+							
 	 </form> 
    </div>
    

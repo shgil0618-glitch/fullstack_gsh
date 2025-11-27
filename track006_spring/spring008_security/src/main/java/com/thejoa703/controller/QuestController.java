@@ -3,6 +3,7 @@ package com.thejoa703.controller;
 import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,10 @@ public class QuestController {
    @RequestMapping(value="/write.quest" , method=RequestMethod.GET)
    public String write_get() { return "quest_board/write"; }
    // 글쓰기 기능
+// @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")	// 1. 안에 있는 권한중
+// @PreAuthorize("isAnonymous() and hasRole('ROLE_ADMIN')")	// 2. 로그인 + ADMIN 권한이 있다면
+// @PreAuthorize("isAnonymous()")	// 3. 아무나 글쓰기 가능 (로그인하지 않은 사용자 , 회원가입)
+   @PreAuthorize("isAuthenticated()") // 4. 로그인했다면
    @RequestMapping(value="/write.quest" , method=RequestMethod.POST)
    public String write_post(  Sboard1Dto dto ,  RedirectAttributes rttr) { 
       String result ="글쓰기 실패";
@@ -53,6 +58,10 @@ public class QuestController {
       return "quest_board/edit"; 
    }
    
+// @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")	// 1. 안에 있는 권한중
+// @PreAuthorize("isAnonymous() and hasRole('ROLE_ADMIN')")	// 2. 로그인 + ADMIN 권한이 있다면
+// @PreAuthorize("isAnonymous()")	// 3. 아무나 글쓰기 가능 (로그인하지 않은 사용자 , 회원가입)
+   @PreAuthorize("isAuthenticated()") // 4. 로그인했다면
    @RequestMapping(value="/edit.quest" , method=RequestMethod.POST) //수정기능
    public String edit_post(  Sboard1Dto dto ,  RedirectAttributes rttr) { 
       String result = "비밀번호를 확인해주세요";
@@ -65,6 +74,10 @@ public class QuestController {
    @RequestMapping(value="/delete.quest" , method=RequestMethod.GET) //삭제폼
    public String delete_get() { return "quest_board/delete"; }
    
+// @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")	// 1. 안에 있는 권한중
+// @PreAuthorize("isAnonymous() and hasRole('ROLE_ADMIN')")	// 2. 로그인 + ADMIN 권한이 있다면
+// @PreAuthorize("isAnonymous()")	// 3. 아무나 글쓰기 가능 (로그인하지 않은 사용자 , 회원가입)
+   @PreAuthorize("isAuthenticated()") // 4. 로그인했다면
    @RequestMapping(value="/delete.quest" , method=RequestMethod.POST) //삭제기능
    public String delete_post(Sboard1Dto dto , RedirectAttributes rttr) { 
       String result = "비밀번호를 확인해주세요";
@@ -77,6 +90,11 @@ public class QuestController {
    
    /*  Upload    */
    // 글쓰기 기능
+   // 밑에 4가지는 post가 있다면 해줄수 있음.
+//   @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")	// 1. 안에 있는 권한중
+//   @PreAuthorize("isAnonymous() and hasRole('ROLE_ADMIN')")	// 2. 로그인 + ADMIN 권한이 있다면
+//   @PreAuthorize("isAnonymous()")	// 3. 아무나 글쓰기 가능 (로그인하지 않은 사용자 , 회원가입)
+   @PreAuthorize("isAuthenticated()") // 4. 로그인했다면
    @RequestMapping(value="/upload.quest" , method=RequestMethod.POST)
    public String upload_post(  @RequestParam("file") MultipartFile file   
                            ,  Sboard1Dto dto ,  RedirectAttributes rttr) { 
@@ -87,7 +105,13 @@ public class QuestController {
    }
    
    //updateEdit.quest
-   @RequestMapping(value="/updateEdit.quest" , method=RequestMethod.POST) //수정기능
+   // 밑에 4가지는 post가 있다면 해줄수 있음.
+// @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")	// 1. 안에 있는 권한중
+// @PreAuthorize("isAnonymous() and hasRole('ROLE_ADMIN')")	// 2. 로그인 + ADMIN 권한이 있다면
+// @PreAuthorize("isAnonymous()")	// 3. 아무나 글쓰기 가능 (로그인하지 않은 사용자 , 회원가입)
+ @PreAuthorize("isAuthenticated()") // 4. 로그인했다면
+   @RequestMapping(value="/updateEdit.quest" , method=RequestMethod.POST
+   , headers=("content-type=multipart/*")) //수정기능
    public String updateEdit_post(  @RequestParam("file") MultipartFile file   
                               , Sboard1Dto dto ,  RedirectAttributes rttr) { 
       String result = "비밀번호를 확인해주세요";

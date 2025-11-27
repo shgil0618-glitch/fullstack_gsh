@@ -3,6 +3,7 @@ package com.thejoa703.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.thejoa703.dto.AppUserAuthDto;
 import com.thejoa703.dto.AuthDto;
@@ -16,11 +17,14 @@ public interface UserDao {
     public int delete(UserDto dto);
     public List<UserDto> selectAll();
     public UserDto select(int appUserId);
+    public UserDto  selectEmail(String email);
     public UserDto login(UserDto dto); // �̸���, ��й�ȣ�� �α��� ó��
     
     //�̹��� �߰�
     public int insert2(UserDto dto);
     public int update2(UserDto dto);
+    
+    public int insert3(MultipartFile file, UserDto dto);
     
 	/* iddoutble */
     public int iddouble(String email);

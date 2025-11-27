@@ -7,6 +7,7 @@
       <h3 class="card-header"> MBTI 글삭제</h3>
 	  <%-- <form action="${pageContext.request.contextPath}/delete.do?id=${param.id}"     method="post">  --%> 
 	  <form action="${pageContext.request.contextPath}/delete.quest"  method="post">  
+	   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	      <input type="hidden"   name="id"  value="${param.id}"> 
 		  <div class="my-3">
 		    <label for="bpass" class="form-label">PASS:</label>
