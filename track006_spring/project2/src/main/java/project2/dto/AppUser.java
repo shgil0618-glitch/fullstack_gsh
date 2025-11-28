@@ -15,9 +15,10 @@ public class AppUser {
 	 private int appUserId;          
 	    private String email;           
 	    private String password;       
-	    private Integer mbtiTypeId;    
+	    private Integer mbtiTypeId; 
 	    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	    private LocalDateTime createdAt; // ������
+//	    private String createdAt;
 	    private String ufile;
 	    private String mobile;
 	    private String nickname;

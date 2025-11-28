@@ -19,6 +19,11 @@
    <security:http>
       <security:intercept-url  pattern="/security/all"      access="permitAll" />
       <security:intercept-url  pattern="/security/member"   access="hasRole('ROLE_MEMBER')" />
+      
+      <security:intercept-url  pattern="/security/login"      access="permitAll" />
+      <security:intercept-url  pattern="/security/join"      access="permitAll" />
+      <security:intercept-url  pattern="/security/**"      access="isAuthenticated()" />
+      
       <security:form-login
       	login-page="/security/login"
       	authentication-success-handler-ref="succeHandeler"

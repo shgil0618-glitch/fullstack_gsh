@@ -17,6 +17,8 @@ $(document).ajaxSend(function(e, xhr, options) {
 });
 </script>
 
+
+
 <div class="container mt-5">
     <h3>WELCOME! 회원가입</h3>
 
@@ -33,13 +35,22 @@ $(document).ajaxSend(function(e, xhr, options) {
             <input type="email" class="form-control" id="email"
                    placeholder="이메일을 입력해주세요" required name="email">
 
-            <div class="iddouble_result"></div>
+            <div class="iddouble_result" data-role="no"></div>
 
             <script>
             $(function(){
+            	
+            /* 	$("#form").on("submit",function(){
+            		//1. iddouble_result 안에 상태가 go로 바뀌면 데이터 전송
+            		let status = $(".iddouble_result").attr("data-role"); console.log(status);
+            		if(status == 'no'){return false;}
+            		else {return true;}
+            		
+            	}); */
+            	
                 $("#email").on("keyup", function(){
                     let keyword = $(this).val().trim();
-
+					
                     if(keyword === ""){
                         $(".iddouble_result")
                             .html("<span class='text-danger'>이메일을 입력해주세요</span>");
@@ -48,7 +59,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 
                     $.ajax({
                         url: "${pageContext.request.contextPath}/iddouble",
-                        type: "POST",
+                        type: "GET",
                         data: { search : keyword },
                         success: function(res){
                             console.log(res);
@@ -58,6 +69,7 @@ $(document).ajaxSend(function(e, xhr, options) {
                             } else {
                                 $(".iddouble_result")
                                     .html("<span class='text-primary'>사용 가능한 이메일입니다.</span>");
+                                    console.log( $(".iddouble_result").attr("data-role"));
                             }
                         },
                         error: function(){
@@ -69,6 +81,18 @@ $(document).ajaxSend(function(e, xhr, options) {
             });
             </script>
         </div>
+        
+        <div class="mb-3">
+            <label for="nickname" class="form-label">nickname:</label>
+            <input type="text" class="form-control" id="nickname"
+                   placeholder="닉네임을 입력해주세요" required name="nickname">
+        </div>
+
+		<div class="mb-3">
+            <label for="mobile" class="form-label">Mobile:</label>
+            <input type="text" class="form-control" id="mobile"
+                   placeholder="전화번호을 입력해주세요" required name="mobile">
+         </div>
 
         <div class="mb-3">
             <label for="password" class="form-label">Password:</label>

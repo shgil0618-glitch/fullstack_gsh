@@ -2,6 +2,13 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="../inc/header.jsp" %>
+
+<c:if test="${not empty deleteError }">
+	<script>
+		alert("${deleteError}");
+	</script>
+</c:if>
+
    <div class="container card  my-5 p-3">
       <h3  class="card-header"> MYPAGE </h3> 
       <!-- <pre>

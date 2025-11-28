@@ -5,8 +5,9 @@
     <h3>회원정보 수정</h3>
     
     <!-- 회원정보 수정 폼 -->
-    <form action="${pageContext.request.contextPath}/edit2.user" method="post" encType="multipart/form-data">
-        
+   <%--  <form action="${pageContext.request.contextPath}/edit2.user" method="post" encType="multipart/form-data"> --%>
+   	<form action="${pageContext.request.contextPath}/security/edit" method="post" encType="multipart/form-data">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         <!-- appUserId (숨겨진 필드로 전달) -->
         <input type="hidden" name="appUserId" value="${dto.appUserId}" />
         
@@ -21,6 +22,16 @@
             <label for="password" class="form-label">Password:</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="새 비밀번호 입력 (변경하려면)" />
         </div>
+        
+        <div class="mb-3">
+            <label for="nickname" class="form-label">NICKNAME:</label>
+            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="새 닉네임 입력 (변경하려면)" value="${dto.nickname}" />
+        </div>
+        
+        <div class="mb-3">
+            <label for="mobile" class="form-label">MOBILE:</label>
+            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="새 전화번호 입력 (변경하려면)" value="${dto.mobile}" />
+        </div>
 
         <!-- MBTI 유형 선택 -->
         <div class="mb-3">
@@ -34,9 +45,12 @@
         </div>
         
         <div class="mb-3">
-	 		<input type="text" class="form-control" readonly name="ufile" value="${dto.ufile}" />
 		    <label for="file" class="form-label">file:</label>
 		    <input type="file" class="form-control" id="file" placeholder="파일을 입력해주세요" name="file"></input>
+		    <input type="text" class="form-control" readonly name="ufile" value="${dto.ufile}" />
+		    <img src="${pageContext.request.contextPath}/upload/${dto.ufile}"
+					alt="user image"
+					style="width: 150px; height: 100%; object-fit: cover; border-radius: 6px;" />
 		  </div> 
 
         <!-- 버튼 -->

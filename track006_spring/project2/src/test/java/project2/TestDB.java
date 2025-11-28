@@ -17,7 +17,7 @@ import org.springframework.mock.web.*;
 
 import project2.dao.AppUserMapper;
 import project2.dto.AppUser;
-import project2.service.AppUserScurityService;
+import project2.service.AppUserSecurityService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:config/root-context.xml", "classpath:config/security-context.xml" })
@@ -27,7 +27,7 @@ public class TestDB {
 	@Autowired SqlSession sqlSession;
 	@Autowired AppUserMapper dao;
 	@Autowired PasswordEncoder pwencoder;
-	@Autowired AppUserScurityService service;
+	@Autowired AppUserSecurityService service;
 	
 	@Ignore @Test
 	public void test9() {
