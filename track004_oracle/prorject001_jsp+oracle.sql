@@ -35,6 +35,12 @@ create table appuser(
       MOBILE                                    VARCHAR2(50),
       NICKNAME                                   VARCHAR2(50)
 );
+
+select * from appuser;
+select * from authorities;
+commit;
+
+delete from appuser where email = 'ff@ff';
 --------------------------------------------------------------------------------------
 
 

@@ -2,6 +2,7 @@ package project2.dao;
 
 import project2.dto.AppUser;
 import project2.dto.AppUserAuthDto;
+import project2.dto.AuthDto;
 
 @MyDao
 public interface AppUserMapper {
@@ -11,5 +12,8 @@ public interface AppUserMapper {
 	public AppUser 		  selectPassword(AppUser dto);
 	public int update(AppUser dto);
 	public int delete(AppUser dto);
+	
+	public int insertAuth(AuthDto dto);
+
 
 }

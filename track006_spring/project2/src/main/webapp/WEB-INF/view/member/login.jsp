@@ -2,6 +2,19 @@
     pageEncoding="UTF-8"%>
 
 <%@  include file="../inc/header.jsp" %>   
+
+<c:if test="${not empty loginError }">
+	<script>
+		alert("${loginError}");
+	</script>
+</c:if>
+
+<c:if test="${empty deleteError }">
+	<script>
+		alert("${success}");
+	</script>
+</c:if>
+
 <div class="container mt-5">
 	<h3> 로그인</h3>
 	<form action="${pageContext.request.contextPath}/login"  method="post">

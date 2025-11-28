@@ -16,6 +16,12 @@
 	});
 </script>
 
+<c:if test="${not empty deleteError }">
+	<script>
+		alert("${deleteError}");
+	</script>
+</c:if>
+
 <div class="container card my-5">
 	<h3 class="card-header">MYPAGE</h3>
 	<table class="table table-striped table-bordered table-hover">
@@ -50,7 +56,7 @@
 				<td>Password</td>
 				<td>
 					<%
-					project2.dto.UserDto dto = (project2.dto.UserDto) request.getAttribute("dto");
+					project2.dto.AppUser dto = (project2.dto.AppUser) request.getAttribute("dto");
 					if (dto != null) {
 						String password = dto.getPassword();
 						if (password != null && password.length() > 0) {
@@ -69,19 +75,28 @@
 			</tr>
 
 		</tbody>
-
+	
 	</table>
-	<div style="text-align: right; margin-top: 10px;">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	<div class="text-end">
+	  		<a href="${pageContext.request.contextPath}/security/edit"  class="btn btn-danger">UPDATE</a>
+            <a href="${pageContext.request.contextPath}/security/delete?appUserId=${dto.appUserId}"  
+ 					class="btn btn-primary">DELETE</a>
+ 	</div>
+ 		 
+	<%-- <div style="text-align: right; margin-top: 10px;">
 		<button type="submit" class="btn btn-danger btn-sm">
 			<a style="text-decoration: none; color: white;"
 				href="${pageContext.request.contextPath}/edit.user?appUserId=${dto.appUserId}">수정</a>
 		</button>
 		<form action="${pageContext.request.contextPath}/delete.user"
 			method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<input type="hidden" name="appUserId" value="${dto.appUserId}" /> <input
 				type="password" name="password" placeholder="비밀번호" required />
 			<button type="submit" class="btn btn-danger btn-sm">삭제</button>
+			
 		</form>
-	</div>
+	</div> --%>
 </div>
 <%@ include file="../inc/footer.jsp"%>

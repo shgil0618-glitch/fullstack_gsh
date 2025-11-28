@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import project2.dto.AppUser;
 import project2.dto.AppUserAuthDto;
 
-public interface AppUserScurityService {
+public interface AppUserSecurityService {
 	public int insert(MultipartFile file, AppUser dto);	// 유저삽입
 	public int update(MultipartFile file, AppUser dto); // 유저수정
 	public int delete( AppUser dto);	// 유저삭제

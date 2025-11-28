@@ -6,12 +6,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import project2.dto.AppUserAuthDto;
-import project2.service.UserService;
+import project2.service.AppUserSecurityService;
 
 
 
 public class CustomUserDetailsService implements UserDetailsService  {
-   @Autowired UserService service;
+   
+	@Autowired AppUserSecurityService service;
    
    @Override                     // 아이디(email)
    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
