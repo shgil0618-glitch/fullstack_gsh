@@ -1,0 +1,58 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="0F837746-AAAE-34B7-0156-FC7FEEEB7E8D" schemaObject="F48CF447-64F4-29EA-2E99-798DAE9248A8" name="DEPT_FK">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>SCOTT</sourceObjSchema>
+<sourceObjName>DEPT_FK</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:57 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="DEPTNO" id="680D6B33-5CED-607A-031A-63E840A3E3C0">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>DEPT_FK</sourceObjSchema>
+<sourceObjName>DEPTNO</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:57 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DNAME" id="03EE7A05-C33F-4749-38AB-01BC99A276F0">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>DEPT_FK</sourceObjSchema>
+<sourceObjName>DNAME</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:57 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<ownDataTypeParameters>50 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="FE805E3E-7328-FF77-7BBA-AE0450D7C490" schemaObject="F48CF447-64F4-29EA-2E99-798DAE9248A8" name="DEPT_FK_PK">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>SCOTT</sourceObjSchema>
+<sourceObjName>SYS_C007024</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:57 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="680D6B33-5CED-607A-031A-63E840A3E3C0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

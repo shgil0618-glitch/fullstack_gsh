@@ -1,0 +1,139 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="FCDB224D-F8DD-747D-76C3-354CA6C9B7EF" schemaObject="F48CF447-64F4-29EA-2E99-798DAE9248A8" name="EMP">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>SCOTT</sourceObjSchema>
+<sourceObjName>EMP</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:37 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="EMPNO" id="075BACCD-39DF-5917-6FFF-748F686FC6E6">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>EMP</sourceObjSchema>
+<sourceObjName>EMPNO</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:37 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ENAME" id="0E3C9847-767A-290D-88EA-03DEB201F813">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>EMP</sourceObjSchema>
+<sourceObjName>ENAME</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:37 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10 BYTE</dataTypeSize>
+<ownDataTypeParameters>10 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="JOB" id="230531E0-BD98-351A-F8A7-CA5E3B266C50">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>EMP</sourceObjSchema>
+<sourceObjName>JOB</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:37 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>9 BYTE</dataTypeSize>
+<ownDataTypeParameters>9 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MGR" id="3600580B-C698-689B-1E76-828CD86640ED">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>EMP</sourceObjSchema>
+<sourceObjName>MGR</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:37 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="HIREDATE" id="4C129BFC-6DAA-6149-C620-776517CD1B03">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>EMP</sourceObjSchema>
+<sourceObjName>HIREDATE</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:37 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SAL" id="32DEDB11-9399-3719-BC59-E067EBD4CA64">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>EMP</sourceObjSchema>
+<sourceObjName>SAL</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:37 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,7,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COMM" id="B1A32034-E211-DA4D-E283-FA57945886DD">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>EMP</sourceObjSchema>
+<sourceObjName>COMM</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:37 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,7,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DEPTNO" id="4891A6B3-2BA3-57AD-6C2E-FCD6FBBAF503">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>EMP</sourceObjSchema>
+<sourceObjName>DEPTNO</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:37 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>2</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,2,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+</Table>

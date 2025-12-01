@@ -1,0 +1,177 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="A1A8A5E6-C030-EE9B-303A-8CAB2CC3BDF9" schemaObject="F48CF447-64F4-29EA-2E99-798DAE9248A8" name="APPUSER">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>SCOTT</sourceObjSchema>
+<sourceObjName>APPUSER</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:45:52 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="APP_USER_ID" id="DBA19E6A-ECA1-C98B-13A0-C6CE9F79C58A">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>APPUSER</sourceObjSchema>
+<sourceObjName>APP_USER_ID</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:45:52 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,5,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EMAIL" id="5884D15A-C202-68D2-2A7D-55702E1893FF">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>APPUSER</sourceObjSchema>
+<sourceObjName>EMAIL</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:45:52 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 BYTE</dataTypeSize>
+<ownDataTypeParameters>100 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PASSWORD" id="0D287C09-B982-82F5-ECA9-BFF0A1DADCD2">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>APPUSER</sourceObjSchema>
+<sourceObjName>PASSWORD</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:45:52 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 BYTE</dataTypeSize>
+<ownDataTypeParameters>255 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MBTI_TYPE_ID" id="F2BB47D0-438D-7F64-6A3D-DD83849E886B">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>APPUSER</sourceObjSchema>
+<sourceObjName>MBTI_TYPE_ID</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:45:52 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,5,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATED_AT" id="AD25E287-0A41-F54E-4117-310C095CA2CD">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>APPUSER</sourceObjSchema>
+<sourceObjName>CREATED_AT</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:45:52 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UFILE" id="069CCB26-30A3-AD1F-230D-3EECB9923FBD">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>APPUSER</sourceObjSchema>
+<sourceObjName>UFILE</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:45:52 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 BYTE</dataTypeSize>
+<defaultValue>&apos;default.png&apos;</defaultValue>
+<ownDataTypeParameters>255 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MOBILE" id="B5E9A9E4-7FF3-7F0E-421A-EDE51DB9D310">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>APPUSER</sourceObjSchema>
+<sourceObjName>MOBILE</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:45:52 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<ownDataTypeParameters>50 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NICKNAME" id="DA43D178-01B0-11F1-D964-11567AC89E57">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>APPUSER</sourceObjSchema>
+<sourceObjName>NICKNAME</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:45:52 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<ownDataTypeParameters>50 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="16E2ABF4-5393-C3BB-77A2-1F4282672791" schemaObject="F48CF447-64F4-29EA-2E99-798DAE9248A8" name="APPUSER_PK">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>SCOTT</sourceObjSchema>
+<sourceObjName>SYS_C007018</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:45:52 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DBA19E6A-ECA1-C98B-13A0-C6CE9F79C58A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3849278D-5981-6C0D-D8AB-A0D569C6F145" name="UQ_APPUSER_EMAIL">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>SCOTT</sourceObjSchema>
+<sourceObjName>UQ_APPUSER_EMAIL</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:45:52 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5884D15A-C202-68D2-2A7D-55702E1893FF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="12B7AB43-439E-8669-5F73-6AB780212AD4" schemaObject="F48CF447-64F4-29EA-2E99-798DAE9248A8" name="UQ_APPUSER_EMAIL">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>SCOTT</sourceObjSchema>
+<sourceObjName>UQ_APPUSER_EMAIL</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:45:52 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5884D15A-C202-68D2-2A7D-55702E1893FF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

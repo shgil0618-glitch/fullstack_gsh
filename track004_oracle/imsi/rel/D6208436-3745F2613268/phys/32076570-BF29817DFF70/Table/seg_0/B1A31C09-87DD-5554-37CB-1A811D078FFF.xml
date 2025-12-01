@@ -1,0 +1,85 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="POST" directorySegmentName="seg_0" id="B1A31C09-87DD-5554-37CB-1A811D078FFF">
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:46:11 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<schemaObject>F48CF447-64F4-29EA-2E99-798DAE9248A8</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>169890B2-D677-6FDA-8590-5F81F431DB85</segment>
+<tableSpace>0CED9419-D8D0-1FA1-EC5C-6D5D3AB8C7B0</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="HIT" id="12E26529-8B4B-80C3-C5C1-83B0DB9A5A27">
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:46:11 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<defaultValue>0</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="APP_USER_ID" id="3AD2AE35-DC7E-B316-251E-DC161E2D5A36">
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:46:11 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CREATED_AT" id="624D9FDD-673A-1D03-721F-078A407C7C04">
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:46:11 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<defaultValue>sysdate</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="ID" id="A622B8AD-4103-0F2B-A4A2-FE2A55249029">
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:46:11 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="PASS" id="A8311CBA-46B1-FC57-7CDC-7AA803A668CA">
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:46:11 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CONTENT" id="B02B14DD-657D-0834-7D3C-100F68A30359">
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:46:11 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="TITLE" id="E0FC03F0-34B3-BF03-02A7-AAA2292C809C">
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:46:11 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="FK_POST_APPUSER" id="CA536DA5-1B3F-B935-DE72-046064AEA892">
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:46:11 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<lobStorages>
+<LobStorage class="oracle.dbtools.crest.model.design.storage.oracle.v11g.LobStorageOraclev11g" name="SYS_LOB0000020331C00004$$" id="AD5E2EB3-7FB4-4577-85AF-BD353CA2F192">
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:46:11 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<cache>NOCACHE</cache>
+<chunk>8192</chunk>
+<column>CONTENT</column>
+<logging>YES</logging>
+<tableSpace>0CED9419-D8D0-1FA1-EC5C-6D5D3AB8C7B0</tableSpace>
+</LobStorage>
+</lobStorages>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="POST_PK" id="56E56528-8806-1471-F6E6-3D8AFB64ED8B">
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:46:11 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<schemaObject>F48CF447-64F4-29EA-2E99-798DAE9248A8</schemaObject>
+<segment>628AEA6D-E123-4BC1-484E-4F8E4AC28644</segment>
+<tableSpace>0CED9419-D8D0-1FA1-EC5C-6D5D3AB8C7B0</tableSpace>
+<indexSegment>628AEA6D-E123-4BC1-484E-4F8E4AC28644</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev11g>

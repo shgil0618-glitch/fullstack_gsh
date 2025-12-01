@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="2B94883A-54C6-F003-8E01-A0F1D88E5FCB" schemaObject="F48CF447-64F4-29EA-2E99-798DAE9248A8" name="EMP_FK">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>SCOTT</sourceObjSchema>
+<sourceObjName>EMP_FK</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:53 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="EMPNO" id="4D24C52F-EE59-8E31-8356-E134C7835064">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>EMP_FK</sourceObjSchema>
+<sourceObjName>EMPNO</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:53 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ENAME" id="6BA28351-E739-ACE9-3DD0-B6666CB02B2C">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>EMP_FK</sourceObjSchema>
+<sourceObjName>ENAME</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:53 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<ownDataTypeParameters>50 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DEPTNO" id="3F9426B4-D936-8933-1543-40BAD1A32A53">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>EMP_FK</sourceObjSchema>
+<sourceObjName>DEPTNO</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:53 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>2</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,2,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="ACAA5CCF-18AD-574E-FCF3-3DEAD9777554" referredColumn="680D6B33-5CED-607A-031A-63E840A3E3C0"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="8A110088-1980-9AD5-59D4-8355D4DB5526" schemaObject="F48CF447-64F4-29EA-2E99-798DAE9248A8" name="EMP_FK_PK">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>SCOTT</sourceObjSchema>
+<sourceObjName>SYS_C007026</sourceObjName>
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:53 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4D24C52F-EE59-8E31-8356-E134C7835064"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="234EB1AC-C3F4-9852-B308-B83D3DEDD915" name="FK_DEPT">
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:44:53 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3F9426B4-D936-8933-1543-40BAD1A32A53"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
