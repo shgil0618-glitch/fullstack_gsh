@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="imsi" id="D59C96F6-9B47-CAFB-82A8-66BA4FA2C739" version="3.5">
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:34:54 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>D59C96F6-9B47-CAFB-82A8-66BA4FA2C739</designId>
+</OSDM_Design>

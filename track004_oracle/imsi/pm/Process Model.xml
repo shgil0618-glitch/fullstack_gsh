@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<ProcessModel class="oracle.dbtools.crest.model.design.process.ProcessModel" name="Process Model" id="40D98CDE-2594-C4A2-493C-C3C3DBA892D0">
+<createdBy>TJ-BU-703-001PC</createdBy>
+<createdTime>2025-12-01 05:34:55 UTC</createdTime>
+<ownerDesignName>imsi</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</ProcessModel>

@@ -1,4 +1,4 @@
-       
+select * from emp;
   
 CREATE TABLE users (
     APPUSERID   VARCHAR2(30)     PRIMARY KEY,           
