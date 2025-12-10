@@ -61,7 +61,7 @@ select * from emp_temp;
 90   BACK   INCHEON
 99   MOBILE   
 
-
+create sequence sboard1;
 -- #1
 select * from dept_temp;
 

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thejoa703.dao.Sboard2Dao">
+
+	<!-- Result Map -->
+	<resultMap id="Sboard2Map"
+		type="com.thejoa703.dto.Sboard2Dto">
+		<id property="id" column="ID" />
+		<result property="appUserId" column="APP_USER_ID" />
+		<result property="btitle" column="BTITLE" />
+		<result property="bcontent" column="BCONTENT" />
+		<result property="bpass" column="BPASS" />
+		<result property="bfile" column="BFILE" />
+		<result property="bhit" column="BHIT" />
+		<result property="bip" column="BIP" />
+		<result property="createdAt" column="CREATED_AT" />
+	</resultMap>
+
+	<!-- INSERT -->
+	<insert id="insert" parameterType="com.thejoa703.dto.Sboard2Dto">
+		INSERT INTO sboard2 (
+		ID, APP_USER_ID, BTITLE, BCONTENT, BPASS, BFILE, BIP
+		) VALUES (
+		sboard2_seq.NEXTVAL,
+		#{appUserId},
+		#{btitle},
+		#{bcontent},
+		#{bpass},
+		#{bfile , jdbcType=VARCHAR},
+		#{bip}
+		)
+	</insert>
+
+	<!-- UPDATE -->
+	<update id="update" parameterType="com.thejoa703.dto.Sboard2Dto">
+		UPDATE sboard2
+		SET
+		BTITLE = #{btitle},
+		BCONTENT = #{bcontent},
+		BFILE = #{bfile , jdbcType=VARCHAR}
+		WHERE ID = #{id} and BPASS = #{bpass}
+	</update>
+
+	<!-- UPDATE HIT -->
+	<update id="updateHit" parameterType="int">
+		UPDATE sboard2
+		SET BHIT = BHIT + 1
+		WHERE ID = #{id}
+	</update>
+
+	<!-- DELETE -->
+	<delete id="delete" parameterType="com.thejoa703.dto.Sboard2Dto">
+		DELETE FROM sboard2
+		WHERE ID = #{id} AND BPASS = #{bpass}
+	</delete>
+
+
+	<!-- SELECT ALL -->
+	<select id="selectAll" resultMap="Sboard2Map">
+		SELECT *
+		FROM sboard2
+		ORDER BY ID DESC
+	</select>
+
+	<!-- SELECT ONE -->
+	<select id="select" parameterType="int" resultMap="Sboard2Map">
+		SELECT *
+		FROM sboard2
+		WHERE ID = #{id}
+	</select>
+
+</mapper>

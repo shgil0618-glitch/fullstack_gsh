@@ -22,7 +22,7 @@ public class UserController {
     UserService service;
 
     ///////////////////////////////////////////////////////////
-    // È¸¿ø ¸ñ·Ï ÆäÀÌÁö
+    // È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @RequestMapping("/list.user")
     public String listuser(Model model) {
         model.addAttribute("List", service.selectAll()); 
@@ -30,68 +30,68 @@ public class UserController {
     }
 
     ///////////////////////////////////////////////////////////
-    // È¸¿ø°¡ÀÔ Æû
+    // È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
     @RequestMapping(value="/join.user", method=RequestMethod.GET)
     public String joinPage() {
         return "member/join"; 
     }
 
-    // È¸¿ø°¡ÀÔ ±â´É
+    // È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     @RequestMapping(value="/join.user", method=RequestMethod.POST)
     public String joinUser(UserDto dto, RedirectAttributes rttr) {
     	
     	
     	
-        String msg = "È¸¿ø°¡ÀÔ ½ÇÆÐ";
+        String msg = "íšŒì›ê°€ìž… ì‹¤íŒ¨";
         if(service.insert(dto) > 0) {
-            msg = "È¸¿ø°¡ÀÔ ¼º°ø";
+            msg = "íšŒì›ê°€ìž… ì„±ê³µ";
         }
         rttr.addFlashAttribute("success", msg);
         return "redirect:/login.user";
     }
 
     ///////////////////////////////////////////////////////////
-    // ·Î±×ÀÎ Æû
+    // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½
     @RequestMapping(value="/login.user", method=RequestMethod.GET)
     public String loginPage() {
         return "member/login"; 
     }
 
 	/*
-	 * // ·Î±×ÀÎ ±â´É
+	 * // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	 * 
 	 * @RequestMapping(value="/login.user", method=RequestMethod.POST) public String
 	 * loginUser(UserDto dto, HttpSession session, RedirectAttributes rttr) {
 	 * UserDto loginUser = service.login(dto);
 	 * 
 	 * if(loginUser == null) { rttr.addFlashAttribute("error",
-	 * "¾ÆÀÌµð ¶Ç´Â ºñ¹Ð¹øÈ£°¡ Æ²¸³´Ï´Ù."); return "redirect:/login.user"; }
+	 * "ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ Æ²ï¿½ï¿½ï¿½Ï´ï¿½."); return "redirect:/login.user"; }
 	 * 
 	 * session.setAttribute("loginUser", loginUser); return "redirect:/mypage.user";
 	 * }
 	 */
     
-    // ·Î±×ÀÎ ±â´É
+    // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     @RequestMapping(value="/login.user", method=RequestMethod.POST)
     public String loginUser(UserDto dto, HttpSession session, RedirectAttributes rttr) {
 
         UserDto loginUser = service.login(dto);
 
         if(loginUser == null) {
-            rttr.addFlashAttribute("error", "¾ÆÀÌµð ¶Ç´Â ºñ¹Ð¹øÈ£°¡ Æ²¸³´Ï´Ù.");
+            rttr.addFlashAttribute("error", "ì•„ì´ë”” ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦½ë‹ˆë‹¤..");
             return "redirect:/login.user"; 
         }
 
         
         session.setAttribute("loginUser", loginUser);
-        rttr.addFlashAttribute("success", "·Î±×ÀÎ¿¡ ¼º°øÇß½À´Ï´Ù.");
+        rttr.addFlashAttribute("success", "ë¡œê·¸ì¸ì— ì„±ê³µí•˜ì…¨ìŠµë‹ˆë‹¤..");
         return "redirect:/mypage.user";  
     }
 
 
 
     ///////////////////////////////////////////////////////////
-    // ¸¶ÀÌÆäÀÌÁö
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @RequestMapping("/mypage.user")
     public String myPage(HttpSession session, Model model) {
         UserDto loginUser = (UserDto)session.getAttribute("loginUser");
@@ -102,7 +102,7 @@ public class UserController {
     }
 
     ///////////////////////////////////////////////////////////
-    // È¸¿øÁ¤º¸ ¼öÁ¤ Æû
+    // È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
     @RequestMapping(value="/edit.user", method=RequestMethod.GET)
     public String editPage(HttpSession session, Model model) {
         UserDto loginUser = (UserDto)session.getAttribute("loginUser");
@@ -112,11 +112,11 @@ public class UserController {
         return "member/edit"; 
     }
 
-    // È¸¿øÁ¤º¸ ¼öÁ¤ ±â´É
+    // È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     @RequestMapping(value="/edit.user", method=RequestMethod.POST)
     public String editUser(UserDto dto, RedirectAttributes rttr) {
-        String msg = "Á¤º¸¼öÁ¤ ½ÇÆÐ";
-        if(service.update(dto) > 0) msg = "Á¤º¸¼öÁ¤ ¼º°ø";
+        String msg = "ì •ë³´ìˆ˜ì • ì‹¤íŒ¨";
+        if(service.update(dto) > 0) msg = "ì •ë³´ìˆ˜ì • ì„±ê³µ";
 
         rttr.addFlashAttribute("success", msg);
         return "redirect:/mypage.user"; 
@@ -124,59 +124,59 @@ public class UserController {
 
     ///////////////////////////////////////////////////////////
 	/*
-	 * // È¸¿ø Å»Åð ±â´É
+	 * // È¸ï¿½ï¿½ Å»ï¿½ï¿½ ï¿½ï¿½ï¿½
 	 * 
 	 * @RequestMapping(value="/delete.user", method=RequestMethod.GET) public String
 	 * deletePage() { return "member/delete"; }
 	 * 
-	 * // È¸¿ø Å»Åð ÈÄ ¸®µð·º¼Ç
+	 * // È¸ï¿½ï¿½ Å»ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ð·º¼ï¿½
 	 * 
 	 * @RequestMapping(value="/delete.user", method=RequestMethod.POST) public
 	 * String deleteUser(UserDto dto, HttpSession session, RedirectAttributes rttr)
-	 * { String msg = "ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.";
+	 * { String msg = "ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.";
 	 * 
-	 * if(service.delete(dto) > 0) { msg = "È¸¿øÅ»Åð ¼º°ø"; session.invalidate(); return
+	 * if(service.delete(dto) > 0) { msg = "È¸ï¿½ï¿½Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"; session.invalidate(); return
 	 * "redirect:/list.user"; }
 	 * 
 	 * rttr.addFlashAttribute("error", msg); return "redirect:/mypage.user"; }
 	 */
     @RequestMapping(value="/delete.user", method=RequestMethod.POST)
     public String deleteUser(UserDto dto, HttpSession session, RedirectAttributes rttr) {
-        String msg = "ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù."; // ±âº» ¸Þ½ÃÁö
+        String msg = "ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."; // ï¿½âº» ï¿½Þ½ï¿½ï¿½ï¿½
 
-        // service.delete(dto) È£ÃâÇÏ±â Àü¿¡ ºñ¹Ð¹øÈ£ È®ÀÎÀ» ÇØ¾ß ÇÕ´Ï´Ù.
-        UserDto user = service.select(dto.getAppUserId()); // appUserId·Î »ç¿ëÀÚ Á¤º¸ °¡Á®¿À±â
+        // service.delete(dto) È£ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ð¹ï¿½È£ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ ï¿½Õ´Ï´ï¿½.
+        UserDto user = service.select(dto.getAppUserId()); // appUserIdï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         if (user != null && user.getPassword().equals(dto.getPassword())) {
-            // ºñ¹Ð¹øÈ£°¡ ¸ÂÀ¸¸é »èÁ¦ ÁøÇà
+            // ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             if (service.delete(dto) > 0) {
-                msg = "È¸¿øÅ»Åð ¼º°ø";
+                msg = "íšŒì›íƒˆí‡´ ì„±ê³µ";
                 session.invalidate(); 
                 return "redirect:/list.user"; 
             }
         }
-		rttr.addFlashAttribute("error", "¾ÆÀÌµð ¶Ç´Â ºñ¹Ð¹øÈ£°¡ Æ²¸³´Ï´Ù.");
+		rttr.addFlashAttribute("error", "ì•„ì´ë”” ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦½ë‹ˆë‹¤.");
         return "redirect:/list.user"; 
     }
 
 
     ///////////////////////////////////////////////////////////
-    // ·Î±×¾Æ¿ô
+    // ï¿½Î±×¾Æ¿ï¿½
     @RequestMapping("/logout.user")
     public String logout(HttpSession session,RedirectAttributes rttr) {
-    	rttr.addFlashAttribute("success", "·Î±×¾Æ¿ô µÇ¾ú½À´Ï´Ù.");
+    	rttr.addFlashAttribute("success", "ë¡œê·¸ì•„ì›ƒ ë˜ì—ˆìŠµë‹ˆë‹¤.");
     	
         session.invalidate(); 
         return "redirect:/list.user"; 
     }
 ///////////////////////////////////////////////////////////
- // È¸¿ø°¡ÀÔ ¾÷·Îµå ±â´É
+ // È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½
     @RequestMapping(value="/join2.user", method=RequestMethod.POST)
     public String joinUser2(@RequestParam("file")MultipartFile file,UserDto dto, RedirectAttributes rttr) {
 
-        String msg = "È¸¿ø°¡ÀÔ ½ÇÆÐ";
+        String msg = "íšŒì›ê°€ìž… ì‹¤íŒ¨";
         if(service.insert2(file,dto) > 0) {
-            msg = "È¸¿ø°¡ÀÔ ¼º°ø";
+            msg = "íšŒì›ê°€ìž… ì„±ê³µ";
         }
         rttr.addFlashAttribute("success", msg);
         return "redirect:/login.user";
@@ -184,11 +184,11 @@ public class UserController {
     
     
 ///////////////////////////////////////////////////////////
-    // È¸¿øÁ¤º¸ ¼öÁ¤ ¾÷·Îµå ±â´É
+    // È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½
     @RequestMapping(value="/edit2.user", method=RequestMethod.POST)
     public String editUser(@RequestParam("file")MultipartFile file,UserDto dto, RedirectAttributes rttr) {
-        String msg = "Á¤º¸¼öÁ¤ ½ÇÆÐ";
-        if(service.update2(file,dto) > 0) msg = "Á¤º¸¼öÁ¤ ¼º°ø";
+        String msg = "ì •ë³´ìˆ˜ì • ì‹¤íŒ¨";
+        if(service.update2(file,dto) > 0) msg = "ì •ë³´ìˆ˜ì • ì„±ê³µ";
 
         rttr.addFlashAttribute("success", msg);
         return "redirect:/mypage.user"; 

@@ -29,74 +29,74 @@ public class QuestController {
 ///////////////////////////////////////////////////////////
 	@RequestMapping("/detail.quest")
 	public String detail(int id, Model model){
-		model.addAttribute("dto", service.select(id));	// Ã³¸®ÇÏ°í
-		return "quest_board/detail"; }	// ÇØ´çÈ­¸é
+		model.addAttribute("dto", service.select(id));	
+		return "quest_board/detail"; }	
 	
 ///////////////////////////////////////////////////////////
-	//±Û¾²±â Æû
+	//ê¸€ì“°ê¸° í¼
 	@RequestMapping(value ="/write.quest",	method = RequestMethod.GET)
 	public String write_get(){ return "quest_board/write"; }
-	//±Û¾²±â ±â´É
+	//ê¸€ì“°ê¸° ê¸°ëŠ¥
 	@RequestMapping(value ="/write.quest",	method = RequestMethod.POST)
 	public String write_post(SboardDto dto ,RedirectAttributes rttr){ 
-		String result = "±Û¾²±â ½ÇÆÐ";
-		if(service.insert(dto) > 0) {result="±Û¾²±â ¼º°ø";}
+		String result = "ìž‘ì„± ì‹¤íŒ¨";
+		if(service.insert(dto) > 0) {result="ìž‘ì„± ì„±ê³µ";}
 		rttr.addFlashAttribute("success",result);
 		return "redirect:/list.quest"; }
 	
 ///////////////////////////////////////////////////////////
-	// ¼öÁ¤ Æû
+	// ê¸€ìˆ˜ì • í¼
 	@RequestMapping(value ="/edit.quest",	method = RequestMethod.GET)
 	public String edit_get(int id, Model model){ 
 		model.addAttribute("dto",service.selectUpdateForm(id));
 		return "quest_board/edit"; }
-	// ¼öÁ¤ ±â´É
+	// ê¸€ìˆ˜ì • ê¸°ëŠ¥
 	@RequestMapping(value ="/edit.quest",	method = RequestMethod.POST)
 	public String edit_post(SboardDto dto ,RedirectAttributes rttr){ 
-		String result = "ºñ¹Ð¹øÈ£ ½ÇÆÐ";
-		if(service.update(dto) > 0) {result="¼öÁ¤ ¼º°ø";}
+		String result = "ë¹„ë°€ë²ˆí˜¸ ì˜¤ë¥˜";
+		if(service.update(dto) > 0) {result="ìˆ˜ì • ì„±ê³µ";}
 		rttr.addFlashAttribute("success",result);
 		return "redirect:/detail.quest?id=" + dto.getId(); }
-	//Q1. ¼öÁ¤±â´Éµµ ½ÇÆÐ½Ã ¾Ë¸²Ã¢ + /DETAIL.QUEST
+	//Q1. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½ ï¿½ï¿½ï¿½Ð½ï¿½ ï¿½Ë¸ï¿½Ã¢ + /DETAIL.QUEST
 	
 ///////////////////////////////////////////////////////////
-	// »èÁ¦ Æû
+	// ê¸€ì‚­ì œ í¼
 	@RequestMapping(value ="/delete.quest",	method = RequestMethod.GET)
 	public String delete_get(){ return "quest_board/delete"; }
-	// »èÁ¦ ±â´É
+	// ê¸€ì‚­ì œ ê¸°ëŠ¥
 	@RequestMapping(value ="/delete.quest",	method = RequestMethod.POST)
 	public String delete_post(SboardDto dto ,RedirectAttributes rttr){ 
-		String result = "ºñ¹Ð¹øÈ£ ½ÇÆÐ";
-		if(service.delete(dto) > 0) {result="»èÁ¦ ¼º°ø";}
+		String result = "ë¹„ë°€ë²ˆí˜¸ ì˜¤ë¥˜";
+		if(service.delete(dto) > 0) {result="ì‚­ì œ ì„±ê³µ";}
 		rttr.addFlashAttribute("success",result);
 		return "redirect:/list.quest"; }
-	//Q2. »èÁ¦±â´Éµµ ½ÇÆÐ½Ã ¾Ë¸²Ã¢ + /LIST.QUEST
+	//Q2. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½ ï¿½ï¿½ï¿½Ð½ï¿½ ï¿½Ë¸ï¿½Ã¢ + /LIST.QUEST
 	
-	// ¾÷·Îµå Ãß°¡
+	// ï¿½ï¿½ï¿½Îµï¿½ ï¿½ß°ï¿½
 	// upload
 	@RequestMapping(value ="/upload.quest",	method = RequestMethod.POST)
-	public String upload_post(@RequestParam("file")MultipartFile file  //±×³É ÆÄÀÏÀ» ´øÁ®ÁÖ¸é ³Ê¹« Å©´Ï±î ÀÌ·¸°Ô ÆÄÀÏ·Î ´ýÁü
+	public String upload_post(@RequestParam("file")MultipartFile file  //ï¿½×³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½Ê¹ï¿½ Å©ï¿½Ï±ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½ï¿½
 			,SboardDto dto ,RedirectAttributes rttr){ 
-		String result = "±Û¾²±â ½ÇÆÐ";
-		if(service.insert2(file, dto) > 0) {result="±Û¾²±â ¼º°ø";}
+		String result = "ìž‘ì„± ì‹¤íŒ¨";
+		if(service.insert2(file, dto) > 0) {result="ìž‘ì„± ì„±ê³µ";}
 		rttr.addFlashAttribute("success",result);
 		return "redirect:/list.quest"; }
 
 	
-	// ¼öÁ¤ ¾÷·Îµå
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½
 	@RequestMapping(value ="/updateEdit.quest",	method = RequestMethod.POST)
 	public String updateEdit_post(@RequestParam("file")MultipartFile file ,SboardDto dto ,RedirectAttributes rttr){ 
-		String result = "ºñ¹Ð¹øÈ£ ½ÇÆÐ";
-		if(service.update2(file,dto) > 0) {result="¼öÁ¤ ¼º°ø";}
+		String result = "ë¹„ë°€ë²ˆí˜¸ ì˜¤ë¥˜";
+		if(service.update2(file,dto) > 0) {result="ìˆ˜ì • ì„±ê³µ";}
 		rttr.addFlashAttribute("success",result);
 		return "redirect:/detail.quest?id=" + dto.getId(); }
 }
 
 /*
-list.quest		/view/quest_board/ist.jsp		(ÀüÃ¼º¸±â)
-insert.quest	/view/quest_board/insert.jsp	(±Û¾²±â)
-detail.quest	/view/quest_board/detail.jsp	(»ó¼¼º¸±â)
-edit.quest		/view/quest_board/edit.jsp		(¼öÁ¤ÇÏ±â)
-delete.quest	/view/quest_board/delete.jsp	(»èÁ¦ÇÏ±â)
+list.quest		/view/quest_board/ist.jsp		(ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½)
+insert.quest	/view/quest_board/insert.jsp	(ï¿½Û¾ï¿½ï¿½ï¿½)
+detail.quest	/view/quest_board/detail.jsp	(ï¿½ó¼¼ºï¿½ï¿½ï¿½)
+edit.quest		/view/quest_board/edit.jsp		(ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½)
+delete.quest	/view/quest_board/delete.jsp	(ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½)
  	
 */

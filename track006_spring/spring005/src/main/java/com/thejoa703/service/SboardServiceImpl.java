@@ -38,8 +38,10 @@ public class SboardServiceImpl implements SboardService {
 
 	@Override
 	public SboardDto select(int id) { 
-	    dao.selectUpdateForm(id); // Á¶È¸¼ö 1 Áõ°¡
-	    return dao.select(id);    // ±Û Á¤º¸ °¡Á®¿À±â
+	//    dao.selectUpdateForm(id); // ï¿½ï¿½È¸ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½
+		dao.updateHit(id);
+		dao.select(id);
+	    return dao.select(id);    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 
 	@Override public SboardDto selectUpdateForm(int id) { return dao.select(id);
@@ -48,12 +50,12 @@ public class SboardServiceImpl implements SboardService {
 	/* upload */
 	@Override
 	public int insert2(MultipartFile file, SboardDto dto) {
-		if(!file.isEmpty()) {	// ÆÄÀÏÀÌ ºñ¾îÀÖ´Â°Ô ¾Æ´Ï¶ó¸é
-			String fileName = file.getOriginalFilename();	//¿øº» ÆÄÀÏ ÀÌ¸§
+		if(!file.isEmpty()) {	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´Â°ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½
+			String fileName = file.getOriginalFilename();	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 			String uploadPath = "C:/file/";
 			File img = new File(uploadPath+fileName);
 			try {
-				file.transferTo(img);	// ÆÄÀÏ ¿Ã¸®±â
+				file.transferTo(img);	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½
 				dto.setBfile(fileName);
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
@@ -70,12 +72,12 @@ public class SboardServiceImpl implements SboardService {
 
 	@Override
 	public int update2(MultipartFile file, SboardDto dto) {
-		if(!file.isEmpty()) {	// ÆÄÀÏÀÌ ºñ¾îÀÖ´Â°Ô ¾Æ´Ï¶ó¸é
-			String fileName = file.getOriginalFilename();	//¿øº» ÆÄÀÏ ÀÌ¸§
+		if(!file.isEmpty()) {	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´Â°ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½
+			String fileName = file.getOriginalFilename();	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 			String uploadPath = "C:/file/";
 			File img = new File(uploadPath+fileName);
 			try {
-				file.transferTo(img);	// ÆÄÀÏ ¿Ã¸®±â
+				file.transferTo(img);	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½
 				dto.setBfile(fileName);
 			} catch (IllegalStateException e) {
 				e.printStackTrace();

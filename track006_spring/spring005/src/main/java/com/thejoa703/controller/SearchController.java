@@ -20,8 +20,8 @@ public class SearchController {
 	@RequestMapping("/searchTest")
 	@ResponseBody
 	public String hi() {
-		//Ã³¸®ÇÏ°í
-		return "hi";	//°ªÁÙ°Ô
+
+		return "hi";	//ï¿½ï¿½ï¿½Ù°ï¿½
 	}
 	
 	@RequestMapping("/selectSearch")
@@ -43,7 +43,7 @@ public class SearchController {
 	@RequestMapping("/searchTest")
 	@ResponseBody
 	public String hi() {
-		//Ã³¸®ÇÏ°í
-		return "hi";	//°ªÁÙ°Ô
+		//Ã³ï¿½ï¿½ï¿½Ï°ï¿½
+		return "hi";	//ï¿½ï¿½ï¿½Ù°ï¿½
 	}
 }*/
