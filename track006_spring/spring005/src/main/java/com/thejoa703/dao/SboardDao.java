@@ -13,7 +13,8 @@ public interface SboardDao {
 	public int update(SboardDto dto);
 	public int delete(SboardDto dto);
 	/* public SboardDto selectUpdateForm(int id); */
-	public  int selectUpdateForm(int id);
+	// public  int selectUpdateForm(int id);
+	public int updateHit(int id);
 	
 	/* upload */
 	public int insert2(SboardDto dto);

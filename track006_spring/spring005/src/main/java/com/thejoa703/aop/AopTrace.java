@@ -8,17 +8,17 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 public class AopTrace {
-	@Around("execution( public * com.thejoa703..*(..))")		// ..Àº ÇÏÀ§Æú´õ ´Ù *(..)³»¿ë ´Ù
+	@Around("execution( public * com.thejoa703..*(..))")		// ..ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ *(..)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
    public Object trace( ProceedingJoinPoint  joinPoint)  throws Throwable{
-      // Å¸°Ù¸Ş¼­µåÀÇ Á¤º¸
+      // Å¸ï¿½Ù¸Ş¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
       String signature = joinPoint.getSignature().toShortString();
       System.out.println(">>>> " + signature + " START! ");
-      // Å¸°Ù¸Ş¼­µå È£Ãâ½Ã°£È®ÀÎ
+      // Å¸ï¿½Ù¸Ş¼ï¿½ï¿½ï¿½ È£ï¿½ï¿½Ã°ï¿½È®ï¿½ï¿½
       long start = System.currentTimeMillis();
-      // Å¸°Ù¸Ş¼­µå È£Ãâ
+      // Å¸ï¿½Ù¸Ş¼ï¿½ï¿½ï¿½ È£ï¿½ï¿½
       Object  result = joinPoint.proceed();
       long end  = System.currentTimeMillis();
-      System.out.println("..... ½ÇÇà½Ã°£ : " + (end - start)  + "ms");
+      System.out.println("..... ì‹¤í–‰ì‹œê°„ : " + (end - start)  + "ms");
       System.out.println(">>>> " + signature + " END! ");
       return result;
    }

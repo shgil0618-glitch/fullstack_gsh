@@ -2,70 +2,63 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-   
 <mapper namespace="com.thejoa703.dao.SboardDao">
-	 <!-- 명시적 맵핑 -->
-  <resultMap id="sboardMap" type="SboardDto">
-  	<result property="id" column="ID" />
-  	<result property="appUserId" column="APP_USER_ID" />
-  	<result property="btitle" column="BTITLE" />
-  	<result property="bcontent" column="BCONTENT" />
-  	<result property="bpass" column="BPASS" />
-  	<result property="bfile" column="BFILE" />
-  	<result property="bhit" column="BHIT" />
-  	<result property="bip" column="BIP" />
-  	<result property="createdAt" column="CREATED_AT" />
-  </resultMap>
 
+	  <!-- 명시적 매핑 -->
+	  <resultMap id="sboardMap" type="SboardDto">
+	    <result property="id" column="ID"/>
+	    <result property="appUserId" column="APP_USER_ID"/>
+	    <result property="btitle"    column="BTITLE"/>
+	    <result property="bcontent"  column="BCONTENT"/>
+	    <result property="bpass"     column="BPASS"/>
+	    <result property="bfile"     column="BFILE"/>
+	    <result property="bhit"      column="BHIT"/>
+	    <result property="bip" column="BIP"/>
+	    <result property="createdAt" column="CREATED_AT"/>
+	  </resultMap>
 
-	<insert id="insert" parameterType="com.thejoa703.dto.SboardDto">
-    INSERT INTO sboard (
-        id, app_user_id, btitle, bcontent, bpass, bip
-    ) VALUES (
-        sboard_seq.nextval, #{appUserId}, #{btitle}, #{bcontent},
-        #{bpass}, #{bip}
-    )
+	<insert     id="insert"  parameterType="SboardDto">
+	insert into sboard ( ID    , APP_USER_ID , BTITLE , BCONTENT , BPASS , BIP)  
+	values (sboard1_seq.nextval ,#{appUserId}, #{btitle},#{bcontent},#{bpass}, #{bip})
 	</insert>
 	
-	<insert id="insert2" parameterType="com.thejoa703.dto.SboardDto">
-    INSERT INTO sboard (
-        id, app_user_id, btitle, bcontent, bpass, bfile , bip
-    ) VALUES (
-        sboard_seq.nextval, #{appUserId}, #{btitle}, #{bcontent},
-        #{bpass},#{bfile} ,#{bip}
-    )
+	<insert     id="insert2"  parameterType="SboardDto">
+	insert into sboard ( ID    , APP_USER_ID , BTITLE , BCONTENT , BPASS , BFILE , BIP)  
+	values (sboard1_seq.nextval ,#{appUserId}, #{btitle},#{bcontent},#{bpass},  #{bfile, jdbcType=VARCHAR} , #{bip})
 	</insert>
+	
+	<update     id="updateHit"   parameterType="int">
+	update  sboard   set     bhit = bhit + 1    where   id=#{id}    
+	</update>	
+	
+	<update     id="update"  parameterType="SboardDto">
+	update  sboard  
+	set     BTITLE=#{btitle} , BCONTENT=#{bcontent} 
+	where   id=#{id}   and BPASS= #{bpass} 
+	</update>
 
-	<select resultMap="sboardMap" id="selectAll">
-		   SELECT * FROM sboard ORDER BY ID DESC
-	</select>
+	<update     id="update2"  parameterType="SboardDto">
+	update  sboard  
+	set     BTITLE=#{btitle} , BCONTENT=#{bcontent} , BFILE=#{bfile, jdbcType=VARCHAR}
+	where   id=#{id}   and BPASS= #{bpass} 
+	</update>	
 	
-	<!-- resultType는 리턴값이 있을때만 작성 -->
-	<select id="select" resultMap="sboardMap" parameterType="int">
-   SELECT * FROM sboard WHERE id = #{id}
-	</select>
 	
-	<update  id="update" parameterType="SboardDto">
-		UPDATE sboard SET  btitle=#{btitle},    bcontent =#{bcontent}
-		 WHERE id=#{id} and bpass=#{bpass}
-	</update>
-	
-	<update  id="update2" parameterType="SboardDto">
-		UPDATE sboard SET  btitle=#{btitle},    bcontent =#{bcontent}, bfile=#{bfile}
-		 WHERE id=#{id} and bpass=#{bpass}
-	</update>
-	
-	<delete id="delete" parameterType="SboardDto">
-		DELETE FROM sboard WHERE id=#{id} and bpass=#{bpass}
+	<delete     id="delete"  parameterType="SboardDto">
+	delete from sboard   where    id=#{id}   and BPASS= #{bpass}  
 	</delete>
 	
-	<update id="selectUpdateForm" parameterType="int">
-    UPDATE sboard SET BHIT = BHIT + 1 WHERE id = #{id}
-</update>
-
-<!-- ajax search -->
-	<select id="selectSearch" resultMap="sboardMap" parameterType="java.util.HashMap">
-		select * from sboard where BTITLE like #{search}
+	<select    resultMap  ="sboardMap"  id="selectAll"><!--  resultType="Sboard1Dto"  --> 
+	select * from sboard  order by id desc 
 	</select>
-
+	
+	<select    resultMap  ="sboardMap"   id="select"  parameterType="int">
+	select * from sboard where id=#{id}  
+	</select>
+	
+	<!--  ajax - search	 -->
+	<select   resultMap  ="sboardMap"   id="selectSearch" parameterType="java.util.HashMap"  >
+	  select * from  sboard  where btitle   like #{search}
+	</select>
+	
 </mapper>

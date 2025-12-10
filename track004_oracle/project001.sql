@@ -9,6 +9,8 @@ CREATE TABLE users (
 ALTER TABLE users
 ADD CONSTRAINT uq_users_email UNIQUE (EMAIL);
 commit;
+
+create sequence appuser_seq;
 select * from users;
 
     
