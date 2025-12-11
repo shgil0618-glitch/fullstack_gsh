@@ -18,6 +18,49 @@
 		<result property="createdAt" column="CREATED_AT" />
 	</resultMap>
 
+	 <!-- 검색 count -->
+    <select id="countSearch" resultType="int">
+        SELECT COUNT(*)
+        FROM sboard2
+        WHERE btitle LIKE '%' || #{keyword} || '%'
+    </select>
+
+    <!-- 검색 + 페이징 -->
+    <select id="searchList" resultMap="Sboard2Map">
+    <![CDATA[
+        SELECT *
+        FROM (
+            SELECT rownum rn, a.*
+            FROM (
+                SELECT *
+                FROM sboard2
+                WHERE btitle LIKE '%' || NVL(#{keyword}, '') || '%'
+                ORDER BY id DESC
+            ) a
+            WHERE rownum <= #{pstartno} + #{onepagelist}
+        )
+        WHERE rn > #{pstartno}
+    ]]>
+    </select>
+
+
+
+
+
+	<!-- 페이징 -->
+	<select id="select10" parameterType="java.util.HashMap" resultMap="Sboard2Map" >
+		select * from(
+		select row_number() over(order by id desc) as rnum, ID, APP_USER_ID, BTITLE, BCONTENT, BPASS, BFILE, BIP, CREATED_AT 
+		from sboard2	
+		) A
+		where A.rnum between #{start} and #{end}
+	</select>
+	
+	<!-- 페이징2 -->
+	<select id="selectTotalCnt" resultType="int" >
+	select count(*) from sboard2
+	</select>
+
 	<!-- INSERT -->
 	<insert id="insert" parameterType="com.thejoa703.dto.Sboard2Dto">
 		INSERT INTO sboard2 (
@@ -70,5 +113,8 @@
 		FROM sboard2
 		WHERE ID = #{id}
 	</select>
+	
+	
+	
 
 </mapper>
