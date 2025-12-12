@@ -8,5 +8,4 @@ import lombok.Setter;
 public class BasicDto {
 	private String name;
 	private int age;
-	
 }
