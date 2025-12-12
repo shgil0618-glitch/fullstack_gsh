@@ -23,6 +23,7 @@ select * from users;
     views        NUMBER(6) DEFAULT 0,       -- 조회수
     createdAt   DATE DEFAULT SYSDATE,       -- 작성일
     updatedAt   DATE,                       -- 수정일
+    
     FOREIGN KEY (id) REFERENCES users(APPUSERID),
     FOREIGN KEY (categoryId) REFERENCES CATEGORY_TB(categoryId)
 );
