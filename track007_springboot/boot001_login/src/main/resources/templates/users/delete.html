@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{fragments/layout}">
+<body>
+<div layout:fragment="content">
+
+    <h2 class="mb-4">회원 탈퇴</h2>
+
+    <!-- 로그인된 사용자만 --> 
+    <!-- 로컬 계정: 비밀번호 입력 후 탈퇴 --> 
+            <form  method="post"> 
+                <div class="mb-3">
+                    <label for="password" class="form-label">비밀번호 확인</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-danger">탈퇴하기</button>
+            </form>
+        </div> 
+    </div>
+
+
+</div>
+</body>
+</html>
