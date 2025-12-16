@@ -5,11 +5,11 @@
 <div layout:fragment="content">
 
 	<!-- 알림메시지 -->
-    <div th:if="${success}" class="alert alert-info alert-dismissible fade show" role="alert">
+    <div th:if="${successMessage}" class="alert alert-info alert-dismissible fade show" role="alert">
         <span th:text="${successMessage}"></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-    <div th:if="${error}" class="alert alert-info alert-dismissible fade show" role="alert">
+    <div th:if="${errorMessage}" class="alert alert-info alert-dismissible fade show" role="alert">
         <span th:text="${errorMessage}"></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
