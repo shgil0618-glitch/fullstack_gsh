@@ -143,7 +143,14 @@ public class UserController {
 			CustomUserDetails  userDetails = (CustomUserDetails)principal;
 			email    =  userDetails.getUser().getEmail();
 			provider =  userDetails.getUser().getProvider();
+		} else if( principal instanceof OAuth2User ) {
+			OAuth2User  oAuth2User = (OAuth2User)principal;
+			email =   (String)oAuth2User.getAttributes().get("email");
+			if(authentication  instanceof OAuth2AuthenticationToken ) {
+				provider = ((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId();
+			}
 		} 
+		
 		AppUserDto dto = userService.selectEmail(email, provider);
 		model.addAttribute("dto" , dto); 
 		return "users/delete"; 
@@ -161,6 +168,14 @@ public class UserController {
 			email    =  userDetails.getUser().getEmail();
 			provider =  userDetails.getUser().getProvider();
 		} 
+		else if( principal instanceof OAuth2User ) {
+			OAuth2User  oAuth2User = (OAuth2User)principal;
+			email =   (String)oAuth2User.getAttributes().get("email");
+			if(authentication  instanceof OAuth2AuthenticationToken ) {
+				provider = ((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId();
+			}
+		}
+		
 		dto.setEmail(email);      dto.setProvider(provider);  //##
 		boolean  requirePasswordCheck   = "local".equalsIgnoreCase(provider);
 		///local
@@ -179,8 +194,10 @@ public class UserController {
 			if(auth != null) {  new SecurityContextLogoutHandler().logout(request, response, auth);  }
 			rttr.addFlashAttribute("successMessage" , "회원탈퇴가 완료되었습니다.");
 			return "redirect:/users/login";
+		} else {
+			rttr.addFlashAttribute("errorMessage", "회원탈퇴 실패 : 관리자에게 문의주세요.");
+			return "redirect:/users/delete";
 		}
-		return "redirect:/users/login";
 	}
 
 }

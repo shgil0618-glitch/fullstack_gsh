@@ -3,6 +3,8 @@ create table authorities(
     auth   varchar2(100)
 );
 
+select * from appuser;
+
 drop table authorities;
 
 ALTER TABLE authorities
