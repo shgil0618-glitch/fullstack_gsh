@@ -24,7 +24,7 @@ public class SecurityConfig {
 		http /* 1. 허용경로 */
 			.authorizeHttpRequests(auth-> auth
 				 //누구나다 접근가능
-				.antMatchers("/users/join" , "/users/login" , "/users/iddouble", "/images/**").permitAll()
+				.antMatchers("/users/join" , "/users/login" , "/users/iddouble", "/images/**" , "/api/**").permitAll()
 				 //로그인한 유저들만 접근가능
 				.antMatchers("/users/mypage" , "/users/update" , "/users/delete").authenticated()
 				 //그외 요청은 모두 허용
