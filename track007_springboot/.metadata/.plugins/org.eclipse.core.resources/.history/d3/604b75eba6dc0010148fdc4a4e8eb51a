@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/layout}">
+<!--    #1. layout 렌더링    -->
+<head lang="ko">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		
+		<h3 th:text="메일보내기"></h3>
+		<form th:action="@{/api/mail}" method="post">
+			<table class="table table-striped">
+				<caption>관리자에게 메일 보내기</caption>
+				<tbody>
+					<tr>
+						<th scope="row"><label for="email">Email</label></th>
+						<td><input type="email" name="email" id="email" size="40"
+							class="form-control"></td>
+					</tr>
+					<tr>
+						<th scope="row"><label for="subject">Title</label></th>
+						<td><input type="text" name="subject" id="subject" size="40"
+							class="form-control"></td>
+					</tr>
+					<tr>
+						<th scope="row"><label for="content">Content</label></th>
+						<td><textarea name="content" rows="10" cols="40"
+								class="form-control" id="content"></textarea></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" value="Submit"
+							class="btn btn-primary"></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		<!-- CKEditor 로드 -->
+		<!-- <script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script> -->
+		<script>
+			$(function(){
+				CKEDITOR.replace('content');	//textarea의 id값
+			});
+		</script>
+	</div>
+
+</body>
+</html>
+<!-- http://localhost:8484/api/openai -->

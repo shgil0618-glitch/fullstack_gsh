@@ -1,0 +1,10 @@
+package com.thejoa703.external;
+
+public class ApiSmsService {
+
+	public String phoneNumber() {
+		String result ="";
+		String api_key="";
+		String api_secret="";
+	}
+}
