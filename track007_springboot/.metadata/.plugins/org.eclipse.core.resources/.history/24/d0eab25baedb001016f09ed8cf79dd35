@@ -1,0 +1,17 @@
+package com.thejoa703.external;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+
+@Service
+public class ApiChatGpt {
+
+	@Value("${openai.api.key}")
+	private String apikey;
+	
+	private static final String API_URL="";
+	private final ObjectMapper objectMapper = new ObjectMapper()
+}

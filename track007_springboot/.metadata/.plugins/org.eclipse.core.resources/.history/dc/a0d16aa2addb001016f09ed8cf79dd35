@@ -1,0 +1,12 @@
+package com.thejoa703.external;
+
+import org.springframework.stereotype.Service;
+
+import lombok.Value;
+
+@Service
+public class ApiChatGpt {
+
+	@Value("${openai.api.key}")
+	private String apikey;
+}

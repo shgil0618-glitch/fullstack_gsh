@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{fragments/layout}">
+<!--    #1. layout 렌더링    -->
+<head lang="ko">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+   <div layout:fragment="content">
+       <h3>OpenAI - ChatGPT</h3>
+       <div class="alert alert-primay"> 일기작성시 일기내용 요약해서 이미지 나타내기.</div>
+       <div  class="my-3">
+          <textarea  class="form-control"   placeholder="오늘의 일기를 작성해주세요"
+                id="userMessage" title="일기작성"></textarea>   
+       </div>
+       <div  class="my-3 text-end">
+          <input type="button"  id="sendBtn"  class="btn btn-primary" value="일기작성"/>
+       </div>
+       <div   id="response"  class="alert alert-primary"></div>
+       
+         <script>
+   $(function(){
+    $("#sendBtn").click(function(){
+        let msg = $("#userMessage").val().trim();
+        if(msg === ""){
+            alert("일기를 작성해주세요!");
+            return;
+        }
+        alert("입력한 내용: " + msg);
+
+        $("#response").text("입력한 내용: " + msg).show();
+       });
+   });
+   </script>
+       
+   </div>  
+   
+ 
+</body>
+</html>

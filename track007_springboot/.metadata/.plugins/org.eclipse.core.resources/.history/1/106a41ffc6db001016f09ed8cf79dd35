@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<div layout:fragment="content">
+	   <div class="container  card bg-primary text-white ">
+         <h3 class="card-header my-3">KMA 기상청 단기</h3>
+         <table class="table table-striped  table-bordered  table-hover  weather_result">
+            <caption>우리동네 단기예보</caption>
+            <thead>
+               <tr>
+                  <th  scope="col"> CATEGORY</th>
+                  <th  scope="col"> TIME</th>
+                  <th  scope="col"> DATA</th>
+               </tr>
+            </thead>
+            <tbody></tbody>
+         </table>
+         </div>
+   </div>
+</body>
+</html>
