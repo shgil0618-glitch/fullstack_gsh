@@ -22,3 +22,5 @@ Thumbs.db
 
 # 민감 정보
 *.properties
+
+*.boot001/src/main/resources/application-oauth.properties    
