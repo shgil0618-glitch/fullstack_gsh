@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.thejoa703.external.ApiChatGpt;
 import com.thejoa703.external.ApiEmailNaver;
 import com.thejoa703.external.ApiKmaWeather;
-import com.thejoa703.external.ApiCoolSms;
 
-import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Controller
 @RequestMapping("/api")
@@ -68,15 +66,26 @@ public class ApiController {
 	}
 	
 ////////////////////////////////////////////CoolSMS
-	@Autowired ApiCoolSms  apiCoolSms;
-	
-	@GetMapping("/sms")
-	public String sms() {return "external/sms";}
-	
-	@GetMapping("/smsapi")
-	@ResponseBody
-	public String sms_api(@RequestParam String to) throws CoolsmsException {
-		return apiCoolSms.phoneNumber(to);
-	}
+	/*
+	 * @Autowired ApiCoolSms apiCoolSms;
+	 * 
+	 * @GetMapping("/sms") public String sms() {return "external/sms";}
+	 * 
+	 * @GetMapping("/smsapi")
+	 * 
+	 * @ResponseBody public String sms_api(@RequestParam String to) throws
+	 * CoolsmsException { return apiCoolSms.phoneNumber(to); }
+	 */
 
+//////////////////////////////////////////// PostCode
+	
+	@GetMapping("/postcode")
+	public String postcode() {return "external/postcode";}
+	
+//////////////////////////////////////////// navermaps
+	
+	@GetMapping("/maps")
+	public String maps() {return "external/navermap";}
+	
+	
 }
