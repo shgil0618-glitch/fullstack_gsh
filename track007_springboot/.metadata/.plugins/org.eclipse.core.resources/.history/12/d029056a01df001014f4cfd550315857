@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/layout}">
+<!--    #1. layout 렌더링    -->
+<head lang="ko">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<!-- 1. key 사용 -->
+		<script type="text/javascript"
+			src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=nj412svael&collback=initMap"></script>
+		<h2 class="mb-3">📍 현재 위치 기반 매장 추천</h2>
+
+		<!-- 버튼 영역 -->
+		<div class="mb-3">
+			<button id="locateBtn" class="btn btn-primary me-2">내 위치 찾기</button>
+			<button id="showAllBtn" class="btn btn-secondary">모든 매장 표시</button>
+		</div>
+
+		<!-- 지도 영역 -->
+		<div id="map" class="border rounded"
+			style="width: 100%; height: 500px;"></div>
+
+		<!-- 결과 패널 -->
+		<div class="card mt-3">
+			<div class="card-body">
+				<h5 class="card-title">추천 결과</h5>
+				<p id="resultText" class="card-text">아직 위치를 찾지 않았습니다.</p>
+				<div id="storeList" class="list-group"></div>
+			</div>
+		</div>
+		<!-- 2. 지도 넣기 -->
+		<script id="code">
+		/* $(function(){ */
+			let map;
+			let userMarker;
+			
+			function initMap(){
+				/* document.getElementById("locateBtn").onclick = Recomment;	// 제일 가까운 위치의 매장 추천
+				document.getElementById("showAllBtn").onclick = showStores;	// 모든 매장 */
+			
+			//1. 지도 초괴화 - 매칭좌표	
+			const stores = [ 
+				{ name: "강남점", lat: 37.498095, lng: 127.027610 },
+				{ name: "홍대점", lat: 37.556343, lng: 126.922651 },
+				{ name: "인천점", lat: 37.447275, lng: 126.690894 },
+				{ name: "시청점", lat: 37.566295, lng: 126.977945 } 
+				];
+				
+			//2. 지도초기화 - 중심위치
+			map = new naver.maps.Map('map', {
+			    center: new naver.maps.LatLng(37.3595704, 127.105399),
+			    zoom: 15
+			});
+			usermarker = new naver.maps.Marker({
+			    position: new naver.maps.LatLng(37.3595704, 127.105399),
+			    map: map
+			});
+			document.getElementById("locateBtn").onclick = Recomment;	
+			document.getElementById("showAllBtn").onclick = showStores;
+			
+			
+			//3. 모든매장 - 마커표시
+			
+			
+			//4. 현재위치+가장가까운매장추천 
+			
+			}
+	/* 	}); */
+		</script>
+		
+		<!-- <script id="code">
+			//지도를 삽입할 HTML 요소 또는 HTML 요소의 id를 지정합니다.
+			var mapDiv = document.getElementById('map'); // 'map'으로 선언해도 동일
+
+			//옵션 없이 지도 객체를 생성하면 서울 시청을 중심으로 하는 16 레벨의 지도가 생성됩니다.
+			var map = new naver.maps.Map(mapDiv);
+		</script> -->
+
+
+	</div>
+
+</body>
+</html>
+<!-- http://localhost:8484/api/openai -->

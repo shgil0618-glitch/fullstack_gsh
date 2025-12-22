@@ -1,0 +1,8 @@
+package com.thejoa703.service;
+
+public class Snippet {
+	public static void main(String[] args) {
+		RecipeServiceImpl
+	}
+}
+

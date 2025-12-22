@@ -1,0 +1,24 @@
+package com.thejoa703.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class AiUsageHistory3 {
+
+    private Integer aiHistId;
+
+    private Integer appUserId;      // 로그인 사용자만
+
+    private String targetType;      // RECIPE / SEARCH / MODERATION
+    private Integer targetId;        // RECIPE_ID or NULL
+
+    private String aiAction;         // GENERATE / ANALYZE / SEARCH
+    private String summary;          // 사람이 보는 요약
+
+    private String createdAt;
+
+}

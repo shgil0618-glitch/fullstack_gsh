@@ -1,0 +1,16 @@
+package com.thejoa703.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class RecipeLikes3 {
+
+    private Integer likeId;     // PK
+    private Integer appUserId;  // 사용자
+    private Integer recipeId;   // 레시피
+    private String createdAt;
+}

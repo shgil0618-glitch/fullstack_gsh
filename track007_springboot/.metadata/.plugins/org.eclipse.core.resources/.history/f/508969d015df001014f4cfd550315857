@@ -1,0 +1,170 @@
+package com.thejoa703.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.thejoa703.dao.Recipes3Dao;
+import com.thejoa703.dto.RecipeLikes3;
+import com.thejoa703.dto.Recipes3Dto;
+import com.thejoa703.dto.RecipesIngre3;
+import com.thejoa703.dto.RecipesIngreMap3;
+import com.thejoa703.dto.RecipesStep3;
+import com.thejoa703.dto.RecipesStepMap3;
+
+@Service
+public class RecipeServiceImpl implements RecipeService {
+
+    @Autowired
+    private Recipes3Dao recipes3Dao;
+
+    private final int PAGE_SIZE = 8; // 한 페이지당 레시피 수
+
+    // =======================
+    // 레시피 CRUD
+    // =======================
+    @Override
+    public int getTotalRecipeCount() {
+        // DAO에서 전체 레시피 수 조회
+        return recipes3Dao.selectRecipeListPaging(Map.of("rStart", 1, "rEnd", Integer.MAX_VALUE)).size();
+    }
+
+    @Override
+    public List<Recipes3Dto> selectRecipeListPaging(int page) {
+        int rStart = (page - 1) * PAGE_SIZE + 1;
+        int rEnd = page * PAGE_SIZE;
+        Map<String, Object> param = new HashMap<>();
+        param.put("rStart", rStart);
+        param.put("rEnd", rEnd);
+        return recipes3Dao.selectRecipeListPaging(param);
+    }
+
+    @Override
+    public Recipes3Dto selectRecipeDetail(int recipeId) {
+        Recipes3Dto recipe = recipes3Dao.selectRecipe(recipeId);
+        if (recipe != null) {
+            recipe.setIngredients(recipes3Dao.selectRecipeIngredients(recipeId));
+            recipe.setSteps(recipes3Dao.selectRecipeSteps(recipeId));
+        }
+        return recipe;
+    }
+
+    @Override
+    public int insertRecipe(Recipes3Dto dto, List<MultipartFile> files) {
+        // 1️⃣ 레시피 기본 등록
+        int result = recipes3Dao.insertRecipe(dto);
+
+        int recipeId = dto.getRecipeId();
+
+        // 2️⃣ 재료 등록
+        List<RecipesIngre3> ingredients = dto.getIngredients();
+        if (ingredients != null) {
+            for (int i = 0; i < ingredients.size(); i++) {
+                RecipesIngreMap3 map = new RecipesIngreMap3();
+                map.setRecipeId(recipeId);
+                map.setIngreOrder(i + 1);
+                recipes3Dao.insertIngredientMap(map);
+
+                RecipesIngre3 ingre = ingredients.get(i);
+                ingre.setIngreMapId(map.getIngreMapId());
+                recipes3Dao.insertIngredientDetail(ingre);
+            }
+        }
+
+        // 3️⃣ 조리 단계 등록
+        List<RecipesStep3> steps = dto.getSteps();
+        if (steps != null) {
+            for (int i = 0; i < steps.size(); i++) {
+                RecipesStepMap3 stepMap = new RecipesStepMap3();
+                stepMap.setRecipeId(recipeId);
+                stepMap.setStepOrder(i + 1);
+                recipes3Dao.insertStepMap(stepMap);
+
+                RecipesStep3 step = steps.get(i);
+                step.setStepMapId(stepMap.getStepMapId());
+                recipes3Dao.insertStepDetail(step);
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public int updateRecipe(Recipes3Dto dto, List<MultipartFile> files) {
+        // 1️⃣ 기존 재료/조리 단계 삭제
+        recipes3Dao.deleteIngredientMaps(dto.getRecipeId());
+        recipes3Dao.deleteStepMaps(dto.getRecipeId());
+
+        // 2️⃣ 레시피 수정
+        int result = recipes3Dao.updateRecipe(dto);
+
+        // 3️⃣ 재등록
+        insertRecipe(dto, files); // 재료/단계 재등록
+        return result;
+    }
+
+    @Override
+    public int deleteRecipe(int recipeId, int appUserId) {
+        Recipes3Dto recipe = recipes3Dao.selectRecipe(recipeId);
+        if (recipe == null || recipe.getAppUserId() != appUserId) return 0;
+        recipes3Dao.deleteIngredientMaps(recipeId);
+        recipes3Dao.deleteStepMaps(recipeId);
+        return recipes3Dao.deleteRecipe(recipeId);
+    }
+
+    @Override
+    public void incrementViews(int recipeId) {
+        recipes3Dao.incrementRecipeViews(recipeId);
+    }
+
+    @Override
+    public List<Recipes3Dto> selectMyRecipes(int appUserId) {
+        return recipes3Dao.selectMyRecipes(appUserId);
+    }
+
+    // =======================
+    // 좋아요 기능
+    // =======================
+    @Override
+    public boolean existsRecipeLike(int appUserId, int recipeId) {
+        Map<String, Integer> param = Map.of("appUserId", appUserId, "recipeId", recipeId);
+        return recipes3Dao.existsRecipeLike(param) > 0;
+    }
+
+    @Override
+    public boolean likeRecipe(int appUserId, int recipeId) {
+        RecipeLikes3 like = new RecipeLikes3();
+        like.setAppUserId(appUserId);
+        like.setRecipeId(recipeId);
+        return recipes3Dao.insertRecipeLike(like) > 0;
+    }
+
+    @Override
+    public boolean unlikeRecipe(int appUserId, int recipeId) {
+        Map<String, Integer> param = Map.of("appUserId", appUserId, "recipeId", recipeId);
+        return recipes3Dao.deleteRecipeLike(param) > 0;
+    }
+
+    // =======================
+    // 유저 정보
+    // =======================
+    @Override
+    public int getAppUserIdByEmail(String email) {
+        // 실제 구현 시 User DAO 필요
+        // 임시로 email -> appUserId 변환
+        return 0; // 나중에 구현
+    }
+
+    // =======================
+    // 페이징
+    // =======================
+    @Override
+    public Object getPaging(int page, int totalCount) {
+        // PagingDto를 반환하도록 구현 필요
+        return null; // 나중에 구현
+    }
+}

@@ -1,0 +1,61 @@
+package com.thejoa703.controller;
+
+import com.thejoa703.dto.*;
+import com.thejoa703.service.RecipeService;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/recipes")
+public class RecipeController {
+
+    @Autowired
+    private RecipeService recipeService;
+
+    @PostMapping
+    public int createRecipe(@RequestBody Recipes3Dto recipe) {
+        return recipeService.createRecipe(recipe);
+    }
+
+    @GetMapping("/{recipeId}")
+    public Recipes3Dto getRecipe(@PathVariable int recipeId) {
+        return recipeService.getRecipe(recipeId);
+    }
+
+    @PutMapping
+    public int updateRecipe(@RequestBody Recipes3Dto recipe) {
+        return recipeService.updateRecipe(recipe);
+    }
+
+    @DeleteMapping("/{recipeId}")
+    public int deleteRecipe(@PathVariable int recipeId) {
+        return recipeService.deleteRecipe(recipeId);
+    }
+
+    @GetMapping("/{recipeId}/ingredients")
+    public List<RecipesIngre3> getIngredients(@PathVariable int recipeId) {
+        return recipeService.getRecipeIngredients(recipeId);
+    }
+
+    @GetMapping("/{recipeId}/steps")
+    public List<RecipesStep3> getSteps(@PathVariable int recipeId) {
+        return recipeService.getRecipeSteps(recipeId);
+    }
+
+    @PostMapping("/{recipeId}/like")
+    public boolean likeRecipe(@RequestParam int appUserId, @PathVariable int recipeId) {
+        return recipeService.likeRecipe(appUserId, recipeId);
+    }
+
+    @DeleteMapping("/{recipeId}/like")
+    public boolean unlikeRecipe(@RequestParam int appUserId, @PathVariable int recipeId) {
+        return recipeService.unlikeRecipe(appUserId, recipeId);
+    }
+
+    @GetMapping("/search")
+    public List<Recipes3Dto> searchRecipes(@RequestParam Map<String, Object> params) {
+        return recipeService.searchRecipes(params);
+    }
+}

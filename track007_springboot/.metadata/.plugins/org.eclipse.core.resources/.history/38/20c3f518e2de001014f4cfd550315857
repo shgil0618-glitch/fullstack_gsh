@@ -1,0 +1,15 @@
+package com.thejoa703.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class RecipeIngreMap3 {
+    private int recipeId;
+    private Integer ingreMapId;
+
+    
+}

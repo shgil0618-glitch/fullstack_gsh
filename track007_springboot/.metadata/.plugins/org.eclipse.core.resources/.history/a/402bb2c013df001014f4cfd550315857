@@ -1,0 +1,15 @@
+package com.thejoa703.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class RecipesStep3 {
+
+    private Integer stepMapId;  // PK & FK
+    private String stepDesc;    // 설명
+    private String stepImage;   // 이미지
+}

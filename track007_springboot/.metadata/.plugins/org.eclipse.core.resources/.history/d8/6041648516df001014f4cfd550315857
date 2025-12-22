@@ -1,0 +1,54 @@
+package com.thejoa703.controller;
+
+import java.security.Principal;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.thejoa703.dto.Recipes3Dto;
+import com.thejoa703.dto.SearchHistory3;
+import com.thejoa703.service.RecipesService;
+
+@Controller
+public class SearchController {
+
+    @Autowired
+    private RecipesService recipesService;
+
+    private static final int DEFAULT_PAGE_SIZE = 8;
+
+    @GetMapping("/search")
+    public String search(
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "category", required = false) String category,
+            @RequestParam(value = "sort", defaultValue = "latest") String sortType,
+            @RequestParam(value = "page", defaultValue = "1") int pageNo,
+            Principal principal,
+            Model model) {
+
+        // 검색 기록 저장 (로그인 사용자만)
+        if (principal != null && keyword != null && !keyword.isBlank()) {
+            String email = principal.getName();
+            // appUserId 가져오는 로직은 필요
+            // 예: AppUserDto user = userService.selectEmail(email);
+            // recipesService.insertSearchHistory(new SearchHistory3(user.getAppUserId(), keyword));
+        }
+
+        // 검색 결과 조회
+        List<Recipes3Dto> recipes = recipesService.searchRecipes(keyword, category, sortType, pageNo);
+        int totalCount = recipesService.getSearchResultCount(keyword, category);
+
+        model.addAttribute("list", recipes);
+        model.addAttribute("totalCount", totalCount);
+        model.addAttribute("pageNo", pageNo);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("category", category);
+        model.addAttribute("sortType", sortType);
+
+        return "/search/list";
+    }
+}

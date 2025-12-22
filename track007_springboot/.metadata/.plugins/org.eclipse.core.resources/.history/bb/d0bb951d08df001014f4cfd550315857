@@ -1,0 +1,42 @@
+package com.thejoa703.service;
+
+import com.thejoa703.dto.*;
+import java.util.List;
+import java.util.Map;
+
+public interface RecipeService {
+
+    // 레시피 CRUD
+    int createRecipe(Recipes3Dto recipe);
+    Recipes3Dto getRecipe(int recipeId);
+    int updateRecipe(Recipes3Dto recipe);
+    int deleteRecipe(int recipeId);
+
+    // 조회수 증가
+    void incrementViews(int recipeId);
+
+    // 재료
+    List<RecipesIngre3> getRecipeIngredients(int recipeId);
+
+    // 레시피 단계
+    List<RecipesStep3> getRecipeSteps(int recipeId);
+
+    // 검색
+    int getSearchCount(Map<String, Object> params);
+    List<Recipes3Dto> searchRecipes(Map<String, Object> params);
+
+    // 좋아요
+    boolean likeRecipe(int appUserId, int recipeId);
+    boolean unlikeRecipe(int appUserId, int recipeId);
+    boolean hasLiked(int appUserId, int recipeId);
+    int countLikes(int recipeId);
+    List<Recipes3Dto> getMyLikedRecipes(int appUserId);
+
+    // AI 사용 기록
+    int insertAiUsage(AiUsageHistory3 aiHistory);
+    List<AiUsageHistory3> getAiUsageByUser(int appUserId);
+    List<AiUsageHistory3> getAllAiUsage();
+
+    // 비속어
+    List<BadWords3> getBadWords();
+}

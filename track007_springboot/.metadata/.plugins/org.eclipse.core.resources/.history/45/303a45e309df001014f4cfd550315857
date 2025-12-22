@@ -1,0 +1,21 @@
+/*
+ * package com.thejoa703.controller;
+ * 
+ * import com.thejoa703.dto.Recipes3Dto; import
+ * com.thejoa703.service.RecipeService; import
+ * org.springframework.web.bind.annotation.*; import
+ * org.springframework.beans.factory.annotation.Autowired; import
+ * java.util.List; import java.util.Map;
+ * 
+ * @RestController
+ * 
+ * @RequestMapping("/search") public class SearchController {
+ * 
+ * @Autowired private RecipeService recipeService;
+ * 
+ * @GetMapping public List<Recipes3Dto> search(@RequestParam Map<String, Object>
+ * params) { return recipeService.searchRecipes(params); }
+ * 
+ * @GetMapping("/count") public int searchCount(@RequestParam Map<String,
+ * Object> params) { return recipeService.getSearchCount(params); } }
+ */

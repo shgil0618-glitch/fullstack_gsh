@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.thejoa703.dao.Recipes3Dao">
+
+    <!-- ==================================================
+         RESULT MAP
+    ================================================== -->
+
+    <resultMap id="recipes3ResultMap" type="com.thejoa703.dto.Recipes3Dto">
+        <id property="recipeId" column="RECIPE_ID"/>
+        <result property="appUserId" column="APPUSERID"/>
+        <result property="title" column="TITLE"/>
+        <result property="category" column="CATEGORY"/>
+        <result property="categoryName" column="CATEGORY_NAME"/>
+        <result property="image" column="IMAGE"/>
+        <result property="cookTime" column="COOK_TIME"/>
+        <result property="difficulty" column="DIFFICULTY"/>
+        <result property="servings" column="SERVINGS"/>
+        <result property="description" column="DESCRIPTION"/>
+        <result property="createdAt" column="CREATED_AT"/>
+        <result property="updatedAt" column="UPDATED_AT"/>
+        <result property="views" column="VIEWS"/>
+        <result property="rUrl" column="R_URL"/>
+        <result property="nickname" column="NICKNAME"/>
+        <result property="isMalicious" column="IS_MALICIOUS"/>
+        <result property="isAiGenerated" column="IS_AI_GENERATED"/>
+    </resultMap>
+
+    <resultMap id="recipeIngreResultMap" type="com.thejoa703.dto.RecipesIngre3">
+        <result property="ingreMapId" column="INGRE_MAP_ID"/>
+        <result property="ingreName" column="INGRE_NAME"/>
+        <result property="ingreNum" column="INGRE_NUM"/>
+    </resultMap>
+
+    <resultMap id="recipeStepResultMap" type="com.thejoa703.dto.RecipesStep3">
+        <result property="stepMapId" column="STEP_MAP_ID"/>
+        <result property="stepDesc" column="STEP_DESC"/>
+        <result property="stepImage" column="STEP_IMAGE"/>
+    </resultMap>
+
+    <!-- ==================================================
+         1️⃣ RECIPE
+    ================================================== -->
+
+    <insert id="insertRecipe" parameterType="com.thejoa703.dto.Recipes3Dto">
+        <selectKey keyProperty="recipeId" resultType="int" order="BEFORE">
+            SELECT seq_recipe3.NEXTVAL FROM dual
+        </selectKey>
+        INSERT INTO recipes3 (
+            RECIPE_ID, APPUSERID, TITLE, CATEGORY, IMAGE,
+            COOK_TIME, DIFFICULTY, SERVINGS,
+            DESCRIPTION, R_URL,
+            IS_MALICIOUS, IS_AI_GENERATED
+        ) VALUES (
+            #{recipeId}, #{appUserId}, #{title}, #{category}, #{image},
+            #{cookTime}, #{difficulty}, #{servings},
+            #{description}, #{rUrl},
+            #{isMalicious}, #{isAiGenerated}
+        )
+    </insert>
+
+    <select id="selectRecipe" parameterType="int" resultMap="recipes3ResultMap">
+        SELECT r.*, c.CATEGORY_NAME, b.NICKNAME
+        FROM recipes3 r
+        LEFT JOIN CATEGORY3 c ON r.CATEGORY = c.CATEGORY
+        LEFT JOIN BUG3 b ON r.APPUSERID = b.APPUSERID
+        WHERE r.RECIPE_ID = #{recipeId}
+    </select>
+
+    <update id="incrementRecipeViews" parameterType="int">
+        UPDATE recipes3
+        SET VIEWS = VIEWS + 1
+        WHERE RECIPE_ID = #{recipeId}
+    </update>
+
+    <update id="updateRecipe" parameterType="com.thejoa703.dto.Recipes3Dto">
+        UPDATE recipes3
+        SET TITLE = #{title},
+            CATEGORY = #{category},
+            COOK_TIME = #{cookTime},
+            DIFFICULTY = #{difficulty},
+            SERVINGS = #{servings},
+            DESCRIPTION = #{description},
+            UPDATED_AT = SYSDATE
+        WHERE RECIPE_ID = #{recipeId}
+          AND APPUSERID = #{appUserId}
+    </update>
+
+    <delete id="deleteRecipe" parameterType="int">
+        DELETE FROM recipes3 WHERE RECIPE_ID = #{recipeId}
+    </delete>
+
+    <!-- ==================================================
+         2️⃣ INGREDIENT
+    ================================================== -->
+
+    <insert id="insertIngredientMap" parameterType="com.thejoa703.dto.RecipesIngreMap3">
+        <selectKey keyProperty="ingreMapId" resultType="int" order="BEFORE">
+            SELECT seq_ingre_map3.NEXTVAL FROM dual
+        </selectKey>
+        INSERT INTO recipes_ingre_map3 (INGRE_MAP_ID, RECIPE_ID, INGRE_ORDER)
+        VALUES (#{ingreMapId}, #{recipeId}, #{ingreOrder})
+    </insert>
+
+    <insert id="insertIngredientDetail" parameterType="com.thejoa703.dto.RecipesIngre3">
+        INSERT INTO recipes_ingre3 (INGRE_MAP_ID, INGRE_NAME, INGRE_NUM)
+        VALUES (#{ingreMapId}, #{ingreName}, #{ingreNum})
+    </insert>
+
+    <select id="selectRecipeIngredients" parameterType="int" resultMap="recipeIngreResultMap">
+        SELECT i.*
+        FROM recipes_ingre_map3 m
+        JOIN recipes_ingre3 i ON m.INGRE_MAP_ID = i.INGRE_MAP_ID
+        WHERE m.RECIPE_ID = #{recipeId}
+        ORDER BY m.INGRE_ORDER
+    </select>
+
+    <delete id="deleteIngredientMaps" parameterType="int">
+        DELETE FROM recipes_ingre_map3 WHERE RECIPE_ID = #{recipeId}
+    </delete>
+
+    <!-- ==================================================
+         3️⃣ STEP
+    ================================================== -->
+
+    <insert id="insertStepMap" parameterType="com.thejoa703.dto.RecipesStepMap3">
+        <selectKey keyProperty="stepMapId" resultType="int" order="BEFORE">
+            SELECT seq_step_map3.NEXTVAL FROM dual
+        </selectKey>
+        INSERT INTO recipes_step_map3 (STEP_MAP_ID, RECIPE_ID, STEP_ORDER)
+        VALUES (#{stepMapId}, #{recipeId}, #{stepOrder})
+    </insert>
+
+    <insert id="insertStepDetail" parameterType="com.thejoa703.dto.RecipesStep3">
+        INSERT INTO recipes_step3 (STEP_MAP_ID, STEP_DESC, STEP_IMAGE)
+        VALUES (#{stepMapId}, #{stepDesc}, #{stepImage})
+    </insert>
+
+    <select id="selectRecipeSteps" parameterType="int" resultMap="recipeStepResultMap">
+        SELECT s.*
+        FROM recipes_step_map3 m
+        JOIN recipes_step3 s ON m.STEP_MAP_ID = s.STEP_MAP_ID
+        WHERE m.RECIPE_ID = #{recipeId}
+        ORDER BY m.STEP_ORDER
+    </select>
+
+    <delete id="deleteStepMaps" parameterType="int">
+        DELETE FROM recipes_step_map3 WHERE RECIPE_ID = #{recipeId}
+    </delete>
+
+    <!-- ==================================================
+         4️⃣ SEARCH (핵심)
+    ================================================== -->
+
+    <!-- 검색 결과 개수 -->
+    <select id="searchBothCount" parameterType="map" resultType="int">
+        SELECT COUNT(DISTINCT r.RECIPE_ID)
+        FROM recipes3 r
+        LEFT JOIN CATEGORY3 c ON r.CATEGORY = c.CATEGORY
+        LEFT JOIN recipes_step_map3 sm ON r.RECIPE_ID = sm.RECIPE_ID
+        LEFT JOIN recipes_step3 s ON sm.STEP_MAP_ID = s.STEP_MAP_ID
+        <where>
+            <if test="keyword != null and keyword != ''">
+                (
+                    r.TITLE LIKE #{keyword}
+                    OR r.DESCRIPTION LIKE #{keyword}
+                    OR s.STEP_DESC LIKE #{keyword}
+                    OR c.CATEGORY_NAME LIKE #{keyword}
+                )
+            </if>
+            <if test="category != null">
+                AND r.CATEGORY = #{category}
+            </if>
+        </where>
+    </select>
+
+    <!-- 검색 결과 페이징 -->
+    <select id="searchBothPaging" parameterType="map" resultMap="recipes3ResultMap">
+        SELECT *
+        FROM (
+            SELECT
+                ROW_NUMBER() OVER (
+                    <choose>
+                        <when test="sortType == 'views'">
+                            ORDER BY r.VIEWS DESC
+                        </when>
+                        <when test="sortType == 'likes'">
+                            ORDER BY COUNT(l.LIKE_ID) DESC
+                        </when>
+                        <otherwise>
+                            ORDER BY r.CREATED_AT DESC
+                        </otherwise>
+                    </choose>
+                ) AS rnum,
+                r.*, c.CATEGORY_NAME, b.NICKNAME
+            FROM recipes3 r
+            LEFT JOIN CATEGORY3 c ON r.CATEGORY = c.CATEGORY
+            LEFT JOIN BUG3 b ON r.APPUSERID = b.APPUSERID
+            LEFT JOIN recipes_step_map3 sm ON r.RECIPE_ID = sm.RECIPE_ID
+            LEFT JOIN recipes_step3 s ON sm.STEP_MAP_ID = s.STEP_MAP_ID
+            LEFT JOIN RECIPE_LIKES3 l ON r.RECIPE_ID = l.RECIPE_ID
+            <where>
+                <if test="keyword != null and keyword != ''">
+                    (
+                        r.TITLE LIKE #{keyword}
+                        OR r.DESCRIPTION LIKE #{keyword}
+                        OR s.STEP_DESC LIKE #{keyword}
+                        OR c.CATEGORY_NAME LIKE #{keyword}
+                    )
+                </if>
+                <if test="category != null">
+                    AND r.CATEGORY = #{category}
+                </if>
+            </where>
+            GROUP BY r.RECIPE_ID, r.APPUSERID, r.TITLE, r.CATEGORY, r.IMAGE,
+                     r.COOK_TIME, r.DIFFICULTY, r.SERVINGS, r.DESCRIPTION,
+                     r.CREATED_AT, r.UPDATED_AT, r.VIEWS, r.R_URL,
+                     r.IS_MALICIOUS, r.IS_AI_GENERATED,
+                     c.CATEGORY_NAME, b.NICKNAME
+        )
+        WHERE rnum BETWEEN #{rStart} AND #{rEnd}
+    </select>
+	<!-- ================================================== * 5️⃣ LIKE (좋아요) 
+		* ================================================== -->
+
+	<!-- 좋아요 등록 -->
+	<insert id="insertRecipeLike"
+		parameterType="com.thejoa703.dto.RecipeLikes3">
+		<selectKey keyProperty="likeId" resultType="int"
+			order="BEFORE">
+			SELECT seq_recipe_like3.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO RECIPE_LIKES3 (
+		LIKE_ID, APPUSERID, RECIPE_ID
+		) VALUES (
+		#{likeId},
+		#{appUserId},
+		#{recipeId}
+		)
+	</insert>
+
+	<!-- 좋아요 취소 -->
+	<delete id="deleteRecipeLike" parameterType="java.util.Map">
+		DELETE FROM RECIPE_LIKES3
+		WHERE APPUSERID = #{appUserId}
+		AND RECIPE_ID = #{recipeId}
+	</delete>
+
+	<!-- 좋아요 여부 확인 -->
+	<select id="existsRecipeLike" parameterType="java.util.Map"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM RECIPE_LIKES3
+		WHERE APPUSERID = #{appUserId}
+		AND RECIPE_ID = #{recipeId}
+	</select>
+
+	<!-- 레시피 좋아요 수 -->
+	<select id="countRecipeLikes" parameterType="int"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM RECIPE_LIKES3
+		WHERE RECIPE_ID = #{recipeId}
+	</select>
+
+	<!-- 내가 좋아요한 레시피 -->
+	<select id="selectMyLikedRecipes" parameterType="int"
+		resultMap="recipes3ResultMap">
+		SELECT r.*, c.CATEGORY_NAME, b.NICKNAME
+		FROM RECIPE_LIKES3 l
+		JOIN recipes3 r ON l.RECIPE_ID = r.RECIPE_ID
+		LEFT JOIN CATEGORY3 c ON r.CATEGORY = c.CATEGORY
+		LEFT JOIN BUG3 b ON r.APPUSERID = b.APPUSERID
+		WHERE l.APPUSERID = #{appUserId}
+		ORDER BY l.CREATED_AT DESC
+	</select>
+
+
+	<!-- ================================================== * 6️⃣ AI USAGE HISTORY 
+		* ================================================== -->
+
+	<!-- AI 사용 기록 저장 -->
+	<insert id="insertAiUsageHistory"
+		parameterType="com.thejoa703.dto.AiUsageHistory3">
+		<selectKey keyProperty="aiHistId" resultType="int"
+			order="BEFORE">
+			SELECT seq_ai_usage_history3.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO AI_USAGE_HISTORY3 (
+		AI_HIST_ID, APPUSERID,
+		TARGET_TYPE, TARGET_ID,
+		AI_ACTION, SUMMARY
+		) VALUES (
+		#{aiHistId},
+		#{appUserId},
+		#{targetType},
+		#{targetId},
+		#{aiAction},
+		#{summary}
+		)
+	</insert>
+
+	<!-- 사용자별 AI 사용 기록 -->
+	<select id="selectAiUsageByUser" parameterType="int"
+		resultType="com.thejoa703.dto.AiUsageHistory3">
+		SELECT *
+		FROM AI_USAGE_HISTORY3
+		WHERE APPUSERID = #{appUserId}
+		ORDER BY CREATED_AT DESC
+	</select>
+
+	<!-- 관리자용 전체 AI 사용 기록 -->
+	<select id="selectAllAiUsage"
+		resultType="com.thejoa703.dto.AiUsageHistory3">
+		SELECT *
+		FROM AI_USAGE_HISTORY3
+		ORDER BY CREATED_AT DESC
+	</select>
+
+
+	<!-- ================================================== * 7️⃣ BAD WORD * 
+		================================================== -->
+
+	<!-- 비속어 목록 -->
+	<select id="selectBadWords"
+		resultType="com.thejoa703.dto.BadWords3">
+		SELECT *
+		FROM BAD_WORDS3
+		ORDER BY WORD
+	</select>
+
+	<!-- 비속어 추가 -->
+	<insert id="insertBadWord"
+		parameterType="com.thejoa703.dto.BadWords3">
+		<selectKey keyProperty="wordId" resultType="int"
+			order="BEFORE">
+			SELECT bad_words3_seq.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO BAD_WORDS3 (WORD_ID, WORD)
+		VALUES (#{wordId}, #{word})
+	</insert>
+
+	<!-- 비속어 삭제 -->
+	<delete id="deleteBadWord" parameterType="int">
+		DELETE FROM BAD_WORDS3
+		WHERE WORD_ID = #{wordId}
+	</delete>
+
+
+</mapper>
