@@ -13,5 +13,4 @@ public class RecipesStep3 {
 	    private int recipeId;
 	    private String stepDesc;
 	    private String stepImage;
-	    private int stepOrder;
 }

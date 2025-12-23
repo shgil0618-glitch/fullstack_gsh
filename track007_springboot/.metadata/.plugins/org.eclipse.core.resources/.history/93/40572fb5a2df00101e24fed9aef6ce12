@@ -1,0 +1,232 @@
+package com.thejoa703.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.thejoa703.dao.Recipes3Dao;
+import com.thejoa703.dto.AiUsageHistory3;
+import com.thejoa703.dto.BadWords3;
+import com.thejoa703.dto.RecipeLikes3;
+import com.thejoa703.dto.Recipes3Dto;
+import com.thejoa703.dto.RecipesIngre3;
+import com.thejoa703.dto.RecipesStep3;
+import com.thejoa703.dto.SearchHistory3;
+import com.thejoa703.service.RecipeService;
+
+@Service
+public class RecipeServiceImpl implements RecipeService {
+
+    @Autowired
+    private Recipes3Dao dao;
+
+    /* ==================================================
+     * 1️⃣ RECIPE
+     * ================================================== */
+
+    @Override
+    @Transactional
+    public int insertRecipe(
+            Recipes3Dto recipe,
+            List<RecipesIngre3> ingredients,
+            List<RecipesStep3> steps) {
+
+        // 1. 레시피 기본
+        dao.insertRecipe(recipe);
+        int recipeId = recipe.getRecipeId();
+
+        // 2. 재료
+        if (ingredients != null && !ingredients.isEmpty()) {
+            for (RecipesIngre3 ingre : ingredients) {
+                ingre.setRecipeId(recipeId);
+                dao.insertIngredient(ingre);
+            }
+        }
+
+        // 3. 단계
+        if (steps != null && !steps.isEmpty()) {
+            for (RecipesStep3 step : steps) {
+                step.setRecipeId(recipeId);
+                dao.insertStep(step);
+            }
+        }
+
+        return recipeId;
+    }
+
+    @Override
+    public Recipes3Dto selectRecipe(int recipeId) {
+        return dao.selectRecipe(recipeId);
+    }
+
+    @Override
+    public List<Recipes3Dto> selectRecipeListPaging(Map<String, Object> param) {
+        return dao.selectRecipeListPaging(param);
+    }
+
+    @Override
+    public List<Recipes3Dto> selectMyRecipes(int appUserId) {
+        return dao.selectMyRecipes(appUserId);
+    }
+
+    @Override
+    public int incrementRecipeViews(int recipeId) {
+        return dao.incrementRecipeViews(recipeId);
+    }
+
+    @Override
+    @Transactional
+    public int updateRecipe(
+            Recipes3Dto recipe,
+            List<RecipesIngre3> ingredients,
+            List<RecipesStep3> steps) {
+
+        dao.updateRecipe(recipe);
+        int recipeId = recipe.getRecipeId();
+
+        // 🔥 수정 시 전략: 전부 삭제 후 재삽입
+        dao.deleteIngredients(recipeId);
+        dao.deleteSteps(recipeId);
+
+        if (ingredients != null) {
+            for (RecipesIngre3 ingre : ingredients) {
+                ingre.setRecipeId(recipeId);
+                dao.insertIngredient(ingre);
+            }
+        }
+
+        if (steps != null) {
+            for (RecipesStep3 step : steps) {
+                step.setRecipeId(recipeId);
+                dao.insertStep(step);
+            }
+        }
+
+        return recipeId;
+    }
+
+    @Override
+    @Transactional
+    public int deleteRecipe(int recipeId) {
+        return dao.deleteRecipe(recipeId);
+    }
+
+    /* ==================================================
+     * 2️⃣ INGREDIENT / STEP
+     * ================================================== */
+
+    @Override
+    public List<RecipesIngre3> selectRecipeIngredients(int recipeId) {
+        return dao.selectRecipeIngredients(recipeId);
+    }
+
+    @Override
+    public List<RecipesStep3> selectRecipeSteps(int recipeId) {
+        return dao.selectRecipeSteps(recipeId);
+    }
+
+    /* ==================================================
+     * 3️⃣ SEARCH
+     * ================================================== */
+
+    @Override
+    public int searchBothCount(Map<String, Object> param) {
+        return dao.searchBothCount(param);
+    }
+
+    @Override
+    public List<Recipes3Dto> searchBothPaging(Map<String, Object> param) {
+        return dao.searchBothPaging(param);
+    }
+
+    @Override
+    @Transactional
+    public int insertSearchHistory(SearchHistory3 history) {
+        return dao.insertSearchHistory(history);
+    }
+
+    @Override
+    public List<SearchHistory3> selectMySearchHistory(int appUserId) {
+        return dao.selectMySearchHistory(appUserId);
+    }
+
+    @Override
+    @Transactional
+    public int deleteExcessSearchHistory(Map<String, Object> param) {
+        return dao.deleteExcessSearchHistory(param);
+    }
+
+    /* ==================================================
+     * 4️⃣ LIKE
+     * ================================================== */
+
+    @Override
+    @Transactional
+    public int insertRecipeLike(RecipeLikes3 like) {
+        return dao.insertRecipeLike(like);
+    }
+
+    @Override
+    @Transactional
+    public int deleteRecipeLike(int appUserId, int recipeId) {
+        Map<String, Integer> param = new HashMap<>();
+        param.put("appUserId", appUserId);
+        param.put("recipeId", recipeId);
+        return dao.deleteRecipeLike(param);
+    }
+
+    @Override
+    public boolean existsRecipeLike(int appUserId, int recipeId) {
+        Map<String, Integer> param = new HashMap<>();
+        param.put("appUserId", appUserId);
+        param.put("recipeId", recipeId);
+        return dao.existsRecipeLike(param) > 0;
+    }
+
+    @Override
+    public int countRecipeLikes(int recipeId) {
+        return dao.countRecipeLikes(recipeId);
+    }
+
+    @Override
+    public List<Recipes3Dto> selectMyLikedRecipes(int appUserId) {
+        return dao.selectMyLikedRecipes(appUserId);
+    }
+
+    /* ==================================================
+     * 5️⃣ AI / BAD WORD
+     * ================================================== */
+
+    @Override
+    public int insertAiUsageHistory(AiUsageHistory3 history) {
+        return dao.insertAiUsageHistory(history);
+    }
+
+    @Override
+    public List<AiUsageHistory3> selectAiUsageByUser(int appUserId) {
+        return dao.selectAiUsageByUser(appUserId);
+    }
+
+    @Override
+    public List<AiUsageHistory3> selectAllAiUsage() {
+        return dao.selectAllAiUsage();
+    }
+
+    @Override
+    public List<BadWords3> selectBadWords() {
+        return dao.selectBadWords();
+    }
+
+    @Override
+    public int insertBadWord(BadWords3 word) {
+        return dao.insertBadWord(word);
+    }
+
+    @Override
+    public int deleteBadWord(int wordId) {
+        return dao.deleteBadWord(wordId);
+    }
+}

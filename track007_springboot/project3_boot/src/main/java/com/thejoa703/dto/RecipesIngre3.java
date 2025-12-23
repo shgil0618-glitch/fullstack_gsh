@@ -13,5 +13,4 @@ public class RecipesIngre3 {
     private int recipeId;
     private String ingreName;
     private String ingreNum;
-    private int ingreOrder;
 }

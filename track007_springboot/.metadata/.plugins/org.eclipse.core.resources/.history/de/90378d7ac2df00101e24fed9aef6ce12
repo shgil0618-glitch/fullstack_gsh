@@ -1,0 +1,25 @@
+package com.thejoa703.controller;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+
+// xml + json 둘 다 호환
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JacksonXmlRootElement(localName="item")
+public class BookDto {
+
+   @JsonProperty("title")
+   @JacksonXmlProperty(localName="title")
+   private String title;
+   
+   @JsonProperty("image")
+   @JacksonXmlProperty(localName="image")
+   private String image;
+   
+   @JsonProperty("author")
+   @JacksonXmlProperty(localName="author")
+   private String author;
+}

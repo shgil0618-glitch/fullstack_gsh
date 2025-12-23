@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<div layout:fragment="content">
+
+    <h2 class="mb-4">새 레시피 작성</h2>
+
+    <form th:action="@{/recipes/new}" th:object="${dto}" method="post" enctype="multipart/form-data"
+          class="needs-validation" novalidate>
+
+        <!-- 작성자 ID: 서버에서 세션/보안에서 채워주거나 hidden으로 전달 -->
+        <input type="hidden" th:field="*{appUserId}"/>
+
+        <!-- 상태 기본값 -->
+        <input type="hidden" th:field="*{status}" value="PUBLIC"/>
+
+        <!-- rUrl 기본값 -->
+        <input type="hidden" th:field="*{rUrl}" value=""/>
+
+        <!-- 조회수 기본값 -->
+        <input type="hidden" th:field="*{views}" value="0"/>
+
+        <!-- 제목 -->
+        <div class="mb-3">
+            <label class="form-label">레시피 제목 *</label>
+            <input type="text" th:field="*{title}" class="form-control" placeholder="예: 김치찌개" required>
+        </div>
+
+        <!-- 카테고리, 난이도 -->
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">카테고리 *</label>
+                <select th:field="*{category}" class="form-select" required>
+                    <option value="">-- 선택 --</option>
+                    <option th:each="c : ${categories}" th:value="${c['CATEGORY']}" th:text="${c['CATEGORY_NAME']}"></option>
+                </select>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">난이도 *</label>
+                <select th:field="*{difficulty}" class="form-select" required>
+                    <option value="">-- 선택 --</option>
+                    <option value="쉬움">쉬움</option>
+                    <option value="보통">보통</option>
+                    <option value="어려움">어려움</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 조리 시간, 인분 -->
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">조리 시간 (분) *</label>
+                <input type="number" th:field="*{cookTime}" class="form-control" value="30" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">인분 *</label>
+                <input type="number" th:field="*{servings}" class="form-control" value="2" required>
+            </div>
+        </div>
+
+        <!-- 대표 이미지 -->
+        <div class="mb-3">
+            <label class="form-label">대표 이미지</label>
+            <input type="file" name="imageFile" class="form-control" accept="image/*">
+        </div>
+
+        <!-- 레시피 설명 -->
+        <div class="mb-3">
+            <label class="form-label">레시피 설명 *</label>
+            <textarea th:field="*{description}" class="form-control" rows="3"
+                      placeholder="이 레시피에 대한 간단한 설명을 입력하세요" required></textarea>
+        </div>
+
+        <!-- 재료 입력 -->
+        <div class="mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <label class="form-label">재료 *</label>
+                <button type="button" class="btn btn-sm btn-outline-primary" id="addIngredientBtn">+ 재료 추가</button>
+            </div>
+            <div id="ingredientsContainer" class="mt-2">
+                <div class="row g-2 ingredient-row mb-2">
+                    <div class="col-5">
+                        <input type="text" name="ingredients[0].ingreName" class="form-control" placeholder="재료 1 이름" required>
+                    </div>
+                    <div class="col-5">
+                        <input type="text" name="ingredients[0].ingreNum" class="form-control" placeholder="재료 1 양" required>
+                    </div>
+                    <div class="col-2 d-grid">
+                        <button type="button" class="btn btn-danger btn-remove-ingre">삭제</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 조리 단계 입력 -->
+        <div class="mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <label class="form-label">조리 단계 *</label>
+                <button type="button" class="btn btn-sm btn-outline-primary" id="addStepBtn">+ 단계 추가</button>
+            </div>
+            <div id="stepsContainer" class="mt-2">
+                <div class="card p-3 mb-2 step-group">
+                    <label><span class="step-number">1</span>. 조리 단계 설명</label>
+                    <textarea class="form-control step-text" name="steps[0].stepDesc" rows="2" placeholder="조리 단계 1 설명" required></textarea>
+                    <div class="mt-2">
+                        <label class="form-label">단계별 이미지 (선택)</label>
+                        <input type="text" name="steps[0].stepImage" class="form-control" placeholder="이미지 경로">
+                    </div>
+                    <button type="button" class="btn btn-sm btn-danger mt-2 btn-remove-step" style="width: 80px;">삭제</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 제출 버튼 -->
+        <div class="d-flex justify-content-end mt-4">
+            <button type="button" class="btn btn-secondary me-2" onclick="history.back()">취소</button>
+            <button type="submit" class="btn btn-warning">레시피 등록</button>
+        </div>
+    </form>
+
+       <!-- 동적 추가 스크립트 -->
+    <script th:inline="javascript">
+        const ingredientsContainer = document.getElementById('ingredientsContainer');
+        const addIngredientBtn = document.getElementById('addIngredientBtn');
+        const stepsContainer = document.getElementById('stepsContainer');
+        const addStepBtn = document.getElementById('addStepBtn');
+
+        // 재료 추가
+        addIngredientBtn.addEventListener('click', () => {
+            const idx = ingredientsContainer.querySelectorAll('.ingredient-row').length;
+            const newRow = document.createElement('div');
+            newRow.classList.add('row','g-2','ingredient-row','mb-2');
+            newRow.innerHTML = `
+                <div class="col-5">
+                    <input type="text" class="form-control" name="ingredients[${idx}].ingreName" placeholder="재료 ${idx+1} 이름" required>
+                </div>
+                <div class="col-5">
+                    <input type="text" class="form-control" name="ingredients[${idx}].ingreNum" placeholder="재료 ${idx+1} 양" required>
+                </div>
+                <div class="col-2 d-grid">
+                    <button type="button" class="btn btn-danger btn-remove-ingre">삭제</button>
+                </div>`;
+            ingredientsContainer.appendChild(newRow);
+        });
+
+        ingredientsContainer.addEventListener('click', e => {
+            if(e.target.classList.contains('btn-remove-ingre')){
+                e.target.closest('.ingredient-row').remove();
+            }
+        });
+
+        // 단계 추가
+        addStepBtn.addEventListener('click', () => {
+            const idx = stepsContainer.querySelectorAll('.step-group').length;
+            const newStep = document.createElement('div');
+            newStep.classList.add('card','p-3','mb-2','step-group');
+            newStep.innerHTML = `
+                <label><span class="step-number">${idx+1}</span>. 조리 단계 설명</label>
+                <textarea class="form-control step-text" name="steps[${idx}].stepDesc" rows="2" placeholder="조리 단계 ${idx+1} 설명" required></textarea>
+                <div class="mt-2">
+                    <label class="form-label">단계별 이미지 (선택)</label>
+                    <input type="text" name="steps[${idx}].stepImage" class="form-control" placeholder="이미지 경로">
+                </div>
+                <button type="button" class="btn btn-sm btn-danger mt-2 btn-remove-step" style="width: 80px;">삭제</button>`;
+            stepsContainer.appendChild(newStep);
+        });
+
+        stepsContainer.addEventListener('click', e => {
+            if(e.target.classList.contains('btn-remove-step')){
+                e.target.closest('.step-group').remove();
+                // 번호 다시 매기기
+                stepsContainer.querySelectorAll('.step-group').forEach((step, idx) => {
+                    step.querySelector('.step-number').textContent = idx+1;
+                    step.querySelector('.step-text').name = `steps[${idx}].stepDesc`;
+                    step.querySelector('input[name*="stepImage"]').name = `steps[${idx}].stepImage`;
+                });
+            }
+        });
+    </script>
+</div>
+</html>

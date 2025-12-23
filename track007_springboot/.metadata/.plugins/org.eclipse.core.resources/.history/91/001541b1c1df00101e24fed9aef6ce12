@@ -1,0 +1,10 @@
+package com.thejoa703.controller;
+
+//xml + json 둘다 호환가능
+
+public class BookDto {
+
+	private String title;
+	private String image;
+	private String author;
+}

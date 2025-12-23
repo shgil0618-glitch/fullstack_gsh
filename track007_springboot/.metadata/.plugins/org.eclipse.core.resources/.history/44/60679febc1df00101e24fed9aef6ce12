@@ -1,0 +1,13 @@
+package com.thejoa703.controller;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+//xml + json 둘다 호환가능
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class BookDto {
+
+	private String title;
+	private String image;
+	private String author;
+}

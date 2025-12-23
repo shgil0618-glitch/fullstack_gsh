@@ -1,0 +1,39 @@
+package com.thejoa703.controller;
+
+import com.thejoa703.dto.Recipes3;
+import com.thejoa703.service.Recipes3Service;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/recipe/*")
+public class SearchController {
+
+    private final Recipes3Service recipeService;
+
+    @GetMapping("/searchTest")
+    public String hi() {
+        return "Hi";
+    }
+
+    @GetMapping("/selectSearchTitle")
+    public List<Recipes3> selectSearchTitle(@RequestParam("search") String keyword) {
+        return recipeService.searchByTitle(keyword);
+    }
+
+    @GetMapping("/selectSearchCategory")
+    public List<Recipes3> selectSearchCategory(@RequestParam("search") String keyword) {
+        return recipeService.searchByCategory(keyword);
+    }
+
+    @GetMapping("/searchBothpaging")
+    public Map<String, Object> searchBoth(@RequestParam(value = "category", required = false) String category,
+                                          @RequestParam(value = "keyword", required = false) String keyword,
+                                          @RequestParam(value = "pstartno", defaultValue = "1") int currentPage) {
+        return recipeService.searchBothPaging(category, keyword, currentPage);
+    }
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/layout}">
+<div layout:fragment="content">
+
+	<h2 class="mb-4">레시피 등록</h2>
+	
+	<form th:action="@{/recipes/new}" th:object="${dto}" method="post"
+		enctype="multipart/form-data" class="needs-validation" novalidate>
+		if (dto.getStatus() == null) dto.setStatus("PUBLIC");
+		<div  th:if="${dto.getStatus() == null) dto.setStatus("PUBLIC"}"  >
+		<div class="mb-3">
+			<label class="form-label">제목</label> <input type="text"
+				th:field="*{title}" class="form-control" required>
+		</div>
+
+		<div class="mb-3">
+			<label class="form-label">카테고리</label> <select th:field="*{category}"
+				class="form-select">
+				<option th:each="c : ${categories}" th:value="${c['CATEGORY']}"
+					th:text="${c['CATEGORY_NAME']}"></option>
+			</select>
+		</div>
+
+		<div class="mb-3">
+			<label class="form-label">이미지</label> <input type="file"
+				name="imageFile" class="form-control">
+		</div>
+
+		<div class="mb-3">
+			<label class="form-label">설명</label>
+			<textarea th:field="*{description}" class="form-control"></textarea>
+		</div>
+
+		<div class="mb-3">
+			<label class="form-label">요리시간</label> <input type="number"
+				th:field="*{cookTime}" class="form-control" value="0">
+		</div>
+		<div class="mb-3">
+			<label class="form-label">난이도</label> <input type="text"
+				th:field="*{difficulty}" class="form-control" value="쉬움">
+		</div>
+		<div class="mb-3">
+			<label class="form-label">인분</label> <input type="number"
+				th:field="*{servings}" class="form-control" value="1">
+		</div>
+		<input type="hidden" th:field="*{status}" value="PUBLIC" />
+
+
+		<!-- 재료 입력 -->
+		<div class="mb-3">
+			<label class="form-label">재료</label>
+			<div id="ingredients-container">
+				<!-- 기본 1개 입력칸 -->
+				<div class="row mb-2 ingredient-item">
+					<div class="col">
+						<input type="text" name="ingredients[0].ingreName"
+							class="form-control" placeholder="재료명">
+					</div>
+					<div class="col">
+						<input type="text" name="ingredients[0].ingreNum"
+							class="form-control" placeholder="수량">
+					</div>
+				</div>
+			</div>
+			<button type="button" id="add-ingredient"
+				class="btn btn-sm btn-secondary mt-2">재료 추가</button>
+		</div>
+
+		<!-- 단계 입력 -->
+		<div class="mb-3">
+			<label class="form-label">조리 단계</label>
+			<div id="steps-container">
+				<!-- 기본 1개 입력칸 -->
+				<div class="mb-2 step-item">
+					<textarea name="steps[0].stepDesc" class="form-control mb-1"
+						placeholder="단계 설명"></textarea>
+					<input type="text" name="steps[0].stepImage" class="form-control"
+						placeholder="이미지 경로">
+				</div>
+			</div>
+			<button type="button" id="add-step"
+				class="btn btn-sm btn-secondary mt-2">단계 추가</button>
+		</div>
+
+		<button type="submit" class="btn btn-primary">등록</button>
+		<a th:href="@{/recipes/list}" class="btn btn-secondary">목록</a>
+	</form>
+
+	<!-- jQuery 스크립트: 동적 추가 -->
+	<script th:inline="javascript">
+        let ingIndex = 1;
+        let stepIndex = 1;
+
+        $("#add-ingredient").on("click", function() {
+            let html = `
+                <div class="row mb-2 ingredient-item">
+                    <div class="col">
+                        <input type="text" name="ingredients[${ingIndex}].ingreName" class="form-control" placeholder="재료명">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="ingredients[${ingIndex}].ingreNum" class="form-control" placeholder="수량">
+                    </div>
+                </div>`;
+            $("#ingredients-container").append(html);
+            ingIndex++;
+        });
+
+        $("#add-step").on("click", function() {
+            let html = `
+                <div class="mb-2 step-item">
+                    <textarea name="steps[${stepIndex}].stepDesc" class="form-control mb-1" placeholder="단계 설명"></textarea>
+                    <input type="text" name="steps[${stepIndex}].stepImage" class="form-control" placeholder="이미지 경로">
+                </div>`;
+            $("#steps-container").append(html);
+            stepIndex++;
+        });
+    </script>
+
+</div>
+</html>

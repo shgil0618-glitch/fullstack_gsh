@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head lang="ko">
+  <meta charset="UTF-8">
+  <title>레시피 메인</title>
+</head>
+<body>
+  <div layout:fragment="content">
+    <h3>레시피 검색</h3>
+
+    <form th:action="@{/recipes/search}" method="get">
+      <input type="text" name="keyword" th:value="${keyword}" placeholder="검색어 입력"/>
+      <select name="searchField">
+        <option value="ALL" th:selected="${searchField == 'ALL'}">전체</option>
+        <option value="TITLE" th:selected="${searchField == 'TITLE'}">제목</option>
+        <option value="DESCRIPTION" th:selected="${searchField == 'DESCRIPTION'}">설명</option>
+        <option value="AUTHOR" th:selected="${searchField == 'AUTHOR'}">작성자</option>
+      </select>
+      <select name="sort">
+        <option value="LATEST" th:selected="${sort == 'LATEST'}">최신</option>
+        <option value="VIEWS" th:selected="${sort == 'VIEWS'}">조회수</option>
+        <option value="POPULAR" th:selected="${sort == 'POPULAR'}">인기</option>
+      </select>
+      <button type="submit">검색</button>
+      <a th:href="@{/recipes/list}">전체 목록</a>
+      <a th:href="@{/recipes/new}" th:if="${#authorization.expression('isAuthenticated()')}">레시피 등록</a>
+    </form>
+
+    <hr/>
+
+    <div th:replace="~{::listFragment}"></div>
+
+    <!-- 간단한 결과 프래그먼트 (list와 동일한 구조로 재사용 가능) -->
+    <div th:fragment="listFragment">
+      <h3 th:if="${list != null}">검색 결과</h3>
+      <ul>
+        <li th:each="r : ${list}">
+          <a th:href="@{/recipes/view(recipeId=${r.recipeId})}" th:text="${r.title}">레시피 제목</a>
+          <span> - </span>
+          <span th:text="${r.category}">카테고리</span>
+          <span> | 조회수: </span><span th:text="${r.views}">0</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</body>
+</html>

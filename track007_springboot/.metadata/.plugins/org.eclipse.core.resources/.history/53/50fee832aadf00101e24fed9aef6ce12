@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<!-- RecipeMapper.xml -->
+<mapper namespace="com.thejoa703.dao.Recipes3Dao">
+<!-- RecipeMapper.xml -->
+
+  <resultMap id="RecipeResult" type="com.thejoa703.dto.Recipes3Dto">
+    <id column="RECIPE_ID" property="recipeId"/>
+    <result column="APPUSERID" property="appUserId"/>
+    <result column="TITLE" property="title"/>
+    <result column="CATEGORY" property="category"/>
+    <result column="CATEGORY_NAME" property="categoryName"/>
+    <result column="IMAGE" property="image"/>
+    <result column="COOK_TIME" property="cookTime"/>
+    <result column="DIFFICULTY" property="difficulty"/>
+    <result column="SERVINGS" property="servings"/>
+    <result column="DESCRIPTION" property="description"/>
+    <result column="STATUS" property="status"/>
+    <result column="CREATED_AT" property="createdAt"/>
+    <result column="UPDATED_AT" property="updatedAt"/>
+    <result column="VIEWS" property="views"/>
+    <result column="R_URL" property="rUrl"/>
+    <result column="SEARCH_CNT" property="searchCnt"/>
+    <result column="LIKE_CNT" property="likeCnt"/>
+  </resultMap>
+
+  <!-- 총 개수 조회 (페이징 계산용) -->
+  <select id="countSearchRecipes" resultType="int" parameterType="map">
+    SELECT COUNT(*) FROM recipes3 r
+    WHERE 1=1
+    <if test="category != null">
+      AND r.CATEGORY = #{category}
+    </if>
+
+    <if test="keyword != null and keyword != ''">
+      <choose>
+        <when test="searchField == 'TITLE'">
+          AND LOWER(r.TITLE) LIKE '%' || LOWER(#{keyword}) || '%'
+        </when>
+        <when test="searchField == 'DESCRIPTION'">
+          AND LOWER(r.DESCRIPTION) LIKE '%' || LOWER(#{keyword}) || '%'
+        </when>
+        <when test="searchField == 'SHORT'">
+          AND LOWER(r.DESCRIPTION) LIKE '%' || LOWER(#{keyword}) || '%'
+        </when>
+        <when test="searchField == 'AUTHOR'">
+          AND EXISTS (
+            SELECT 1 FROM BUG3 u WHERE u.APPUSERID = r.APPUSERID AND LOWER(u.NICKNAME) LIKE '%' || LOWER(#{keyword}) || '%'
+          )
+        </when>
+        <otherwise>
+          AND (
+            LOWER(r.TITLE) LIKE '%' || LOWER(#{keyword}) || '%'
+            OR LOWER(r.DESCRIPTION) LIKE '%' || LOWER(#{keyword}) || '%'
+            OR EXISTS (SELECT 1 FROM BUG3 u WHERE u.APPUSERID = r.APPUSERID AND LOWER(u.NICKNAME) LIKE '%' || LOWER(#{keyword}) || '%')
+          )
+        </otherwise>
+      </choose>
+    </if>
+  </select>
+
+  <!-- 페이징된 검색 결과: rStart, rEnd 사용 -->
+  <select id="searchRecipesPaged" resultMap="RecipeResult" parameterType="map">
+    SELECT * FROM (
+      SELECT
+        r.*,
+        c.CATEGORY_NAME,
+        NVL(like_cnt.CNT, 0) AS LIKE_CNT,
+        NVL(search_cnt.CNT, 0) AS SEARCH_CNT,
+        ROW_NUMBER() OVER (ORDER BY
+          <choose>
+            <when test="sort == 'VIEWS'"> r.VIEWS DESC, r.CREATED_AT DESC </when>
+            <when test="sort == 'POPULAR'"> NVL(search_cnt.CNT,0) DESC, r.CREATED_AT DESC </when>
+            <otherwise> r.CREATED_AT DESC </otherwise>
+          </choose>
+        ) rn
+      FROM recipes3 r
+      LEFT JOIN CATEGORY3 c ON r.CATEGORY = c.CATEGORY
+      LEFT JOIN (
+        SELECT RECIPE_ID, COUNT(*) CNT FROM RECIPE_LIKES3 GROUP BY RECIPE_ID
+      ) like_cnt ON like_cnt.RECIPE_ID = r.RECIPE_ID
+      LEFT JOIN (
+        -- POPULAR 기준: SEARCH_HISTORY3.KEYWORD가 레시피 TITLE과 정확히 일치하는 경우 집계
+        SELECT s.KEYWORD, COUNT(*) CNT, NULL AS RECIPE_ID FROM SEARCH_HISTORY3 s
+        GROUP BY s.KEYWORD
+      ) search_cnt ON LOWER(search_cnt.KEYWORD) = LOWER(r.TITLE)
+      WHERE 1=1
+      <if test="category != null">
+        AND r.CATEGORY = #{category}
+      </if>
+
+      <if test="keyword != null and keyword != ''">
+        <choose>
+          <when test="searchField == 'TITLE'">
+            AND LOWER(r.TITLE) LIKE '%' || LOWER(#{keyword}) || '%'
+          </when>
+          <when test="searchField == 'DESCRIPTION'">
+            AND LOWER(r.DESCRIPTION) LIKE '%' || LOWER(#{keyword}) || '%'
+          </when>
+          <when test="searchField == 'SHORT'">
+            AND LOWER(r.DESCRIPTION) LIKE '%' || LOWER(#{keyword}) || '%'
+          </when>
+          <when test="searchField == 'AUTHOR'">
+            AND EXISTS (
+              SELECT 1 FROM BUG3 u WHERE u.APPUSERID = r.APPUSERID AND LOWER(u.NICKNAME) LIKE '%' || LOWER(#{keyword}) || '%'
+            )
+          </when>
+          <otherwise>
+            AND (
+              LOWER(r.TITLE) LIKE '%' || LOWER(#{keyword}) || '%'
+              OR LOWER(r.DESCRIPTION) LIKE '%' || LOWER(#{keyword}) || '%'
+              OR EXISTS (SELECT 1 FROM BUG3 u WHERE u.APPUSERID = r.APPUSERID AND LOWER(u.NICKNAME) LIKE '%' || LOWER(#{keyword}) || '%')
+            )
+          </otherwise>
+        </choose>
+      </if>
+    )
+    WHERE rn BETWEEN #{rStart} AND #{rEnd}
+  </select>
+
+  <!-- 상세 조회시 조회수 증가 -->
+  <update id="incrementViews" parameterType="long">
+    UPDATE recipes3 SET VIEWS = VIEWS + 1 WHERE RECIPE_ID = #{recipeId}
+  </update>
+  
+  <!-- IngreMapper.xml -->
+<mapper namespace="com.example.mapper.IngreMapper">
+
+  <selectKey keyProperty="ingreMapId" resultType="long" order="BEFORE">
+    SELECT seq_ingre_map3.NEXTVAL FROM DUAL
+  </selectKey>
+
+  <insert id="insertIngre" parameterType="com.example.domain.Ingredient">
+    INSERT INTO recipes_ingre3 (INGRE_MAP_ID, RECIPE_ID, INGRE_NAME, INGRE_NUM)
+    VALUES (#{ingreMapId}, #{recipeId}, #{ingreName}, #{ingreNum})
+  </insert>
+
+  <!-- 다중 insert (list) -->
+  <insert id="insertIngreBatch" parameterType="list">
+    <foreach collection="list" item="item" separator=";">
+      <selectKey keyProperty="item.ingreMapId" resultType="long" order="BEFORE">
+        SELECT seq_ingre_map3.NEXTVAL FROM DUAL
+      </selectKey>
+      INSERT INTO recipes_ingre3 (INGRE_MAP_ID, RECIPE_ID, INGRE_NAME, INGRE_NUM)
+      VALUES (#{item.ingreMapId}, #{item.recipeId}, #{item.ingreName}, #{item.ingreNum})
+    </foreach>
+  </insert>
+
+  <delete id="deleteByRecipeId" parameterType="long">
+    DELETE FROM recipes_ingre3 WHERE RECIPE_ID = #{recipeId}
+  </delete>
+
+  <select id="selectByRecipeId" resultType="com.example.domain.Ingredient" parameterType="long">
+    SELECT * FROM recipes_ingre3 WHERE RECIPE_ID = #{recipeId} ORDER BY INGRE_MAP_ID
+  </select>
+
+</mapper>
+  
+  <!-- StepMapper.xml -->
+<mapper namespace="com.example.mapper.StepMapper">
+
+  <selectKey keyProperty="stepMapId" resultType="long" order="BEFORE">
+    SELECT seq_step_map3.NEXTVAL FROM DUAL
+  </selectKey>
+
+  <insert id="insertStep" parameterType="com.example.domain.Step">
+    INSERT INTO recipes_step3 (STEP_MAP_ID, RECIPE_ID, STEP_DESC, STEP_IMAGE)
+    VALUES (#{stepMapId}, #{recipeId}, #{stepDesc}, #{stepImage})
+  </insert>
+
+  <insert id="insertStepBatch" parameterType="list">
+    <foreach collection="list" item="item" separator=";">
+      <selectKey keyProperty="item.stepMapId" resultType="long" order="BEFORE">
+        SELECT seq_step_map3.NEXTVAL FROM DUAL
+      </selectKey>
+      INSERT INTO recipes_step3 (STEP_MAP_ID, RECIPE_ID, STEP_DESC, STEP_IMAGE)
+      VALUES (#{item.stepMapId}, #{item.recipeId}, #{item.stepDesc}, #{item.stepImage})
+    </foreach>
+  </insert>
+
+  <delete id="deleteByRecipeId" parameterType="long">
+    DELETE FROM recipes_step3 WHERE RECIPE_ID = #{recipeId}
+  </delete>
+
+  <select id="selectByRecipeId" resultType="com.example.domain.Step" parameterType="long">
+    SELECT * FROM recipes_step3 WHERE RECIPE_ID = #{recipeId} ORDER BY STEP_MAP_ID
+  </select>
+
+</mapper>
+  
+  <!-- LikeMapper.xml -->
+<mapper namespace="com.example.mapper.LikeMapper">
+  <insert id="insertLike" parameterType="map">
+    INSERT INTO RECIPE_LIKES3 (APPUSERID, RECIPE_ID, CREATED_AT)
+    VALUES (#{appUserId}, #{recipeId}, SYSDATE)
+  </insert>
+
+  <delete id="deleteLike" parameterType="map">
+    DELETE FROM RECIPE_LIKES3 WHERE APPUSERID = #{appUserId} AND RECIPE_ID = #{recipeId}
+  </delete>
+
+  <select id="countLikesByRecipe" resultType="int" parameterType="long">
+    SELECT COUNT(*) FROM RECIPE_LIKES3 WHERE RECIPE_ID = #{recipeId}
+  </select>
+
+  <select id="existsLike" resultType="int" parameterType="map">
+    SELECT COUNT(*) FROM RECIPE_LIKES3 WHERE APPUSERID = #{appUserId} AND RECIPE_ID = #{recipeId}
+  </select>
+</mapper>
+
+<!-- SearchMapper.xml -->
+<mapper namespace="com.thejoa703.mapper.SearchMapper">
+
+  <selectKey keyProperty="searchId" resultType="long" order="BEFORE">
+    SELECT seq_search_history3.NEXTVAL FROM DUAL
+  </selectKey>
+
+  <insert id="insertSearchHistory" parameterType="map">
+    INSERT INTO SEARCH_HISTORY3 (SEARCH_ID, APPUSERID, KEYWORD, CREATED_AT)
+    VALUES (#{searchId}, #{appUserId}, #{keyword}, SYSDATE)
+  </insert>
+
+  <select id="topKeywords" resultType="map" parameterType="int">
+    SELECT KEYWORD, COUNT(*) CNT
+    FROM SEARCH_HISTORY3
+    GROUP BY KEYWORD
+    ORDER BY CNT DESC
+    FETCH FIRST #{limit} ROWS ONLY
+  </select>
+
+</mapper>
+<!-- BadWordsMapper.xml -->
+<mapper namespace="com.thejoa703.mapper.BadWordsMapper">
+
+  <!-- 텍스트 내 포함된 비속어 목록 반환 -->
+  <select id="containsBadWords" resultType="string" parameterType="string">
+    SELECT WORD FROM BAD_WORDS3 WHERE INSTR(LOWER(#{text}), LOWER(WORD)) > 0
+  </select>
+
+  <select id="existsBadWord" resultType="int" parameterType="string">
+    SELECT COUNT(*) FROM BAD_WORDS3 WHERE LOWER(WORD) = LOWER(#{word})
+  </select>
+
+</mapper>
+
+
+<!-- AiUsageMapper.xml -->
+<mapper namespace="com.example.mapper.AiUsageMapper">
+  <selectKey keyProperty="aiHistId" resultType="long" order="BEFORE">
+    SELECT seq_ai_usage_history3.NEXTVAL FROM DUAL
+  </selectKey>
+
+  <insert id="insertAiUsage" parameterType="map">
+    INSERT INTO AI_USAGE_HISTORY3 (AI_HIST_ID, APPUSERID, AI_ACTION, CREATED_AT)
+    VALUES (#{aiHistId}, #{appUserId}, #{aiAction}, SYSDATE)
+  </insert>
+</mapper>
+
+<!-- CategoryMapper.xml -->
+<mapper namespace="com.example.mapper.CategoryMapper">
+  <select id="selectAllCategories" resultType="map">
+    SELECT CATEGORY, CATEGORY_NAME FROM CATEGORY3 ORDER BY CATEGORY
+  </select>
+
+  <select id="selectCategoryName" resultType="string" parameterType="int">
+    SELECT CATEGORY_NAME FROM CATEGORY3 WHERE CATEGORY = #{category}
+  </select>
+</mapper>
+  
+  
+
+</mapper>
+
+

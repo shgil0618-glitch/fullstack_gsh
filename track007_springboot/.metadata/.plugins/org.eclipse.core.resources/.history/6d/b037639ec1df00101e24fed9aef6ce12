@@ -1,0 +1,8 @@
+package com.thejoa703.controller;
+
+public class BookDto {
+
+	private String title;
+	private String image;
+	private String author;
+}

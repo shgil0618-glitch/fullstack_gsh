@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<!-- RecipeMapper.xml -->
+<mapper namespace="com.thejoa703.dao.Recipes3Dao">
+
+
+  <resultMap id="RecipeResult" type="com.thejoa703.dto.RecipeDto">
+    <id column="RECIPE_ID" property="recipeId"/>
+    <result column="APPUSERID" property="appUserId"/>
+    <result column="TITLE" property="title"/>
+    <result column="CATEGORY" property="category"/>
+    <result column="CATEGORY_NAME" property="categoryName"/>
+    <result column="IMAGE" property="image"/>
+    <result column="COOK_TIME" property="cookTime"/>
+    <result column="DIFFICULTY" property="difficulty"/>
+    <result column="SERVINGS" property="servings"/>
+    <result column="DESCRIPTION" property="description"/>
+    <result column="STATUS" property="status"/>
+    <result column="CREATED_AT" property="createdAt"/>
+    <result column="UPDATED_AT" property="updatedAt"/>
+    <result column="VIEWS" property="views"/>
+    <result column="R_URL" property="rUrl"/>
+    <result column="SEARCH_CNT" property="searchCnt"/>
+    <result column="LIKE_CNT" property="likeCnt"/>
+  </resultMap>
+
+  <!-- 총 개수 조회 (페이징 계산용) -->
+  <select id="countSearchRecipes" resultType="int" parameterType="map">
+    SELECT COUNT(*) FROM recipes3 r
+    WHERE 1=1
+    <if test="category != null">
+      AND r.CATEGORY = #{category}
+    </if>
+
+    <if test="keyword != null and keyword != ''">
+      <choose>
+        <when test="searchField == 'TITLE'">
+          AND LOWER(r.TITLE) LIKE '%' || LOWER(#{keyword}) || '%'
+        </when>
+        <when test="searchField == 'DESCRIPTION'">
+          AND LOWER(r.DESCRIPTION) LIKE '%' || LOWER(#{keyword}) || '%'
+        </when>
+        <when test="searchField == 'SHORT'">
+          AND LOWER(r.DESCRIPTION) LIKE '%' || LOWER(#{keyword}) || '%'
+        </when>
+        <when test="searchField == 'AUTHOR'">
+          AND EXISTS (
+            SELECT 1 FROM BUG3 u WHERE u.APPUSERID = r.APPUSERID AND LOWER(u.NICKNAME) LIKE '%' || LOWER(#{keyword}) || '%'
+          )
+        </when>
+        <otherwise>
+          AND (
+            LOWER(r.TITLE) LIKE '%' || LOWER(#{keyword}) || '%'
+            OR LOWER(r.DESCRIPTION) LIKE '%' || LOWER(#{keyword}) || '%'
+            OR EXISTS (SELECT 1 FROM BUG3 u WHERE u.APPUSERID = r.APPUSERID AND LOWER(u.NICKNAME) LIKE '%' || LOWER(#{keyword}) || '%')
+          )
+        </otherwise>
+      </choose>
+    </if>
+  </select>
+
+  <!-- 페이징된 검색 결과: rStart, rEnd 사용 -->
+  <select id="searchRecipesPaged" resultMap="RecipeResult" parameterType="map">
+    SELECT * FROM (
+      SELECT
+        r.*,
+        c.CATEGORY_NAME,
+        NVL(like_cnt.CNT, 0) AS LIKE_CNT,
+        NVL(search_cnt.CNT, 0) AS SEARCH_CNT,
+        ROW_NUMBER() OVER (ORDER BY
+          <choose>
+            <when test="sort == 'VIEWS'"> r.VIEWS DESC, r.CREATED_AT DESC </when>
+            <when test="sort == 'POPULAR'"> NVL(search_cnt.CNT,0) DESC, r.CREATED_AT DESC </when>
+            <otherwise> r.CREATED_AT DESC </otherwise>
+          </choose>
+        ) rn
+      FROM recipes3 r
+      LEFT JOIN CATEGORY3 c ON r.CATEGORY = c.CATEGORY
+      LEFT JOIN (
+        SELECT RECIPE_ID, COUNT(*) CNT FROM RECIPE_LIKES3 GROUP BY RECIPE_ID
+      ) like_cnt ON like_cnt.RECIPE_ID = r.RECIPE_ID
+      LEFT JOIN (
+        -- POPULAR 기준: SEARCH_HISTORY3.KEYWORD가 레시피 TITLE과 정확히 일치하는 경우 집계
+        SELECT s.KEYWORD, COUNT(*) CNT, NULL AS RECIPE_ID FROM SEARCH_HISTORY3 s
+        GROUP BY s.KEYWORD
+      ) search_cnt ON LOWER(search_cnt.KEYWORD) = LOWER(r.TITLE)
+      WHERE 1=1
+      <if test="category != null">
+        AND r.CATEGORY = #{category}
+      </if>
+
+      <if test="keyword != null and keyword != ''">
+        <choose>
+          <when test="searchField == 'TITLE'">
+            AND LOWER(r.TITLE) LIKE '%' || LOWER(#{keyword}) || '%'
+          </when>
+          <when test="searchField == 'DESCRIPTION'">
+            AND LOWER(r.DESCRIPTION) LIKE '%' || LOWER(#{keyword}) || '%'
+          </when>
+          <when test="searchField == 'SHORT'">
+            AND LOWER(r.DESCRIPTION) LIKE '%' || LOWER(#{keyword}) || '%'
+          </when>
+          <when test="searchField == 'AUTHOR'">
+            AND EXISTS (
+              SELECT 1 FROM BUG3 u WHERE u.APPUSERID = r.APPUSERID AND LOWER(u.NICKNAME) LIKE '%' || LOWER(#{keyword}) || '%'
+            )
+          </when>
+          <otherwise>
+            AND (
+              LOWER(r.TITLE) LIKE '%' || LOWER(#{keyword}) || '%'
+              OR LOWER(r.DESCRIPTION) LIKE '%' || LOWER(#{keyword}) || '%'
+              OR EXISTS (SELECT 1 FROM BUG3 u WHERE u.APPUSERID = r.APPUSERID AND LOWER(u.NICKNAME) LIKE '%' || LOWER(#{keyword}) || '%')
+            )
+          </otherwise>
+        </choose>
+      </if>
+    )
+    WHERE rn BETWEEN #{rStart} AND #{rEnd}
+  </select>
+
+  <!-- 상세 조회시 조회수 증가 -->
+  <update id="incrementViews" parameterType="long">
+    UPDATE recipes3 SET VIEWS = VIEWS + 1 WHERE RECIPE_ID = #{recipeId}
+  </update>
+
+</mapper>
+	
+  
+</mapper>

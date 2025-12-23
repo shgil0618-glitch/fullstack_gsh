@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<div layout:fragment="content">
+
+    <h2 class="mb-4">레시피 등록</h2>
+
+    <form th:action="@{/recipes/new}" th:object="${dto}" method="post"
+          enctype="multipart/form-data" class="needs-validation" novalidate>
+
+        <!-- 작성자: 컨트롤러에서 dto.appUserId를 넣어주거나, 세션/보안에서 전달 -->
+        <input type="hidden" th:field="*{appUserId}" />
+
+        <!-- 상태 기본값 -->
+        <input type="hidden" th:field="*{status}" value="PUBLIC"/>
+
+        <!-- rUrl 기본값 -->
+        <input type="hidden" th:field="*{rUrl}" value=""/>
+
+        <!-- 조회수 기본값 -->
+        <input type="hidden" th:field="*{views}" value="0"/>
+
+        <div class="mb-3">
+            <label class="form-label">제목</label>
+            <input type="text" th:field="*{title}" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">카테고리</label>
+            <select th:field="*{category}" class="form-select" required>
+                <option th:each="c : ${categories}" th:value="${c['CATEGORY']}" th:text="${c['CATEGORY_NAME']}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">이미지</label>
+            <input type="file" name="imageFile" class="form-control" accept="image/*">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">설명</label>
+            <textarea th:field="*{description}" class="form-control" placeholder="레시피 설명"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">요리시간(분)</label>
+            <input type="number" th:field="*{cookTime}" class="form-control" value="0" min="0">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">난이도</label>
+            <input type="text" th:field="*{difficulty}" class="form-control" value="쉬움">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">인분</label>
+            <input type="number" th:field="*{servings}" class="form-control" value="1" min="1">
+        </div>
+
+        <!-- 재료 입력 -->
+        <div class="mb-3">
+            <label class="form-label">재료</label>
+            <div id="ingredients-container">
+                <div class="row mb-2 ingredient-item">
+                    <div class="col">
+                        <input type="text" name="ingredients[0].ingreName" class="form-control" placeholder="재료명" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="ingredients[0].ingreNum" class="form-control" placeholder="수량" required>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="add-ingredient" class="btn btn-sm btn-secondary mt-2">재료 추가</button>
+        </div>
+
+        <!-- 단계 입력 -->
+        <div class="mb-3">
+            <label class="form-label">조리 단계</label>
+            <div id="steps-container">
+                <div class="mb-2 step-item">
+                    <textarea name="steps[0].stepDesc" class="form-control mb-1" placeholder="단계 설명" required></textarea>
+                    <input type="text" name="steps[0].stepImage" class="form-control" placeholder="이미지 경로(선택)">
+                </div>
+            </div>
+            <button type="button" id="add-step" class="btn btn-sm btn-secondary mt-2">단계 추가</button>
+        </div>
+
+        <button type="submit" class="btn btn-primary">등록</button>
+        <a th:href="@{/recipes/list}" class="btn btn-secondary">목록</a>
+    </form>
+
+    <script th:inline="javascript">
+        let ingIndex = 1;
+        let stepIndex = 1;
+
+        document.getElementById("add-ingredient").addEventListener("click", function () {
+            const html =
+                `<div class="row mb-2 ingredient-item">
+                    <div class="col">
+                        <input type="text" name="ingredients[${ingIndex}].ingreName" class="form-control" placeholder="재료명" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="ingredients[${ingIndex}].ingreNum" class="form-control" placeholder="수량" required>
+                    </div>
+                 </div>`;
+            document.getElementById("ingredients-container").insertAdjacentHTML("beforeend", html);
+            ingIndex++;
+        });
+
+        document.getElementById("add-step").addEventListener("click", function () {
+            const html =
+                `<div class="mb-2 step-item">
+                    <textarea name="steps[${stepIndex}].stepDesc" class="form-control mb-1" placeholder="단계 설명" required></textarea>
+                    <input type="text" name="steps[${stepIndex}].stepImage" class="form-control" placeholder="이미지 경로(선택)">
+                 </div>`;
+            document.getElementById("steps-container").insertAdjacentHTML("beforeend", html);
+            stepIndex++;
+        });
+    </script>
+
+</div>
+</html>

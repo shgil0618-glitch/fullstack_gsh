@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<div layout:fragment="content">
+
+    <h2 class="mb-4">레시피 등록</h2>
+
+    <form th:action="@{/recipes/new}" th:object="${dto}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label class="form-label">제목</label>
+            <input type="text" th:field="*{title}" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">카테고리</label>
+            <select th:field="*{category}" class="form-select">
+                <option th:each="c : ${categories}" th:value="${c['CATEGORY']}" th:text="${c['CATEGORY_NAME']}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">이미지</label>
+            <input type="file" name="imageFile" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">설명</label>
+            <textarea th:field="*{description}" class="form-control"></textarea>
+        </div>
+
+        <!-- 재료 -->
+        <div class="mb-3">
+            <label class="form-label">재료</label>
+            <div th:each="ing, idx : ${dto.ingreList}">
+                <input type="text" th:field="*{ingreList[__${idx.index}__].ingreName}" class="form-control mb-1" placeholder="재료명">
+                <input type="text" th:field="*{ingreList[__${idx.index}__].ingreNum}" class="form-control mb-1" placeholder="수량">
+            </div>
+        </div>
+
+        <!-- 단계 -->
+        <div class="mb-3">
+            <label class="form-label">조리 단계</label>
+            <div th:each="step, idx : ${dto.stepList}">
+                <textarea th:field="*{stepList[__${idx.index}__].stepDesc}" class="form-control mb-1" placeholder="단계 설명"></textarea>
+                <input type="text" th:field="*{stepList[__${idx.index}__].stepImage}" class="form-control mb-1" placeholder="이미지 경로">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">등록</button>
+        <a th:href="@{/recipes/list}" class="btn btn-secondary">목록</a>
+    </form>
+
+</div>
+</html>

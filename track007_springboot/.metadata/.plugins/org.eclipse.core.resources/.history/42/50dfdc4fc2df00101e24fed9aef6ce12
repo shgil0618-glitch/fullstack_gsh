@@ -1,0 +1,14 @@
+package com.thejoa703.controller;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+//xml + json 둘다 호환가능
+
+@JsonIgnoreProperties(ignoreUnknown = true)	// 알수없는 필드는 무시
+@JacksonXmlRootElement(localName="item")
+public class BookDto {
+
+	private String title;
+	private String image;
+	private String author;
+}

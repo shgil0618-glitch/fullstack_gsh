@@ -3,62 +3,52 @@ package com.thejoa703.service;
 import java.util.List;
 import java.util.Map;
 
-import com.thejoa703.dto.AiUsageHistory3;
-import com.thejoa703.dto.BadWords3;
-import com.thejoa703.dto.RecipeLikes3;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.thejoa703.dto.Recipes3Dto;
 import com.thejoa703.dto.RecipesIngre3;
 import com.thejoa703.dto.RecipesStep3;
-import com.thejoa703.dto.SearchHistory3;
 
 public interface RecipeService {
 
-    /* ==================================================
-     * 1️ RECIPE
-     * ================================================== */
-    int insertRecipe(Recipes3Dto recipe, List<RecipesIngre3> ingredients, List<RecipesStep3> steps);
-    Recipes3Dto selectRecipe(int recipeId);
-    List<Recipes3Dto> selectRecipeListPaging(Map<String, Object> param);
-    List<Recipes3Dto> selectMyRecipes(int appUserId);
-    int incrementRecipeViews(int recipeId);
-    int updateRecipe(Recipes3Dto recipe, List<RecipesIngre3> ingredients, List<RecipesStep3> steps);
-    int deleteRecipe(int recipeId);
+    // 레시피 CRUD
+    public int createRecipe(MultipartFile imageFile, Recipes3Dto dto);
+    public int updateRecipe(MultipartFile imageFile, Recipes3Dto dto);
+    public int deleteRecipe(int recipeId);
+    public Recipes3Dto getRecipeById(int recipeId);
 
-    /* ==================================================
-     * 2️ INGREDIENT / STEP
-     * ================================================== */
-    List<RecipesIngre3> selectRecipeIngredients(int recipeId);
-    List<RecipesStep3> selectRecipeSteps(int recipeId);
+    // 목록 / 검색 / 페이징
+    public List<Recipes3Dto> selectRecipeAllPaged(Map<String, Object> params);
+    public int countAll(Integer category);
+    public int countSearchRecipes(Map<String, Object> params);
+    public List<Recipes3Dto> searchRecipesPaged(Map<String, Object> params);
 
-    /* ==================================================
-     * 3️ SEARCH
-     * ================================================== */
-    int searchBothCount(Map<String, Object> param);
-    List<Recipes3Dto> searchBothPaging(Map<String, Object> param);
-    int insertSearchHistory(SearchHistory3 history);
-    List<SearchHistory3> selectMySearchHistory(int appUserId);
-    int deleteExcessSearchHistory(Map<String, Object> param);
+    // 조회수
+    public int incrementViews(int recipeId);
 
-    /* ==================================================
-     * 4️ LIKE
-     * ================================================== */
-    int insertRecipeLike(RecipeLikes3 like);
-    int deleteRecipeLike(int appUserId, int recipeId);
-    boolean existsRecipeLike(int appUserId, int recipeId);
-    int countRecipeLikes(int recipeId);
-    List<Recipes3Dto> selectMyLikedRecipes(int appUserId);
+    // 재료 / 단계
+    public List<RecipesIngre3> getIngredients(int recipeId);
+    public List<RecipesStep3> getSteps(int recipeId);
 
-    /* ==================================================
-     * 5️ AI USAGE
-     * ================================================== */
-    int insertAiUsageHistory(AiUsageHistory3 history);
-    List<AiUsageHistory3> selectAiUsageByUser(int appUserId);
-    List<AiUsageHistory3> selectAllAiUsage();
+    // 좋아요
+    public void likeRecipe(int appUserId, int recipeId);
+    public void unlikeRecipe(int appUserId, int recipeId);
+    public int countLikesByRecipe(int recipeId);
 
-    /* ==================================================
-     * 6️ BAD WORD
-     * ================================================== */
-    List<BadWords3> selectBadWords();
-    int insertBadWord(BadWords3 word);
-    int deleteBadWord(int wordId);
+    // 검색 기록
+    public void saveSearchHistory(Integer appUserId, String keyword);
+    public List<Map<String, Object>> topKeywords(int limit);
+
+    // 비속어 관리
+    public List<Map<String, Object>> getAllBadWords();
+    public void addBadWord(String word);
+    public void deleteBadWordById(int wordId);
+
+    // AI 사용 기록 관리
+    public List<Map<String, Object>> getAllAiUsage();
+    public void deleteAiUsageById(int aiHistId);
+
+    // 카테고리
+    public List<Map<String, Object>> getAllCategories();
+    public String getCategoryName(int category);
 }

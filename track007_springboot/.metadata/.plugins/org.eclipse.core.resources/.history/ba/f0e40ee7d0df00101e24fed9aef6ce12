@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head lang="ko">
+  <meta charset="UTF-8">
+  <title>레시피 등록</title>
+</head>
+<body>
+  <div layout:fragment="content">
+    <h3>레시피 등록</h3>
+
+    <form th:action="@{/recipes/new}" th:object="${dto}" method="post" enctype="multipart/form-data">
+      <div>
+        <label>제목</label>
+        <input type="text" th:field="*{title}" required/>
+      </div>
+
+      <div>
+        <label>카테고리</label>
+        <select th:field="*{category}">
+          <option th:each="c : ${categories}" th:value="${c['CATEGORY']}" th:text="${c['CATEGORY_NAME']}">카테고리</option>
+        </select>
+      </div>
+
+      <div>
+        <label>이미지</label>
+        <input type="file" name="imageFile" accept="image/*"/>
+      </div>
+
+      <div>
+        <label>요리시간</label>
+        <input type="text" th:field="*{cookTime}"/>
+      </div>
+
+      <div>
+        <label>난이도</label>
+        <input type="text" th:field="*{difficulty}"/>
+      </div>
+
+      <div>
+        <label>인분</label>
+        <input type="text" th:field="*{servings}"/>
+      </div>
+
+      <div>
+        <label>설명</label>
+        <textarea th:field="*{description}"></textarea>
+      </div>
+
+      <!-- 재료 리스트 (초기 3개 입력 필드 예시) -->
+      <div>
+        <label>재료</label>
+        <div th:each="ing, idx : ${dto.ingreList}">
+          <input type="text" th:field="*{ingreList[__${idx.index}__].ingreName}" placeholder="재료명"/>
+          <input type="text" th:field="*{ingreList[__${idx.index}__].ingreNum}" placeholder="수량"/>
+        </div>
+        <!-- 서버에서 ingreList가 비어있다면 JS로 동적 추가 권장 -->
+      </div>
+
+      <!-- 단계 리스트 -->
+      <div>
+        <label>조리 단계</label>
+        <div th:each="step, idx : ${dto.stepList}">
+          <textarea th:field="*{stepList[__${idx.index}__].stepDesc}" placeholder="단계 설명"></textarea>
+          <input type="text" th:field="*{stepList[__${idx.index}__].stepImage}" placeholder="이미지 경로(선택)"/>
+        </div>
+      </div>
+
+      <div>
+        <button type="submit">등록</button>
+        <a th:href="@{/recipes/list}">목록으로</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+package com.thejoa703.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@Service
+public class NaverBookJsonService {
+
+		public List<BookDto> getBook(String query){
+			RestTemplate restTemplate = new RestTemplate();
+			ObjectMapper objectMapper = new ObjectMapper();
+			
+			String clientId="";
+			String clientSecret="";
+			
+			List<BookDto> result = new ArrayList<>();
+			return result;
+		} 
+	
+}

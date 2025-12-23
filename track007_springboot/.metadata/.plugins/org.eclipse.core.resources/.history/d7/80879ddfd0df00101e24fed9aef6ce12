@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head lang="ko">
+  <meta charset="UTF-8">
+  <title>레시피 목록</title>
+</head>
+<body>
+  <div layout:fragment="content">
+    <h3>레시피 목록</h3>
+
+    <div>
+      <a th:href="@{/recipes/new}" th:if="${#authorization.expression('isAuthenticated()')}">새 레시피 등록</a>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>번호</th>
+          <th>제목</th>
+          <th>카테고리</th>
+          <th>작성일</th>
+          <th>조회수</th>
+          <th>액션</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="r, stat : ${list}">
+          <td th:text="${stat.index + 1}">1</td>
+          <td>
+            <a th:href="@{/recipes/view(recipeId=${r.recipeId})}" th:text="${r.title}">제목</a>
+          </td>
+          <td th:text="${r.category}">카테고리</td>
+          <td th:text="${#dates.format(r.createdAt, 'yyyy-MM-dd')}">2023-01-01</td>
+          <td th:text="${r.views}">0</td>
+          <td>
+            <a th:href="@{/recipes/view(recipeId=${r.recipeId})}">보기</a>
+            <a th:href="@{/recipes/edit(recipeId=${r.recipeId})}" th:if="${#authorization.expression('isAuthenticated()')}">수정</a>
+            <a th:href="@{/recipes/delete(recipeId=${r.recipeId})}" th:if="${#authorization.expression('isAuthenticated()')}">삭제</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <!-- 페이징 표시 예시 -->
+      <span th:text="'총 ' + ${paging.total} + '건'">총 0건</span>
+      <!-- 페이징 링크는 필요에 따라 추가 -->
+    </div>
+  </div>
+</body>
+</html>
