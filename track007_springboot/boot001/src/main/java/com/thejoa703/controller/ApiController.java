@@ -1,8 +1,12 @@
 package com.thejoa703.controller;
 
+
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -86,6 +90,30 @@ public class ApiController {
 	
 	@GetMapping("/maps")
 	public String maps() {return "external/navermap";}
+	
+////////////////////////////////////////////chatbot
+	
+	@GetMapping("/chatbot")
+	public String chatbot() {return "external/chatbot";}
+	
+////////////////////////////////////////// naverbookparsing -json
+	@Autowired NaverBookJsonService jsonnService;
+	
+	@GetMapping(value = "/naverbook/json", produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<BookDto> naverbookJson(@RequestParam String search) throws UnsupportedEncodingException {
+		return jsonnService.getBook(search);
+	}
+	
+////////////////////////////////////////naverbookparsing - xml
+	
+	@Autowired NaverBookXmlService xmlService;
+	
+	@GetMapping(value = "/naverbook/json", produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<BookDto> naverbookXml(@RequestParam String search) throws UnsupportedEncodingException {
+		return xmlService.getBook(search);
+	}
 	
 	
 }

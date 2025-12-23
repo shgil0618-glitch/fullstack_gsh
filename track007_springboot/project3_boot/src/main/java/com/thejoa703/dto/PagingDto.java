@@ -1,9 +1,11 @@
 package com.thejoa703.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class PagingDto {
 	private int listtotal;      // #1) 전체글 수

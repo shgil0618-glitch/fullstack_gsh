@@ -1,188 +1,249 @@
 package com.thejoa703.controller;
 
-import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.thejoa703.dto.RecipeLikes3;
+import com.thejoa703.dto.PagingDto;
 import com.thejoa703.dto.Recipes3Dto;
 import com.thejoa703.dto.RecipesIngre3;
 import com.thejoa703.dto.RecipesStep3;
-import com.thejoa703.dto.SearchHistory3;
 import com.thejoa703.service.RecipeService;
 
 @Controller
-@RequestMapping("/recipe")
+@RequestMapping("/recipes")
 public class RecipeController {
 
-    @Autowired
-    private RecipeService recipesService;
+    private final RecipeService recipesService;
 
-    // =======================
-    // 1. 레시피 목록 / 상세
-    // =======================
-    @GetMapping("/list")
-    public String list(Model model,
-                       @RequestParam(value = "page", defaultValue = "1") int page,
-                       @RequestParam Map<String, Object> params) {
-        int totalCount = recipesService.searchBothCount(params);
-        model.addAttribute("paging", totalCount); // 필요 시 페이징 객체로 교체
-        model.addAttribute("list", recipesService.searchBothPaging(params));
-        return "recipe/list";
+    // application.properties에 설정된 업로드 루트 경로 주입 (예: C:/upload)
+    @Value("${resource.path}")
+    private String resourcePath;
+
+    public RecipeController(RecipeService recipesService) {
+        this.recipesService = recipesService;
     }
 
-    @GetMapping("/detail")
-    public String detail(@RequestParam("recipeId") int recipeId,
-                         Principal principal,
-                         Model model,
-                         RedirectAttributes rttr) {
-        Recipes3Dto recipe = recipesService.selectRecipe(recipeId);
-        if (recipe == null) {
-            rttr.addFlashAttribute("result", "레시피를 찾을 수 없습니다.");
-            return "redirect:/recipe/list";
-        }
-        recipesService.incrementRecipeViews(recipeId);
-        model.addAttribute("recipe", recipe);
-
-        if (principal != null) {
-            int appUserId = getAppUserId(principal);
-            boolean liked = recipesService.existsRecipeLike(appUserId, recipeId);
-            model.addAttribute("liked", liked);
-        }
-
-        return "recipe/detail";
-    }
-
-    // =======================
-    // 2. 레시피 등록
-    // =======================
+    /* 레시피 작성 폼 */
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/register")
-    public String registerForm() {
-        return "recipe/register";
+    @GetMapping("/new")
+    public String createForm(Model model) {
+        model.addAttribute("dto", new Recipes3Dto());
+        model.addAttribute("categories", recipesService.getAllCategories());
+        return "recipes/new";
     }
 
+    /* 레시피 등록 (이미지 파일은 service에서 저장) */
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/register")
-    public String register(Recipes3Dto dto,
-                           @RequestParam List<RecipesIngre3> ingredients,
-                           @RequestParam List<RecipesStep3> steps,
-                           Principal principal,
-                           RedirectAttributes rttr) {
-        try {
-            dto.setAppUserId(getAppUserId(principal));
-            int result = recipesService.insertRecipe(dto, ingredients, steps);
-            rttr.addFlashAttribute("result", result > 0 ? "레시피 등록 성공" : "레시피 등록 실패");
-        } catch (Exception e) {
-            e.printStackTrace();
-            rttr.addFlashAttribute("result", "서버 오류 발생");
-        }
-        return "redirect:/recipe/list";
+    @PostMapping("/new")
+    public String createRecipe(@RequestParam(value = "imageFile", required = false) MultipartFile imageFile,
+                               Recipes3Dto dto,
+                               RedirectAttributes rttr) {
+        int result = recipesService.createRecipe(imageFile, dto);
+        rttr.addFlashAttribute("msg", result > 0 ? "레시피 등록 성공" : "레시피 등록 실패");
+        return "redirect:/recipes/list";
     }
 
-    // =======================
-    // 3. 레시피 수정
-    // =======================
+    /* 레시피 수정 폼 */
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/modify")
-    public String modifyForm(@RequestParam("recipeId") int recipeId,
-                             Principal principal,
-                             Model model,
-                             RedirectAttributes rttr) {
-        Recipes3Dto recipe = recipesService.selectRecipe(recipeId);
-        int appUserId = getAppUserId(principal);
-        if (recipe == null || recipe.getAppUserId() != appUserId) {
-            rttr.addFlashAttribute("result", "수정 권한이 없거나 레시피를 찾을 수 없습니다.");
-            return "redirect:/recipe/list";
-        }
-        model.addAttribute("recipe", recipe);
-        return "recipe/modify";
+    @GetMapping("/edit")
+    public String editForm(@RequestParam int recipeId, Model model) {
+        Recipes3Dto dto = recipesService.getRecipeById(recipeId);
+        model.addAttribute("dto", dto);
+        model.addAttribute("ingredients", recipesService.getIngredients(recipeId));
+        model.addAttribute("steps", recipesService.getSteps(recipeId));
+        model.addAttribute("categories", recipesService.getAllCategories());
+        return "recipes/edit";
     }
 
+    /* 레시피 수정 처리 (이미지 파일은 service에서 저장/교체) */
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/modify")
-    public String modify(Recipes3Dto dto,
-                         @RequestParam List<RecipesIngre3> ingredients,
-                         @RequestParam List<RecipesStep3> steps,
-                         Principal principal,
-                         RedirectAttributes rttr) {
-        try {
-            dto.setAppUserId(getAppUserId(principal));
-            int result = recipesService.updateRecipe(dto, ingredients, steps);
-            rttr.addFlashAttribute("result", result > 0 ? "레시피 수정 성공" : "레시피 수정 실패");
-        } catch (Exception e) {
-            e.printStackTrace();
-            rttr.addFlashAttribute("result", "서버 오류 발생");
-        }
-        return "redirect:/recipe/detail?recipeId=" + dto.getRecipeId();
+    @PostMapping("/edit")
+    public String updateRecipe(@RequestParam(value = "imageFile", required = false) MultipartFile imageFile,
+                               Recipes3Dto dto,
+                               RedirectAttributes rttr) {
+        int result = recipesService.updateRecipe(imageFile, dto);
+        rttr.addFlashAttribute("msg", result > 0 ? "레시피 수정 성공" : "레시피 수정 실패");
+        return "redirect:/recipes/view?recipeId=" + dto.getRecipeId();
     }
 
-    // =======================
-    // 4. 레시피 삭제
-    // =======================
+    /* 삭제 폼 */
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/delete")
+    public String deleteForm(@RequestParam int recipeId, Model model) {
+        Recipes3Dto dto = recipesService.getRecipeById(recipeId);
+        model.addAttribute("dto", dto);
+        return "recipes/delete";
+    }
+
+    /* 삭제 처리 */
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/delete")
-    public String delete(@RequestParam("recipeId") int recipeId,
-                         Principal principal,
-                         RedirectAttributes rttr) {
-        try {
-            int appUserId = getAppUserId(principal);
-            int result = recipesService.deleteRecipe(recipeId);
-            rttr.addFlashAttribute("result", result > 0 ? "레시피 삭제 성공" : "삭제 권한이 없습니다.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            rttr.addFlashAttribute("result", "서버 오류 발생");
-        }
-        return "redirect:/recipe/list";
+    public String deleteRecipe(@RequestParam int recipeId, RedirectAttributes rttr) {
+        int result = recipesService.deleteRecipe(recipeId);
+        rttr.addFlashAttribute("msg", result > 0 ? "삭제 성공" : "삭제 실패");
+        return "redirect:/recipes/list";
     }
 
-    // =======================
-    // 5. 좋아요
-    // =======================
+    /* 상세 조회 */
+    @GetMapping("/view")
+    public String viewRecipe(@RequestParam int recipeId,
+                             @RequestParam(defaultValue = "true") boolean incView,
+                             Model model) {
+        if (incView) recipesService.incrementViews(recipeId);
+        Recipes3Dto dto = recipesService.getRecipeById(recipeId);
+        model.addAttribute("dto", dto);
+        model.addAttribute("ingredients", recipesService.getIngredients(recipeId));
+        model.addAttribute("steps", recipesService.getSteps(recipeId));
+        model.addAttribute("likeCount", recipesService.countLikesByRecipe(recipeId));
+        return "recipes/view";
+    }
+
+
+    /* ---------------------------
+       전체 목록 (최신순) 페이징
+       GET /recipes/list?page=1&size=8
+       --------------------------- */
+    @GetMapping("/list")
+    public String listRecipes(@RequestParam(defaultValue = "1") int page,
+                              @RequestParam(defaultValue = "8") int size,
+                              @RequestParam(required = false) Integer category,
+                              Model model) {
+        int total = recipesService.countAll(category);
+        PagingDto paging = new PagingDto(total, page);
+        Map<String, Object> params = new HashMap<>();
+        params.put("rStart", paging.getRStart());
+        params.put("rEnd", paging.getREnd());
+        params.put("category", category);
+
+        List<Recipes3Dto> list = recipesService.selectRecipeAllPaged(params);
+        model.addAttribute("list", list);
+        model.addAttribute("paging", paging);
+        model.addAttribute("categories", recipesService.getAllCategories());
+        return "recipes/list";
+    }
+
+    /* ---------------------------
+       검색 + 정렬 + 페이징
+       GET /recipes/search?keyword=...&sort=LATEST&page=1
+       --------------------------- */
+    @GetMapping("/search")
+    public String searchRecipes(@RequestParam(required = false) String keyword,
+                                @RequestParam(defaultValue = "ALL") String searchField,
+                                @RequestParam(required = false) Integer category,
+                                @RequestParam(defaultValue = "LATEST") String sort,
+                                @RequestParam(defaultValue = "1") int page,
+                                @RequestParam(defaultValue = "8") int size,
+                                Model model) {
+
+        Map<String, Object> countParams = new HashMap<>();
+        countParams.put("keyword", keyword);
+        countParams.put("searchField", searchField);
+        countParams.put("category", category);
+        int total = recipesService.countSearchRecipes(countParams);
+
+        PagingDto paging = new PagingDto(total, page);
+        Map<String, Object> params = new HashMap<>();
+        params.put("keyword", keyword);
+        params.put("searchField", searchField);
+        params.put("category", category);
+        params.put("sort", sort);
+        params.put("rStart", paging.getRStart());
+        params.put("rEnd", paging.getREnd());
+
+        List<Recipes3Dto> list = recipesService.searchRecipesPaged(params);
+        recipesService.saveSearchHistory(null, keyword);
+        model.addAttribute("list", list);
+        model.addAttribute("paging", paging);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("categories", recipesService.getAllCategories());
+        return "recipes/search";
+    }
+
+    /* ---------------------------
+       좋아요 / 좋아요 취소
+       POST /recipes/like
+       POST /recipes/unlike
+       --------------------------- */
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/like")
-    public String like(@RequestParam("recipeId") int recipeId,
-                       Principal principal,
-                       RedirectAttributes rttr) {
-        try {
-            int appUserId = getAppUserId(principal);
-            if (!recipesService.existsRecipeLike(appUserId, recipeId)) {
-                recipesService.insertRecipeLike(new RecipeLikes3(appUserId, recipeId));
-            } else {
-                recipesService.deleteRecipeLike(appUserId, recipeId);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "redirect:/recipe/detail?recipeId=" + recipeId;
+    public String likeRecipe(@RequestParam int recipeId,
+                             @RequestParam int appUserId) {
+        recipesService.likeRecipe(appUserId, recipeId);
+        return "redirect:/recipes/view?recipeId=" + recipeId;
     }
 
-    // =======================
-    // 6. 검색 기록
-    // =======================
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/search/history")
-    public String insertSearchHistory(SearchHistory3 history, Principal principal) {
-        history.setAppUserId(getAppUserId(principal));
-        recipesService.insertSearchHistory(history);
-        return "redirect:/recipe/list";
+    @PostMapping("/unlike")
+    public String unlikeRecipe(@RequestParam int recipeId,
+                               @RequestParam int appUserId) {
+        recipesService.unlikeRecipe(appUserId, recipeId);
+        return "redirect:/recipes/view?recipeId=" + recipeId;
     }
 
-    // =======================
-    // Utility
-    // =======================
-    private int getAppUserId(Principal principal) {
-        return Integer.parseInt(principal.getName()); // 예시: Principal.getName()이 userId 반환
+    /* ---------------------------
+       재료 / 단계 조회
+       GET /recipes/ingredients?recipeId=...
+       GET /recipes/steps?recipeId=...
+       --------------------------- */
+    @GetMapping("/ingredients")
+    public String ingredientsFragment(@RequestParam int recipeId, Model model) {
+        model.addAttribute("ingredients", recipesService.getIngredients(recipeId));
+        return "recipes/fragments :: ingredients";
     }
+
+    @GetMapping("/steps")
+    public String stepsFragment(@RequestParam int recipeId, Model model) {
+        model.addAttribute("steps", recipesService.getSteps(recipeId));
+        return "recipes/fragments :: steps";
+    }
+
+    /* ---------------------------
+    관리자 기능 (동일 컨트롤러에 포함)
+    --------------------------- */
+ @PreAuthorize("hasRole('ADMIN')")
+ @GetMapping("/admin/badwords")
+ public String adminBadWords(Model model) {
+     model.addAttribute("badWords", recipesService.getAllBadWords());
+     return "admin/badwords";
+ }
+
+ @PreAuthorize("hasRole('ADMIN')")
+ @PostMapping("/admin/bad_add")
+ public String addBadWord(@RequestParam String word, RedirectAttributes rttr) {
+     recipesService.addBadWord(word);
+     rttr.addFlashAttribute("msg", "비속어 추가 완료");
+     return "redirect:/recipes/admin/badwords";
+ }
+
+ @PreAuthorize("hasRole('ADMIN')")
+ @PostMapping("/admin/bad_delete")
+ public String deleteBadWord(@RequestParam int wordId, RedirectAttributes rttr) {
+     recipesService.deleteBadWordById(wordId);
+     rttr.addFlashAttribute("msg", "비속어 삭제 완료");
+     return "redirect:/recipes/admin/badwords";
+ }
+
+ @PreAuthorize("hasRole('ADMIN')")
+ @GetMapping("/admin/ai_usage")
+ public String adminAiUsage(Model model) {
+     model.addAttribute("aiUsage", recipesService.getAllAiUsage());
+     return "admin/aiusage";
+ }
+
+ @PreAuthorize("hasRole('ADMIN')")
+ @PostMapping("/admin/ai_delete")
+ public String deleteAiUsage(@RequestParam int aiHistId, RedirectAttributes rttr) {
+     recipesService.deleteAiUsageById(aiHistId);
+     rttr.addFlashAttribute("msg", "AI 사용 기록 삭제 완료");
+     return "redirect:/recipes/admin/ai_usage";
+ }
 }

@@ -1,6 +1,7 @@
 package com.thejoa703.dto;
 
-import java.util.Date;
+
+import java.sql.Date;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -11,22 +12,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Recipes3Dto {
-    private int recipeId;
-    private int appUserId;
+
+    private Integer recipeId;
+    private Integer appUserId;
     private String title;
-    private int category;
+    private Integer category;
     private String image;
-    private int cookTime;
+    private Integer cookTime;
     private String difficulty;
-    private int servings;
+    private Integer servings;
     private String description;
-    private String status; // PUBLIC, PRIVATE, DRAFT
+    private String status;
     private Date createdAt;
     private Date updatedAt;
-    private int views;
+    private Integer views;
     private String rUrl;
-    private String nickname; // join해서 가져올 경우
-    private String categoryName; // join해서 가져올 경우
+
+    private String nickname;
+    private String categoryName;
 
     private List<RecipesIngre3> ingredients;
     private List<RecipesStep3> steps;
