@@ -27,17 +27,17 @@
   <!-- ========================= -->
 
   <insert id="insertRecipe" parameterType="com.thejoa703.dto.Recipes3Dto">
-    <selectKey keyProperty="recipeId" resultType="int" order="BEFORE">
-      SELECT seq_recipe3.NEXTVAL FROM DUAL
-    </selectKey>
-    INSERT INTO recipes3 (
-      RECIPE_ID, APPUSERID, TITLE, CATEGORY, IMAGE, COOK_TIME, DIFFICULTY,
-      SERVINGS, DESCRIPTION, STATUS, CREATED_AT, UPDATED_AT, VIEWS, R_URL
-    ) VALUES (
-      #{recipeId}, #{appUserId}, #{title}, #{category}, #{image,jdbcType=VARCHAR}, #{cookTime}, #{difficulty},
-      #{servings}, #{description}, #{status}, SYSDATE, SYSDATE, #{rUrl}
-    )
-  </insert>
+  <selectKey keyProperty="recipeId" resultType="int" order="BEFORE">
+    SELECT seq_recipe3.NEXTVAL FROM DUAL
+  </selectKey>
+  INSERT INTO recipes3 (
+    RECIPE_ID, APPUSERID, TITLE, CATEGORY, IMAGE, COOK_TIME, DIFFICULTY,
+    SERVINGS, DESCRIPTION, STATUS, CREATED_AT, UPDATED_AT, R_URL
+  ) VALUES (
+    #{recipeId}, #{appUserId}, #{title}, #{category}, #{image,jdbcType=VARCHAR}, #{cookTime}, #{difficulty},
+    #{servings}, #{description}, #{status}, SYSDATE, SYSDATE,  #{rUrl}
+  )
+</insert>
 
   <update id="updateRecipe" parameterType="com.thejoa703.dto.Recipes3Dto">
     UPDATE recipes3
@@ -65,19 +65,44 @@
     WHERE r.RECIPE_ID = #{recipeId}
   </select>
 
-  <select id="selectRecipeAllPaged" resultMap="RecipeResult" parameterType="map">
-    SELECT * FROM (
-      SELECT r.*, c.CATEGORY_NAME,
-             ROW_NUMBER() OVER (ORDER BY NVL(r.UPDATED_AT, r.CREATED_AT) DESC) rn
-      FROM recipes3 r
-      LEFT JOIN CATEGORY3 c ON r.CATEGORY = c.CATEGORY
-      WHERE 1=1
-      <if test="category != null">
-        AND r.CATEGORY = #{category}
-      </if>
-    )
-    WHERE rn BETWEEN #{rStart} AND #{rEnd}
-  </select>
+<select id="selectRecipeAllPaged" resultType="com.thejoa703.dto.Recipes3Dto" parameterType="map">
+  SELECT * FROM (
+    SELECT r.RECIPE_ID       AS recipeId,
+           r.TITLE           AS title,
+           r.IMAGE           AS image,
+           r.CATEGORY        AS category,
+           c.CATEGORY_NAME   AS categoryName,
+           r.VIEWS           AS views,
+           r.DESCRIPTION     AS description,
+           u.NICKNAME        AS nickname,
+           ROW_NUMBER() OVER (ORDER BY NVL(r.UPDATED_AT, r.CREATED_AT) DESC) rn
+    FROM recipes3 r
+    LEFT JOIN CATEGORY3 c ON r.CATEGORY = c.CATEGORY
+    LEFT JOIN BUG3 u ON r.APPUSERID = u.APPUSERID
+  )
+  WHERE rn BETWEEN #{rStart} AND #{rEnd}
+</select>
+
+  
+  <!-- 내가 작성한 레시피 목록 -->
+<select id="selectMyRecipes" resultMap="RecipeResult" parameterType="int">
+    SELECT r.*, c.CATEGORY_NAME
+    FROM recipes3 r
+    LEFT JOIN CATEGORY3 c ON r.CATEGORY = c.CATEGORY
+    WHERE r.APPUSERID = #{appUserId}
+    ORDER BY NVL(r.UPDATED_AT, r.CREATED_AT) DESC
+</select>
+
+<!-- 내가 좋아요 표시한 레시피 목록 -->
+<select id="selectLikedRecipes" resultMap="RecipeResult" parameterType="int">
+    SELECT r.*, c.CATEGORY_NAME
+    FROM recipes3 r
+    LEFT JOIN CATEGORY3 c ON r.CATEGORY = c.CATEGORY
+    INNER JOIN RECIPE_LIKES3 l ON r.RECIPE_ID = l.RECIPE_ID
+    WHERE l.APPUSERID = #{appUserId}
+    ORDER BY NVL(r.UPDATED_AT, r.CREATED_AT) DESC
+</select>
+  
 
   <!-- ========================= -->
   <!-- 검색 및 정렬 (통합 검색) -->

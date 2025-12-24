@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/layout}">
+<!--    #1. layout 렌더링    -->
+<head lang="ko">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<script>location.href='basic2';</script>
+	<div layout:fragment="content">
+
+	</div>
+	<!--    http://localhost:8484/api/sms -->
 </body>
 </html>

@@ -12,8 +12,8 @@ import com.thejoa703.dto.RecipesStep3;
 public interface RecipeService {
 
     // 레시피 CRUD
-    public int createRecipe(MultipartFile imageFile, Recipes3Dto dto);
-    public int updateRecipe(MultipartFile imageFile, Recipes3Dto dto);
+    public int createRecipe(MultipartFile imageFile, Recipes3Dto dto, List<MultipartFile> stepImages);
+    public int updateRecipe(MultipartFile imageFile, Recipes3Dto dto, List<MultipartFile> stepImages);
     public int deleteRecipe(int recipeId);
     public Recipes3Dto getRecipeById(int recipeId);
 
@@ -51,4 +51,10 @@ public interface RecipeService {
     // 카테고리
     public List<Map<String, Object>> getAllCategories();
     public String getCategoryName(int category);
+
+    // 내가 작성한 레시피 목록
+    public List<Recipes3Dto> selectMyRecipes(int appUserId);
+
+    // 내가 좋아요 표시한 레시피 목록
+    public List<Recipes3Dto> selectLikedRecipes(int appUserId);
 }

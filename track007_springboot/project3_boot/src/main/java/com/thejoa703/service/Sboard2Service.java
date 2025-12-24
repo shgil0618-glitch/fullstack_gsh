@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.thejoa703.dto.Sboard2Dto;
  
 public interface Sboard2Service {
+	
 	public int insert(MultipartFile file , Sboard2Dto dto);
 	public int update(MultipartFile file , Sboard2Dto dto);
 	public int delete(Sboard2Dto dto);

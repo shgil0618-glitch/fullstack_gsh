@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head lang="ko">
+  <meta charset="UTF-8">
+  <title>레시피 수정</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <h2>레시피 수정</h2>
+
+  <form th:action="@{/recipes/modify}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="recipeId" th:value="${recipe.recipeId}"/>
+
+    <!-- 기본 정보 -->
+    <div>
+      <label>제목</label>
+      <input type="text" name="title" th:value="${recipe.title}" required>
+    </div>
+    <div>
+      <label>카테고리</label>
+      <select name="category" th:value="${recipe.category}">
+        <option th:each="c : ${categories}" th:value="${c.CATEGORY}" th:text="${c.CATEGORY_NAME}"
+                th:selected="${c.CATEGORY == recipe.category}"></option>
+      </select>
+    </div>
+    <div>
+      <label>설명</label>
+      <textarea name="description" rows="4" th:text="${recipe.description}"></textarea>
+    </div>
+
+    <!-- 대표 이미지 -->
+    <div>
+      <label>현재 대표 이미지</label>
+      <img th:if="${recipe.image}" th:src="@{/upload/{img}(img=${recipe.image})}" alt="대표 이미지" style="max-width: 240px;">
+    </div>
+    <div>
+      <label>대표 이미지 변경</label>
+      <input type="file" name="imageFile" accept="image/*">
+    </div>
+
+    <hr>
+
+    <!-- 재료 목록 -->
+    <h3>재료</h3>
+    <div id="ingredients-list">
+      <div class="ingredient-row" th:each="ing : ${ingredients}">
+        <input type="text" name="ingredients" th:value="${ing.ingreName}" placeholder="재료명">
+        <input type="text" name="ingreNums" th:value="${ing.ingreNum}" placeholder="수량/단위">
+        <button type="button" class="btn-remove" onclick="removeRow(this)">삭제</button>
+      </div>
+      <!-- 빈 행 추가용 -->
+      <div class="ingredient-row">
+        <input type="text" name="ingredients" placeholder="재료명">
+        <input type="text" name="ingreNums" placeholder="수량/단위">
+        <button type="button" class="btn-remove" onclick="removeRow(this)">삭제</button>
+      </div>
+    </div>
+    <button type="button" onclick="addIngredient()">재료 추가</button>
+
+    <hr>
+
+    <!-- 단계 목록 -->
+    <h3>조리 단계</h3>
+    <div id="steps-list">
+      <div class="step-row" th:each="st,idx : ${steps}">
+        <textarea name="steps" th:text="${st.stepDesc}" rows="2" placeholder="단계 설명"></textarea>
+        <div>
+          <span>현재 이미지:</span>
+          <img th:if="${st.stepImage}" th:src="@{/upload/{img}(img=${st.stepImage})}" alt="단계 이미지" style="max-width: 200px;">
+        </div>
+        <input type="file" name="stepImages" accept="image/*">
+        <button type="button" class="btn-remove" onclick="removeRow(this)">삭제</button>
+      </div>
+      <!-- 빈 행 추가용 -->
+      <div class="step-row">
+        <textarea name="steps" rows="2" placeholder="단계 설명"></textarea>
+        <input type="file" name="stepImages" accept="image/*">
+        <button type="button" class="btn-remove" onclick="removeRow(this)">삭제</button>
+      </div>
+    </div>
+    <button type="button" onclick="addStep()">단계 추가</button>
+
+    <hr>
+
+    <button type="submit">수정 저장</button>
+  </form>
+
+  <script>
+    function removeRow(btn) {
+      const row = btn.closest('.ingredient-row, .step-row');
+      if (row) row.remove();
+    }
+
+    function addIngredient() {
+      const wrap = document.getElementById('ingredients-list');
+      const div = document.createElement('div');
+      div.className = 'ingredient-row';
+      div.innerHTML =
+        '<input type="text" name="ingredients" placeholder="재료명">' +
+        '<input type="text" name="ingreNums" placeholder="수량/단위">' +
+        '<button type="button" class="btn-remove" onclick="removeRow(this)">삭제</button>';
+      wrap.appendChild(div);
+    }
+
+    function addStep() {
+      const wrap = document.getElementById('steps-list');
+      const div = document.createElement('div');
+      div.className = 'step-row';
+      div.innerHTML =
+        '<textarea name="steps" rows="2" placeholder="단계 설명"></textarea>' +
+        '<input type="file" name="stepImages" accept="image/*">' +
+        '<button type="button" class="btn-remove" onclick="removeRow(this)">삭제</button>';
+      wrap.appendChild(div);
+    }
+  </script>
+</div>
+</body>
+</html>

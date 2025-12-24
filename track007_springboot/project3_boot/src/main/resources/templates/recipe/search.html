@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/layout}">
+<head lang="ko">
+<meta charset="UTF-8">
+<title>레시피 검색</title>
+<style>
+.recipe-card img {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+	border-radius: 8px 8px 0 0;
+}
+
+.recipe-card {
+	border-radius: 10px;
+	overflow: hidden;
+	background: #fff;
+	transition: transform .15s ease, box-shadow .15s ease;
+	box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+	cursor: pointer;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.recipe-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.category-label {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background-color: #fff;
+	color: #333;
+	padding: 5px 10px;
+	border-radius: 5px;
+	font-size: 0.9rem;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	z-index: 10;
+}
+
+.difficulty-box {
+	display: inline-block;
+	padding: 5px 10px;
+	border-radius: 5px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.difficulty-easy {
+	background-color: #d4edda;
+	color: #155724;
+}
+
+.difficulty-medium {
+	background-color: #fff3cd;
+	color: #856404;
+}
+
+.difficulty-hard {
+	background-color: #f8d7da;
+	color: #721c24;
+}
+
+.search-category-bar {
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+	background-color: #4F3C1B;
+	padding: 15px;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-category-bar label, .search-category-bar .form-label,
+	.search-category-bar .btn, .search-category-bar input {
+	color: #fff;
+}
+
+.status-msg {
+	padding: 60px 0;
+	text-align: center;
+	color: #6c757d;
+	font-size: 1.1rem;
+	width: 100%;
+}
+</style>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container mt-5">
+			<h3 class="mb-4">
+				레시피 검색 (<span id="recipeCount">불러오는 중...</span>개)
+			</h3>
+
+			<!-- 검색 + 카테고리 영역 -->
+			<div class="search-category-bar">
+				<div class="mb-3 alert alert-light border">
+					<label for="search" class="form-label fw-bold">SEARCH
+						RECIPE</label>
+					<div class="row">
+						<div class="col-md-9">
+							<input type="search" class="form-control" id="search"
+								placeholder="검색어를 입력하세요 (비워두면 전체 출력)">
+						</div>
+						<div class="col-md-3 text-end" th:if="${loginUser != null}">
+							<button class="btn btn-success w-100"
+								th:onclick="|location.href='@{/recipes/register}'|">
+								레시피 등록</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="mb-2 category-btns">
+					<button class="btn btn-outline-secondary filter-btn active"
+						data-filter="">전체</button>
+					<button class="btn btn-outline-secondary filter-btn"
+						data-filter="1">한식</button>
+					<button class="btn btn-outline-secondary filter-btn"
+						data-filter="2">양식</button>
+					<button class="btn btn-outline-secondary filter-btn"
+						data-filter="3">중식</button>
+					<button class="btn btn-outline-secondary filter-btn"
+						data-filter="4">일식</button>
+					<button class="btn btn-outline-secondary filter-btn"
+						data-filter="5">디저트</button>
+					<button class="btn btn-outline-secondary filter-btn"
+						data-filter="6">건강식</button>
+					<button class="btn btn-outline-secondary filter-btn"
+						data-filter="7">기타</button>
+				</div>
+			</div>
+
+			<!-- 레시피 카드 영역 -->
+			<div class="row g-4" id="recipeCards">
+				<div class="status-msg">레시피 목록을 불러오는 중입니다...</div>
+			</div>
+
+			<!-- 페이징 영역 -->
+			<div class="mt-4 text-center" id="pagingArea"></div>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script>
+const ctx = /*[[${#httpServletRequest.contextPath}]]*/ ''; 
+let currentCategory = ""; // 카테고리 번호 (빈 값이면 전체)
+let currentPage = 1;
+
+// ----------------------------------------------------
+// [검색 실행 함수]
+// ----------------------------------------------------
+function runSearch(page) {
+    currentPage = page;
+    let keyword = $("#search").val().trim();
+
+    $("#recipeCards").html('<div class="status-msg"><i class="fas fa-spinner fa-spin"></i> 레시피를 불러오는 중...</div>');
+
+    $.ajax({
+        url: ctx + "/recipes/searchAjax", // ✅ JSON 응답용 매핑으로 변경
+        type: "GET",
+        data: {
+            page: currentPage,
+            keyword: keyword,
+            searchField: "ALL",
+            sort: "LATEST",
+            category: currentCategory
+        },
+        dataType: "json",
+        success: function(res) {
+            const recipeList = res.list || [];
+            const paging = res.paging;
+
+            renderRecipeList(recipeList);
+            renderPaging(paging);
+
+            $("#recipeCount").text(paging.totalCount || 0);
+        },
+        error: function(err) {
+            console.error("AJAX 에러:", err);
+            $("#recipeCards").empty().append('<div class="status-msg">데이터를 불러오는 중 오류가 발생했습니다.</div>');
+            $("#pagingArea").empty().hide();
+            $("#recipeCount").text("0");
+        }
+    });
+}
+
+// ----------------------------------------------------
+// [레시피 카드 렌더링]
+// ----------------------------------------------------
+function renderRecipeList(recipeList) {
+    $("#recipeCards").empty();
+
+    if (recipeList.length === 0) {
+        $("#recipeCards").append('<div class="status-msg">해당 조건의 레시피가 없습니다.</div>');
+        return;
+    }
+
+    $.each(recipeList, function(index, dto) {
+        let imgPath = "";
+        const defaultImg = "default-recipe.png";
+        if (dto.image && dto.image.startsWith("http")) {
+            imgPath = dto.image;
+        } else {
+            let fileName = dto.image ? dto.image : defaultImg;
+            imgPath = ctx + "/upload/" + fileName;
+        }
+
+        let difficultyClass = "";
+        if (dto.difficulty === '쉬움') difficultyClass = 'difficulty-easy';
+        else if (dto.difficulty === '보통') difficultyClass = 'difficulty-medium';
+        else if (dto.difficulty === '어려움') difficultyClass = 'difficulty-hard';
+
+        let description = dto.description || '';
+        if (description.length > 50) description = description.substring(0, 50) + '...';
+
+        // ✅ 재료 문자열 생성
+        let ingredientsHtml = "";
+        if (dto.ingredients && dto.ingredients.length > 0) {
+            ingredientsHtml = dto.ingredients.map(ing => `${ing.ingreName} ${ing.ingreNum || ''}`).join(", ");
+        }
+
+        let stepsHtml = "";
+        if (dto.steps && dto.steps.length > 0) {
+            stepsHtml = dto.steps.map((st, i) => `${i+1}. ${st.stepDesc}`).join("\n");
+        }
+
+        let html = `
+            <div class="col-sm-6 col-md-4 col-lg-3 recipe-item">
+                <div class="recipe-card h-100 shadow-sm position-relative"
+                        data-bs-toggle="modal"
+                        data-bs-target="#recipeModal${dto.recipeId}"
+                        style="cursor:pointer;">
+                    
+                    <div class="category-label">${dto.categoryName}</div>
+                    <img src="${imgPath}" alt="${dto.title}" class="recipe-img">
+                    
+                    <div class="card-content">
+                        <h5 class="mb-1 recipe-title">${dto.title}</h5>
+                        <p class="recipe-description">${description}</p>
+                        
+                        <div class="recipe-info d-flex justify-content-start small text-secondary">
+                            <span>⏱ ${dto.cookTime}분</span>
+                            <span class="ms-3">👨‍🍳 ${dto.servings}인분</span>
+                            <span class="ms-3">👁 ${dto.views}</span>
+                        </div>
+                        
+                        <div class="mt-2 text-start">
+                            <span class="difficulty-box ${difficultyClass}">${dto.difficulty}</span>
+                        </div>
+
+                        <div class="text-end mt-2 small text-muted">by ${dto.nickname}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal fade" id="recipeModal${dto.recipeId}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-md modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">${dto.title}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="${imgPath}" alt="${dto.title}" class="modal-img"/>
+                            
+                            <div class="mt-2 mb-3">
+                                <span class="modal-label">${dto.categoryName}</span>
+                                <span class="difficulty-box ${difficultyClass}">${dto.difficulty}</span>
+                            </div>
+                            
+                            <p>${dto.description}</p>
+                            <hr>
+                            <p><strong>작성자 :</strong> ${dto.nickname}</p>
+                            <p><strong>조리 시간 :</strong> ${dto.cookTime} 분</p>
+                            <p><strong>인분 :</strong> ${dto.servings} 인분</p>
+                            <hr>
+                            <p><strong>재료 :</strong> ${ingredientsHtml}</p>
+                            <hr>
+                            <p><strong>조리 단계</strong></p>
+                            <pre>${stepsHtml}</pre>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        $("#recipeCards").append(html);
+    });
+}
+
+// ----------------------------------------------------
+// [페이징 렌더링]
+// ----------------------------------------------------
+function renderPaging(paging) {
+    $("#pagingArea").empty();
+
+    if (!paging || paging.pageTotal <= 1) {
+        $("#pagingArea").hide();
+        return;
+    }
+
+    let ul = $('<ul class="pagination justify-content-center"></ul>');
+
+    if (paging.start > 1) {
+        ul.append($('<li class="page-item"><a class="page-link" href="#" data-page="1">&laquo;</a></li>'));
+        ul.append($('<li class="page-item"><a class="page-link" href="#" data-page="' + (paging.start - 1) + '">...</a></li>'));
+    } else if (paging.current > 1) {
+        ul.append($('<li class="page-item"><a class="page-link" href="#" data-page="' + (paging.current - 1) + '">&lt;</a></li>'));
+    }
+
+    for (let i = paging.start; i <= paging.end; i++) {
+        let activeClass = i === paging.current ? ' active' : '';
+        let li = $(`<li class="page-item ${activeClass}"></li>`);
+        li.append($(`<a class="page-link" href="#" data-page="${i}">${i}</a>`));
+        ul.append(li);
+    }
+
+    if (paging.end < paging.pageTotal) {
+        ul.append($('<li class="page-item"><a class="page-link" href="#" data-page="' + (paging.end + 1) + '">...</a></li>'));
+        ul.append($(`<li class="page-item"><a class="page-link" href="#" data-page="${paging.pageTotal}">&raquo;</a></li>`));
+    } else if (paging.current < paging.pageTotal) {
+        ul.append($('<li class="page-item"><a class="page-link" href="#" data-page="' + (paging.current + 1) + '">&gt;</a></li>`));
+    }
+
+    $("#pagingArea").append(ul).show();
+}
+</script>
+
+		<script>
+// ----------------------------------------------------
+// [이벤트 바인딩]
+// ----------------------------------------------------
+$(function(){
+    // 1. 초기 로딩 시 목록 조회
+    runSearch(1);
+
+    // 2. 카테고리 버튼 클릭
+    $(".filter-btn").on("click", function(e){
+        e.preventDefault();
+        $(".filter-btn").removeClass("active");
+        $(this).addClass("active");
+
+        currentCategory = $(this).data("filter");
+        runSearch(1); // 카테고리 변경 시 1페이지로 이동
+    });
+
+    // 3. 키워드 입력 (keyup)
+    $("#search").on("keyup", function(){
+        runSearch(1); // 검색어 입력 시 1페이지로 이동
+    });
+
+    // 4. 페이징 버튼 클릭 이벤트 처리
+    $(document).on("click", "#pagingArea .page-link", function(e){
+        e.preventDefault();
+        const page = $(this).data("page");
+        if (page) runSearch(page);
+    });
+});
+
+// ----------------------------------------------------
+// [모달 재료 로드]
+// ----------------------------------------------------
+$(document).on("shown.bs.modal", ".modal", function () {
+    const recipeId = $(this).attr("id").replace("recipeModal", "");
+    loadIngredients(parseInt(recipeId));
+});
+
+function loadIngredients(recipeId) {
+    $.ajax({
+        url: ctx + "/materialsearch",
+        type: "GET",
+        data: { recipeId: recipeId },
+        success: function(data) {
+            let target = "#ingredients-" + recipeId;
+            let arr = data.result.ingredients || [];
+            $(target).empty();
+            for(let i=0; i<arr.length; i++){
+                $(target).append(
+                    "<div>" +
+                        "<a href='" + ctx + "/materialtitle?title=" + encodeURIComponent(arr[i].ingreName) + 
+                        "' target='_blank' rel='noopener noreferrer'>" +
+                        arr[i].ingreName + " - " + (arr[i].ingreNum || '') +
+                        "</a>" +
+                    "</div>"
+                );
+            }
+        },
+        error: function() {
+            $("#ingredients-" + recipeId).html("불러오기 실패");
+        }
+    });
+}
+</script>
+
+	</div>
+	<!-- layout:fragment="content" 닫기 -->
+</body>
+</html>

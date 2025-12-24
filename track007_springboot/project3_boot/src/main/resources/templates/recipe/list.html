@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{fragments/layout}">
+<head lang="ko">
+<meta charset="UTF-8">
+<title>레시피 목록</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h2>레시피 목록</h2>
+
+		<!-- 로그인한 사용자만 글쓰기 버튼 표시 -->
+		<div sec:authorize="isAuthenticated()" style="margin-bottom: 10px;">
+			<a th:href="@{/recipes/register}" class="btn btn-primary">글쓰기</a>
+		</div>
+
+		<!-- 검색 폼 -->
+		<form th:action="@{/recipes/list}" method="get"
+			style="margin-bottom: 15px;">
+			<input type="text" name="keyword" placeholder="검색어"
+				th:value="${param.keyword}"> <select name="searchField">
+				<option value="title" th:selected="${param.searchField == 'title'}">제목</option>
+				<option value="description"
+					th:selected="${param.searchField == 'description'}">설명</option>
+			</select>
+			<button type="submit">검색</button>
+		</form>
+
+		<!-- 레시피 테이블 -->
+		<table border="1"
+			style="width: 100%; margin-top: 10px; border-collapse: collapse;">
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>대표 이미지</th>
+					<th>제목</th>
+					<th>카테고리</th>
+					<th>작성자</th>
+					<!-- NEW -->
+					<th>조회수</th>
+					<!-- <th>좋아요</th> -->
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="recipe : ${list}">
+					<td th:text="${recipe.recipeId}"></td>
+					<td><img th:if="${recipe.image}"
+						th:src="@{/upload/{img}(img=${recipe.image})}" alt="대표 이미지"
+						style="max-width: 100px;"></td>
+					<td><a
+						th:href="@{/recipes/detail(recipeId=${recipe.recipeId})}"
+						th:text="${recipe.title}"></a></td>
+					<td th:text="${recipe.categoryName}"></td>
+					<td th:text="${recipe.nickname}"></td>
+
+					<td th:text="${recipe.views}"></td>
+					<!-- <td th:text="${recipe.likes}"></td> -->
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- 페이징 -->
+		<div class="paging" style="margin-top: 15px;">
+			<span th:each="i : ${#numbers.sequence(paging.start, paging.end)}">
+				<a
+				th:href="@{/recipes/list(page=${i}, keyword=${param.keyword}, searchField=${param.searchField})}"
+				th:text="${i}" th:classappend="${i == paging.current} ? 'active'"></a>
+			</span>
+		</div>
+	</div>
+</body>
+</html>

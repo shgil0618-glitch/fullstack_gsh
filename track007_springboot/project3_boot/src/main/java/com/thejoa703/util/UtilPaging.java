@@ -17,7 +17,7 @@ public class UtilPaging {
 	
 	//## 기본생성자 (10개씩, 하단네비블록10개)
 	public UtilPaging(int listtotal, int pageNo) { 
-		this(listtotal ,pageNo , 10,10 );
+		this(listtotal ,pageNo , 8,10 );
     }
 	//## 오버로딩된 생성자 (페이지 크기와 하단네비크기를 직접지정)
     public UtilPaging(int listtotal, int pageNo , int onepagelist , int  bottomlist) {//(1) 1,10   (2) 11,20
