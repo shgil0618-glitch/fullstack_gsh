@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aop-reference-model>
-<aop-project name="project_Bug"/>
 <aop-project name="boot001"/>
+<aop-project name="project_Bug"/>
+<aop-project name="Bug3"/>
 <aop-project name="project3_boot"/>
 </aop-reference-model>

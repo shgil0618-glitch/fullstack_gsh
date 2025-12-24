@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/layout}">
+<!--    #1. layout 렌더링    -->
+<head lang="ko">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content">
+	<!-- 케로셀 -->
+	<!-- 케로셀 -->
+	
+	
+	<!-- 갤러리 -->
+	<!-- 갤러리 -->
+	<div id="visual">
+		<div th:text="${imglist}"></div>
+	</div>
+	
+	<!-- 모달 -->
+	<!-- 모달 -->
+	
+	
+	<!-- 테이블 + 아코디언 -->
+	<!-- 테이블 + 아코디언 -->
+	
+	
+	</div>
+	<!--    http://localhost:8484/api/sms -->
+</body>
+</html>

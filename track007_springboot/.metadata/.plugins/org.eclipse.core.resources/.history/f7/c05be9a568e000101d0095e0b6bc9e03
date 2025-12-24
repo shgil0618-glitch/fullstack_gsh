@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{fragments/layout}">
+<!--    #1. layout 렌더링    -->
+<head lang="ko">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+   <div layout:fragment="content">
+      <!-- 캐로셀 -->
+      <!-- 캐로셀 -->
+      <div id="visual"> 
+         <!-- Carousel -->
+         <div id="demo" class="carousel slide" data-bs-ride="carousel">
+         
+           <!-- Indicators/dots -->
+           <div class="carousel-indicators">
+             <button th:each="dto, stat : ${imglist}"
+             type="button" data-bs-target="#demo" 
+            th:attr="data-bs-slide-to=${stat.index}" 
+            th:classappend="active"></button>
+             
+            <!--  <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button> -->
+
+           </div>
+         
+           <!-- The slideshow/carousel -->
+           <div class="carousel-inner">
+             <div    th:each="dto, stat : ${imglist}"
+                   th:class="'carousel-item' + ( ${stat.index==0} ?' active' : '')">
+               <img  th:src="@{'/upload/' + ${dto.bfile}}" th:alt="${dto.btitle}" class="d-block w-100">
+             </div> 
+           </div>
+         
+           <!-- Left and right controls/icons -->
+           <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+             <span class="carousel-control-prev-icon"></span>
+           </button>
+           <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+             <span class="carousel-control-next-icon"></span>
+           </button>
+         </div> 
+      </div>
+      
+      <!-- 갤러리 -->
+      <!-- 갤러리 -->
+      <div id="gallery">
+      </div>
+       
+      
+      <!-- 모달 -->
+      <!-- 모달 --> 
+      
+      
+      <!-- 테이블 + 아코디언 -->
+      <!-- 테이블 + 아코디언 --> 
+      
+   </div> 
+   <!--    http://localhost:8484/ -->
+</body>
+</html>      

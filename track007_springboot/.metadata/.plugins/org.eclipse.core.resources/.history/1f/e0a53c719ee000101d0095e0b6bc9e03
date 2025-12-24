@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thejoa703.dao.Recipes3Dao">
+
+  <!-- ========================= -->
+  <!-- ResultMap (🔥 핵심) -->
+  <!-- ========================= -->
+  <resultMap id="RecipeResult" type="com.thejoa703.dto.Recipes3Dto">
+    <id column="RECIPE_ID" property="recipeId"/>
+    <result column="APPUSERID" property="appUserId"/>
+    <result column="TITLE" property="title"/>
+    <result column="CATEGORY" property="category"/>
+    <result column="CATEGORY_NAME" property="categoryName"/>
+    <result column="IMAGE" property="image"/>
+    <result column="COOK_TIME" property="cookTime"/>
+    <result column="DIFFICULTY" property="difficulty"/>
+    <result column="SERVINGS" property="servings"/>
+    <result column="DESCRIPTION" property="description"/>
+    <result column="STATUS" property="status"/>
+    <result column="CREATED_AT" property="createdAt"/>
+    <result column="UPDATED_AT" property="updatedAt"/>
+    <result column="VIEWS" property="views"/>
+    <result column="R_URL" property="rUrl"/>
+    <result column="NICKNAME" property="nickname"/>
+
+    <!-- 🔥 재료 / 단계 자동 매핑 -->
+    <collection property="ingredients"
+                ofType="com.thejoa703.dto.RecipesIngre3"
+                select="selectIngreByRecipeId"
+                column="RECIPE_ID"/>
+
+    <collection property="steps"
+                ofType="com.thejoa703.dto.RecipesStep3"
+                select="selectStepByRecipeId"
+                column="RECIPE_ID"/>
+  </resultMap>
+
+  <!-- ========================= -->
+  <!-- recipes3 CRUD -->
+  <!-- ========================= -->
+
+  <insert id="insertRecipe" parameterType="com.thejoa703.dto.Recipes3Dto">
+    <selectKey keyProperty="recipeId" resultType="int" order="BEFORE">
+      SELECT seq_recipe3.NEXTVAL FROM DUAL
+    </selectKey>
+    INSERT INTO recipes3 (
+      RECIPE_ID, APPUSERID, TITLE, CATEGORY, IMAGE,
+      COOK_TIME, DIFFICULTY, SERVINGS,
+      DESCRIPTION, STATUS, CREATED_AT, UPDATED_AT, R_URL
+    ) VALUES (
+      #{recipeId}, #{appUserId}, #{title}, #{category},
+      #{image,jdbcType=VARCHAR}, #{cookTime}, #{difficulty},
+      #{servings}, #{description}, #{status},
+      SYSDATE, SYSDATE, #{rUrl}
+    )
+  </insert>
+
+  <update id="updateRecipe" parameterType="com.thejoa703.dto.Recipes3Dto">
+    UPDATE recipes3
+    SET TITLE = #{title},
+        CATEGORY = #{category},
+        IMAGE = #{image,jdbcType=VARCHAR},
+        COOK_TIME = #{cookTime},
+        DIFFICULTY = #{difficulty},
+        SERVINGS = #{servings},
+        DESCRIPTION = #{description},
+        STATUS = #{status},
+        UPDATED_AT = SYSDATE,
+        R_URL = #{rUrl}
+    WHERE RECIPE_ID = #{recipeId}
+  </update>
+
+  <delete id="deleteRecipe" parameterType="int">
+    DELETE FROM recipes3 WHERE RECIPE_ID = #{recipeId}
+  </delete>
+
+  <select id="selectRecipeById" resultMap="RecipeResult" parameterType="int">
+    SELECT r.*, c.CATEGORY_NAME, u.NICKNAME
+    FROM recipes3 r
+    LEFT JOIN CATEGORY3 c ON r.CATEGORY = c.CATEGORY
+    LEFT JOIN BUG3 u ON r.APPUSERID = u.APPUSERID
+    WHERE r.RECIPE_ID = #{recipeId}
+  </select>
+
+  <select id="selectRecipeAllPaged" resultMap="RecipeResult" parameterType="map">
+    SELECT * FROM (
+      SELECT r.*, c.CATEGORY_NAME, u.NICKNAME,
+             ROW_NUMBER() OVER (ORDER BY NVL(r.UPDATED_AT, r.CREATED_AT) DESC) rn
+      FROM recipes3 r
+      LEFT JOIN CATEGORY3 c ON r.CATEGORY = c.CATEGORY
+      LEFT JOIN BUG3 u ON r.APPUSERID = u.APPUSERID
+    )
+    WHERE rn BETWEEN #{rStart} AND #{rEnd}
+  </select>
+
+  <update id="incrementViews" parameterType="int">
+    UPDATE recipes3 SET VIEWS = VIEWS + 1 WHERE RECIPE_ID = #{recipeId}
+  </update>

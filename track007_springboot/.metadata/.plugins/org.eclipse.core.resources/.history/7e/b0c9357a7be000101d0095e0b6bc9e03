@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head lang="ko">
+  <meta charset="UTF-8">
+  <title>레시피 등록</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <h2>레시피 등록</h2>
+
+  <form th:action="@{/recipes/register}" method="post" enctype="multipart/form-data">
+    <!-- 기본 정보 -->
+    <div>
+      <label>제목</label>
+      <input type="text" name="title" th:value="${dto?.title}" required>
+    </div>
+    <div>
+      <label>카테고리</label>
+      <select name="category" th:value="${dto?.category}">
+        <option th:each="c : ${categories}" th:value="${c.CATEGORY}" th:text="${c.CATEGORY_NAME}"></option>
+      </select>
+    </div>
+    <div>
+      <label>설명</label>
+      <textarea name="description" rows="4" th:text="${dto?.description}"></textarea>
+    </div>
+
+    <!-- 대표 이미지 -->
+    <div>
+      <label>대표 이미지</label>
+      <input type="file" name="imageFile" accept="image/*">
+    </div>
+
+    <hr>
+
+    <!-- 재료 동적 영역 -->
+    <h3>재료</h3>
+    <div id="ingredients-list">
+      <!-- 초기 1행 -->
+      <div class="ingredient-row">
+        <input type="text" name="ingredients" placeholder="재료명">
+        <input type="text" name="ingreNums" placeholder="수량/단위">
+        <button type="button" class="btn-remove" onclick="removeRow(this)">삭제</button>
+      </div>
+    </div>
+    <button type="button" onclick="addIngredient()">재료 추가</button>
+
+    <hr>
+
+    <!-- 단계 동적 영역 -->
+    <h3>조리 단계</h3>
+    <div id="steps-list">
+      <!-- 초기 1행 -->
+      <div class="step-row">
+        <textarea name="steps" placeholder="단계 설명" rows="2"></textarea>
+        <input type="file" name="stepImages" accept="image/*">
+        <button type="button" class="btn-remove" onclick="removeRow(this)">삭제</button>
+      </div>
+    </div>
+    <button type="button" onclick="addStep()">단계 추가</button>
+
+    <hr>
+
+    <button type="submit">등록</button>
+  </form>
+
+  <script>
+    function removeRow(btn) {
+      const row = btn.closest('.ingredient-row, .step-row');
+      if (row) row.remove();
+    }
+
+    function addIngredient() {
+      const wrap = document.getElementById('ingredients-list');
+      const div = document.createElement('div');
+      div.className = 'ingredient-row';
+      div.innerHTML =
+        '<input type="text" name="ingredients" placeholder="재료명">' +
+        '<input type="text" name="ingreNums" placeholder="수량/단위">' +
+        '<button type="button" class="btn-remove" onclick="removeRow(this)">삭제</button>';
+      wrap.appendChild(div);
+    }
+
+    function addStep() {
+      const wrap = document.getElementById('steps-list');
+      const div = document.createElement('div');
+      div.className = 'step-row';
+      div.innerHTML =
+        '<textarea name="steps" placeholder="단계 설명" rows="2"></textarea>' +
+        '<input type="file" name="stepImages" accept="image/*">' +
+        '<button type="button" class="btn-remove" onclick="removeRow(this)">삭제</button>';
+      wrap.appendChild(div);
+    }
+  </script>
+</div>
+</body>
+</html>

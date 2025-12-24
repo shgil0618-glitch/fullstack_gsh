@@ -60,4 +60,9 @@ public interface Recipes3Dao {
     // category
     public List<Map<String, Object>> selectAllCategories();
     public String selectCategoryName(int category);
+    
+    // 내가 작성한 레시피 목록
+    public List<Recipes3Dto> selectMyRecipes(int appUserId);
+    // 내가 좋아요 표시한 레시피 목록
+    public List<Recipes3Dto> selectLikedRecipes(int appUserId);
 }

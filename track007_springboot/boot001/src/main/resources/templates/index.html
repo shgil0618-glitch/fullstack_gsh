@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{fragments/layout}">
+<!--    #1. layout 렌더링    -->
+<head lang="ko">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+   <div layout:fragment="content">
+      <!-- 캐로셀 -->
+      <!-- 캐로셀 -->
+      <div id="visual"> 
+         <!-- Carousel -->
+         <div id="demo" class="carousel slide" data-bs-ride="carousel">
+         
+           <!-- Indicators/dots -->
+           <div class="carousel-indicators">
+             <button th:each="dto, stat : ${imglist}"
+             type="button" data-bs-target="#demo" 
+            th:attr="data-bs-slide-to=${stat.index}" 
+            th:classappend="${stat.index==0} ?' active'"></button>
+             
+            <!--  <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button> -->
+           </div>
+         
+           <!-- The slideshow/carousel -->
+           <div class="carousel-inner">
+             <div    th:each="dto, stat : ${imglist}"	
+                   th:class="'carousel-item' + ( ${stat.index==0} ?' active' : '')">
+               <img  th:src="@{'/upload/' + ${dto.bfile}}" th:alt="${dto.btitle}" 
+               style="height:300px; object-fit:cover;" class="d-block w-100">
+             </div> 
+           </div>
+         
+           <!-- Left and right controls/icons -->
+           <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+             <span class="carousel-control-prev-icon"></span>
+           </button>
+           <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+             <span class="carousel-control-next-icon"></span>
+           </button>
+         </div> 
+      </div>
+      
+      <!-- 갤러리 -->
+<!-- 갤러리 -->
+<div id="gallery" class="container my-5">
+  <h3 class="mb-4 text-center">Gallery</h3>
+  <div class="row">
+
+    <div class="col-sm-4 mb-4"
+         th:each="dto, stat : ${imglist}"
+         th:if="${stat.index < 6}">
+
+      <div class="card h-100 shadow-sm">
+        <img th:src="@{'/upload/' + ${dto.bfile}}"
+             th:alt="${dto.btitle}"
+             class="card-img-top"
+             style="height:200px; object-fit:cover; cursor:pointer;"
+             
+             data-bs-toggle="tooltip"
+             data-bs-placement="top"
+             th:attr="title=${dto.btitle + ' - ' + dto.bcontent}">
+
+        <div class="card-body text-center">
+          <h6 class="card-title mb-0" th:text="${dto.btitle}">제목</h6>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script>
+  var tooltipTriggerList = [].slice.call(
+    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  );
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+</script>
+  
+</div>
+
+       
+      
+      <!-- 모달 -->
+      <!-- 모달 --> 
+      
+      
+      <!-- 테이블 + 아코디언 -->
+      <!-- 테이블 + 아코디언 --> 
+      
+   </div> 
+   <!--    http://localhost:8484/ -->
+</body>
+</html>      

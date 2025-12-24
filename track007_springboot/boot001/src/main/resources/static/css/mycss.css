@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+/* index.html - #gallery */
+#gallery img{transiton: all 0.3s ease;}
+#gallery img:hover{
+	transform : translateY(-5px) rotateZ(10deg);
+	box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15)''
+}

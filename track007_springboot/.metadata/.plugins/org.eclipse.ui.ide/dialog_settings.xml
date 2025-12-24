@@ -108,6 +108,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\TJ-BU-703-001PC\Desktop\Bug3"/>
 			<item value="C:\Users\TJ-BU-703-001PC\Desktop\최종"/>
 			<item value="D:\gilsanghyun\track007_springboot\boot001_login"/>
 			<item value="D:\gilsanghyun\track007_springboot\boot001"/>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head lang="ko">
+  <meta charset="UTF-8">
+  <title>레시피 검색</title>
+  <style>
+    .recipe-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px 8px 0 0;
+    }
+    .recipe-card {
+        border-radius: 10px;
+        overflow: hidden;
+        background: #fff;
+        transition: transform .15s ease, box-shadow .15s ease;
+        box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    .recipe-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    .category-label {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #fff;
+        color: #333;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        z-index: 10;
+    }
+    .difficulty-box {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        text-align: center;
+    }
+    .difficulty-easy { background-color: #d4edda; color: #155724; }
+    .difficulty-medium { background-color: #fff3cd; color: #856404; }
+    .difficulty-hard { background-color: #f8d7da; color: #721c24; }
+    .search-category-bar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: #4F3C1B;
+        padding: 15px;
+        border-radius:10px;
+        margin-bottom:10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .search-category-bar label,
+    .search-category-bar .form-label,
+    .search-category-bar .btn,
+    .search-category-bar input {
+        color: #fff;
+    }
+    .status-msg {
+        padding: 60px 0;
+        text-align: center;
+        color: #6c757d;
+        font-size: 1.1rem;
+        width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div layout:fragment="content">
+    <div class="container mt-5">
+      <h3 class="mb-4">레시피 검색 (<span id="recipeCount">불러오는 중...</span>개)</h3>
+
+      <!-- 검색 + 카테고리 영역 -->
+      <div class="search-category-bar">
+        <div class="mb-3 alert alert-light border">
+          <label for="search" class="form-label fw-bold">SEARCH RECIPE</label>
+          <div class="row">
+            <div class="col-md-9">
+              <input type="search" class="form-control" id="search" 
+                     placeholder="검색어를 입력하세요 (비워두면 전체 출력)">
+            </div>
+            <div class="col-md-3 text-end" th:if="${loginUser != null}">
+              <button class="btn btn-success w-100" 
+                      th:onclick="|location.href='@{/recipes/register}'|">
+                레시피 등록
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-2 category-btns">
+          <button class="btn btn-outline-secondary filter-btn active" data-filter="">전체</button>
+          <button class="btn btn-outline-secondary filter-btn" data-filter="1">한식</button>
+          <button class="btn btn-outline-secondary filter-btn" data-filter="2">양식</button>
+          <button class="btn btn-outline-secondary filter-btn" data-filter="3">중식</button>
+          <button class="btn btn-outline-secondary filter-btn" data-filter="4">일식</button>
+          <button class="btn btn-outline-secondary filter-btn" data-filter="5">디저트</button>
+          <button class="btn btn-outline-secondary filter-btn" data-filter="6">건강식</button>
+          <button class="btn btn-outline-secondary filter-btn" data-filter="7">기타</button>
+        </div>
+      </div>
+
+      <!-- 레시피 카드 영역 -->
+      <div class="row g-4" id="recipeCards">
+        <div class="status-msg">레시피 목록을 불러오는 중입니다...</div>
+      </div>
+
+      <!-- 페이징 영역 -->
+      <div class="mt-4 text-center" id="pagingArea"></div>
+    </div>

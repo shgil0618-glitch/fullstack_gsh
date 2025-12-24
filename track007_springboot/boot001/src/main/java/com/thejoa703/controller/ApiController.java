@@ -106,14 +106,14 @@ public class ApiController {
 	}
 	
 ////////////////////////////////////////naverbookparsing - xml
-	
-	@Autowired NaverBookXmlService xmlService;
-	
-	@GetMapping(value = "/naverbook/json", produces=MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public List<BookDto> naverbookXml(@RequestParam String search) throws UnsupportedEncodingException {
-		return xmlService.getBook(search);
-	}
-	
-	
+	/*
+	 * @Autowired NaverBookXmlService xmlService;
+	 * 
+	 * @GetMapping(value = "/naverbook/json",
+	 * produces=MediaType.APPLICATION_JSON_VALUE)
+	 * 
+	 * @ResponseBody public List<BookDto> naverbookXml(@RequestParam String search)
+	 * throws UnsupportedEncodingException { return xmlService.getBook(search); }
+	 * 
+	 */
 }

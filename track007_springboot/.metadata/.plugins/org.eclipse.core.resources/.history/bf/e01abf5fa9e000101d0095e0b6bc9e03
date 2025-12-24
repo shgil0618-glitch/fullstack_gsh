@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head lang="ko">
+  <meta charset="UTF-8">
+  <title>레시피 상세</title>
+</head>
+
+<body>
+<div layout:fragment="content" class="container mt-4">
+
+  <!-- 제목 -->
+  <h2 th:text="${recipe.title}">레시피 제목</h2>
+
+  <!-- 대표 이미지 -->
+  <div class="my-3" th:if="${recipe.image != null}">
+    <img th:src="@{/upload/{img}(img=${recipe.image})}"
+         alt="대표 이미지"
+         class="img-fluid"
+         style="max-width: 400px;">
+  </div>
+
+  <!-- 기본 정보 -->
+  <div class="mb-3">
+    <p>
+      <strong>카테고리:</strong>
+      <span th:text="${recipe.categoryName}">카테고리</span>
+    </p>
+    <p>
+      <strong>작성자:</strong>
+      <span th:text="${recipe.nickname}">닉네임</span>
+    </p>
+    <p>
+      <strong>조회수:</strong>
+      <span th:text="${recipe.views}">0</span>
+    </p>
+  </div>
+
+  <hr>
+
+  <!-- 설명 -->
+  <div class="mb-4">
+    <h4>설명</h4>
+    <p th:text="${recipe.description}">레시피 설명</p>
+  </div>
+
+  <hr>
+
+  <!-- 재료 -->
+  <div class="mb-4" th:if="${ingredients != null}">
+    <h4>재료</h4>
+    <ul class="list-group">
+      <li class="list-group-item"
+          th:each="ing : ${ingredients}">
+        <span th:text="${ing.ingreName}">재료명</span>
+        <span th:if="${ing.ingreNum != null}">
+          - <span th:text="${ing.ingreNum}">수량</span>
+        </span>
+      </li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <!-- 조리 단계 -->
+  <div class="mb-4" th:if="${steps != null}">
+    <h4>조리 단계</h4>
+
+    <div th:each="st, stat : ${steps}" class="mb-3">
+      <p>
+        <strong th:text="${stat.index + 1}">1</strong>.
+        <span th:text="${st.stepDesc}">단계 설명</span>
+      </p>
+
+      <div th:if="${st.stepImage != null}">
+        <img th:src="@{/upload/{img}(img=${st.stepImage})}"
+             alt="단계 이미지"
+             class="img-fluid"
+             style="max-width: 300px;">
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 버튼 -->
+  <div class="mt-4">
+    <a class="btn btn-outline-primary"
+       th:href="@{/recipes/modify(recipeId=${recipe.recipeId})}">
+      수정
+    </a>
+
+    <a class="btn btn-outline-danger"
+       th:href="@{/recipes/delete(recipeId=${recipe.recipeId})}"
+       onclick="return confirm('삭제하시겠습니까?')">
+      삭제
+    </a>
+
+    <a class="btn btn-secondary"
+       th:href="@{/recipes/list}">
+      목록으로
+    </a>
+  </div>
+
+</div>
+</body>
+</html>

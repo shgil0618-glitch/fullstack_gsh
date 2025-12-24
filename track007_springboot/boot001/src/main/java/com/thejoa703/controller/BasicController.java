@@ -20,7 +20,7 @@ public class BasicController {
 		return "basic2"; 
 	}
 	
-	@GetMapping("/")
+//	@GetMapping("/")
 	public String index() {  
 		//return "index"; 
 		return "redirect:/board/list";
