@@ -1,0 +1,73 @@
+package com.thejoa703.controller;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Service;
+
+@Service
+public class kakaoPayService {
+	
+	@Value("${kakaopay.secret-key-dev}")
+	private String secretKey;
+	
+	@Value("${kakaopay.approval-url}")
+	private String approval;
+	
+	@Value("${kakaopay.fail-url}")
+	private String fail;
+	
+	@Value("${kakaopay.cancel-url}")
+	private String cancel;
+	
+	private String tid;	// 결제 준비시 받은 거래 id 저장
+	
+	// 결제준비
+	public Map<String, String> kakaoPayReady(){
+		
+		String url="https://open-api.kakaopay.com/online/v1/payment/ready";
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "SECRET_KEY " + secretKey);	// 공백주의
+		headers.add("Content-Type", "application/json");
+		
+		Map<String,String> params = new HashMap<>();
+		params.put("cid", "TC0ONETIME");	//발급받은 가맹점번호
+		
+		Map<String, String> result = new HashMap<>();
+		return result;
+	}
+	
+	// 결제승인
+	
+	
+}
+
+/*
+POST /online/v1/payment/ready HTTP/1.1
+Host: open-api.kakaopay.com
+Authorization: SECRET_KEY ${SECRET_KEY}
+Content-Type: application/json
+
+## 
+curl --location 'https://open-api.kakaopay.com/online/v1/payment/ready' \
+--header 'Authorization: SECRET_KEY ${SECRET_KEY}' \
+--header 'Content-Type: application/json' \
+--data '{
+      "cid": "TC0ONETIME",
+      "partner_order_id": "partner_order_id",
+      "partner_user_id": "partner_user_id",
+      "item_name": "초코파이",
+      "quantity": "1",
+      "total_amount": "2200",
+      "vat_amount": "200",
+      "tax_free_amount": "0",
+      "approval_url": "https://developers.kakao.com/success",
+      "fail_url": "https://developers.kakao.com/fail",
+      "cancel_url": "https://developers.kakao.com/cancel"
+   }'
+
+
+*/

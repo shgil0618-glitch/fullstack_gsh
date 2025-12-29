@@ -1,0 +1,330 @@
+package com.thejoa703.service;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.thejoa703.dao.Recipes3Dao;
+import com.thejoa703.dto.Recipes3Dto;
+import com.thejoa703.dto.RecipesIngre3;
+import com.thejoa703.dto.RecipesStep3;
+import com.thejoa703.util.UtilUpload;
+
+
+@Service
+public class RecipeServiceImpl implements RecipeService {
+
+	@Autowired
+	private Recipes3Dao recipeDao;
+
+	@Autowired
+	private UtilUpload utilUpload; // 파일 업로드 유틸
+
+	// 공통 파일 업로드 처리
+	private String uploadFile(MultipartFile file, String existingFile) {
+		if (file != null && !file.isEmpty()) {
+			try {
+				return utilUpload.fileUpload(file);
+			} catch (IOException e) {
+				throw new RuntimeException("파일 업로드 실패", e);
+			}
+		}
+		return existingFile; // 새 파일 없으면 기존 값 유지
+	}
+
+	// 📌 레시피 등록 (대표 이미지 + 재료 + 단계 + 단계 이미지)
+	@Transactional
+	@Override
+	public int createRecipe(MultipartFile imageFile, Recipes3Dto dto, List<MultipartFile> stepImages) {
+
+	    // 1️⃣ 대표 이미지 업로드
+	    dto.setImage(uploadFile(imageFile, dto.getImage()));
+
+	    // 2️⃣ 레시피 기본 정보 저장 (selectKey → recipeId 자동 세팅)
+	    int result = recipeDao.insertRecipe(dto);
+
+	    int recipeId = dto.getRecipeId();
+	    if (recipeId <= 0) {
+	        throw new IllegalStateException("recipeId 생성 실패");
+	    }
+
+	    // 3️⃣ 재료 저장
+	    if (dto.getIngredients() != null) {
+	        for (RecipesIngre3 ingre : dto.getIngredients()) {
+	            ingre.setRecipeId(recipeId);
+	            result += recipeDao.insertIngre(ingre);
+	        }
+	    }
+
+	    // 4️⃣ 단계 저장 + 단계 이미지
+	    if (dto.getSteps() != null) {
+	        for (int i = 0; i < dto.getSteps().size(); i++) {
+	            RecipesStep3 step = dto.getSteps().get(i);
+	            step.setRecipeId(recipeId);
+
+	            MultipartFile stepFile =
+	                (stepImages != null && stepImages.size() > i) ? stepImages.get(i) : null;
+
+	            step.setStepImage(uploadFile(stepFile, null));
+
+	            result += recipeDao.insertStep(step);
+	        }
+	    }
+
+	    return result;
+	}
+
+
+	@Transactional
+	@Override
+	public int updateRecipe(MultipartFile imageFile, Recipes3Dto dto) {
+
+	    // 1️⃣ 레시피 이미지 처리
+	    if (imageFile != null && !imageFile.isEmpty()) {
+	        String savedImage = uploadFile(imageFile, dto.getImage());
+	        dto.setImage(savedImage);
+	    }
+
+	    // 2️⃣ 기존 재료/단계 삭제
+	    deleteIngredients(dto.getRecipeId());
+	    deleteSteps(dto.getRecipeId());
+
+	    // 3️⃣ 레시피 업데이트
+	    recipeDao.updateRecipe(dto);
+
+	    // 4️⃣ 재료 insert
+	    if (dto.getIngredients() != null) {
+	        for (RecipesIngre3 ingre : dto.getIngredients()) {
+	            recipeDao.insertIngre(ingre);
+	        }
+	    }
+
+	    // 5️⃣ 단계 insert
+	    if (dto.getSteps() != null) {
+	        for (RecipesStep3 step : dto.getSteps()) {
+	            recipeDao.insertStep(step);
+	        }
+	    }
+
+	    return 1;
+	}
+
+	// 🔹 재료 삭제
+	private void deleteIngredients(int recipeId) {
+	    recipeDao.deleteIngreByRecipeId(recipeId);
+	}
+
+	// 🔹 단계 삭제
+	private void deleteSteps(int recipeId) {
+	    recipeDao.deleteStepByRecipeId(recipeId);
+	}
+	// 🔹 이미지 업로드 처리 (기존 이미지 유지)
+	@Override
+	public String uploadFile(MultipartFile file, String existingImage) {
+	    if (file != null && !file.isEmpty()) {
+	        // 파일 저장 로직
+	        // 예: UUID 기반 저장 후 경로 반환
+	        return saveFileToServer(file);
+	    } else {
+	        return existingImage; // 기존 이미지 유지
+	    }
+	}
+
+
+	@Transactional
+	@Override
+	public int deleteRecipe(int recipeId) {
+		int result = 0;
+
+		// 1) 재료 삭제
+		recipeDao.deleteIngreByRecipeId(recipeId);
+
+		// 2) 단계 삭제
+		recipeDao.deleteStepByRecipeId(recipeId);
+
+		// 3) 레시피 삭제
+		result += recipeDao.deleteRecipe(recipeId);
+
+		return result;
+	}
+
+	@Override
+	@Transactional
+	public Recipes3Dto getRecipeById(int recipeId) {
+
+	    // 1. 조회수 증가
+	    recipeDao.incrementViews(recipeId);
+
+	    // 2. 레시피 기본 정보
+	    Recipes3Dto recipe = recipeDao.selectRecipeById(recipeId);
+
+	    // 3. 재료
+	    recipe.setIngredients(
+	        recipeDao.selectIngreByRecipeId(recipeId)
+	    );
+
+	    // 4. 단계
+	    recipe.setSteps(
+	        recipeDao.selectStepByRecipeId(recipeId)
+	    );
+
+
+	    return recipe;
+	}
+
+
+
+
+	@Override
+	public List<Recipes3Dto> selectRecipeAllPaged(Map<String, Object> params) {
+		return recipeDao.selectRecipeAllPaged(params);
+	}
+
+	@Override
+	public int countAll(Integer category) {
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("category", category);
+	    params.put("searchField", "ALL");
+	    // keyword는 아예 넣지 않거나 빈 문자열로 처리
+	    return recipeDao.countSearchRecipes(params);
+
+	}
+
+	@Override
+	public int countSearchRecipes(Map<String, Object> params) {
+		return recipeDao.countSearchRecipes(params);
+	}
+
+	@Override
+	public List<Recipes3Dto> searchRecipesPaged(Map<String, Object> params) {
+		return recipeDao.searchRecipesPaged(params);
+	}
+
+	@Transactional
+	@Override
+	public int incrementViews(int recipeId) {
+		return recipeDao.incrementViews(recipeId);
+	}
+
+	@Override
+	public List<RecipesIngre3> getIngredients(int recipeId) {
+		return recipeDao.selectIngreByRecipeId(recipeId);
+	}
+
+	@Override
+	public List<RecipesStep3> getSteps(int recipeId) {
+		return recipeDao.selectStepByRecipeId(recipeId);
+	}
+
+	// ---------------------------
+	// 좋아요 기능
+	// ---------------------------
+	@Transactional
+	@Override
+	public void likeRecipe(int appUserId, int recipeId) {
+		Map<String, Object> params = Map.of("appUserId", appUserId, "recipeId", recipeId);
+		// 중복 좋아요 방지
+		if (recipeDao.existsLike(params) == 0) {
+			recipeDao.insertLike(params);
+		}
+	}
+
+	@Transactional
+	@Override
+	public void unlikeRecipe(int appUserId, int recipeId) {
+		Map<String, Object> params = Map.of("appUserId", appUserId, "recipeId", recipeId);
+		recipeDao.deleteLike(params);
+	}
+
+	@Override
+	public int countLikesByRecipe(int recipeId) {
+		return recipeDao.countLikesByRecipe(recipeId);
+	}
+
+	// ---------------------------
+	// 검색 기록
+	// ---------------------------
+	@Transactional
+	@Override
+	public void saveSearchHistory(Integer appUserId, String keyword) {
+		if (keyword == null || keyword.isBlank())
+			return;
+		recipeDao.insertSearchHistory(Map.of("appUserId", appUserId, "keyword", keyword));
+	}
+
+	@Override
+	public List<Map<String, Object>> topKeywords(int limit) {
+		return recipeDao.topKeywords(limit);
+	}
+
+	// ---------------------------
+	// 비속어 관리
+	// ---------------------------
+	@Override
+	public List<Map<String, Object>> getAllBadWords() {
+		return recipeDao.selectAllBadWords();
+	}
+
+	@Transactional
+	@Override
+	public void addBadWord(String word) {
+		if (word == null || word.isBlank())
+			return;
+		if (recipeDao.existsBadWord(word) == 0) {
+			recipeDao.insertBadWord(Map.of("word", word));
+		}
+	}
+
+	@Transactional
+	@Override
+	public void deleteBadWordById(int wordId) {
+		recipeDao.deleteBadWordById(wordId);
+	}
+
+	// ---------------------------
+	// AI 사용 기록 관리
+	// ---------------------------
+	@Override
+	public List<Map<String, Object>> getAllAiUsage() {
+		return recipeDao.selectAllAiUsage();
+	}
+
+	@Transactional
+	@Override
+	public void deleteAiUsageById(int aiHistId) {
+		recipeDao.deleteAiUsageById(aiHistId);
+	}
+
+	// ---------------------------
+	// 카테고리
+	// ---------------------------
+	@Override
+	public List<Map<String, Object>> getAllCategories() {
+		return recipeDao.selectAllCategories();
+	}
+
+	@Override
+	public String getCategoryName(int category) {
+		return recipeDao.selectCategoryName(category);
+	}
+
+	// ---------------------------
+	// 내 레시피 / 좋아요 레시피 조회
+	// ---------------------------
+	@Override
+	public List<Recipes3Dto> selectMyRecipes(int appUserId) {
+		return recipeDao.selectMyRecipes(appUserId);
+	}
+
+	@Override
+	public List<Recipes3Dto> selectLikedRecipes(int appUserId) {
+		return recipeDao.selectLikedRecipes(appUserId);
+	}
+
+}

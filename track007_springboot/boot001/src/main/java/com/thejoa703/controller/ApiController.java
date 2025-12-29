@@ -4,10 +4,12 @@ package com.thejoa703.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.thejoa703.external.ApiChatGpt;
 import com.thejoa703.external.ApiEmailNaver;
 import com.thejoa703.external.ApiKmaWeather;
+import com.thejoa703.external.kakaoPayService;
 
 
 @Controller
@@ -116,4 +119,36 @@ public class ApiController {
 	 * throws UnsupportedEncodingException { return xmlService.getBook(search); }
 	 * 
 	 */
+	
+//////////////////////////////////////// kakaopay
+	@Autowired kakaoPayService kakaoPayService;
+	
+	@GetMapping("/pay/kakao")
+	public String kakao() {return "external/kakaoPay"; }
+	
+	@PostMapping("/pay/ready")
+	public String kakaoPayRead() {
+		Map<String, String> result = kakaoPayService.kakaoPayReady();
+		return "redirect:"+result.get("redirectUrl");
+	}
+	
+	@GetMapping("/pay/success")
+	public String kakaoPaySuccess(@RequestParam("pg_token") String pgToken, Model model) {
+		Map<String, Object> result = kakaoPayService.kakaoPayApprove(pgToken);
+		model.addAttribute("result",result);
+		return "external/kakaoPaySuccess";
+	}
+	
+	@GetMapping("/pay/fail")
+	@ResponseBody
+	public String kakaoPayFail() {
+		return "결제실패";
+	}
+	
+	@GetMapping("/pay/cancel")
+	@ResponseBody
+	public String kakaoPayCancel() {
+		return "결제취소";
+	}
+	
 }

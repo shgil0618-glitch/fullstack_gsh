@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/layout}">
+<head>
+<meta charset="UTF-8">
+<title>레시피 상세</title>
+</head>
+
+<body>
+	<div layout:fragment="content" class="container mt-5">
+
+		<!-- 제목 -->
+		<h2 th:text="${recipe.title}">레시피 제목</h2>
+
+		<!-- 대표 이미지 -->
+		<div class="mb-3" th:if="${recipe.image != null}">
+			<img th:src="@{/upload/{img}(img=${recipe.image})}"
+				style="max-width: 300px;">
+		</div>
+
+		<!-- 기본 정보 -->
+		<p>
+			<strong>카테고리:</strong> <span th:if="${recipe.categoryName != null}"
+				th:text="${recipe.categoryName}"></span> <span
+				th:if="${recipe.categoryName == null}"> 미분류 </span>
+		</p>
+
+		<p>
+			<strong>작성자:</strong> <span th:text="${recipe.appUserId}"></span>
+		</p>
+
+		<p>
+			<strong>조회수:</strong> <span th:text="${recipe.views}"></span>
+		</p>
+
+		<hr>
+
+		<!-- 설명 -->
+		<div>
+			<h4>설명</h4>
+			<p th:text="${recipe.description}"></p>
+		</div>
+
+		<hr>
+
+		<!-- 재료 -->
+		<div>
+			<h4>재료</h4>
+
+			<ul th:if="${recipe.ingredients != null and recipe.ingredients.size() > 0}">
+  <li th:each="ing : ${recipe.ingredients}"
+      th:if="${ing != null}">
+    <span th:text="${ing.ingreName}">재료명</span>
+    -
+    <span th:text="${ing.ingreNum}">수량</span>
+  </li>
+</ul>
+
+<p th:if="${recipe.ingredients == null or recipe.ingredients.size() == 0}">
+  등록된 재료가 없습니다.
+</p>
+
+
+
+		</div>
+
+		<hr>
+
+		<!-- 조리 단계 -->
+		<div>
+			<h4>조리 단계</h4>
+
+			<div th:if="${recipe.steps != null and recipe.steps.size() > 0}">
+  <div th:each="st, iter : ${recipe.steps}"
+       th:if="${st != null}"
+       class="mb-3">
+
+    <p>
+      <strong th:text="${iter.index + 1}"></strong>.
+      <span th:text="${st.stepDesc}"></span>
+    </p>
+
+    <img th:if="${st.stepImage != null}"
+         th:src="@{/upload/{img}(img=${st.stepImage})}"
+         style="max-width:200px;">
+  </div>
+</div>
+
+
+			<p th:if="${recipe.steps == null or recipe.steps.size() == 0}">
+				등록된 조리 단계가 없습니다.</p>
+
+
+		</div>
+
+		<hr>
+
+		<!-- 버튼 -->
+		<div class="mt-4">
+			<a th:href="@{/recipes/modify(recipeId=${recipe.recipeId})}"
+				class="btn btn-warning">수정</a> <a
+				th:href="@{/recipes/delete(recipeId=${recipe.recipeId})}"
+				class="btn btn-danger" onclick="return confirm('삭제하시겠습니까?')">삭제</a>
+
+			<a th:href="@{/recipes/list}" class="btn btn-secondary">목록</a>
+		</div>
+
+	</div>
+</body>
+</html>

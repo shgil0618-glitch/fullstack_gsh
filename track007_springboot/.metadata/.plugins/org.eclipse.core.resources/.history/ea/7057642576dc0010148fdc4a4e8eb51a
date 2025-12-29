@@ -1,9 +1,0 @@
-package com.thejoa703.external;
-
-import org.springframework.stereotype.Component;
-
-@Component
-public class ApiEmailNaver {
-	
-	
-}
