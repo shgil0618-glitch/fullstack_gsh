@@ -1,10 +1,10 @@
-
-
 /*
     사용자 관련 API 라우터
 */
 
 const express = require('express');
+const passport = require('passport'); 
+
 const  { createUser,  findUserByEmail,  verifyUser, 
      getAllUsers,  updateUserNickname,   deleteUser,  findUserById
 } = require('../models/users');
@@ -38,7 +38,7 @@ const router = express.Router();
  */
 router.post('/register', async (req, res) => {
   try {
-    const { email, password, nickname, mobile, mbtiTypeId, ufile } = req.body; // ✅ req.body로 수정
+    const { email, password, nickname, mobile, mbtiTypeId, ufile } = req.body; 
     await createUser(email, password, nickname, mobile, mbtiTypeId, ufile);
     res.status(201).json({ message: '회원가입 성공' }); // 201 Created
   } catch (err) {
@@ -71,7 +71,7 @@ router.post('/register', async (req, res) => {
  *         description: 로그인 실패
  */
 router.post('/login', async(req,res,next)=>{
-    passport.authenticated('local',(err,user,info)=>{ //err 인증과정 발생에러, 성공반환된사용자객체, 실패메시지객체
+    passport.authenticate('local',(err,user,info)=>{ 
         if(err) return next(err);
         if(!user) return res.status(401).json({message:info?.message || '로그인 실패'});
 
@@ -82,9 +82,7 @@ router.post('/login', async(req,res,next)=>{
             //      뺄필드 ,   나머지 속성들 새로운객체
             return res.status(200).json({message:'로그인 성공', user: safeUser});
         });
-      });
-         // 실제 검증은 models/users.js의 verifyUser 사용가능
-         res.json({message:'로그인 테스트 성공', email, password});
+      })(req,res,next);  
 });
 
 //로그아웃
@@ -93,17 +91,17 @@ router.post('/login', async(req,res,next)=>{
  * /user/logout:
  *   post:
  *     summary: 로그아웃(테스트용)
- *     description: passport 기반으로 세션 종료
+ *     description: Passport 세션 기반으로 세션 종료
  *     responses:
  *       200:
  *         description: 로그아웃 성공
  */
-router.post('/logout',isAuthenticated, async(req,res)=>{       // isAuthenticated 로그인한 유저만 다음진행
-    req.logout((err) => {   // passport가 제공하는 함수, 현재 로그인된 사용자정보를 세션에서 제거
-        if(err) return res,status(500).json({message: '로그아웃 실패'});
-        req.session.destory(()=> {  // 세션을 제거
-            res.clearCookie('connect.sid'); // 브라우저에 저장된 세션쿠키 제거, 쿠키가 없으면 브라우저가 세션식별 못함
-            res.json({message:'로그아웃 성공'});
+router.post('/logout', isAuthenticated, async(req,res)=>{ // 로그인한 유저만 진행, x = 401
+    req.logout((err)=>{ 
+        if(err) return res.status(500).json({message: '로그아웃 실패'});
+        req.session.destroy(()=>{ // 세션제거
+            res.clearCookie('connect.sid'); // 브라우저에 저장된 세션쿠키 삭제, 쿠키 없으면 브라우저가 세션식별 못함
+            res.json({message: '로그아웃 성공'});
         });
     });
 });
@@ -114,31 +112,31 @@ router.post('/logout',isAuthenticated, async(req,res)=>{       // isAuthenticate
  * /user/:
  *   get:
  *     summary: 전체 사용자 조회
- *     description: 로그인된 사용자만 전체 목록을 조회할수 있습니다.
+ *     description: 모든 사용자의 목록을 반환합니다. (인증 미적용)
  *     responses:
  *       200:
  *         description: 사용자 목록 반환
  *       401:
  *         description: 인증 필요
  */
-router.get('/', isAuthenticated, async(req,res)=>{  // 로그인된 사용자만 전체 사용자 목록을 조회
+router.get('/', isAuthenticated, async(req,res)=>{ // 로그인된 사용자만 전체 사용자 목록을 조회, x = 401
     try{
         const users = await getAllUsers();
-        res.json(users);  
-        
+        res.json(users);         
     }
     catch(err){
         console.error('getAllUsers Error', err);
         res.status(500).json({message:'사용자 조회 실패'});
     }
 });
+
 //닉네임 수정
 /**
  * @swagger
  * /user/{id}/nickname:
  *   patch:
  *     summary: 닉네임 수정
- *     description: 특정 사용자의 닉네임을 수정합니다. (인증 미적용)
+ *     description: 특정 사용자의 닉네임을 수정합니다. (로그인 필요)
  *     parameters:
  *       - in: path
  *         name: id
@@ -158,7 +156,7 @@ router.get('/', isAuthenticated, async(req,res)=>{  // 로그인된 사용자만
  *       401:
  *         description: 인증 필요
  */
-router.patch('/:id/nickname',isAuthenticated, async(req,res)=>{
+router.patch('/:id/nickname', isAuthenticated, async(req,res)=>{
     try{
         const {nickname} = req.body;
         await updateUserNickname(req.params.id,nickname);
@@ -169,13 +167,14 @@ router.patch('/:id/nickname',isAuthenticated, async(req,res)=>{
         res.status(500).json({message:'넥네임 수정 실패'});
     }
 });
+
 //사용자 삭제
 /**
  * @swagger
  * /user/{id}:
  *   delete:
  *     summary: 사용자 삭제
- *     description: 특정 사용자를 삭제합니다. (인증 미적용)
+ *     description: 특정 사용자를 삭제합니다. (로그인 필요)
  *     parameters:
  *       - in: path
  *         name: id
@@ -187,7 +186,7 @@ router.patch('/:id/nickname',isAuthenticated, async(req,res)=>{
  *       401:
  *         description: 인증 필요
  */
-router.delete('/:id',isAuthenticated, async(req,res)=>{
+router.delete('/:id', isAuthenticated, async(req,res)=>{
     try{
         await deleteUser(req.params.id);
         res.json({message : '사용자 삭제 완료'});
@@ -197,4 +196,5 @@ router.delete('/:id',isAuthenticated, async(req,res)=>{
         res.status(500).json({message:'사용자 삭제 실패'});
     }
 });
+
 module.exports = router;

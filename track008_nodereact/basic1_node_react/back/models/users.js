@@ -2,6 +2,7 @@ const dbConfig = require('../config/db');  //user, password, connectString
 const oracledb = require('oracledb'); // oracledb
 const bcrypt   = require('bcrypt'); // 암호화
 
+
 // Oracle Instant Client 초기화 (환경에 맞게 경로 수정)
 oracledb.initOracleClient({ libDir: "C:\\oracle\\instantclient_11_2" });
 
@@ -20,7 +21,7 @@ async function createUser(email,  password,  nickname,  mobile,  mbtiTypeId,  uf
         conn = await oracledb.getConnection(dbConfig);
         const  hashedPassword = await  bcrypt.hash(password, 10);
         const result = await conn.execute( 
-            `INSERT INTO APPUSER2 
+            `INSERT INTO APPUSER2
             ( APP_USER_ID, EMAIL, PASSWORD, NICKNAME, MOBILE, MBTI_TYPE_ID, UFILE, CREATED_AT) 
             VALUES  
             ( APPUSER_SEQ.NEXTVAL, :email, :password, :nickname, :mobile, :mbtiTypeId, :ufile, SYSDATE)` , 

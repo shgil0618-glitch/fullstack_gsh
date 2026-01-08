@@ -1,8 +1,7 @@
-
 // config/db.js
 require('dotenv').config();
 module.exports = {
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    connectString: process.env.DB_CONNECT   //localhost:1521/XE
+    connectString: process.env.DB_CONNECT
 };

@@ -12,13 +12,13 @@ const {findUserById} = require('../models/users');
 module.exports = ()=>{
     // 로그인 성공 시 사용자 pk를 세션에 저장
     passport.serializeUser((user, done)=>{ // 로그인시 인증된 사용자 객체정보, 세션에 저장 할 값, 콜백함수(어떻게 할께)
-        done(null, user.APP_UESR_ID); // 에러, 세션에 저장 할 값 - 번호
-    }); // 설정
+        done(null, user.APP_USER_ID); // 에러, 세션에 저장 할 값 - 번호
+    });
 
     // 세션에 저장된 사용자 id로 db에서 사용자 조회
-    passport.deserializeUser(async(Id, done)=>{
+    passport.deserializeUser(async(id, done)=>{
         try{
-            const user = await findUserById(id);   
+            const user = await findUserById(id);
             done(null, user); // 조회된 사용자 객체를 req.user에 저장
         }catch(error){
             console.error('deserializeUser Error', error);
