@@ -35,19 +35,19 @@
 - [x] 4. SPRING BOOT 프로젝트 만들기
 - [x] 5. lombok
 
-maven vs gradle (작동방식은 같음 근데 무슨 차이일까?)
+
 <br/>
 
-##### [실습] 2. model  
+##### [실습] 2. model  (엔티티 → 레파지토리 → 서비스)
 1. 엔티티 관계도
 2. 엔티티 작성
 
-사람(AppUser) -> 글(Post) -> 댓글(Comment)
-사람(AppUser) -> 글(Post) -> 좋아요(PostLike)
-사람(AppUser) -> 글(Post) -> 리트윗(Retweet)
-사람(AppUser) -> 다른 사람(AppUser) -> 팔로우(Follow)
-글(Post) -> 해시태그(Hashtag)
-글(Post) -> 사진(Image)
+사람( AppUser ) → 글(Post) → 댓글(Comment)
+사람( AppUser ) → 글(Post) → 좋아요(PostLike)
+사람( AppUser ) → 글(Post) → 리트위(Retweet)
+사람( AppUser ) → 다람 사람( AppUser ) → 팔로우 (Follow)
+글(Post) → 해시태그(Hashtag)
+글(Post) → 사진(Image)
 
 ```
 👤 User(AppUser)
@@ -66,11 +66,29 @@ maven vs gradle (작동방식은 같음 근데 무슨 차이일까?)
 2. Post
 3. Image
 4. Hashtag
+5. Comment
+6. Follow
+7. Retweet
+8. PostLike
 
 
 AppUser 관계매핑
-### 1. 사람 -> 글
+###1. 사람 → 글
 - 내가 쓴 게시글
 - 한 사람이 여러글을 쓸수 있다. (OneToMany)
-- 글(post) 쪽에서는 누가썼는지 기억 (ManyToOne)
+- 글(Post) 쪽에서는 누가썼는지 기억 (ManyToOne)
 
+
+Post 관계매핑
+###1. 글(Post.java : 테이블명 Posts) → 이미지(Image.java : 테이블명 Images)
+- 글은 많은 이미지를 갖는다.   (OneToMany)
+- 이미지는 글 하나에만 속한다.   (ManyToOne)
+```
+Long id, String content,  AppUser user;  boolean deleted = false;
+LocalDateTime createdAt;  LocalDateTime updatedAt;
+```
+
+Image
+```
+Long id, String src, Post post;
+```
