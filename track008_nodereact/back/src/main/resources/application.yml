@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:xe    		# Oracle XE 접속 URL
+    username: scott                            			# DB 사용자명
+    password: tiger                            			# DB 비밀번호
+    driver-class-name: oracle.jdbc.OracleDriver
+    hikari:                                   
+      maximum-pool-size: 10                 
+      minimum-idle: 5                          
+      idle-timeout: 30000                    
+      connection-timeout: 30000                
+      pool-name: HikariPool                  
+
+  jpa:
+    hibernate:
+      ddl-auto: create                					# 테스트 CREATE-DROP, 운영 : UPDATE, VALIDATE권장       
+    show-sql: true                           
+    properties:
+      hibernate:
+        format_sql: true                     
+        dialect: org.hibernate.dialect.OracleDialect   

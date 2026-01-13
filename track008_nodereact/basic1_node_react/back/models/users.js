@@ -2,7 +2,6 @@ const dbConfig = require('../config/db');  //user, password, connectString
 const oracledb = require('oracledb'); // oracledb
 const bcrypt   = require('bcrypt'); // 암호화
 
-
 // Oracle Instant Client 초기화 (환경에 맞게 경로 수정)
 oracledb.initOracleClient({ libDir: "C:\\oracle\\instantclient_11_2" });
 
@@ -11,7 +10,7 @@ const options = { outFormat: oracledb.OUT_FORMAT_OBJECT , autoCommit:true };
 
 
 // 회원가입 (Create)
-// INSERT INTO APPUSER
+// INSERT INTO APPUSER2
 // ( APP_USER_ID, EMAIL, PASSWORD, NICKNAME, MOBILE, MBTI_TYPE_ID, UFILE, CREATED_AT) 
 // VALUES
 // ( APPUSER_SEQ.NEXTVAL, :email, :password, :nickname, :mobile, :mbtiTypeId, :ufile, SYSDATE)
@@ -21,10 +20,10 @@ async function createUser(email,  password,  nickname,  mobile,  mbtiTypeId,  uf
         conn = await oracledb.getConnection(dbConfig);
         const  hashedPassword = await  bcrypt.hash(password, 10);
         const result = await conn.execute( 
-            `INSERT INTO APPUSER2
+            `INSERT INTO APPUSER2 
             ( APP_USER_ID, EMAIL, PASSWORD, NICKNAME, MOBILE, MBTI_TYPE_ID, UFILE, CREATED_AT) 
             VALUES  
-            ( APPUSER_SEQ.NEXTVAL, :email, :password, :nickname, :mobile, :mbtiTypeId, :ufile, SYSDATE)` , 
+            ( APPUSER2_SEQ.NEXTVAL, :email, :password, :nickname, :mobile, :mbtiTypeId, :ufile, SYSDATE)` , 
             {email,  password: hashedPassword,  nickname,  mobile,  mbtiTypeId,  ufile} , 
             options  ); //실행
         //결과처리
@@ -39,7 +38,7 @@ async function createUser(email,  password,  nickname,  mobile,  mbtiTypeId,  uf
 
 // 사용자조회-Email
 // SELECT APP_USER_ID, EMAIL,PASSWORD, NICKNAME, MOBILE, MBTI_TYPE_ID, CREATED_AT 
-// FROM APPUSER  WHERE EMAIL= :email
+// FROM APPUSER2  WHERE EMAIL= :email
 async function findUserByEmail(email){
         let conn;
     try{
@@ -62,7 +61,7 @@ async function findUserByEmail(email){
 
 // 사용자조회-id
 // SELECT APP_USER_ID, EMAIL, PASSWORD, NICKNAME, MOBILE, MBTI_TYPE_ID, CREATED_AT 
-// FROM APPUSER  WHERE APP_USER_ID= :id
+// FROM APPUSER2  WHERE APP_USER_ID= :id
 async function findUserById(id){
         let conn;
     try{
@@ -100,7 +99,7 @@ async function verifyUser(email , password){
 // 로그아웃은 db에서 처리할게 X → 라우터에서 req.session.destroy()로 세션삭제
 
 // 전체사용자조회(테스트용)
-// SELECT APP_USER_ID, EMAIL, NICKNAME, MOBILE, MBTI_TYPE_ID, CREATED_AT FROM APPUSER
+// SELECT APP_USER_ID, EMAIL, NICKNAME, MOBILE, MBTI_TYPE_ID, CREATED_AT FROM APPUSER2
 async function getAllUsers(){
     let conn;
     try{
@@ -120,7 +119,7 @@ async function getAllUsers(){
 }
 
 // 사용자 닉네임 수정 (Update)
-// UPDATE APPUSER SET NICKNAME= :nickname WHERE APP_USER_ID= :id
+// UPDATE APPUSER2 SET NICKNAME= :nickname WHERE APP_USER_ID= :id
 async function updateUserNickname(id , nickname){
     let conn;
     try{
@@ -140,7 +139,7 @@ async function updateUserNickname(id , nickname){
 }
 
 // 사용자 삭제 (Delete)
-// DELETE FROM APPUSER WHERE APP_USER_ID = :id
+// DELETE FROM APPUSER2 WHERE APP_USER_ID = :id
 async function deleteUser(id){
     let conn;
     try{
