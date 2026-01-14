@@ -92,3 +92,36 @@ Image
 ```
 Long id, String src, Post post;
 ```
+
+
+@Repository
+public interface AppUserReopository extends JpaRepository<AppUser,Long>{
+
+}
+
+create : save - insert into appuser (컬럼1,컬럼2,,,) value (?,?,,,)
+read : findAll - select * from appuser
+        findById
+update : save - update appuser set 컬럼1=?, 컬럼2=? where id=?
+delete : deleteById - delete from appuser where id=? 
+
+- [x] 1. AppUserRepositoy
+- [ ] 2. PostRepositoy
+- [ ] 3. ImageRepositoy
+- [ ] 4. HashtagRepositoy
+- [ ] 5. CommentRepositoy
+- [ ] 6. FollowRepositoy
+- [ ] 7. RetweetRepositoy
+- [ ] 8. PostLikeRepositoy
+
+
+          사용자        관리자
+create  회원가입        회원가입
+read    로그인, 이메일중복, 닉네임중복
+update  닉네임수정, 이미지수정
+delete  회원탈퇴
+
+
+
+
+

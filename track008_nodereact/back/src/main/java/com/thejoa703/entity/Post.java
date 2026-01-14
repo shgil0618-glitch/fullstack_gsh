@@ -71,27 +71,26 @@ public class Post {
    ////// 한 글은 여러 이미지를 갖는다
    @OneToMany( mappedBy = "post" ,  cascade = CascadeType.ALL , orphanRemoval = true)
    private List<Image> images = new ArrayList<>();
-   
+
    @OneToMany( mappedBy = "post" ,  cascade = CascadeType.ALL , orphanRemoval = true)
    private List<Comment> comments = new ArrayList<>();
    
-   @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-   private List<PostLike> likes = new ArrayList<>();
-
-   @OneToMany(mappedBy = "originalPost", cascade = CascadeType.ALL, orphanRemoval = true)
-   private List<Retweet> retweets = new ArrayList<>();
-
    
+   @OneToMany( mappedBy = "originalPost" , cascade = CascadeType.ALL , orphanRemoval = true )
+   private List<Retweet> retweets = new ArrayList<>();  // 나를 팔로우하는 사람들 
    
+   @OneToMany( mappedBy = "post" , cascade = CascadeType.ALL , orphanRemoval = true )
+   private List<PostLike> likes = new ArrayList<>();  // 유저가 누른 좋아요 글들
+   
+
    ////// 글은 여러 해쉬태그를 갖는다
    @ManyToMany
    @JoinTable(
-		   name="POST_HASHTAG",
-		   joinColumns = @JoinColumn(name="POST_ID"),
-		   inverseJoinColumns = @JoinColumn(name="HASHTAG_ID")
+         name="POST_HASHTAG" ,
+         joinColumns = @JoinColumn(name="POST_ID") , 
+         inverseJoinColumns = @JoinColumn(name="HASHTAG_ID") 
    )
-   private List<Hashtag> hashtags = new ArrayList<>();	// 게시글에 연결된 해쉬태그들
-   
+   private  List<Hashtag> hashtags = new ArrayList<>();  // 게시글에 연결된 해쉬태그들
 }
 
 

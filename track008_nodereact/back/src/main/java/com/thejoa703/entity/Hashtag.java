@@ -25,8 +25,7 @@ public class Hashtag {
    
    @Column(length=200 , nullable=false , unique=true)
    private String name;
-
-
+ 
    ////// 해쉬태그는 여러개의 글에서 사용가능하다
    @ManyToMany(mappedBy = "hashtags")
    private  List<Post> posts = new ArrayList<>();   // 어떤 게시글들이 이 해쉬태그를 쓰는지   
