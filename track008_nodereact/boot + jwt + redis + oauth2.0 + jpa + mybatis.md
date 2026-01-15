@@ -125,3 +125,34 @@ delete  회원탈퇴
 
 
 
+1. 
+---
+2. 
+---
+3. mybatis
+- 1. build.gradle
+- 2. application.yml
+- 3. [com.thejoa703.domain] - DeptUser @Entity
+- 4. [com.thejoa703.mapper] - @Mapper ( 복잡한 SQL ) / 기본 CRUD @Repository (save, findById, findAll, deleteById)
+- 5. [com.thejoa703.service] - DeptService
+- 6. [com.thejoa703.controller] - DeptController
+---
+4. service
+
+- [ ] 1. dto - requestDto / responseDto
+- [ ] 2. UTIL : 이미지업로드
+      - application.yml 이미지설정
+      - service 작성
+- [ ] 3. UTIL : 암호화
+- [ ] 4. AppUserService  <유저>
+- [ ] 5. PostService     <게시글>
+- [ ] 6. Etc Service
+
+---
+5. Security + jwt + redis + oauth2.0
+
+
+
+
+
+
