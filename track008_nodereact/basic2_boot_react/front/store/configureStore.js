@@ -20,5 +20,5 @@ export const makeStore = () => {
   store.sagaTask = sagaMiddleware.run(rootSaga);
   return store;
 };
-// next.js 에서 redux를 사용할 수 있도록 wrapper 생성
+// next.js 에서 redux를 사용할 수 있도록 wrapper
 export const wrapper = createWrapper(makeStore, { debug: process.env.NODE_ENV !== 'production' });
