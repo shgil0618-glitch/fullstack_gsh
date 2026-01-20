@@ -99,8 +99,10 @@ describe('auth saga', () => {
   
   // --- 프로필 이미지 변경 --- 
   it('updateProfileImage', async () => {
-    api.post.mockResolvedValue({ data: { id: 1, ufile: 'file' } });
+    api.post.mockResolvedValue({ data: { id: 1, ufile: 'file' } }); //응답데이터
     const dispatched = [];
+    // saga 에서 직적 실행 → dispatch 
+    // 첫 번째 인자 :  dispatch  ,  두 번째 인자 :  실행할 saga , 세 번째 인자 :  saga에 전달할 action 객체
     await runSaga( { dispatch: (a) => dispatched.push(a) }
         ,   updateProfileImage, { payload: { userId: 1, file: new Blob(['test']) } } ).toPromise();
     expect(dispatched).toContainEqual(updateProfileImageSuccess({ user: { id: 1, ufile: 'file' } }));

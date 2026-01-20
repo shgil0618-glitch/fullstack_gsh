@@ -1,12 +1,12 @@
-// react 불러오기
+//React불러오기
 import React from 'react';
-//redux wrapper 불러오기 (next.js 와 redux 연결)
-//import { wrapper } from '../store/configureStore';
-// 공용레이아웃 
-//import AppLayout from '../components/AppLayout';
-// Ant 디자인 
+//Redux wrapper 불러오기 ( Next.js 와 Redux 연결 )
+import { wrapper } from '../store/configureStore';
+//공용레이아웃 
+import AppLayout from '../components/AppLayout';
+//Ant 디자인
 import 'antd/dist/antd.css';
-// 글로벌 css
+//글로벌 css
 import '../styles/global.css';
 
 function MyApp({ Component, pageProps }) {
@@ -16,5 +16,5 @@ function MyApp({ Component, pageProps }) {
     </AppLayout>
   );
 }
-// redux wrapper 적용
+// Redux wrapper 적용
 export default wrapper.withRedux(MyApp);
