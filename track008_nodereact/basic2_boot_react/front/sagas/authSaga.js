@@ -35,23 +35,28 @@ export function* signup(action) {
 function loginApi(payload) {
   return api.post("/auth/login", payload);
 }
+import { message } from "antd"; // 추가
+
 export function* login(action) {
   try {
     const { data } = yield call(loginApi, action.payload);
     const accessToken = data?.accessToken;
     const user = data?.user;
 
-    if (user && accessToken) { 
+    if (user && accessToken) {
       if (typeof window !== "undefined") {
         localStorage.setItem("accessToken", accessToken);
         Cookies.set("accessToken", accessToken);
       }
       yield put(loginSuccess({ user, accessToken }));
+      message.success(`${user.nickname}님 환영합니다!`); // userData → user
     } else {
       yield put(loginFailure("아이디 또는 비밀번호가 올바르지 않습니다."));
+      message.error("로그인 정보를 확인할 수 없습니다.");
     }
   } catch (err) {
     yield put(loginFailure(err.response?.data?.error || err.message));
+    message.error("로그인 실패 : 이메일/비밀번호를 확인하세요.");
   }
 }
 
