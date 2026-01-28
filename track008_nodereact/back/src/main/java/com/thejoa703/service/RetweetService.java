@@ -80,8 +80,8 @@ public class RetweetService {
                 .build();
     }
  
-//    @Transactional(readOnly = true)
-//    public List<Long> findMyRetweets(Long userId) {
-//        return retweetRepository.findOriginalPostIdsByUserId(userId);  
-//    }
+	@Transactional(readOnly = true)
+	public List<Long> findMyRetweets(Long userId) {
+	    return retweetRepository.findOriginalPostIdsByUserId(userId);  
+	}
 }

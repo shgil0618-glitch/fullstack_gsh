@@ -241,23 +241,22 @@ public class AuthController {
     // ✅ 로그아웃
     @Operation(summary = "로그아웃")
     @PostMapping("/logout")
-    public ResponseEntity<Void>  logout(
-    		 HttpServletResponse response,  @CookieValue(name = "refreshToken") String  refreshToken
-    	){
-        // refresh token 가져오기
-    		var claims = jwtProvider.parse(refreshToken).getBody();
+    public ResponseEntity<Void> logout(@CookieValue("refreshToken") String refreshToken,
+                                       HttpServletResponse response) {
+        var claims = jwtProvider.parse(refreshToken).getBody();
         String userId = claims.getSubject();
-        appUserService.deleteById(Long.valueOf(userId));  
-        
-        // 쿠키에서 삭제
+
+        tokenStore.deleteRefreshToken(userId);
+ 
         ResponseCookie deleteCookie = ResponseCookie.from("refreshToken", "")
                 .httpOnly(true)
                 .secure(true)
                 .sameSite("Strict")
                 .path("/")
-                .maxAge(0)  //유효시간0
+                .maxAge(0)
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, deleteCookie.toString());
+
         return ResponseEntity.noContent().build();
     }
 }
