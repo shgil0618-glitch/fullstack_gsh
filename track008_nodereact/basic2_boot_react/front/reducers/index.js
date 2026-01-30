@@ -2,7 +2,7 @@
 
 import { combineReducers }  from  'redux';
 import authReducer          from  './authReducer';
-// import postReducer          from  './postReducer';
+import postReducer          from  './postReducer';
 // import commentReducer       from  './commentReducer';
 // import followReducer        from  './followReducer';
 // import likeReducer          from  './likeReducer';
@@ -10,7 +10,7 @@ import authReducer          from  './authReducer';
 
 const rootReducer = combineReducers({
     auth: authReducer , 
-    // post: postReducer , 
+    post: postReducer , 
     // comment: commentReducer , 
     // follow: followReducer , 
     // like: likeReducer , 
