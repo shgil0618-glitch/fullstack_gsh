@@ -84,7 +84,8 @@
         h2.section-title {
             font-size: 20px;
             font-weight: 800;
-            margin-bottom: 12px;
+            margin-bottom: 25px;
+            color: #6366f1;
         }
 
         p.lead {
@@ -188,8 +189,8 @@
 
         .photo {
              background-image: url(./img/codeimg/은하수\(1\).jpg);
-            width: 140px;
-            height: 140px;
+            width: 138px;
+            height: 176px;
             border-radius: 20px;
             background: linear-gradient(135deg, var(--accent), var(--accent-2));
             color: white;
@@ -200,6 +201,8 @@
             flex-shrink: 0;
             margin-right: 30px;
         }
+
+        
 
         .info {
             display: flex;
@@ -771,6 +774,78 @@
     line-height: 1.4;
 }
 
+/* ------------------ 섹션 스크롤 애니메이션 ------------------ */
+.scroll-item {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.7s ease-out;
+  will-change: transform, opacity;
+}
+
+.scroll-item.slide-left { transform: translateX(-60px); }
+.scroll-item.slide-right { transform: translateX(60px); }
+
+.scroll-item.visible {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
+}
+
+/* ------------------ 카드 팝인 ------------------ */
+.flip-card {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.35s ease-out;
+}
+
+.flip-card.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.section-nav.fixed {
+    position: fixed;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    display: flex;
+    gap: 12px;
+    padding: 12px 18px;
+    background: rgba(15, 23, 36, 0.22);   /* 🔥 거의 투명 */
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.12); /* 테두리로 존재감 */
+    border-radius: 999px;
+    z-index: 80;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.35s ease;
+}
+
+.section-nav.fixed.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
+
+.section-nav button {
+    background: transparent;
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--panel);
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 999px;
+    transition: 0.2s;
+}
+
+.section-nav button:hover {
+    background: var(--accent);
+    color: white;
+}
+
+body.light .section-nav button {
+    color: #1f2937;
+}
 
 
 
@@ -778,10 +853,14 @@
 </head>
 
 <body>
-    <div class="top-controls">
-        <button class="icon-btn" id="contrast" title="명함 프린트">🧾</button>
-        <button class="icon-btn" id="download" title="이력서 다운로드">📄</button>
-    </div>
+     <div class="top-controls">
+    <!-- <button class="icon-btn" id="themeToggle" title="배경 전환">🌗</button> -->
+    <button class="icon-btn" id="download" title="이력서 다운로드">📄</button>
+</div>
+
+
+
+
 
     <section id="hero" class="hero star-bg">
         <div class="container">
@@ -796,10 +875,19 @@
 
     <div class="wrap-bg">
         <main class="wrap">
-            <section id="about" class="block">
+            <!-- Section Nav -->
+            <nav class="section-nav fixed" id="sectionNav">
+            <button data-target="about">About</button>
+            <button data-target="skills">Skills</button>
+            <button data-target="career">Career</button>
+            <button data-target="portfolio">Portfolio</button>
+            <button data-target="contact">Contact</button>
+            </nav>
+            
+            <section id="about" class="block scroll-item slide-left">
                 <h2 class="section-title">About Me</h2>
                 <div class="about-card">
-                    <div class="photo">KS</div>
+                    <div class="photo"><img class="photo" src="./img/mypicture.png" /></div>
                     <div class="info">
                         <div class="name">길상현</div>
                         <div class="role">Fullstack Engineer</div>
@@ -818,9 +906,14 @@
                 </div>
             </section>
 
+            <section class="block scroll-item slide-left">
+            <h2 class="section-title">확장성과 실행력을 갖춘 풀스택 개발자 </h2>
+            <p class="lead" id="typing-text"></p>
+            </section>
 
-            <section class="block">
-            <h2 class="section-title">Core Strengths</h2>
+
+            <section class="block scroll-item slide-right">
+            <h2 class="section-title">Core Strengths (수정중)</h2>
 
             <ul class="strength-list">
                 <li>객체지향 기반 구조 설계 및 리팩토링 경험</li>
@@ -832,7 +925,7 @@
 
 
 
-            <section id="skills" class="block">
+            <section id="skills" class="block scroll-item slide-left">
                 <h2 class="section-title">Skills & Tools</h2>
                 <p class="lead">실무에서 쓰는 기술과 툴을 시각적으로 빠르게 파악할 수 있도록 구성했습니다.</p>
                 <div class="skill-grid">
@@ -871,7 +964,7 @@
                 </div>
             </section>
 
-            <section id="career" class="block">
+            <section id="career" class="block scroll-item slide-right">
                 <h2 class="section-title">Career</h2>
                 <div class="timeline">
 
@@ -903,8 +996,8 @@
                 </div>
             </section>
 
-<section class="block">
-  <h2 class="section-title">Development Philosophy</h2>
+<section class="block scroll-item slide-left">
+  <h2 class="section-title">Development Philosophy (수정중)</h2>
   <p class="lead">
     동작하는 코드보다  
     <strong>이해하기 쉬운 구조</strong>를 먼저 고민합니다.<br>
@@ -913,8 +1006,8 @@
 </section>
 
 
-<section class="block">
-  <h2 class="section-title">Learning & Growth</h2>
+<section class="block scroll-item slide-right">
+  <h2 class="section-title">Learning & Growth (수정중)</h2>
   <ul>
     <li>객체지향 설계 원칙 지속 학습</li>
     <li>Spring 내부 동작 구조 학습 중</li>
@@ -922,42 +1015,7 @@
   </ul>
 </section>
 
-
-
-
-
-            <section id="portfolio" class="block">
-                <h2 class="section-title">Selected Projects</h2>
-
-<div class="project-grid">
-
-    <!-- 카드 1 -->
-        <div class="flip-card" onclick="openModal('bank1')">
-            <div class="flip-inner">
-                <div class="flip-face flip-front">
-                    <h3>Bank System - Control.Ver</h3>
-                    <p class="project-desc">
-                        조건문과 상태 제어로 구현한 콘솔 기반 뱅킹 시스템
-                    </p>
-                    <div class="tech-tags">
-                        <div class="tech-tag">Java</div>
-                        <div class="tech-tag">조건문</div>
-                        <div class="tech-tag">상태관리</div>
-                    </div>
-                </div>
-                <div class="flip-face flip-back">
-                    <h3>핵심기술</h3>
-                    <p>
-                        switch-case 기반 메뉴 흐름<br>
-                        level 변수 상태 제어<br>
-                        로그인 전·후 기능 접근 분리
-                    </p>
-                </div>
-            </div>
-        </div>
-
-
-<section class="block">
+<!-- <section class="block">
   <h2 class="section-title">Problem Solving</h2>
 
   <div class="problem-item">
@@ -966,65 +1024,122 @@
     <p><strong>해결</strong> level 변수로 상태를 명확히 분리</p>
     <p><strong>결과</strong> 로그인 전·후 및 기능별 흐름 안정화</p>
   </div>
-</section>
+</section> -->
 
 
-    <!-- 카드 2 -->
-        <div class="flip-card" onclick="openModal('bank2')">
-            <div class="flip-inner">
-                <div class="flip-face flip-front">
-                    <h3>Bank System - Array.Ver</h3>
-                    <p class="project-desc">
-                        배열 기반 다중 사용자 계좌 관리 시스템
-                    </p>
-                    <div class="tech-tags">
-                        <div class="tech-tag">Java</div>
-                        <div class="tech-tag">배열</div>
-                        <div class="tech-tag">다중사용자</div>
-                    </div>
-                </div>
-                <div class="flip-face flip-back">
-                    <h3>핵심기술</h3>
-                    <p>
-                        사용자별 인덱스 관리<br>
-                        로그인 사용자 기준 데이터 접근<br>
-                        배열 충돌 문제 해결
-                    </p>
-                </div>
+
+            <section id="portfolio" class="block scroll-item slide-left">
+                <h2 class="section-title">Selected Projects (timeline)</h2>
+
+<div class="project-grid">
+
+    <!-- 카드 1 -->
+<div class="flip-card" onclick="openModal('bank1')">
+    <div class="flip-inner">
+        <div class="flip-face flip-front">
+            <h3>Bank System - Control.Ver</h3>
+            <p class="project-desc">
+                조건문과 상태 제어로 구현한 콘솔 기반 뱅킹 시스템
+            </p>
+
+            <div class="project-meta">
+                <p>📅 기간: 2025.01</p>
+                <p>👥 구분: 개인 프로젝트</p>
+                <p>🔥 핵심 해결: switch-case 및 level 변수로 메뉴 상태 제어</p>
+                <p>🎯 역할: 전체 로직 설계 · 상태 관리 구현</p>
+            </div>
+
+            <div class="tech-tags">
+                <div class="tech-tag">Java</div>
+                <div class="tech-tag">조건문</div>
+                <div class="tech-tag">상태관리</div>
             </div>
         </div>
 
-        <!-- 카드 4 -->
-            <div class="flip-card" onclick="openModal('bank3')">
-                <div class="flip-inner">
-                    <div class="flip-face flip-front">
-                        <h3>Health System - Recipe.Ver</h3>
-                        <p class="project-desc">
-                            건강 정보 기반 맞춤 식단 추천 시스템
-                        </p>
+        <div class="flip-face flip-back">
+            <h3>핵심기술</h3>
+            <p>
+                switch-case 기반 메뉴 흐름<br>
+                level 변수 상태 제어<br>
+                로그인 전·후 기능 접근 분리
+            </p>
+        </div>
+    </div>
+</div>
 
-                        <div class="tech-tags">
-                            <div class="tech-tag">Java</div>
-                            <div class="tech-tag">배열</div>
-                            <div class="tech-tag">상태관리</div>
-                            <div class="tech-tag">실생활도메인</div>
-                        </div>
-                    </div>
+<!-- 카드 2 -->
+<div class="flip-card" onclick="openModal('bank2')">
+    <div class="flip-inner">
+        <div class="flip-face flip-front">
+            <h3>Bank System - Array.Ver</h3>
+            <p class="project-desc">
+                배열 기반 다중 사용자 계좌 관리 시스템
+            </p>
 
-                    <div class="flip-face flip-back">
-                        <h3>핵심기술</h3>
-                        <p>
-                            다중 사용자 배열 관리<br>
-                            BMI 계산 로직<br>
-                            영양소 조건 필터링
-                        </p>
-                    </div>
-                </div>
+            <div class="project-meta">
+                <p>📅 기간: 2025.03</p>
+                <p>👥 구분: 개인 프로젝트</p>
+                <p>🔥 핵심 해결: 사용자별 배열 관리 및 충돌 방지</p>
+                <p>🎯 역할: 배열 구조 설계 · 로그인 기준 데이터 접근 구현</p>
             </div>
 
+            <div class="tech-tags">
+                <div class="tech-tag">Java</div>
+                <div class="tech-tag">배열</div>
+                <div class="tech-tag">다중사용자</div>
+            </div>
+        </div>
+
+        <div class="flip-face flip-back">
+            <h3>핵심기술</h3>
+            <p>
+                사용자별 인덱스 관리<br>
+                로그인 사용자 기준 데이터 접근<br>
+                배열 충돌 문제 해결
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- 카드 3 -->
+<div class="flip-card" onclick="openModal('bank3')">
+    <div class="flip-inner">
+        <div class="flip-face flip-front">
+            <h3>Health System - Recipe.Ver</h3>
+            <p class="project-desc">
+                건강 정보 기반 맞춤 식단 추천 시스템
+            </p>
+
+            <div class="project-meta">
+                <p>📅 기간: 2025.06</p>
+                <p>👥 구분: 개인 프로젝트</p>
+                <p>🔥 핵심 해결: BMI 계산 기반 맞춤 식단 추천</p>
+                <p>🎯 역할: 배열 구조 설계 · 조건 필터 구현</p>
+            </div>
+
+            <div class="tech-tags">
+                <div class="tech-tag">Java</div>
+                <div class="tech-tag">배열</div>
+                <div class="tech-tag">상태관리</div>
+                <div class="tech-tag">실생활도메인</div>
+            </div>
+        </div>
+
+        <div class="flip-face flip-back">
+            <h3>핵심기술</h3>
+            <p>
+                다중 사용자 배열 관리<br>
+                BMI 계산 로직<br>
+                영양소 조건 필터링
+            </p>
+        </div>
+    </div>
+</div>
 
 
-    <!-- 카드 3 -->
+
+
+    <!-- 카드 4 -->
     <div class="flip-card" onclick="openModal('bank4')">
         <div class="flip-inner">
             <div class="flip-face flip-front">
@@ -1059,7 +1174,7 @@
     </div>
 
 
-      <!-- 카드 4 -->
+      <!-- 카드 5 -->
         <div class="flip-card" onclick="openModal('project1')">
             <div class="flip-inner">
                 <div class="flip-face flip-front">
@@ -1087,7 +1202,7 @@
             </div>
         </div>
 
-        <!-- 카드 5 -->
+        <!-- 카드 6 -->
         <div class="flip-card" onclick="openModal('project2')">
             <div class="flip-inner">
                 <div class="flip-face flip-front">
@@ -1115,7 +1230,7 @@
             </div>
         </div>
 
-        <!-- 카드 6 -->
+        <!-- 카드 7 -->
         <div class="flip-card" onclick="openModal('project3')">
             <div class="flip-inner">
                 <div class="flip-face flip-front">
@@ -1143,7 +1258,7 @@
             </div>
         </div>
 
-        <!-- 카드 7 -->
+        <!-- 카드 8 -->
         <div class="flip-card" onclick="openModal('project4')">
             <div class="flip-inner">
                 <div class="flip-face flip-front">
@@ -1171,7 +1286,7 @@
             </div>
         </div>
 
-        <!-- 카드 8 -->
+        <!-- 카드 9 -->
         <div class="flip-card" onclick="openModal('project5')">
             <div class="flip-inner">
                 <div class="flip-face flip-front">
@@ -1213,8 +1328,8 @@
                     <div class="muted">문의나 협업 제안은 언제든 환영합니다!</div>
 
                     <form class="contact-form" onsubmit="sendEmail2(event)">
-                        <input type="text" id="name2" name="name" placeholder="이름" required>
-                        <input type="email" id="email2" name="email" placeholder="이메일" required>
+                        <input type="text" id="name2" name="name" placeholder="작성자 이름" required>
+                        <input type="email" id="email2" name="email" placeholder="작성자 이메일" required>
                         <textarea id="message2" name="message" placeholder="메시지" rows="5" required></textarea>
                         <button type="submit">보내기</button>
                     </form>
@@ -1253,7 +1368,40 @@
                     );
                 }
             </script>
+
+   <script>
+async function loadReadme(repoOwner, repoName, path, containerId) {
+    const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}`;
+    const container = document.getElementById(containerId);
+
+    try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`GitHub API Error: ${res.status}`);
+        const data = await res.json();
+
+        // Base64 → UTF-8 변환
+        const decodedContent = (function(base64) {
+            const binary = atob(base64.replace(/\n/g, ""));
+            const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+            return new TextDecoder("utf-8").decode(bytes);
+        })(data.content);
+
+        container.innerHTML = marked.parse(decodedContent);
+
+    } catch (error) {
+        console.error(error);
+        container.innerHTML = "<p>README를 불러오는 데 실패했습니다.</p>";
+    } finally {
+        const loader = container.previousElementSibling;
+        if (loader && loader.classList.contains("loader")) loader.style.display = "none";
+    }
+}
+
+         </script>
+
+
             <script>
+ 
                 function openModal(project) {
                     const modal = document.getElementById("projectModal");
                     const body = document.getElementById("modalBody");
@@ -1262,48 +1410,71 @@
                        bank1: `
                             <h2>Bank System - Control.Ver</h2>
                             <img src="./img/project/bank1.png" class="modal-img">
+                            <div class="video-wrap">
+                            <iframe 
+                                src="https://www.youtube.com/embed/M0sg6rhlKfI" 
+                                title="Bank System OOP.Ver" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                style="width:100%; height:500px; border-radius:8px;">
+                            </iframe>
+                             </div>
                             <p>
                                 조건문과 반복문만을 사용해<br>
                                 메뉴 흐름과 로그인 상태를 직접 제어한
                                 콘솔 기반 뱅킹 시스템입니다.
                             </p>
                             <div class="project-links">
-                                <a href="https://github.com/깃허브주소" target="_blank">GitHub</a>
+                                <a href="https://github.com/shgil0618-glitch/fullstack_gsh/tree/master/project/banksystem1_Control" target="_blank">GitHub</a>
                                 <a href="https://youtu.be/M0sg6rhlKfI" target="_blank">시연 영상</a>
                             </div>
 
                             <h3>README</h3>
                             <div class="loader"></div>
-                            <div id="readme"></div>
+                            <div id="readme-bank1"></div>
                         `,
 
                         bank2: `
                             <h2>Bank System - Array.Ver</h2>
                             <img src="./img/project/bank2.png" class="modal-img">
+                            <div class="video-wrap">
+                            <iframe 
+                                src="https://www.youtube.com/embed/FZA7DU0ptlA" 
+                                title="Bank System OOP.Ver" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                style="width:100%; height:500px; border-radius:8px;">
+                            </iframe>
+                             </div>
                             <p>
                                 배열을 활용해 여러 사용자의 계좌 정보를 관리하며<br>
                                 로그인 사용자 인덱스를 기준으로
                                 데이터 충돌 문제를 해결한 시스템입니다.
                             </p>
                             <div class="project-links">
-                                <a href="https://github.com/프로젝트1주소" target="_blank">GitHub</a>
-                                <a href="https://youtu.be/프로젝트1영상" target="_blank">시연 영상</a>
+                                <a href="https://github.com/shgil0618-glitch/fullstack_gsh/tree/master/project/banksystem2_Array/bank" target="_blank">GitHub</a>
                             </div>
 
                             <h3>README</h3>
                             <div class="loader"></div>
-                            <div id="readme"></div>
+                            <div id="readme-bank2"></div>
                         `,
 
                         bank3: `
                             <h2>Health System - Recipe.Ver</h2>
-                            <img src="./img/project/bank4.png" class="modal-img">
+                            <img src="./img/project/bank3.png" class="modal-img">
                             <div class="video-wrap">
-                                <video muted loop playsinline id="modalVideo">
-                                    <source src="./img/project/demo.mp4" type="video/mp4">
-                                </video>
-                                <div class="play-btn">▶</div>
-                            </div>
+                            <iframe 
+                                src="https://www.youtube.com/embed/HlCufIWsLj0" 
+                                title="Bank System OOP.Ver" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                style="width:100%; height:500px; border-radius:8px;">
+                            </iframe>
+                             </div>
 
                             <p>
                                 기존 BankSystem 구조를 확장하여<br>
@@ -1320,8 +1491,8 @@
                             </ul>
 
                             <div class="project-links">
-                                <a href="https://github.com/프로젝트1주소" target="_blank">GitHub</a>
-                                <a href="https://youtu.be/프로젝트1영상" target="_blank">시연 영상</a>
+                                <a href="https://github.com/shgil0618-glitch/fullstack_gsh/tree/master/project/banksystem2_Array/healthsystem" target="_blank">GitHub</a>
+                                <a href="https://youtu.be/HlCufIWsLj0" target="_blank">시연 영상</a>
                             </div>
 
                             <h3>README</h3>
@@ -1333,11 +1504,17 @@
                             <h2>Bank System - OOP.Ver</h2>
 
                             <div class="video-wrap">
-                                <video muted loop playsinline id="modalVideo">
-                                    <source src="./img/project/demo.mp4" type="video/mp4">
-                                </video>
-                                <div class="play-btn">▶</div>
-                            </div>
+                            <iframe 
+                                src="https://www.youtube.com/embed/FZA7DU0ptlA" 
+                                title="Bank System OOP.Ver" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                style="width:100%; height:500px; border-radius:8px;">
+                            </iframe>
+                             </div>
+
+
 
                             <p>
                                 기존 절차형·배열 기반 뱅킹 시스템을<br>
@@ -1347,19 +1524,30 @@
                             </p>
 
                             <div class="project-links">
-                                <a href="https://github.com/프로젝트1주소" target="_blank">GitHub</a>
-                                <a href="https://youtu.be/프로젝트1영상" target="_blank">시연 영상</a>
+                                <a href="https://github.com/shgil0618-glitch/fullstack_gsh/tree/master/project/banksystem3_Method" target="_blank">GitHub</a>
+                                <a href="https://youtu.be/FZA7DU0ptlA" target="_blank">시연 영상</a>
                             </div>
-
-                            <h3>README</h3>
+                            
+                            <h3 style="font-size: 24px;">README</h3>
+                            <p><br></p>
                             <div class="loader"></div>
-                            <div id="readme"></div>
+                            <div id="readme-bank4"></div>
                         `,
 
                         /* ================= 프로젝트 1 ================= */
                         project1: `
                             <h2>Project 1 - Eclipse 기반 Java 프로젝트</h2>
                             <img src="./img/project/project1.png" class="modal-img">
+                            <div class="video-wrap">
+                            <iframe 
+                                src="https://www.youtube.com/embed/4q8ENBxE1Eo" 
+                                title="Bank System OOP.Ver" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                style="width:100%; height:500px; border-radius:8px;">
+                            </iframe>
+                             </div>
 
                             <p>
                                 Java 기본 문법과 프로그램 흐름 제어를 학습하며  
@@ -1373,19 +1561,29 @@
                             </ul>
 
                             <div class="project-links">
-                                <a href="https://github.com/프로젝트1주소" target="_blank">GitHub</a>
-                                <a href="https://youtu.be/프로젝트1영상" target="_blank">시연 영상</a>
+                                <a href="https://github.com/shgil0618-glitch/fullstack_gsh/tree/master/project/project1_Eclipse" target="_blank">GitHub</a>
+                                <a href="https://youtu.be/4q8ENBxE1Eo" target="_blank">시연 영상</a>
                             </div>
 
                             <h3>README</h3>
                             <div class="loader"></div>
-                            <div id="readme"></div>
+                            <div id="readme-project1"></div>
                         `,
 
                         /* ================= 프로젝트 2 ================= */
                         project2: `
                             <h2>Project 2 - Spring Boot 백엔드</h2>
                             <img src="./img/project/project2.png" class="modal-img">
+                            <div class="video-wrap">
+                            <iframe 
+                                src="https://www.youtube.com/embed/2M52lkTD3PE" 
+                                title="Bank System OOP.Ver" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                style="width:100%; height:500px; border-radius:8px;">
+                            </iframe>
+                             </div>
 
                             <p>
                                 Spring Boot 기반으로 REST API 서버를 설계하고  
@@ -1399,19 +1597,30 @@
                             </ul>
 
                             <div class="project-links">
-                                <a href="https://github.com/프로젝트2주소" target="_blank">GitHub</a>
-                                <a href="https://youtu.be/프로젝트2영상" target="_blank">시연 영상</a>
+                                <a href="https://github.com/shgil0618-glitch/fullstack_gsh/tree/master/project/project2_spirngboot" target="_blank">GitHub</a>
+                                <a href="https://youtu.be/2M52lkTD3PE" target="_blank">시연 영상</a>
+                                <a href="" target="_blank">PPT</a>
                             </div>
 
                             <h3>README</h3>
                             <div class="loader"></div>
-                            <div id="readme"></div>
+                            <div id="readme-project2"></div>
                         `,
 
                         /* ================= 프로젝트 3 ================= */
                         project3: `
                             <h2>Project 3 - Open API 연동</h2>
                             <img src="./img/project/project3.png" class="modal-img">
+                            <div class="video-wrap">
+                            <iframe 
+                                src="https://www.youtube.com/embed/bLB8UWRj_tE" 
+                                title="Bank System OOP.Ver" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                style="width:100%; height:500px; border-radius:8px;">
+                            </iframe>
+                             </div>
 
                             <p>
                                 외부 Open API를 활용해 데이터를 수집·가공하고  
@@ -1425,19 +1634,30 @@
                             </ul>
 
                             <div class="project-links">
-                                <a href="https://github.com/프로젝트3주소" target="_blank">GitHub</a>
-                                <a href="https://youtu.be/프로젝트3영상" target="_blank">시연 영상</a>
+                                <a href="https://github.com/shgil0618-glitch/fullstack_gsh/tree/master/project/project3_Api" target="_blank">GitHub</a>
+                                <a href="https://youtu.be/bLB8UWRj_tE" target="_blank">시연 영상</a>
+                                <a href="" target="_blank">PPT</a>
                             </div>
 
                             <h3>README</h3>
                             <div class="loader"></div>
-                            <div id="readme"></div>
+                            <div id="readme-project3"></div>
                         `,
 
                         /* ================= 프로젝트 4 ================= */
                         project4: `
                             <h2>Project 4 - Node & React 풀스택</h2>
                             <img src="./img/project/project4.png" class="modal-img">
+                            <div class="video-wrap">
+                            <iframe 
+                                src="https://www.youtube.com/embed/HlCufIWsLj0" 
+                                title="Bank System OOP.Ver" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                style="width:100%; height:500px; border-radius:8px;">
+                            </iframe>
+                             </div>
 
                             <p>
                                 React 프론트엔드와 Node.js 백엔드를 연결한  
@@ -1453,17 +1673,28 @@
                             <div class="project-links">
                                 <a href="https://github.com/프로젝트4주소" target="_blank">GitHub</a>
                                 <a href="https://youtu.be/프로젝트4영상" target="_blank">시연 영상</a>
+                                <a href="" target="_blank">PPT</a>
                             </div>
 
                             <h3>README</h3>
                             <div class="loader"></div>
-                            <div id="readme"></div>
+                            <div id="readme-project4"></div>
                         `,
 
                         /* ================= 프로젝트 5 ================= */
                         project5: `
                             <h2>Project 5 - 개인 종합 프로젝트</h2>
                             <img src="./img/project/project5.png" class="modal-img">
+                            <div class="video-wrap">
+                            <iframe 
+                                src="https://www.youtube.com/embed/HlCufIWsLj0" 
+                                title="Bank System OOP.Ver" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                style="width:100%; height:500px; border-radius:8px;">
+                            </iframe>
+                             </div>
 
                             <p>
                                 지금까지 학습한 기술을 종합해  
@@ -1483,7 +1714,7 @@
 
                             <h3>README</h3>
                             <div class="loader"></div>
-                            <div id="readme"></div>
+                            <div id="readme-project5"></div>
                         `
                     };
 
@@ -1499,17 +1730,90 @@
                         video.addEventListener("mouseleave", () => video.pause());
                     }
 
-                    if (project === "bank4") {
-                        loadReadme("shgil0618-glitch/fullstack_gsh", "readme");
-                        // loadReadme("shgil0618-glitch", "fullstack_gsh", "project/banksystem1_Control/README.md", "readme-bank4");
+                    // if (project === "bank4") {
+                    //     loadReadme("shgil0618-glitch/fullstack_gsh", "readme");
+                    //     // loadReadme("shgil0618-glitch", "fullstack_gsh", "project/banksystem1_Control/README.md", "readme-bank4");
+                    // }
+                    if (project === "bank1") {
+                        loadReadme(
+                            "shgil0618-glitch",
+                            "fullstack_gsh",
+                            "project/banksystem1_Control/readme.md",
+                            "readme-bank1"
+                        );
                     }
+
+                    if (project === "bank2") {
+                        loadReadme(
+                            "shgil0618-glitch",
+                            "fullstack_gsh",
+                            "project/banksystem2_Array/bank/readme.md",
+                            "readme-bank2"
+                        );
+                    }
+
                     if (project === "bank3") {
-                        //loadReadme("shgil0618-glitch/fullstack_gsh", "readme");
-                        loadReadme("shgil0618-glitch", "fullstack_gsh", "project/banksystem2_Array/healthsystem/README.md", "readme-bank3");
+                        loadReadme(
+                            "shgil0618-glitch",
+                            "fullstack_gsh",
+                            "project/banksystem2_Array/healthsystem/readme.md",
+                            "readme-bank3"
+                        );
                     }
-                  /*  if (project !== "bank1" && project !== "bank2") {
-                        loadReadme("깃허브아이디/레포지토리명", "readme");
-                    } */
+
+                    if (project === "bank4") {
+                        loadReadme(
+                            "shgil0618-glitch",
+                            "fullstack_gsh",
+                            "project/banksystem3_Method/readme.md",
+                            "readme-bank4"
+                        );
+                    }
+
+                    if (project === "project1") {
+                        loadReadme(
+                            "shgil0618-glitch",
+                            "fullstack_gsh",
+                            "project/project1_Eclipse/readme.md",
+                            "readme-project1"
+                        );
+                    }
+
+                    if (project === "project2") {
+                        loadReadme(
+                            "shgil0618-glitch",
+                            "fullstack_gsh",
+                            "project/project2_spirngboot/readme.md",
+                            "readme-project2"
+                        );
+                    }
+
+                    if (project === "project3") {
+                        loadReadme(
+                            "shgil0618-glitch",
+                            "fullstack_gsh",
+                            "project/project3_Api/readme.md",
+                            "readme-project3"
+                        );
+                    }
+
+                    if (project === "project4") {
+                        loadReadme(
+                            "shgil0618-glitch",
+                            "fullstack_gsh",
+                            "project/project4_Node-React/readme.md",
+                            "readme-project4"
+                        );
+                    }
+
+                    if (project === "project5") {
+                        loadReadme(
+                            "shgil0618-glitch",
+                            "fullstack_gsh",
+                            "project/project5_gsh/readme.md",
+                            "readme-project5"
+                        );
+                    }
 
                 }
 
@@ -1555,46 +1859,142 @@
                 </script>
 
                 <script>
-                async function loadReadme(repo, containerId) {
-                    const url = `https://api.github.com/repos/${repo}/readme`;
-
-                    try {
-                        const res = await fetch(url);
-                        const data = await res.json();
-
-                        const decoded = new TextDecoder("utf-8").decode(
-                            Uint8Array.from(atob(data.content), c => c.charCodeAt(0))
-                        );
-
-                        document.querySelector(".loader").remove();
-                        document.getElementById(containerId).innerHTML = marked.parse(decoded);
-
-                    } catch (err) {
-                        document.getElementById(containerId).innerText = "README를 불러올 수 없습니다.";
+                // ------------------ IntersectionObserver ------------------
+                document.addEventListener("DOMContentLoaded", () => {
+                // 섹션용 IntersectionObserver
+                const scrollItems = document.querySelectorAll(".scroll-item");
+                const sectionObserver = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        obs.unobserve(entry.target);
                     }
-                }
-                async function loadReadme(repoOwner, repoName, path, containerId) {
-                    const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}`;
-                    try {
-                        const res = await fetch(url);
-                        const data = await res.json();
+                    });
+                }, { threshold: 0.2 });
+                scrollItems.forEach(item => sectionObserver.observe(item));
 
-                        const decoded = new TextDecoder("utf-8").decode(
-                            Uint8Array.from(atob(data.content), c => c.charCodeAt(0))
-                        );
-
-                        document.querySelector(".loader").remove();
-                        document.getElementById(containerId).innerHTML = marked.parse(decoded);
-
-                    } catch (err) {
-                        document.getElementById(containerId).innerText = "README를 불러올 수 없습니다.";
-                        console.error(err);
+                // 카드용 IntersectionObserver (갑자기 나타나는 팝인)
+                const cards = document.querySelectorAll(".flip-card");
+                const cardObserver = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        obs.unobserve(entry.target);
                     }
-                }
-
+                    });
+                }, { threshold: 0.1 });
+                cards.forEach(card => cardObserver.observe(card));
+                });
                 </script>
 
+                
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const lines = [
+  "C/C++ 기반 시스템 경험과 Java·React·MySQL 등 최신 웹 기술을 아우르는 풀스택 개발자로서, 다양한 환경에서 확장성과 적응력을 발휘합니다. ",
+  "  새로운 기술을 빠르게 습득하고 문제 해결과 협업을 통해 서비스 가치를 높이는 실행력 있는 개발자입니다."
+];
 
+
+
+  const container = document.getElementById("typing-text");
+  let lineIndex = 0;
+  let charIndex = 0;
+
+  function typeChar() {
+    if (lineIndex >= lines.length) return;
+
+    const line = lines[lineIndex];
+    container.innerHTML = container.innerHTML.slice(0, container.innerHTML.length - 1) + line[charIndex] + "|";
+    charIndex++;
+
+    if (charIndex < line.length) {
+      setTimeout(typeChar, 50); // 글자 속도
+    } else {
+      container.innerHTML = container.innerHTML.slice(0, -1) + "<br>";
+      lineIndex++;
+      charIndex = 0;
+      setTimeout(typeChar, 400); // 줄 넘어갈 때 딜레이
+    }
+  }
+
+  // IntersectionObserver로 스크롤 시 시작
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        typeChar();
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(container);
+});
+</script>
+
+<script>
+/* ================= 테마 전환 ================= */
+const themeBtn = document.getElementById("themeToggle");
+
+// 저장된 테마 있으면 복구
+if (localStorage.getItem("theme") === "light") {
+    document.body.classList.add("light");
+}
+
+// 클릭 시 토글
+themeBtn.addEventListener("click", () => {
+    document.body.classList.toggle("light");
+
+    if (document.body.classList.contains("light")) {
+        localStorage.setItem("theme", "light");
+    } else {
+        localStorage.setItem("theme", "dark");
+    }
+});
+
+/* ================= 이력서 다운로드 ================= */
+document.getElementById("download").addEventListener("click", () => {
+    const link = document.createElement("a");
+    link.href = "./project/길상현●입사지원서●-------대체.docx"; // ✅ 이력서 경로
+    link.download = "길상현●입사지원서●-------대체.docx";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+});
+</script>
+
+<script>
+const nav = document.getElementById('sectionNav');
+const hero = document.getElementById('hero');
+
+window.addEventListener('scroll', () => {
+    const heroHeight = hero.offsetHeight;
+    const scrollY = window.scrollY;
+
+    // hero의 약 80% 이상 가려졌을 때
+    if (scrollY > heroHeight * 0.8) {
+        nav.classList.add('show');
+    } else {
+        nav.classList.remove('show');
+    }
+});
+
+// 네비 클릭 스크롤 (기존 그대로)
+document.querySelectorAll('.section-nav button').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const target = document.getElementById(btn.dataset.target);
+        if (!target) return;
+
+        const offset = 90; // 네비 높이 보정
+        const y = target.getBoundingClientRect().top + window.scrollY - offset;
+
+        window.scrollTo({
+            top: y,
+            behavior: 'smooth'
+        });
+    });
+});
+</script>
 
 
 
