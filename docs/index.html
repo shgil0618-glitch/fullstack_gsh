@@ -335,45 +335,72 @@
 
 
         /* portfolio */
-        .project-grid {
+       .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr; /* 한 줄 1개 */
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
+
         .flip-card {
-            perspective: 1000px;
-        }
+    transition: all 0.25s ease;
+    border-radius: 14px;
+}
+
+.flip-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 15px 40px rgba(99,102,241,0.25);
+}
+
+.flip-face {
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.flip-card:hover .flip-face {
+    border: 1px solid var(--accent);
+}
+
+.flip-card:hover .tech-tag {
+    background: var(--accent);
+    color: white;
+}
+
+
+
+        /* .flip-card:hover .flip-inner {
+            transform: rotateY(180deg) scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        } */
 
         .flip-inner {
             position: relative;
             width: 100%;
-            padding-top: 75%;
-            /* 카드 비율 4:3 */
+            height: 380px;
             transform-style: preserve-3d;
             transition: transform 0.7s ease;
         }
 
-        .flip-card:hover .flip-inner {
-            transform: rotateY(180deg) scale(1.05);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
+
+        
 
         .flip-face {
             position: absolute;
             inset: 0;
             border-radius: 14px;
-            overflow: hidden;
+            overflow-y: auto; /* 추가 */
             backface-visibility: hidden;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            align-items: flex-start;
+            justify-content: flex-start;
             padding: 20px;
-            text-align: center;
+            text-align: left;
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
             border: 1px solid rgba(255, 255, 255, 0.06);
         }
+
 
         .flip-back {
             background: linear-gradient(135deg, var(--accent), var(--accent-2));
@@ -441,6 +468,310 @@
                 font-size: 13px;
             }
         }
+
+        .project-links {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-links a {
+            padding: 6px 10px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            font-size: 13px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .project-links a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* ================= 기술 태그 ================= */
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.tech-tag {
+    background: rgba(255,255,255,0.12);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ================= 모달 ================= */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.modal-content {
+    background: #0f1724;
+    color: white;
+    width: 96vw;              /* 👉 거의 전체 화면 */
+    max-width: 1400px;        /* 👉 README 원문 느낌 */
+    height: 90vh;
+    overflow-y: auto;         /* 세로만 스크롤 */
+    overflow-x: hidden;       /* 가로 스크롤 제거 */
+    padding: 50px 60px;
+    border-radius: 14px;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+
+
+
+.modal-close {
+    position: sticky;
+    top: 0;
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+    background: none;
+    padding: 10px;
+    z-index: 50;
+}
+
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+.modal-content img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+/* ================= README 영역 전체 ================= */
+
+#readme {
+    max-width: 100%;
+    overflow-x: hidden;
+    word-break: break-word;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* 이미지 자동 크기 */
+#readme img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+/* 헤딩 스타일 */
+#readme h1 {
+    font-size: 28px;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 8px;
+    margin-top: 20px;
+}
+
+#readme h2 {
+    font-size: 22px;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 6px;
+    margin-top: 18px;
+}
+
+#readme h3 {
+    font-size: 18px;
+    margin-top: 16px;
+}
+
+/* 문단 */
+#readme p {
+    margin: 10px 0;
+}
+
+/* 리스트 */
+#readme ul,
+#readme ol {
+    padding-left: 20px;
+}
+
+#readme li {
+    margin: 6px 0;
+}
+
+/* 인라인 코드 */
+#readme code {
+    background: rgba(110,118,129,0.25);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 14px;
+    white-space: pre-wrap;
+}
+
+/* 코드 블록 */
+#readme pre {
+    background: #161b22;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 12px 0;
+}
+
+#readme pre code {
+    background: none;
+    padding: 0;
+    white-space: pre-wrap;
+}
+
+/* 인용문 */
+#readme blockquote {
+    border-left: 4px solid #30363d;
+    padding-left: 12px;
+    color: #8b949e;
+    margin: 10px 0;
+}
+
+/* 표 스타일 */
+#readme table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 12px 0;
+}
+
+#readme th,
+#readme td {
+    border: 1px solid #30363d;
+    padding: 8px;
+    text-align: left;
+}
+
+#readme th {
+    background: rgba(255,255,255,0.05);
+}
+
+/* 링크 */
+#readme a {
+    color: #58a6ff;
+    text-decoration: none;
+}
+
+#readme a:hover {
+    text-decoration: underline;
+}
+
+
+.card-video {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+
+/* ================= 모달 애니메이션 업그레이드 ================= */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background: #0f1724;
+    color: white;
+    width: 96vw;
+    max-width: 1400px;
+    height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 50px 60px;
+    border-radius: 14px;
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+}
+
+/* ================= 영상 썸네일 ================= */
+.video-wrap {
+    position: relative;
+    cursor: pointer;
+}
+
+.video-wrap video {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.play-btn {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 50px;
+    color: white;
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
+    opacity: 1;
+    transition: 0.2s;
+}
+
+.video-wrap:hover .play-btn {
+    opacity: 0;
+}
+
+/* ================= 로딩 스피너 ================= */
+.loader {
+    border: 4px solid rgba(255,255,255,0.1);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.project-meta {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+
     </style>
 </head>
 
@@ -559,6 +890,77 @@
             </section>
             <section id="portfolio" class="block">
                 <h2 class="section-title">Selected Projects</h2>
+
+<div class="project-grid">
+
+    <!-- 카드 1 -->
+    <div class="flip-card" onclick="openModal('bank1')">
+        <div class="flip-inner">
+            <div class="flip-face flip-front">
+                <h3>Bank System - Control.Ver</h3>
+                <p class="project-desc">기본적인 뱅크 시스템</p>
+                <div class="tech-tags">
+                    <div class="tech-tag">Java</div>
+                    <div class="tech-tag">조건문</div>
+                    <div class="tech-tag">상태제어</div>
+                </div>
+            </div>
+            <div class="flip-face flip-back">
+                <h3>핵심기술</h3>
+                <p>상태 기반 흐름 제어 · 로그인 인증 · 입출금 로직</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 카드 2 -->
+    <div class="flip-card" onclick="openModal('bank2')">
+        <div class="flip-inner">
+            <div class="flip-face flip-front">
+                <h3>Bank System - Array.Ver</h3>
+                <p class="project-desc">배열 기반 레시피 추천 시스템</p>
+                <div class="tech-tags">
+                    <div class="tech-tag">Java</div>
+                    <div class="tech-tag">배열</div>
+                    <div class="tech-tag">데이터구조</div>
+                </div>
+            </div>
+            <div class="flip-face flip-back">
+                <h3>핵심기술</h3>
+                <p>2차원 배열 · 상태 전이 · 사용자 입력 처리</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 카드 3 -->
+    <div class="flip-card" onclick="openModal('bank3')">
+        <div class="flip-inner">
+            <div class="flip-face flip-front">
+                <h3>Bank System - Method.Ver</h3>
+                <p class="project-desc">SOLID 기반 구조 개선</p>
+
+                <div class="project-meta">
+                    <p>📅 기간: 2025.01 – 2025.02</p>
+                    <p>👥 구분: 개인 프로젝트</p>
+                    <p>🔥 핵심 해결: 절차형 구조를 OOP 기반으로 리팩토링하여 유지보수성 개선</p>
+                    <p>🎯 역할: 전체 설계 · 클래스 구조 분리 · 기능 구현</p>
+                </div>
+                <div class="tech-tags">
+                    <div class="tech-tag">Java</div>
+                    <div class="tech-tag">OOP</div>
+                    <div class="tech-tag">SOLID</div>
+                </div>
+                
+            </div>
+            <div class="flip-face flip-back">
+                <h3>핵심기술</h3>
+                <p>메서드 분리 · 책임 분리 · 유지보수성 향상</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
                 <div class="project-grid">
                     <div class="flip-card">
                         <div class="flip-inner">
@@ -617,18 +1019,41 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="flip-card">
                         <div class="flip-inner">
+
+                            <!-- 앞면 -->
                             <div class="flip-face flip-front">
-                                <h3></h3>
-                                <p class="project-desc"></p>
+                                <h3>Bank System - Method.Ver</h3>
+                                <p class="project-desc">SOLID 원칙을 적용한 구조 개선 프로젝트</p>
                             </div>
+
+                            <!-- 뒷면 -->
                             <div class="flip-face flip-back">
-                                <h3>핵심기술</h3>
-                                <p></p>
+                                <h3>프로젝트 설명</h3>
+
+                                <p><strong>목적</strong><br>
+                                객체지향 설계를 적용해 기존 절차형 코드의 유지보수성을 개선</p>
+
+                                <p><strong>사용 기술</strong><br>
+                                Java, OOP, SOLID</p>
+
+                                <p><strong>문제 해결</strong><br>
+                                로직이 한 클래스에 몰려있던 구조를 역할별 클래스로 분리하여
+                                확장성과 가독성을 개선</p>
+
+                                <div class="project-links">
+                                    <a href="깃허브주소" target="_blank">GitHub</a>
+                                    <a href="유튜브주소" target="_blank">시연 영상</a>
+                                    <a href="ppt주소" target="_blank">발표 자료</a>
+                                </div>
                             </div>
+
                         </div>
                     </div>
+
+
                 </div>
             </section>
 
@@ -679,10 +1104,144 @@
                     );
                 }
             </script>
+            <script>
+                function openModal(project) {
+                    const modal = document.getElementById("projectModal");
+                    const body = document.getElementById("modalBody");
+
+                    const content = {
+                        bank1: `
+                            <h2>Bank System - Control.Ver</h2>
+                            <img src="./img/project/bank1.png" class="modal-img">
+                            <p>기본적인 뱅킹 시스템 구현 프로젝트입니다.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/깃허브주소" target="_blank">GitHub</a>
+                                <a href="https://youtu.be/M0sg6rhlKfI" target="_blank">시연 영상</a>
+                            </div>
+                        `,
+                        bank2: `
+                            <h2>Bank System - Array.Ver</h2>
+                            <img src="./img/project/bank2.png" class="modal-img">
+                            <p>배열 구조를 활용한 추천 시스템입니다.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/깃허브주소" target="_blank">GitHub</a>
+                                <a href="https://youtu.be/HlCufIWsLj0" target="_blank">시연 영상</a>
+                            </div>
+                        `,
+                        bank3: `
+                            <h2>Bank System - Method.Ver</h2>
+
+                            <div class="video-wrap">
+                                <video muted loop playsinline id="modalVideo">
+                                    <source src="./img/project/demo.mp4" type="video/mp4">
+                                </video>
+                                <div class="play-btn">▶</div>
+                            </div>
+
+                            <p>SOLID 원칙을 적용해 코드 구조를 개선한 프로젝트입니다.</p>
+
+                            <h3>README</h3>
+                            <div class="loader"></div>
+                            <div id="readme"></div>
+                        `
+                    };
+
+                    body.innerHTML = content[project];
+
+                    modal.classList.add("show");
+                    document.body.style.overflow = "hidden"; // 🔥 스크롤 잠금
+
+                    const video = document.getElementById("modalVideo");
+                    if (video) {
+                        video.addEventListener("mouseenter", () => video.play());
+                        video.addEventListener("mouseleave", () => video.pause());
+                    }
+
+                    if (project === "bank3") {
+                        loadReadme("shgil0618-glitch/fullstack_gsh", "readme");
+                    }
+                }
+
+                function closeModal() {
+                    const modal = document.getElementById("projectModal");
+
+                    // 🔥 영상 정지
+                    const video = document.getElementById("modalVideo");
+                    if (video) {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+
+                    modal.classList.remove("show");
+                    document.body.style.overflow = "auto"; // 🔥 스크롤 복구
+                }
+
+                // 🔥 바깥 클릭 시 닫기
+                document.addEventListener("click", function (e) {
+                    const modal = document.getElementById("projectModal");
+
+                    if (e.target === modal) {
+                        closeModal();
+                    }
+                });
+
+
+                // 🔥 ESC 키 닫기
+                document.addEventListener("DOMContentLoaded", function () {
+
+                    window.addEventListener("keydown", function (e) {
+                        if (e.key === "Escape") {
+                            const modal = document.getElementById("projectModal");
+
+                            if (modal && modal.classList.contains("show")) {
+                                closeModal();
+                            }
+                        }
+                    });
+
+                });
+
+                </script>
+
+                <script>
+                async function loadReadme(repo, containerId) {
+                    const url = `https://api.github.com/repos/${repo}/readme`;
+
+                    try {
+                        const res = await fetch(url);
+                        const data = await res.json();
+
+                        const decoded = new TextDecoder("utf-8").decode(
+                            Uint8Array.from(atob(data.content), c => c.charCodeAt(0))
+                        );
+
+                        document.querySelector(".loader").remove();
+                        document.getElementById(containerId).innerHTML = marked.parse(decoded);
+
+                    } catch (err) {
+                        document.getElementById(containerId).innerText = "README를 불러올 수 없습니다.";
+                    }
+                }
+                </script>
+
+
+
+
+
+
 
         </main>
         <footer style="padding:28px 0;text-align:center;color:var(--muted)">© 2025 길상현</footer>
     </div>
+
+    <div id="projectModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal()">✖</span>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 </body>
 
