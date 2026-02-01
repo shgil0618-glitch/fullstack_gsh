@@ -1271,6 +1271,10 @@
                                 <a href="https://github.com/깃허브주소" target="_blank">GitHub</a>
                                 <a href="https://youtu.be/M0sg6rhlKfI" target="_blank">시연 영상</a>
                             </div>
+
+                            <h3>README</h3>
+                            <div class="loader"></div>
+                            <div id="readme"></div>
                         `,
 
                         bank2: `
@@ -1294,6 +1298,12 @@
                         bank3: `
                             <h2>Health System - Recipe.Ver</h2>
                             <img src="./img/project/bank4.png" class="modal-img">
+                            <div class="video-wrap">
+                                <video muted loop playsinline id="modalVideo">
+                                    <source src="./img/project/demo.mp4" type="video/mp4">
+                                </video>
+                                <div class="play-btn">▶</div>
+                            </div>
 
                             <p>
                                 기존 BankSystem 구조를 확장하여<br>
@@ -1316,7 +1326,7 @@
 
                             <h3>README</h3>
                             <div class="loader"></div>
-                            <div id="readme"></div>
+                            <div id="readme-bank3"></div>
                         `,
 
                         bank4: `
@@ -1489,8 +1499,13 @@
                         video.addEventListener("mouseleave", () => video.pause());
                     }
 
+                    if (project === "bank4") {
+                        loadReadme("shgil0618-glitch/fullstack_gsh", "readme");
+                        // loadReadme("shgil0618-glitch", "fullstack_gsh", "project/banksystem1_Control/README.md", "readme-bank4");
+                    }
                     if (project === "bank3") {
-                        loadReadme("shgil0618-glitch/fullstack_gsh/project/banksystem1_Control", "readme");
+                        //loadReadme("shgil0618-glitch/fullstack_gsh", "readme");
+                        loadReadme("shgil0618-glitch", "fullstack_gsh", "project/banksystem2_Array/healthsystem/README.md", "readme-bank3");
                     }
                   /*  if (project !== "bank1" && project !== "bank2") {
                         loadReadme("깃허브아이디/레포지토리명", "readme");
@@ -1558,6 +1573,25 @@
                         document.getElementById(containerId).innerText = "README를 불러올 수 없습니다.";
                     }
                 }
+                async function loadReadme(repoOwner, repoName, path, containerId) {
+                    const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}`;
+                    try {
+                        const res = await fetch(url);
+                        const data = await res.json();
+
+                        const decoded = new TextDecoder("utf-8").decode(
+                            Uint8Array.from(atob(data.content), c => c.charCodeAt(0))
+                        );
+
+                        document.querySelector(".loader").remove();
+                        document.getElementById(containerId).innerHTML = marked.parse(decoded);
+
+                    } catch (err) {
+                        document.getElementById(containerId).innerText = "README를 불러올 수 없습니다.";
+                        console.error(err);
+                    }
+                }
+
                 </script>
 
 
