@@ -152,7 +152,79 @@ apt install locales
 locale-gen ko_KR.UTF-8
 update-locale LANG=ko_KR.UTF-8
 ```
+
+# 사용자 정보 확인
+whoami
+id
+who
+users
+groups
+
+# 사용자 추가 및 삭제
+sudo adduser sally
+sudo passwd sally
+sudo deluser sally
+
+# 권한 구조 및 변경
+ls -l
+sudo chown sally:sally hello.txt
+chmod 755 hello.txt
+umask
+
+
+Q1. 
+Q2. alpha로 로그인 / alpha home 디렉토리 찾아가기
+Q3. alpha로 접속해서 /home/gsh 접속 가능한지 > 못함
+```
+chmod 755 /home/gsh
+```
+
+Q4. 
+Q5. /home/gsh 다른사람 권한주기
+
+## 6. 쉘스크립트
+1. 프로세스 상태 확인
+```
+ps -ef
+```
+-e : 모든 프로세스
+-f : 출력정보 자세히
+
+2. 실시간 모니터링
+```
+top
+```
+
+3. ip주소 확인
+```
+ifconfig
+```
+```
+apt update
+apt install net-tools
+```
+# : root
+$ : 개인
+
+4. hello world 쉘스크립트 작성
+```
+vi hello.sh
+
+#!/bin/bash
+echo "hello world"
+```
+```
+ls -al
+chmod +x hello.sh
+```
+
+5. 쉘스크립트 실행
+```
+./hello.sh 
+```
+
 ## part002. aws
 > aws 회원가입
+
 
 ## part003. ci/cd
