@@ -406,6 +406,12 @@
             border-radius: 14px;
         }
 
+        .flip-card.best {
+            border: 2px solid #ff6b6b;
+            box-shadow: 0 0 8px rgba(255, 107, 107, 0.4);
+        }
+
+
         .flip-card:hover {
             transform: translateY(-8px) scale(1.01);
             box-shadow: 0 15px 40px rgba(99, 102, 241, 0.25);
@@ -1081,31 +1087,66 @@
                 <div class="skills-grid">
                     <div class="skill-card">
                         <h3>BACK-END</h3>
-                        <p>Java, Spring Framework, Spring Boot, RESTful API (JSON), MyBatis, JSP</p>
+                        <p>
+                            Java 11,
+                            Spring Framework 4.3 / 6.0,
+                            Spring Boot 2.7 / 3.4,
+                            RESTful API (JSON),
+                            MyBatis 3.5,
+                            JSP 2.3
+                        </p>
                     </div>
+
                     <div class="skill-card">
                         <h3>FRONT-END</h3>
-                        <p>HTML5, CSS3, JavaScript, jQuery, Axios</p>
+                        <p>
+                            HTML5, CSS3,
+                            JavaScript ES6,
+                            jQuery 3.7,
+                            Axios 1.6
+                        </p>
                     </div>
+
                     <div class="skill-card">
                         <h3>SERVER / INFRA</h3>
-                        <p>Apache Tomcat, Nginx, AWS (EC2, RDS, IAM)</p>
+                        <p>
+                            Apache Tomcat 9.0,
+                            Nginx 1.18,
+                            AWS EC2 · RDS · IAM
+                        </p>
                     </div>
+
                     <div class="skill-card">
                         <h3>DB</h3>
-                        <p>Oracle, MySQL, Jwt, Mybatis</p>
+                        <p>
+                            Oracle 11g,
+                            MySQL 8.0,
+                            JWT,
+                            MyBatis 3.5
+                        </p>
                     </div>
+
                     <div class="skill-card">
                         <h3>TOOLS</h3>
-                        <p>Spring Boot, Spring, IntelliJ IDEA, Eclipse, Visual Studio Code</p>
+                        <p>
+                            IntelliJ IDEA,
+                            Eclipse,
+                            Visual Studio Code
+                        </p>
                     </div>
+
                     <div class="skill-card">
                         <h3>COLLABORATION</h3>
-                        <p>Git, GitHub, Discord, Figma, GoogleSheet</p>
+                        <p>
+                            Git, GitHub,
+                            Discord,
+                            Figma,
+                            Google Sheets
+                        </p>
                     </div>
                 </div>
-
             </section>
+
 
 
             <!-- <section id="skills" class="block scroll-item slide-left">
@@ -1240,7 +1281,7 @@
 
 
                                 <!-- 카드 7 -->
-                                <div class="flip-card" onclick="openModal('project3')">
+                                <div class="flip-card best" onclick="openModal('project3')">
                                     <div class="flip-inner">
                                         <div class="flip-face flip-front">
                                             <h3>Project 3 - 오늘 뭐먹지? v2</h3>
@@ -1310,34 +1351,34 @@
 
 
                                 <!-- 카드 5 -->
-<div class="flip-card" onclick="openModal('project1')">
-    <div class="flip-inner">
-        <div class="flip-face flip-front">
-            <h3>Project 1 - Eclipse Java</h3>
-            <p class="project-desc">
-                콘솔 기반 Java 팀 프로젝트로 핵심 로직과 데이터 흐름 구현
-            </p>
+                                <div class="flip-card" onclick="openModal('project1')">
+                                    <div class="flip-inner">
+                                        <div class="flip-face flip-front">
+                                            <h3>Project 1 - Eclipse Java</h3>
+                                            <p class="project-desc">
+                                                콘솔 기반 Java 팀 프로젝트로 핵심 로직과 데이터 흐름 구현
+                                            </p>
 
-            <div class="project-meta">
-                <p>📅 기간: 2024.11 – 2024.12</p>
-                <p>👥 구분: 팀 프로젝트</p>
-                <p>🔥 핵심 해결: 메뉴 흐름 제어 및 데이터 처리 구조화</p>
-                <p>🎯 역할: 레시피 로직 · 입력 처리 · 데이터 관리</p>
-            </div>
+                                            <div class="project-meta">
+                                                <p>📅 기간: 2024.11 – 2024.12</p>
+                                                <p>👥 구분: 팀 프로젝트</p>
+                                                <p>🔥 핵심 해결: 메뉴 흐름 제어 및 데이터 처리 구조화</p>
+                                                <p>🎯 역할: 레시피 로직 · 입력 처리 · 데이터 관리</p>
+                                            </div>
 
-            <div class="tech-tags">
-                <div class="tech-tag">Java</div>
-                <div class="tech-tag">Eclipse</div>
-                <div class="tech-tag">Console</div>
-            </div>
-        </div>
+                                            <div class="tech-tags">
+                                                <div class="tech-tag">Java</div>
+                                                <div class="tech-tag">Eclipse</div>
+                                                <div class="tech-tag">Console</div>
+                                            </div>
+                                        </div>
 
-        <div class="flip-face flip-back">
-            <h3>핵심기술</h3>
-            <p>조건문 · 반복문 · 컬렉션 · 예외 처리</p>
-        </div>
-    </div>
-</div>
+                                        <div class="flip-face flip-back">
+                                            <h3>핵심기술</h3>
+                                            <p>조건문 · 반복문 · 컬렉션 · 예외 처리</p>
+                                        </div>
+                                    </div>
+                                </div>
 
 
 
@@ -1350,7 +1391,7 @@
                             <div class="project-grid">
                                 <!-- Bank / Project 1~5 카드 -->
                                 <!-- 카드 9 -->
-                                <div class="flip-card" onclick="openModal('project5')">
+                                <div class="flip-card best" onclick="openModal('project5')">
                                     <div class="flip-inner">
                                         <div class="flip-face flip-front">
                                             <h3>Project 5 - 개인 프로젝트</h3>
@@ -1419,7 +1460,7 @@
                                 </div>
 
                                 <!-- 카드 3 -->
-                                <div class="flip-card" onclick="openModal('bank3')">
+                                <div class="flip-card best" onclick="openModal('bank3')">
                                     <div class="flip-inner">
                                         <div class="flip-face flip-front">
                                             <h3>Health System - Recipe.Ver</h3>
