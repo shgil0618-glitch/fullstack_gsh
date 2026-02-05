@@ -974,17 +974,25 @@
             background: var(--accent);
             color: white;
         }
+
+        .closing-line {
+            text-align: center;
+            font-size: 16px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.85);
+            margin: 0 auto;
+        }
+
     </style>
 
 
 </head>
 
-<body>
+<div>
     <div class="top-controls">
         <!-- <button class="icon-btn" id="themeToggle" title="배경 전환">🌗</button> -->
         <button class="icon-btn" id="download" title="이력서 다운로드">📄</button>
     </div>
-
 
 
 
@@ -997,6 +1005,8 @@
             </div>
         </div>
     </section>
+
+
 
     <div class="wrap-bg">
         <main class="wrap">
@@ -1171,35 +1181,6 @@
                 </div>
             </section>
 
-            <!-- <section class="block scroll-item slide-left">
-                <h2 class="section-title">Development Philosophy (수정중)</h2>
-                <p class="lead">
-                    동작하는 코드보다
-                    <strong>이해하기 쉬운 구조</strong>를 먼저 고민합니다.<br>
-                    작은 개선이 쌓여 유지보수성을 만든다고 믿습니다.
-                </p>
-            </section> -->
-
-            <!-- 
-            <section class="block scroll-item slide-right">
-                <h2 class="section-title">Learning & Growth (수정중)</h2>
-                <ul>
-                    <li>객체지향 설계 원칙 지속 학습</li>
-                    <li>Spring 내부 동작 구조 학습 중</li>
-                    <li>CS 기반 코드 품질 개선 목표</li>
-                </ul>
-            </section> -->
-
-            <!-- <section class="block">
-  <h2 class="section-title">Problem Solving</h2>
-
-  <div class="problem-item">
-    <h4>🔧 상태 흐름 제어의 복잡성</h4>
-    <p><strong>문제</strong> 메뉴가 늘어날수록 흐름 추적이 어려움</p>
-    <p><strong>해결</strong> level 변수로 상태를 명확히 분리</p>
-    <p><strong>결과</strong> 로그인 전·후 및 기능별 흐름 안정화</p>
-  </div>
-</section> -->
 
 
             <section id="portfolio" class="block scroll-item slide-left">
@@ -1543,6 +1524,15 @@
                 </div>
 
             </section> -->
+
+            <section class="block scroll-item fade-in">
+                <h2 class="section-title" style="text-align: center;">앞으로의 방향</h2>
+                <p class="closing-line">
+                    빠르게 적응하고 책임 있게 실행하며, 팀과 함께 해결하며 신뢰를 쌓는 개발자가 되겠습니다.<br />
+                    감사합니다.
+                </p>
+            </section>
+
 
             <section id="contact" class="block">
                 <h2 class="section-title"></h2>
@@ -2263,7 +2253,7 @@
 
         </main>
         <footer style="padding:28px 0;text-align:center;color:var(--muted)">© 2025 길상현</footer>
-    </div>
+</div>
 
     <div id="projectModal" class="modal">
         <div class="modal-content">
