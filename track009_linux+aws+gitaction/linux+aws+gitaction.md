@@ -226,5 +226,165 @@ chmod +x hello.sh
 ## part002. aws
 > aws 회원가입
 
+**실행 항목**
+- [x] EC2 인스턴스 생성  
+- [x] OS 선택 (Ubuntu 권장)  
+- [x] 보안 그룹 설정 (22, 80, 443)  
+- [x] 키페어 다운로드 및 저장  
+- [x] SSH 접속 테스트 완료 
+
+
+cd로 경로까지 온다음에 ssh키값  키 넣고 엔터 후 y
+
+
+1. nginx 설치
+```
+apt update
+apt install nginx -y
+```
+
+2. nginx 설정파일 수정
+```
+vi /etc/nginx/sites-available/default
+```
+
+```
+server {
+    listen 80;
+    server_name 13.125.51.211;
+
+    # 프론트엔드 (Next.js SSR 서버)
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header Cookie $http_cookie;
+    }
+
+    # 백엔드 - 유저 인증 (/auth)
+    location /auth {
+        proxy_pass http://localhost:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Cookie $http_cookie;
+    }
+
+    # 백엔드 - 일반 API (/api)
+    location /api {
+        proxy_pass http://localhost:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Cookie $http_cookie;
+    }
+
+    # 백엔드 - 소셜 로그인 (/oauth2)
+    location /oauth2 {
+        proxy_pass http://localhost:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Cookie $http_cookie;
+    }
+
+    # 백엔드 - 카카오/구글 리다이렉트 처리
+    location /login/oauth2 {
+        proxy_pass http://localhost:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # 프론트엔드에서 처리해야 하는 콜백
+    location /oauth2/callback {
+        proxy_pass http://localhost:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Cookie $http_cookie;
+    }
+
+    # 정적 파일 경로
+    location /uploads/ {
+        alias /home/ubuntu/app/back/build/libs/uploads/;
+        autoindex off;
+    }
+
+}
+```
+
+설명 ) 
+ # 프론트엔드 (next.js SSR서버)
+       location / {  ← /여기 겅로로
+        proxy_pass http://localhost:3000; ← 통신번호 포트 3000
+        proxy_http_version 1.1;  ← 통신시 http
+        proxy_set_header Upgrade $http_upgrade; ← 헤더 그대로 전달
+        proxy_set_header Connection "upgrade";  ← 헤더 강제설정
+        proxy_set_header Host $host;   ← host 백엔드로 전송
+        proxy_cache_bypass $http_upgrade; ← 연결시 캐시 사용안함.
+        proxy_set_header Cookie $http_cookie;   ← 
+    }
+ 
+3. nginx 실행 및 테스트
+```
+sudo nginx -t           
+sudo systemctl restart nginx
+```
+
+
+2. nginx 설정파일 수정
+2-1.
+```
+sudo vi   /etc/nginx/sites-available/default
+```
+2-2. esc 눌러서 명령모드로 전환 
+2-3. :%d 입력한뒤에 enter → 전체삭제
+2-4. i 눌러서 입력모드전환  →  붙여넣기
+2-5. esc   →  :wq!  저장후 종료
+
+
+● 5. ECR 리포지토리
+- 애플리케이션을 DOCKER이미지로 빌드해서
+ ERC에 올려두면 어디서든지 가져다가 사용할수 있게.
+
+※ AWS콘솔창에서 검색 ECR - 생성
+
+1. **리포지토리 이름 입력 : `thejoa703`**  
+   - 예: `my-app-repo`  
+   - 규칙:  
+     - 소문자로 시작해야 함  
+     - 소문자, 숫자, 특수문자(`._-/`)만 사용 가능  
+     - 최소 2자, 최대 256자  
+   - `734910190986.dkr.ecr.ap-northeast-2.amazonaws.com/` 이건 **리포지토리 URI의 기본 형식**이고, 뒤에 붙는 이름을 직접 정해야 합니다.  
+     → 즉, `734910190986.dkr.ecr.ap-northeast-2.amazonaws.com/my-app-repo` 이런 식으로 완성됩니다.  
+<br/>
+
+2. **이미지 태그 설정 (Mutable vs Immutable) : `Mutable`**  
+   - **Mutable**: 같은 태그(`latest` 등)를 덮어쓸 수 있음 → 개발/연습용에 적합  
+   - **Immutable**: 태그를 덮어쓸 수 없음 → 운영 환경에서 안정성 확보용  
+   → 연습용이라면 **Mutable**로 두시면 됩니다.  
+<br/>
+
+3. **암호화 설정**  
+   - 기본값(KMS 관리형 키) 그대로 두셔도 무방합니다.  
+<br/>
+
+4. **생성 버튼 클릭**  
+   - 그러면 새 리포지토리가 만들어지고, 목록에 `my-app-repo`가 나타납니다.  
+
+   629542569123.dkr.ecr.ap-northeast-2.amazonaws.com/thejoa703
 
 ## part003. ci/cd
