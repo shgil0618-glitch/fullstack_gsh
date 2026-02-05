@@ -188,7 +188,7 @@
         }
 
         .photo {
-             background-image: url(./img/codeimg/은하수\(1\).jpg);
+            background-image: url(./img/codeimg/은하수\(1\).jpg);
             width: 138px;
             height: 176px;
             border-radius: 20px;
@@ -202,7 +202,7 @@
             margin-right: 30px;
         }
 
-        
+
 
         .info {
             display: flex;
@@ -236,7 +236,60 @@
 
 
         /* skills */
-        .skill-grid {
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            margin-top: 48px;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            padding: 28px 32px;
+            transition: all 0.35s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.25);
+            border-color: rgba(99, 102, 241, 0.6);
+        }
+
+        .skill-card h3 {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            margin-bottom: 14px;
+            color: #c7d2fe;
+            /* 은은한 블루 */
+        }
+
+        .skill-card p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.82);
+        }
+
+        .skill-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 24px;
+            right: 24px;
+            height: 1px;
+            background: linear-gradient(to right,
+                    transparent,
+                    rgba(99, 102, 241, 0.8),
+                    transparent);
+        }
+
+
+
+        /* .skill-grid {
             display: flex;
             gap: 24px;
             flex-wrap: wrap;
@@ -299,7 +352,7 @@
             border-radius: 10px;
             background: var(--glass);
             font-weight: 600;
-        }
+        } */
 
         /* career */
         .timeline {
@@ -338,9 +391,10 @@
 
 
         /* portfolio */
-       .project-grid {
+        .project-grid {
             display: grid;
-            grid-template-columns: 1fr; /* 한 줄 1개 */
+            grid-template-columns: 1fr;
+            /* 한 줄 1개 */
             gap: 40px;
             max-width: 900px;
             margin: 0 auto;
@@ -348,27 +402,27 @@
 
 
         .flip-card {
-    transition: all 0.25s ease;
-    border-radius: 14px;
-}
+            transition: all 0.25s ease;
+            border-radius: 14px;
+        }
 
-.flip-card:hover {
-    transform: translateY(-8px) scale(1.01);
-    box-shadow: 0 15px 40px rgba(99,102,241,0.25);
-}
+        .flip-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.25);
+        }
 
-.flip-face {
-    transition: border 0.2s ease, box-shadow 0.2s ease;
-}
+        .flip-face {
+            transition: border 0.2s ease, box-shadow 0.2s ease;
+        }
 
-.flip-card:hover .flip-face {
-    border: 1px solid var(--accent);
-}
+        .flip-card:hover .flip-face {
+            border: 1px solid var(--accent);
+        }
 
-.flip-card:hover .tech-tag {
-    background: var(--accent);
-    color: white;
-}
+        .flip-card:hover .tech-tag {
+            background: var(--accent);
+            color: white;
+        }
 
 
 
@@ -386,13 +440,14 @@
         }
 
 
-        
+
 
         .flip-face {
             position: absolute;
             inset: 0;
             border-radius: 14px;
-            overflow-y: auto; /* 추가 */
+            overflow-y: auto;
+            /* 추가 */
             backface-visibility: hidden;
             display: flex;
             flex-direction: column;
@@ -482,7 +537,7 @@
         .project-links a {
             padding: 6px 10px;
             border-radius: 8px;
-            background: rgba(255,255,255,0.15);
+            background: rgba(255, 255, 255, 0.15);
             color: white;
             font-size: 13px;
             text-decoration: none;
@@ -491,372 +546,444 @@
         }
 
         .project-links a:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
         }
 
         /* ================= 기술 태그 ================= */
-.tech-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 10px;
-}
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
 
-.tech-tag {
-    background: rgba(255,255,255,0.12);
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 600;
-}
+        .tech-tag {
+            background: rgba(255, 255, 255, 0.12);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
 
-/* ================= 모달 ================= */
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(6px);
-    justify-content: center;
-    align-items: center;
-    z-index: 200;
-}
+        /* ================= 모달 ================= */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
 
-.modal-content {
-    background: #0f1724;
-    color: white;
-    width: 96vw;              /* 👉 거의 전체 화면 */
-    max-width: 1400px;        /* 👉 README 원문 느낌 */
-    height: 90vh;
-    overflow-y: auto;         /* 세로만 스크롤 */
-    overflow-x: hidden;       /* 가로 스크롤 제거 */
-    padding: 50px 60px;
-    border-radius: 14px;
-    position: relative;
-    animation: fadeIn 0.3s ease;
-}
-
-
-
-
-.modal-close {
-    position: sticky;
-    top: 0;
-    float: right;
-    font-size: 28px;
-    cursor: pointer;
-    background: none;
-    padding: 10px;
-    z-index: 50;
-}
+        .modal-content {
+            background: #0f1724;
+            color: white;
+            width: 96vw;
+            /* 👉 거의 전체 화면 */
+            max-width: 1400px;
+            /* 👉 README 원문 느낌 */
+            height: 90vh;
+            overflow-y: auto;
+            /* 세로만 스크롤 */
+            overflow-x: hidden;
+            /* 가로 스크롤 제거 */
+            padding: 50px 60px;
+            border-radius: 14px;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
 
 
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px);}
-    to { opacity: 1; transform: translateY(0);}
-}
 
-.modal-content img {
-    max-width: 100%;
-    border-radius: 8px;
-}
-
-/* ================= README 영역 전체 ================= */
-
-#readme {
-    max-width: 100%;
-    overflow-x: hidden;
-    word-break: break-word;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    line-height: 1.6;
-    font-size: 16px;
-}
-
-/* 이미지 자동 크기 */
-#readme img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin: 10px 0;
-}
-
-/* 헤딩 스타일 */
-#readme h1 {
-    font-size: 28px;
-    border-bottom: 1px solid #30363d;
-    padding-bottom: 8px;
-    margin-top: 20px;
-}
-
-#readme h2 {
-    font-size: 22px;
-    border-bottom: 1px solid #30363d;
-    padding-bottom: 6px;
-    margin-top: 18px;
-}
-
-#readme h3 {
-    font-size: 18px;
-    margin-top: 16px;
-}
-
-/* 문단 */
-#readme p {
-    margin: 10px 0;
-}
-
-/* 리스트 */
-#readme ul,
-#readme ol {
-    padding-left: 20px;
-}
-
-#readme li {
-    margin: 6px 0;
-}
-
-/* 인라인 코드 */
-#readme code {
-    background: rgba(110,118,129,0.25);
-    padding: 2px 6px;
-    border-radius: 6px;
-    font-size: 14px;
-    white-space: pre-wrap;
-}
-
-/* 코드 블록 */
-#readme pre {
-    background: #161b22;
-    padding: 16px;
-    border-radius: 8px;
-    overflow-x: auto;
-    margin: 12px 0;
-}
-
-#readme pre code {
-    background: none;
-    padding: 0;
-    white-space: pre-wrap;
-}
-
-/* 인용문 */
-#readme blockquote {
-    border-left: 4px solid #30363d;
-    padding-left: 12px;
-    color: #8b949e;
-    margin: 10px 0;
-}
-
-/* 표 스타일 */
-#readme table {
-    border-collapse: collapse;
-    width: 100%;
-    margin: 12px 0;
-}
-
-#readme th,
-#readme td {
-    border: 1px solid #30363d;
-    padding: 8px;
-    text-align: left;
-}
-
-#readme th {
-    background: rgba(255,255,255,0.05);
-}
-
-/* 링크 */
-#readme a {
-    color: #58a6ff;
-    text-decoration: none;
-}
-
-#readme a:hover {
-    text-decoration: underline;
-}
-
-
-.card-video {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-
-/* ================= 모달 애니메이션 업그레이드 ================= */
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(6px);
-    justify-content: center;
-    align-items: center;
-    z-index: 200;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.modal.show {
-    display: flex;
-    opacity: 1;
-}
-
-.modal-content {
-    background: #0f1724;
-    color: white;
-    width: 96vw;
-    max-width: 1400px;
-    height: 90vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 50px 60px;
-    border-radius: 14px;
-    position: relative;
-    transform: scale(0.95);
-    transition: transform 0.3s ease;
-}
-
-.modal.show .modal-content {
-    transform: scale(1);
-}
-
-/* ================= 영상 썸네일 ================= */
-.video-wrap {
-    position: relative;
-    cursor: pointer;
-}
-
-.video-wrap video {
-    width: 100%;
-    border-radius: 10px;
-}
-
-.play-btn {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    font-size: 50px;
-    color: white;
-    background: rgba(0,0,0,0.3);
-    border-radius: 10px;
-    opacity: 1;
-    transition: 0.2s;
-}
-
-.video-wrap:hover .play-btn {
-    opacity: 0;
-}
-
-/* ================= 로딩 스피너 ================= */
-.loader {
-    border: 4px solid rgba(255,255,255,0.1);
-    border-top: 4px solid white;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 1s linear infinite;
-    margin: 20px auto;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-.project-meta {
-    margin-top: 10px;
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.4;
-}
-
-/* ------------------ 섹션 스크롤 애니메이션 ------------------ */
-.scroll-item {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.7s ease-out;
-  will-change: transform, opacity;
-}
-
-.scroll-item.slide-left { transform: translateX(-60px); }
-.scroll-item.slide-right { transform: translateX(60px); }
-
-.scroll-item.visible {
-  opacity: 1;
-  transform: translateX(0) translateY(0);
-}
-
-/* ------------------ 카드 팝인 ------------------ */
-.flip-card {
-  opacity: 0;
-  transform: scale(0.8);
-  transition: all 0.35s ease-out;
-}
-
-.flip-card.visible {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.section-nav.fixed {
-    position: fixed;
-    top: 18px;
-    left: 50%;
-    transform: translateX(-50%) translateY(-20px);
-    display: flex;
-    gap: 12px;
-    padding: 12px 18px;
-    background: rgba(15, 23, 36, 0.22);   /* 🔥 거의 투명 */
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.12); /* 테두리로 존재감 */
-    border-radius: 999px;
-    z-index: 80;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.35s ease;
-}
-
-.section-nav.fixed.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-    pointer-events: auto;
-}
-
-.section-nav button {
-    background: transparent;
-    border: none;
-    font-weight: 700;
-    font-size: 14px;
-    color: var(--panel);
-    cursor: pointer;
-    padding: 6px 12px;
-    border-radius: 999px;
-    transition: 0.2s;
-}
-
-.section-nav button:hover {
-    background: var(--accent);
-    color: white;
-}
-
-body.light .section-nav button {
-    color: #1f2937;
-}
+        .modal-close {
+            position: sticky;
+            top: 0;
+            float: right;
+            font-size: 28px;
+            cursor: pointer;
+            background: none;
+            padding: 10px;
+            z-index: 50;
+        }
 
 
 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        /* ================= README 영역 전체 ================= */
+
+        #readme {
+            max-width: 100%;
+            overflow-x: hidden;
+            word-break: break-word;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* 이미지 자동 크기 */
+        #readme img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        /* 헤딩 스타일 */
+        #readme h1 {
+            font-size: 28px;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 8px;
+            margin-top: 20px;
+        }
+
+        #readme h2 {
+            font-size: 22px;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 6px;
+            margin-top: 18px;
+        }
+
+        #readme h3 {
+            font-size: 18px;
+            margin-top: 16px;
+        }
+
+        /* 문단 */
+        #readme p {
+            margin: 10px 0;
+        }
+
+        /* 리스트 */
+        #readme ul,
+        #readme ol {
+            padding-left: 20px;
+        }
+
+        #readme li {
+            margin: 6px 0;
+        }
+
+        /* 인라인 코드 */
+        #readme code {
+            background: rgba(110, 118, 129, 0.25);
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+
+        /* 코드 블록 */
+        #readme pre {
+            background: #161b22;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 12px 0;
+        }
+
+        #readme pre code {
+            background: none;
+            padding: 0;
+            white-space: pre-wrap;
+        }
+
+        /* 인용문 */
+        #readme blockquote {
+            border-left: 4px solid #30363d;
+            padding-left: 12px;
+            color: #8b949e;
+            margin: 10px 0;
+        }
+
+        /* 표 스타일 */
+        #readme table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 12px 0;
+        }
+
+        #readme th,
+        #readme td {
+            border: 1px solid #30363d;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #readme th {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* 링크 */
+        #readme a {
+            color: #58a6ff;
+            text-decoration: none;
+        }
+
+        #readme a:hover {
+            text-decoration: underline;
+        }
+
+
+        .card-video {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+
+        /* ================= 모달 애니메이션 업그레이드 ================= */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: #0f1724;
+            color: white;
+            width: 96vw;
+            max-width: 1400px;
+            height: 90vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 50px 60px;
+            border-radius: 14px;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        /* ================= 영상 썸네일 ================= */
+        .video-wrap {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .video-wrap video {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .play-btn {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            font-size: 50px;
+            color: white;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            opacity: 1;
+            transition: 0.2s;
+        }
+
+        .video-wrap:hover .play-btn {
+            opacity: 0;
+        }
+
+        /* ================= 로딩 스피너 ================= */
+        .loader {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .project-meta {
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+
+        /* ------------------ 섹션 스크롤 애니메이션 ------------------ */
+        .scroll-item {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.7s ease-out;
+            will-change: transform, opacity;
+        }
+
+        .scroll-item.slide-left {
+            transform: translateX(-60px);
+        }
+
+        .scroll-item.slide-right {
+            transform: translateX(60px);
+        }
+
+        .scroll-item.visible {
+            opacity: 1;
+            transform: translateX(0) translateY(0);
+        }
+
+        /* ------------------ 카드 팝인 ------------------ */
+        .flip-card {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.35s ease-out;
+        }
+
+        .flip-card.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .section-nav.fixed {
+            position: fixed;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            display: flex;
+            gap: 12px;
+            padding: 12px 18px;
+            background: rgba(15, 23, 36, 0.22);
+            /* 🔥 거의 투명 */
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            /* 테두리로 존재감 */
+            border-radius: 999px;
+            z-index: 80;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.35s ease;
+        }
+
+        .section-nav.fixed.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        .section-nav button {
+            background: transparent;
+            border: none;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--panel);
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 999px;
+            transition: 0.2s;
+        }
+
+        .section-nav button:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        body.light .section-nav button {
+            color: #1f2937;
+        }
+
+        /* ====================================================================== */
+
+        .portfolio-slider-wrap {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-slide {
+            min-width: 100%;
+            padding: 0 10px;
+        }
+
+        .portfolio-subtitle {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--accent-2);
+        }
+
+        /* 좌우 버튼 */
+        .slide-btn {
+            position: absolute;
+            top: 10em;
+            transform: translateY(-50%);
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--panel);
+            font-size: 20px;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .slide-btn.left {
+            left: 10px;
+        }
+
+        .slide-btn.right {
+            right: 10px;
+        }
+
+        .slide-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
     </style>
+
+
 </head>
 
 <body>
-     <div class="top-controls">
-    <!-- <button class="icon-btn" id="themeToggle" title="배경 전환">🌗</button> -->
-    <button class="icon-btn" id="download" title="이력서 다운로드">📄</button>
-</div>
+    <div class="top-controls">
+        <!-- <button class="icon-btn" id="themeToggle" title="배경 전환">🌗</button> -->
+        <button class="icon-btn" id="download" title="이력서 다운로드">📄</button>
+    </div>
 
 
 
@@ -868,8 +995,6 @@ body.light .section-nav button {
                 <div class="hero-title">길상현</div>
                 <div class="hero-sub">Fullstack Engineer · 도전하는 개발자</div>
             </div>
-
-
         </div>
     </section>
 
@@ -877,13 +1002,13 @@ body.light .section-nav button {
         <main class="wrap">
             <!-- Section Nav -->
             <nav class="section-nav fixed" id="sectionNav">
-            <button data-target="about">About</button>
-            <button data-target="skills">Skills</button>
-            <button data-target="career">Career</button>
-            <button data-target="portfolio">Portfolio</button>
-            <button data-target="contact">Contact</button>
+                <button data-target="about">About</button>
+                <button data-target="skills">Skills</button>
+                <button data-target="career">Career</button>
+                <button data-target="portfolio">Portfolio</button>
+                <button data-target="contact">Contact</button>
             </nav>
-            
+
             <section id="about" class="block scroll-item slide-left">
                 <h2 class="section-title">About Me</h2>
                 <div class="about-card">
@@ -907,25 +1032,74 @@ body.light .section-nav button {
             </section>
 
             <section class="block scroll-item slide-left">
-            <h2 class="section-title">확장성과 실행력을 갖춘 풀스택 개발자 </h2>
-            <p class="lead" id="typing-text"></p>
+                <h2 class="section-title">확장성과 실행력을 갖춘 풀스택 개발자 </h2>
+                <p class="lead" id="typing-text"></p>
             </section>
 
 
             <section class="block scroll-item slide-right">
-            <h2 class="section-title">Core Strengths (수정중)</h2>
+                <h2 class="section-title">핵심 역량</h2>
 
-            <ul class="strength-list">
-                <li>객체지향 기반 구조 설계 및 리팩토링 경험</li>
-                <li>REST API 흐름 이해 및 프론트–백엔드 연동</li>
-                <li>콘솔 → 웹 → 풀스택으로 이어지는 성장 경험</li>
-            </ul>
+                <ul class="strength-list">
+                    <li>
+                        시스템 프로그래밍(C/C++)과 자동화 소프트웨어 유지보수 경험을 바탕으로,
+                        <strong>문제를 구조적으로 분석하고 안정적으로 해결하는 역량</strong>
+                    </li>
+                    <li>
+                        Java·Spring Boot·React 기반의 웹 프로젝트를 통해
+                        <strong>아이디어를 실제 서비스로 구현하며 확장성을 고려한 개발 경험</strong>
+                    </li>
+                    <li>
+                        하드웨어–소프트웨어, 백엔드–프론트엔드를 아우르는 경험을 통해
+                        <strong>다양한 환경에서도 빠르게 적응하고 실행하는 개발자</strong>
+                    </li>
+                    <li>
+                        프로젝트 일정 지연 위기와 팀 활동 경험을 통해 쌓은
+                        <strong>협업 중심의 문제 해결과 책임감 있는 역할 수행</strong>
+                    </li>
+                </ul>
             </section>
 
 
 
 
             <section id="skills" class="block scroll-item slide-left">
+                <h2 class="section-title">Skills</h2>
+                <p class="lead">
+                    프로젝트 및 실무 경험을 통해 사용해온 기술 스택입니다.
+                </p>
+
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <h3>BACK-END</h3>
+                        <p>Java, Spring Framework, Spring Boot, RESTful API (JSON), MyBatis, JSP</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>FRONT-END</h3>
+                        <p>HTML5, CSS3, JavaScript, jQuery, Vue, Axios</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>SERVER / INFRA</h3>
+                        <p>Apache Tomcat, Nginx, AWS (EC2, S3, RDS, IAM)</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>DB</h3>
+                        <p>Oracle, MySQL</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>TOOLS</h3>
+                        <p>IntelliJ IDEA, Eclipse, Visual Studio Code</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>COLLABORATION</h3>
+                        <p>Git, Slack, Notion, Discord</p>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- <section id="skills" class="block scroll-item slide-left">
                 <h2 class="section-title">Skills & Tools</h2>
                 <p class="lead">실무에서 쓰는 기술과 툴을 시각적으로 빠르게 파악할 수 있도록 구성했습니다.</p>
                 <div class="skill-grid">
@@ -962,7 +1136,7 @@ body.light .section-nav button {
                     <div class="tool">Postgres</div>
                     <div class="tool">AWS (ECS, S3)</div>
                 </div>
-            </section>
+            </section> -->
 
             <section id="career" class="block scroll-item slide-right">
                 <h2 class="section-title">Career</h2>
@@ -971,7 +1145,7 @@ body.light .section-nav button {
                     <div class="timeline-item">
                         <h4>2025 — 2026 | 풀스택 개발자 교육 이수</h4>
                         <p>프론트엔드부터 백엔드까지 웹 개발 전반의 기술을 프로젝트 중심으로 체계적으로 습득</p>
-                        
+
                     </div>
 
                     <div class="timeline-item">
@@ -997,26 +1171,26 @@ body.light .section-nav button {
                 </div>
             </section>
 
-<section class="block scroll-item slide-left">
-  <h2 class="section-title">Development Philosophy (수정중)</h2>
-  <p class="lead">
-    동작하는 코드보다  
-    <strong>이해하기 쉬운 구조</strong>를 먼저 고민합니다.<br>
-    작은 개선이 쌓여 유지보수성을 만든다고 믿습니다.
-  </p>
-</section>
+            <!-- <section class="block scroll-item slide-left">
+                <h2 class="section-title">Development Philosophy (수정중)</h2>
+                <p class="lead">
+                    동작하는 코드보다
+                    <strong>이해하기 쉬운 구조</strong>를 먼저 고민합니다.<br>
+                    작은 개선이 쌓여 유지보수성을 만든다고 믿습니다.
+                </p>
+            </section> -->
 
+            <!-- 
+            <section class="block scroll-item slide-right">
+                <h2 class="section-title">Learning & Growth (수정중)</h2>
+                <ul>
+                    <li>객체지향 설계 원칙 지속 학습</li>
+                    <li>Spring 내부 동작 구조 학습 중</li>
+                    <li>CS 기반 코드 품질 개선 목표</li>
+                </ul>
+            </section> -->
 
-<section class="block scroll-item slide-right">
-  <h2 class="section-title">Learning & Growth (수정중)</h2>
-  <ul>
-    <li>객체지향 설계 원칙 지속 학습</li>
-    <li>Spring 내부 동작 구조 학습 중</li>
-    <li>CS 기반 코드 품질 개선 목표</li>
-  </ul>
-</section>
-
-<!-- <section class="block">
+            <!-- <section class="block">
   <h2 class="section-title">Problem Solving</h2>
 
   <div class="problem-item">
@@ -1028,299 +1202,347 @@ body.light .section-nav button {
 </section> -->
 
 
-
             <section id="portfolio" class="block scroll-item slide-left">
+                <h2 class="section-title">Portfolio</h2>
+
+                <div class="portfolio-slider-wrap">
+                    <button class="slide-btn left" onclick="prevSlide()">◀</button>
+
+                    <div class="portfolio-slider" id="portfolioSlider">
+
+                        <!-- 슬라이드 3 : 미니 프로젝트 클론 -->
+                        <div class="portfolio-slide">
+                            <h3 class="portfolio-subtitle">🧪 미니 프로젝트</h3>
+                            <div class="project-grid">
+                                <!-- 소규모 카드 -->
+                            </div>
+                        </div>
+
+                        <!-- 슬라이드 1 : 팀 프로젝트 -->
+                        <div class="portfolio-slide">
+                            <h3 class="portfolio-subtitle">👥 팀 프로젝트</h3>
+                            <div class="project-grid">
+                                <!-- 카드 8 -->
+                                <div class="flip-card" onclick="openModal('project4')">
+                                    <div class="flip-inner">
+                                        <div class="flip-face flip-front">
+                                            <h3>Project 4 - Node & React</h3>
+                                            <p class="project-desc">프론트엔드와 백엔드를 연결한 풀스택 프로젝트</p>
+
+                                            <div class="project-meta">
+                                                <p>📅 기간: 2025.04 – 2025.05</p>
+                                                <p>👥 구분: 팀 프로젝트</p>
+                                                <p>🔥 핵심 해결: API 통신 구조 설계 및 상태 관리</p>
+                                                <p>🎯 역할: React 화면 구현 · API 연동</p>
+                                            </div>
+
+                                            <div class="tech-tags">
+                                                <div class="tech-tag">React</div>
+                                                <div class="tech-tag">Node.js</div>
+                                                <div class="tech-tag">Express</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flip-face flip-back">
+                                            <h3>핵심기술</h3>
+                                            <p>프론트-백엔드 분리 · REST 통신 · 상태 관리</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- 카드 7 -->
+                                <div class="flip-card" onclick="openModal('project3')">
+                                    <div class="flip-inner">
+                                        <div class="flip-face flip-front">
+                                            <h3>Project 3 - Open API 활용</h3>
+                                            <p class="project-desc">외부 API 연동을 통한 데이터 처리 프로젝트</p>
+
+                                            <div class="project-meta">
+                                                <p>📅 기간: 2025.03</p>
+                                                <p>👥 구분: 개인 프로젝트</p>
+                                                <p>🔥 핵심 해결: 비동기 통신 및 응답 데이터 가공</p>
+                                                <p>🎯 역할: API 연동 · 데이터 파싱 · 화면 출력</p>
+                                            </div>
+
+                                            <div class="tech-tags">
+                                                <div class="tech-tag">REST API</div>
+                                                <div class="tech-tag">JSON</div>
+                                                <div class="tech-tag">Fetch</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flip-face flip-back">
+                                            <h3>핵심기술</h3>
+                                            <p>외부 API 연동 · 비동기 통신 · 데이터 가공</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 카드 6 -->
+                                <div class="flip-card" onclick="openModal('project2')">
+                                    <div class="flip-inner">
+                                        <div class="flip-face flip-front">
+                                            <h3>Project 2 - Spring Boot</h3>
+                                            <p class="project-desc">REST API 기반 백엔드 서버 구축 프로젝트</p>
+
+                                            <div class="project-meta">
+                                                <p>📅 기간: 2025.02 – 2025.03</p>
+                                                <p>👥 구분: 개인 프로젝트</p>
+                                                <p>🔥 핵심 해결: Controller-Service-Repository 계층 분리</p>
+                                                <p>🎯 역할: API 설계 · DB 연동 · CRUD 구현</p>
+                                            </div>
+
+                                            <div class="tech-tags">
+                                                <div class="tech-tag">Spring Boot</div>
+                                                <div class="tech-tag">JPA</div>
+                                                <div class="tech-tag">REST API</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flip-face flip-back">
+                                            <h3>핵심기술</h3>
+                                            <p>Spring MVC · JPA · RESTful 설계</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 카드 5 -->
+                                <div class="flip-card" onclick="openModal('project1')">
+                                    <div class="flip-inner">
+                                        <div class="flip-face flip-front">
+                                            <h3>Project 1 - Eclipse 기반 Java 프로젝트</h3>
+                                            <p class="project-desc">Eclipse 환경에서 Java 기초부터 구조 설계까지 학습한 프로젝트</p>
+
+                                            <div class="project-meta">
+                                                <p>📅 기간: 2024.11 – 2024.12</p>
+                                                <p>👥 구분: 개인 프로젝트</p>
+                                                <p>🔥 핵심 해결: 콘솔 기반 프로그램 구조화 및 예외 흐름 정리</p>
+                                                <p>🎯 역할: 전체 로직 설계 · 기능 구현</p>
+                                            </div>
+
+                                            <div class="tech-tags">
+                                                <div class="tech-tag">Java</div>
+                                                <div class="tech-tag">Eclipse</div>
+                                                <div class="tech-tag">콘솔</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flip-face flip-back">
+                                            <h3>핵심기술</h3>
+                                            <p>Java 기본 문법 · 조건문/반복문 · 예외 처리</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <!-- 슬라이드 2 : 개인 프로젝트 -->
+                        <div class="portfolio-slide">
+                            <h3 class="portfolio-subtitle">👤 개인 프로젝트</h3>
+                            <div class="project-grid">
+                                <!-- Bank / Project 1~5 카드 -->
+                                <!-- 카드 9 -->
+                                <div class="flip-card" onclick="openModal('project5')">
+                                    <div class="flip-inner">
+                                        <div class="flip-face flip-front">
+                                            <h3>Project 5 - 개인 프로젝트</h3>
+                                            <p class="project-desc">학습한 기술을 종합해 구현한 개인 프로젝트</p>
+
+                                            <div class="project-meta">
+                                                <p>📅 기간: 2025.06</p>
+                                                <p>👥 구분: 개인 프로젝트</p>
+                                                <p>🔥 핵심 해결: 전체 흐름 직접 설계 및 구현</p>
+                                                <p>🎯 역할: 기획 · 설계 · 개발 전 과정</p>
+                                            </div>
+
+                                            <div class="tech-tags">
+                                                <div class="tech-tag">Fullstack</div>
+                                                <div class="tech-tag">설계</div>
+                                                <div class="tech-tag">리팩토링</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flip-face flip-back">
+                                            <h3>핵심기술</h3>
+                                            <p>문제 해결 중심 설계 · 전체 구조 이해</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 슬라이드 3 : 미니 프로젝트 -->
+                        <div class="portfolio-slide">
+                            <h3 class="portfolio-subtitle">🧪 미니 프로젝트</h3>
+                            <div class="project-grid">
+                                <!-- 소규모 카드 -->
+                                <!-- 카드 4 -->
+                                <div class="flip-card" onclick="openModal('bank4')">
+                                    <div class="flip-inner">
+                                        <div class="flip-face flip-front">
+                                            <h3>Bank System - OOP.Ver</h3>
+                                            <p class="project-desc">
+                                                객체지향 설계로 리팩토링한 뱅킹 시스템
+                                            </p>
+
+                                            <div class="project-meta">
+                                                <p>📅 기간: 2026.02</p>
+                                                <p>👥 구분: 개인 프로젝트</p>
+                                                <p>🔥 핵심 해결: 배열·절차형 구조를 객체 단위로 분리</p>
+                                                <p>🎯 역할: 전체 설계 · 클래스 분리 · 기능 구현</p>
+                                            </div>
+
+                                            <div class="tech-tags">
+                                                <div class="tech-tag">Java</div>
+                                                <div class="tech-tag">OOP</div>
+                                                <div class="tech-tag">Method 분리</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flip-face flip-back">
+                                            <h3>핵심기술</h3>
+                                            <p>
+                                                UserInfo 모델 분리<br>
+                                                기능별 클래스 구조화<br>
+                                                객체 참조 공유 (DI 개념)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 카드 3 -->
+                                <div class="flip-card" onclick="openModal('bank3')">
+                                    <div class="flip-inner">
+                                        <div class="flip-face flip-front">
+                                            <h3>Health System - Recipe.Ver</h3>
+                                            <p class="project-desc">
+                                                건강 정보 기반 맞춤 식단 추천 시스템
+                                            </p>
+
+                                            <div class="project-meta">
+                                                <p>📅 기간: 2025.06</p>
+                                                <p>👥 구분: 개인 프로젝트</p>
+                                                <p>🔥 핵심 해결: BMI 계산 기반 맞춤 식단 추천</p>
+                                                <p>🎯 역할: 배열 구조 설계 · 조건 필터 구현</p>
+                                            </div>
+
+                                            <div class="tech-tags">
+                                                <div class="tech-tag">Java</div>
+                                                <div class="tech-tag">배열</div>
+                                                <div class="tech-tag">상태관리</div>
+                                                <div class="tech-tag">실생활도메인</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flip-face flip-back">
+                                            <h3>핵심기술</h3>
+                                            <p>
+                                                다중 사용자 배열 관리<br>
+                                                BMI 계산 로직<br>
+                                                영양소 조건 필터링
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 카드 2 -->
+                                <div class="flip-card" onclick="openModal('bank2')">
+                                    <div class="flip-inner">
+                                        <div class="flip-face flip-front">
+                                            <h3>Bank System - Array.Ver</h3>
+                                            <p class="project-desc">
+                                                배열 기반 다중 사용자 계좌 관리 시스템
+                                            </p>
+
+                                            <div class="project-meta">
+                                                <p>📅 기간: 2025.03</p>
+                                                <p>👥 구분: 개인 프로젝트</p>
+                                                <p>🔥 핵심 해결: 사용자별 배열 관리 및 충돌 방지</p>
+                                                <p>🎯 역할: 배열 구조 설계 · 로그인 기준 데이터 접근 구현</p>
+                                            </div>
+
+                                            <div class="tech-tags">
+                                                <div class="tech-tag">Java</div>
+                                                <div class="tech-tag">배열</div>
+                                                <div class="tech-tag">다중사용자</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flip-face flip-back">
+                                            <h3>핵심기술</h3>
+                                            <p>
+                                                사용자별 인덱스 관리<br>
+                                                로그인 사용자 기준 데이터 접근<br>
+                                                배열 충돌 문제 해결
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 카드 1 -->
+                                <div class="flip-card" onclick="openModal('bank1')">
+                                    <div class="flip-inner">
+                                        <div class="flip-face flip-front">
+                                            <h3>Bank System - Control.Ver</h3>
+                                            <p class="project-desc">
+                                                조건문과 상태 제어로 구현한 콘솔 기반 뱅킹 시스템
+                                            </p>
+
+                                            <div class="project-meta">
+                                                <p>📅 기간: 2025.01</p>
+                                                <p>👥 구분: 개인 프로젝트</p>
+                                                <p>🔥 핵심 해결: switch-case 및 level 변수로 메뉴 상태 제어</p>
+                                                <p>🎯 역할: 전체 로직 설계 · 상태 관리 구현</p>
+                                            </div>
+
+                                            <div class="tech-tags">
+                                                <div class="tech-tag">Java</div>
+                                                <div class="tech-tag">조건문</div>
+                                                <div class="tech-tag">상태관리</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flip-face flip-back">
+                                            <h3>핵심기술</h3>
+                                            <p>
+                                                switch-case 기반 메뉴 흐름<br>
+                                                level 변수 상태 제어<br>
+                                                로그인 전·후 기능 접근 분리
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <!-- 슬라이드 1 : 팀 프로젝트 클론 -->
+                        <div class="portfolio-slide">
+                            <h3 class="portfolio-subtitle">🧪 팀 프로젝트</h3>
+                            <div class="project-grid">
+                                <!-- 소규모 카드 -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <button class="slide-btn right" onclick="nextSlide()">▶</button>
+                </div>
+            </section>
+
+
+
+            <!-- <section id="portfolio" class="block scroll-item slide-left">
                 <h2 class="section-title">Selected Projects (timeline)</h2>
 
-<div class="project-grid">
-
-    <!-- 카드 1 -->
-<div class="flip-card" onclick="openModal('bank1')">
-    <div class="flip-inner">
-        <div class="flip-face flip-front">
-            <h3>Bank System - Control.Ver</h3>
-            <p class="project-desc">
-                조건문과 상태 제어로 구현한 콘솔 기반 뱅킹 시스템
-            </p>
-
-            <div class="project-meta">
-                <p>📅 기간: 2025.01</p>
-                <p>👥 구분: 개인 프로젝트</p>
-                <p>🔥 핵심 해결: switch-case 및 level 변수로 메뉴 상태 제어</p>
-                <p>🎯 역할: 전체 로직 설계 · 상태 관리 구현</p>
-            </div>
-
-            <div class="tech-tags">
-                <div class="tech-tag">Java</div>
-                <div class="tech-tag">조건문</div>
-                <div class="tech-tag">상태관리</div>
-            </div>
-        </div>
-
-        <div class="flip-face flip-back">
-            <h3>핵심기술</h3>
-            <p>
-                switch-case 기반 메뉴 흐름<br>
-                level 변수 상태 제어<br>
-                로그인 전·후 기능 접근 분리
-            </p>
-        </div>
-    </div>
-</div>
-
-<!-- 카드 2 -->
-<div class="flip-card" onclick="openModal('bank2')">
-    <div class="flip-inner">
-        <div class="flip-face flip-front">
-            <h3>Bank System - Array.Ver</h3>
-            <p class="project-desc">
-                배열 기반 다중 사용자 계좌 관리 시스템
-            </p>
-
-            <div class="project-meta">
-                <p>📅 기간: 2025.03</p>
-                <p>👥 구분: 개인 프로젝트</p>
-                <p>🔥 핵심 해결: 사용자별 배열 관리 및 충돌 방지</p>
-                <p>🎯 역할: 배열 구조 설계 · 로그인 기준 데이터 접근 구현</p>
-            </div>
-
-            <div class="tech-tags">
-                <div class="tech-tag">Java</div>
-                <div class="tech-tag">배열</div>
-                <div class="tech-tag">다중사용자</div>
-            </div>
-        </div>
-
-        <div class="flip-face flip-back">
-            <h3>핵심기술</h3>
-            <p>
-                사용자별 인덱스 관리<br>
-                로그인 사용자 기준 데이터 접근<br>
-                배열 충돌 문제 해결
-            </p>
-        </div>
-    </div>
-</div>
-
-<!-- 카드 3 -->
-<div class="flip-card" onclick="openModal('bank3')">
-    <div class="flip-inner">
-        <div class="flip-face flip-front">
-            <h3>Health System - Recipe.Ver</h3>
-            <p class="project-desc">
-                건강 정보 기반 맞춤 식단 추천 시스템
-            </p>
-
-            <div class="project-meta">
-                <p>📅 기간: 2025.06</p>
-                <p>👥 구분: 개인 프로젝트</p>
-                <p>🔥 핵심 해결: BMI 계산 기반 맞춤 식단 추천</p>
-                <p>🎯 역할: 배열 구조 설계 · 조건 필터 구현</p>
-            </div>
-
-            <div class="tech-tags">
-                <div class="tech-tag">Java</div>
-                <div class="tech-tag">배열</div>
-                <div class="tech-tag">상태관리</div>
-                <div class="tech-tag">실생활도메인</div>
-            </div>
-        </div>
-
-        <div class="flip-face flip-back">
-            <h3>핵심기술</h3>
-            <p>
-                다중 사용자 배열 관리<br>
-                BMI 계산 로직<br>
-                영양소 조건 필터링
-            </p>
-        </div>
-    </div>
-</div>
-
-
-
-
-    <!-- 카드 4 -->
-    <div class="flip-card" onclick="openModal('bank4')">
-        <div class="flip-inner">
-            <div class="flip-face flip-front">
-                <h3>Bank System - OOP.Ver</h3>
-                <p class="project-desc">
-                    객체지향 설계로 리팩토링한 뱅킹 시스템
-                </p>
-
-                <div class="project-meta">
-                    <p>📅 기간: 2026.02</p>
-                    <p>👥 구분: 개인 프로젝트</p>
-                    <p>🔥 핵심 해결: 배열·절차형 구조를 객체 단위로 분리</p>
-                    <p>🎯 역할: 전체 설계 · 클래스 분리 · 기능 구현</p>
+                <div class="project-grid">
                 </div>
 
-                <div class="tech-tags">
-                    <div class="tech-tag">Java</div>
-                    <div class="tech-tag">OOP</div>
-                    <div class="tech-tag">Method 분리</div>
-                </div>
-            </div>
-
-            <div class="flip-face flip-back">
-                <h3>핵심기술</h3>
-                <p>
-                    UserInfo 모델 분리<br>
-                    기능별 클래스 구조화<br>
-                    객체 참조 공유 (DI 개념)
-                </p>
-            </div>
-        </div>
-    </div>
-
-
-      <!-- 카드 5 -->
-        <div class="flip-card" onclick="openModal('project1')">
-            <div class="flip-inner">
-                <div class="flip-face flip-front">
-                    <h3>Project 1 - Eclipse 기반 Java 프로젝트</h3>
-                    <p class="project-desc">Eclipse 환경에서 Java 기초부터 구조 설계까지 학습한 프로젝트</p>
-
-                    <div class="project-meta">
-                        <p>📅 기간: 2024.11 – 2024.12</p>
-                        <p>👥 구분: 개인 프로젝트</p>
-                        <p>🔥 핵심 해결: 콘솔 기반 프로그램 구조화 및 예외 흐름 정리</p>
-                        <p>🎯 역할: 전체 로직 설계 · 기능 구현</p>
-                    </div>
-
-                    <div class="tech-tags">
-                        <div class="tech-tag">Java</div>
-                        <div class="tech-tag">Eclipse</div>
-                        <div class="tech-tag">콘솔</div>
-                    </div>
-                </div>
-
-                <div class="flip-face flip-back">
-                    <h3>핵심기술</h3>
-                    <p>Java 기본 문법 · 조건문/반복문 · 예외 처리</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 카드 6 -->
-        <div class="flip-card" onclick="openModal('project2')">
-            <div class="flip-inner">
-                <div class="flip-face flip-front">
-                    <h3>Project 2 - Spring Boot</h3>
-                    <p class="project-desc">REST API 기반 백엔드 서버 구축 프로젝트</p>
-
-                    <div class="project-meta">
-                        <p>📅 기간: 2025.02 – 2025.03</p>
-                        <p>👥 구분: 개인 프로젝트</p>
-                        <p>🔥 핵심 해결: Controller-Service-Repository 계층 분리</p>
-                        <p>🎯 역할: API 설계 · DB 연동 · CRUD 구현</p>
-                    </div>
-
-                    <div class="tech-tags">
-                        <div class="tech-tag">Spring Boot</div>
-                        <div class="tech-tag">JPA</div>
-                        <div class="tech-tag">REST API</div>
-                    </div>
-                </div>
-
-                <div class="flip-face flip-back">
-                    <h3>핵심기술</h3>
-                    <p>Spring MVC · JPA · RESTful 설계</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 카드 7 -->
-        <div class="flip-card" onclick="openModal('project3')">
-            <div class="flip-inner">
-                <div class="flip-face flip-front">
-                    <h3>Project 3 - Open API 활용</h3>
-                    <p class="project-desc">외부 API 연동을 통한 데이터 처리 프로젝트</p>
-
-                    <div class="project-meta">
-                        <p>📅 기간: 2025.03</p>
-                        <p>👥 구분: 개인 프로젝트</p>
-                        <p>🔥 핵심 해결: 비동기 통신 및 응답 데이터 가공</p>
-                        <p>🎯 역할: API 연동 · 데이터 파싱 · 화면 출력</p>
-                    </div>
-
-                    <div class="tech-tags">
-                        <div class="tech-tag">REST API</div>
-                        <div class="tech-tag">JSON</div>
-                        <div class="tech-tag">Fetch</div>
-                    </div>
-                </div>
-
-                <div class="flip-face flip-back">
-                    <h3>핵심기술</h3>
-                    <p>외부 API 연동 · 비동기 통신 · 데이터 가공</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 카드 8 -->
-        <div class="flip-card" onclick="openModal('project4')">
-            <div class="flip-inner">
-                <div class="flip-face flip-front">
-                    <h3>Project 4 - Node & React</h3>
-                    <p class="project-desc">프론트엔드와 백엔드를 연결한 풀스택 프로젝트</p>
-
-                    <div class="project-meta">
-                        <p>📅 기간: 2025.04 – 2025.05</p>
-                        <p>👥 구분: 팀 프로젝트</p>
-                        <p>🔥 핵심 해결: API 통신 구조 설계 및 상태 관리</p>
-                        <p>🎯 역할: React 화면 구현 · API 연동</p>
-                    </div>
-
-                    <div class="tech-tags">
-                        <div class="tech-tag">React</div>
-                        <div class="tech-tag">Node.js</div>
-                        <div class="tech-tag">Express</div>
-                    </div>
-                </div>
-
-                <div class="flip-face flip-back">
-                    <h3>핵심기술</h3>
-                    <p>프론트-백엔드 분리 · REST 통신 · 상태 관리</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 카드 9 -->
-        <div class="flip-card" onclick="openModal('project5')">
-            <div class="flip-inner">
-                <div class="flip-face flip-front">
-                    <h3>Project 5 - 개인 프로젝트</h3>
-                    <p class="project-desc">학습한 기술을 종합해 구현한 개인 프로젝트</p>
-
-                    <div class="project-meta">
-                        <p>📅 기간: 2025.06</p>
-                        <p>👥 구분: 개인 프로젝트</p>
-                        <p>🔥 핵심 해결: 전체 흐름 직접 설계 및 구현</p>
-                        <p>🎯 역할: 기획 · 설계 · 개발 전 과정</p>
-                    </div>
-
-                    <div class="tech-tags">
-                        <div class="tech-tag">Fullstack</div>
-                        <div class="tech-tag">설계</div>
-                        <div class="tech-tag">리팩토링</div>
-                    </div>
-                </div>
-
-                <div class="flip-face flip-back">
-                    <h3>핵심기술</h3>
-                    <p>문제 해결 중심 설계 · 전체 구조 이해</p>
-                </div>
-            </div>
-        </div>
-
-
-
-</div>
-      
-                
-            </section>
+            </section> -->
 
             <section id="contact" class="block">
                 <h2 class="section-title"></h2>
@@ -1370,45 +1592,45 @@ body.light .section-nav button {
                 }
             </script>
 
-   <script>
-async function loadReadme(repoOwner, repoName, path, containerId) {
-    const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}`;
-    const container = document.getElementById(containerId);
+            <script>
+                async function loadReadme(repoOwner, repoName, path, containerId) {
+                    const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}`;
+                    const container = document.getElementById(containerId);
 
-    try {
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`GitHub API Error: ${res.status}`);
-        const data = await res.json();
+                    try {
+                        const res = await fetch(url);
+                        if (!res.ok) throw new Error(`GitHub API Error: ${res.status}`);
+                        const data = await res.json();
 
-        // Base64 → UTF-8 변환
-        const decodedContent = (function(base64) {
-            const binary = atob(base64.replace(/\n/g, ""));
-            const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
-            return new TextDecoder("utf-8").decode(bytes);
-        })(data.content);
+                        // Base64 → UTF-8 변환
+                        const decodedContent = (function (base64) {
+                            const binary = atob(base64.replace(/\n/g, ""));
+                            const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+                            return new TextDecoder("utf-8").decode(bytes);
+                        })(data.content);
 
-        container.innerHTML = marked.parse(decodedContent);
+                        container.innerHTML = marked.parse(decodedContent);
 
-    } catch (error) {
-        console.error(error);
-        container.innerHTML = "<p>README를 불러오는 데 실패했습니다.</p>";
-    } finally {
-        const loader = container.previousElementSibling;
-        if (loader && loader.classList.contains("loader")) loader.style.display = "none";
-    }
-}
+                    } catch (error) {
+                        console.error(error);
+                        container.innerHTML = "<p>README를 불러오는 데 실패했습니다.</p>";
+                    } finally {
+                        const loader = container.previousElementSibling;
+                        if (loader && loader.classList.contains("loader")) loader.style.display = "none";
+                    }
+                }
 
-         </script>
+            </script>
 
 
             <script>
- 
+
                 function openModal(project) {
                     const modal = document.getElementById("projectModal");
                     const body = document.getElementById("modalBody");
 
                     const content = {
-                       bank1: `
+                        bank1: `
                             <h2>Bank System - Control.Ver</h2>
                             <img src="./img/project/bank1.png" class="modal-img">
                             <div class="video-wrap">
@@ -1857,162 +2079,200 @@ async function loadReadme(repoOwner, repoName, path, containerId) {
 
                 });
 
-                </script>
+            </script>
 
-                <script>
+            <script>
                 // ------------------ IntersectionObserver ------------------
                 document.addEventListener("DOMContentLoaded", () => {
-                // 섹션용 IntersectionObserver
-                const scrollItems = document.querySelectorAll(".scroll-item");
-                const sectionObserver = new IntersectionObserver((entries, obs) => {
-                    entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("visible");
-                        obs.unobserve(entry.target);
-                    }
-                    });
-                }, { threshold: 0.2 });
-                scrollItems.forEach(item => sectionObserver.observe(item));
+                    // 섹션용 IntersectionObserver
+                    const scrollItems = document.querySelectorAll(".scroll-item");
+                    const sectionObserver = new IntersectionObserver((entries, obs) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add("visible");
+                                obs.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.2 });
+                    scrollItems.forEach(item => sectionObserver.observe(item));
 
-                // 카드용 IntersectionObserver (갑자기 나타나는 팝인)
-                const cards = document.querySelectorAll(".flip-card");
-                const cardObserver = new IntersectionObserver((entries, obs) => {
-                    entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("visible");
-                        obs.unobserve(entry.target);
-                    }
-                    });
-                }, { threshold: 0.1 });
-                cards.forEach(card => cardObserver.observe(card));
+                    // 카드용 IntersectionObserver (갑자기 나타나는 팝인)
+                    const cards = document.querySelectorAll(".flip-card");
+                    const cardObserver = new IntersectionObserver((entries, obs) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add("visible");
+                                obs.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.1 });
+                    cards.forEach(card => cardObserver.observe(card));
                 });
-                </script>
-
-                
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const lines = [
-  "C/C++ 기반 시스템 경험과 Java·React·MySQL 등 최신 웹 기술을 아우르는 풀스택 개발자로서, 다양한 환경에서 확장성과 적응력을 발휘합니다. ",
-  "  새로운 기술을 빠르게 습득하고 문제 해결과 협업을 통해 서비스 가치를 높이는 실행력 있는 개발자입니다."
-];
+            </script>
 
 
-
-  const container = document.getElementById("typing-text");
-  let lineIndex = 0;
-  let charIndex = 0;
-
-  function typeChar() {
-    if (lineIndex >= lines.length) return;
-
-    const line = lines[lineIndex];
-    container.innerHTML = container.innerHTML.slice(0, container.innerHTML.length - 1) + line[charIndex] + "|";
-    charIndex++;
-
-    if (charIndex < line.length) {
-      setTimeout(typeChar, 50); // 글자 속도
-    } else {
-      container.innerHTML = container.innerHTML.slice(0, -1) + "<br>";
-      lineIndex++;
-      charIndex = 0;
-      setTimeout(typeChar, 400); // 줄 넘어갈 때 딜레이
-    }
-  }
-
-  // IntersectionObserver로 스크롤 시 시작
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        typeChar();
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.3 });
-
-  observer.observe(container);
-});
-</script>
-
-<script>
-/* ================= 테마 전환 ================= */
-const themeBtn = document.getElementById("themeToggle");
-
-// 저장된 테마 있으면 복구
-if (localStorage.getItem("theme") === "light") {
-    document.body.classList.add("light");
-}
-
-// 클릭 시 토글
-themeBtn.addEventListener("click", () => {
-    document.body.classList.toggle("light");
-
-    if (document.body.classList.contains("light")) {
-        localStorage.setItem("theme", "light");
-    } else {
-        localStorage.setItem("theme", "dark");
-    }
-});
-
-/* ================= 이력서 다운로드 ================= */
-document.getElementById("download").addEventListener("click", () => {
-    const link = document.createElement("a");
-    link.href = "./project/길상현●입사지원서●-------대체.docx"; // ✅ 이력서 경로
-    link.download = "길상현●입사지원서●-------대체.docx";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-});
-</script>
-
-<script>
-const nav = document.getElementById('sectionNav');
-const hero = document.getElementById('hero');
-
-window.addEventListener('scroll', () => {
-    const heroHeight = hero.offsetHeight;
-    const scrollY = window.scrollY;
-
-    // hero의 약 80% 이상 가려졌을 때
-    if (scrollY > heroHeight * 0.8) {
-        nav.classList.add('show');
-    } else {
-        nav.classList.remove('show');
-    }
-});
-
-// 네비 클릭 스크롤 (기존 그대로)
-document.querySelectorAll('.section-nav button').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const target = document.getElementById(btn.dataset.target);
-        if (!target) return;
-
-        const offset = 90; // 네비 높이 보정
-        const y = target.getBoundingClientRect().top + window.scrollY - offset;
-
-        window.scrollTo({
-            top: y,
-            behavior: 'smooth'
-        });
-    });
-});
-</script>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const lines = [
+                        "C/C++ 기반 시스템 경험과 Java·React·MySQL 등 최신 웹 기술을 아우르는 풀스택 개발자로서, 다양한 환경에서 확장성과 적응력을 발휘합니다. ",
+                        "  새로운 기술을 빠르게 습득하고 문제 해결과 협업을 통해 서비스 가치를 높이는 실행력 있는 개발자입니다."
+                    ];
 
 
 
+                    const container = document.getElementById("typing-text");
+                    let lineIndex = 0;
+                    let charIndex = 0;
 
+                    function typeChar() {
+                        if (lineIndex >= lines.length) return;
+
+                        const line = lines[lineIndex];
+                        container.innerHTML = container.innerHTML.slice(0, container.innerHTML.length - 1) + line[charIndex] + "|";
+                        charIndex++;
+
+                        if (charIndex < line.length) {
+                            setTimeout(typeChar, 50); // 글자 속도
+                        } else {
+                            container.innerHTML = container.innerHTML.slice(0, -1) + "<br>";
+                            lineIndex++;
+                            charIndex = 0;
+                            setTimeout(typeChar, 400); // 줄 넘어갈 때 딜레이
+                        }
+                    }
+
+                    // IntersectionObserver로 스크롤 시 시작
+                    const observer = new IntersectionObserver((entries, obs) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                typeChar();
+                                obs.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.3 });
+
+                    observer.observe(container);
+                });
+            </script>
+
+            <script>
+                /* ================= 테마 전환 ================= */
+                const themeBtn = document.getElementById("themeToggle");
+
+                // 저장된 테마 있으면 복구
+                if (localStorage.getItem("theme") === "light") {
+                    document.body.classList.add("light");
+                }
+
+                // 클릭 시 토글
+                themeBtn.addEventListener("click", () => {
+                    document.body.classList.toggle("light");
+
+                    if (document.body.classList.contains("light")) {
+                        localStorage.setItem("theme", "light");
+                    } else {
+                        localStorage.setItem("theme", "dark");
+                    }
+                });
+
+                /* ================= 이력서 다운로드 ================= */
+                document.getElementById("download").addEventListener("click", () => {
+                    const link = document.createElement("a");
+                    link.href = "./project/길상현●입사지원서●-------대체.docx"; // ✅ 이력서 경로
+                    link.download = "길상현●입사지원서●-------대체.docx";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
+            </script>
+
+            <script>
+                const nav = document.getElementById('sectionNav');
+                const hero = document.getElementById('hero');
+
+                window.addEventListener('scroll', () => {
+                    const heroHeight = hero.offsetHeight;
+                    const scrollY = window.scrollY;
+
+                    // hero의 약 80% 이상 가려졌을 때
+                    if (scrollY > heroHeight * 0.8) {
+                        nav.classList.add('show');
+                    } else {
+                        nav.classList.remove('show');
+                    }
+                });
+
+                // 네비 클릭 스크롤 (기존 그대로)
+                document.querySelectorAll('.section-nav button').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const target = document.getElementById(btn.dataset.target);
+                        if (!target) return;
+
+                        const offset = 90; // 네비 높이 보정
+                        const y = target.getBoundingClientRect().top + window.scrollY - offset;
+
+                        window.scrollTo({
+                            top: y,
+                            behavior: 'smooth'
+                        });
+                    });
+                });
+            </script>
+
+            <script>
+                const slider = document.getElementById("portfolioSlider");
+                const realCount = 3;
+                let current = 1; // 시작은 첫 실제 슬라이드
+                let isMoving = false;
+
+                // 초기 위치 세팅
+                slider.style.transform = "translateX(-100%)";
+
+                function goTo(index, transition = true) {
+                    slider.style.transition = transition ? "transform 0.6s ease" : "none";
+                    slider.style.transform = `translateX(-${index * 100}%)`;
+                    current = index;
+                }
+
+                function nextSlide() {
+                    if (isMoving) return;
+                    isMoving = true;
+                    goTo(current + 1);
+                }
+
+                function prevSlide() {
+                    if (isMoving) return;
+                    isMoving = true;
+                    goTo(current - 1);
+                }
+
+                slider.addEventListener("transitionend", () => {
+                    // 오른쪽 끝 → 첫 실제
+                    if (current === realCount + 1) {
+                        goTo(1, false);
+                    }
+
+                    // 왼쪽 끝 → 마지막 실제
+                    if (current === 0) {
+                        goTo(realCount, false);
+                    }
+
+                    isMoving = false;
+                });
+            </script>
 
         </main>
         <footer style="padding:28px 0;text-align:center;color:var(--muted)">© 2025 길상현</footer>
     </div>
 
     <div id="projectModal" class="modal">
-    <div class="modal-content">
-        <span class="modal-close" onclick="closeModal()">✖</span>
-        <div id="modalBody"></div>
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">✖</span>
+            <div id="modalBody"></div>
+        </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 </body>
 
