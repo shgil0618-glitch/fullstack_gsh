@@ -86,7 +86,7 @@ Spring Boot 기반 레시피 추천 UGC 웹 서비스 (기능 고도화 프로�
 * **성과**: 운영 비용 절감 및 시스템 안정성 확보
 
 ### 3) 검색 기능 고도화
-![alt text](image.png)
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project3_Api/img/image.png)
 * 검색어 · 카테고리 · 정렬 기준을 조합한 검색 구조 설계
 * EXISTS + JOIN 병행 사용으로 쿼리 최적화
 * **성과**: 검색 정확도 및 조회 속도 개선
