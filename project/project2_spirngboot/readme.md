@@ -61,14 +61,14 @@ Spring MVC와 MyBatis를 활용해 **웹 서비스의 기본 구조 설계**, **
 ## 5. 담당 업무 및 성과
 
 ### 1) 권한별 UI 설계 및 템플릿 분리
-![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project2_Springboot/img/image.png)
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project2_springboot/img/image.png)
 * Spring Security 기반 권한 구분
 * 헤더 · 네비게이션을 권한별로 동적 구성
 * 템플릿 단위 분리 및 재사용 구조 설계
 * **성과**: 권한별 UI 흐름 안정화, 유지보수성 향상
 
 ### 2) 검색 · 카테고리 정렬 로직 구현
-![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project2_Springboot/img/image-1.png)
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project2_springboot/img/image-1.png)
 
 * 검색어 + 카테고리 기준 검색 구조 설계
 * 복합 JOIN · 서브쿼리 활용
@@ -76,15 +76,15 @@ Spring MVC와 MyBatis를 활용해 **웹 서비스의 기본 구조 설계**, **
 * **성과**: 검색 정확도 및 조회 속도 개선
 
 ### 3) AJAX 페이징 및 실시간 검색 반영
-![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project2_Springboot/img/image-2.png)
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project2_springboot/img/image-2.png)
 * 페이지 전체 새로고침 없이 부분 갱신 방식 적용
 * 검색 조건 변경 시 실시간 결과 반영
 * **성과**: 로딩 속도 개선 및 UX 향상
 
 ### 4) 게시판 CRUD 구현
-![](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project2_Springboot/img/image-3.png)
-![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project2_Springboot/img/image-4.png)
-![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project2_Springboot/img/image-5.png)
+![](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project2_springboot/img/image-3.png)
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project2_springboot/img/image-4.png)
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project2_springboot/img/image-5.png)
 * 게시글 생성 / 수정 / 삭제 / 조회 기능 구현
 * 입력 값 검증 및 예외 처리
 * **성과**: 안정적인 커뮤니티 기능 확보
