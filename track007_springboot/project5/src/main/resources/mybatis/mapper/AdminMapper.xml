@@ -8,13 +8,13 @@
         u.EMAIL as "EMAIL",
         u.NICKNAME as "NICKNAME",
         u.ROLE as "ROLE",
-        TO_CHAR(u.CREATED_AT, 'YYYY-MM-DD') as "CREATED_AT", NVL(m.STATUS, 'NORMAL') as "STATUS",               NVL(m.SUSPEND_REASON, '') as "SUSPEND_REASON"      FROM BUG3 u
-    LEFT JOIN BUG3_MANAGE m ON u.APPUSERID = m.APPUSERID
+        TO_CHAR(u.CREATED_AT, 'YYYY-MM-DD') as "CREATED_AT", NVL(m.STATUS, 'NORMAL') as "STATUS",               NVL(m.SUSPEND_REASON, '') as "SUSPEND_REASON"      FROM bug5 u
+    LEFT JOIN bug5_MANAGE m ON u.APPUSERID = m.APPUSERID
     ORDER BY u.CREATED_AT DESC
 </select>
 
 	<update id="upsertUserStatus" parameterType="map">
-    MERGE INTO BUG3_MANAGE m
+    MERGE INTO bug5_MANAGE m
     USING DUAL
     ON (m.APPUSERID = #{appUserId, jdbcType=INTEGER}) WHEN MATCHED THEN
         UPDATE SET 
@@ -27,11 +27,11 @@
 </update>
 
 	<update id="updateUserRole">
-		UPDATE BUG3 SET ROLE = #{role} WHERE APPUSERID = #{appUserId}
+		UPDATE bug5 SET ROLE = #{role} WHERE APPUSERID = #{appUserId}
 	</update>
 
 	<select id="findByEmail" resultType="com.thejoa703.dto.UserDto">
-		SELECT * FROM BUG3 WHERE EMAIL = #{email}
+		SELECT * FROM bug5 WHERE EMAIL = #{email}
 	</select>
 
 </mapper>
