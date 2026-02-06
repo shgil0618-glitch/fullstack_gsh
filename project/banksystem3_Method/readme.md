@@ -61,7 +61,7 @@ Bank_Main 실행 (UserInfo 및 서비스 객체들 생성)
 ## 🎮 주요 기능
 
 ### 1️⃣ 객체 기반 회원 정보 등록 (`Add`)
-
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/banksystem3_Method/img/project3-0.PNG)
 * `UserInfo` 객체의 상태를 초기화
 * 아이디, 비밀번호, 초기 잔액을 입력받아 객체에 저장
 
@@ -75,7 +75,7 @@ Bank_Main 실행 (UserInfo 및 서비스 객체들 생성)
 
 
 ### 3️⃣ 입금 및 출금 시스템 (`Deposit`, `Withdraw`)
-
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/banksystem3_Method/img/project3-1.PNG)
 * 현재 잔액(`getBalance()`)을 조회하여 연산 후 다시 저장(`setBalance()`)
 * 데이터에 직접 접근하지 않고 메서드를 통해 상태를 변경하는
   **캡슐화 원칙 준수**
@@ -83,7 +83,7 @@ Bank_Main 실행 (UserInfo 및 서비스 객체들 생성)
 
 
 ### 4️⃣ 정보 조회 및 삭제 (`Show`, `Delete`)
-
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/banksystem3_Method/img/project3-2.PNG)
 * **Show**
   현재 로그인된 사용자의 상세 정보(ID, 잔액 등) 출력
 

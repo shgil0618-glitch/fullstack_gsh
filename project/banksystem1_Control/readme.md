@@ -47,7 +47,7 @@ Java 기초 문법인 조건문과 반복문을 활용하여
 ## 🎮 주요 기능
 
 ### 1️⃣ 메뉴 기반 상태 제어
-
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/banksystem1_Control/img/project1-0.PNG)
 - `level` 변수를 중심으로 한  
   **switch-case 구조의 메뉴 흐름 제어**
 - 회원가입 → 로그인 → 기능 접근 순서를 강제하여  
@@ -56,7 +56,7 @@ Java 기초 문법인 조건문과 반복문을 활용하여
 
 
 ### 2️⃣ 회원 시스템
-
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/banksystem1_Control/img/project1-1.PNG)
 - 회원가입 / 로그인 / 계정 삭제 기능 제공  
 - 로그인 여부에 따라 기능 접근 제한  
 - 이전에 사용한 ID 재사용 방지 처리
@@ -64,7 +64,7 @@ Java 기초 문법인 조건문과 반복문을 활용하여
 
 
 ### 3️⃣ 입금 / 출금 기능
-
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/banksystem1_Control/img/project1-2.PNG)
 - 잔액 검사 및 예외 처리  
 - 입금 및 출금 시 경험치(`exp`) 증가  
 - 잔액에 따른 **고객 등급 자동 판별**
@@ -73,7 +73,7 @@ Java 기초 문법인 조건문과 반복문을 활용하여
 
 
 ### 4️⃣ 게임 요소 도입
-
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/banksystem1_Control/img/project1-3.PNG)
 단순 은행 시스템에서 벗어나  
 **사용자 참여형 요소**를 추가했습니다.
 

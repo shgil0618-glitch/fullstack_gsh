@@ -43,21 +43,25 @@
 ## 🎮 시스템 특징
 
 ### 1️⃣ 메뉴 기반 상태 제어
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/banksystem2_Array/healthsystem/img/project2-0.PNG)
 - `level` 변수를 활용한 **switch-case 메뉴 구조**
 - 회원가입 → 로그인 → 기능 접근 순서 강제
 - 비정상 입력에 대한 예외 처리(`hasNextInt`, `hasNextDouble`)
 
----
+
 
 ### 2️⃣ 다중 회원 시스템
+
 - 최대 `MAX_USERS = 3` 명까지 회원 관리
 - ID 중복 검사 로직 구현
 - 회원 탈퇴 시 배열 데이터 초기화
 - 로그인 성공 시 사용자별 데이터 접근 가능
 
----
+
 
 ### 3️⃣ 건강 정보 조회 (BMI 기반)
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/banksystem2_Array/healthsystem/img/project2-1.PNG)
+
 - 키(cm), 체중(kg)을 이용한 BMI 계산
 - BMI 수치에 따라 건강 등급 분류
   - 🍃 Underweight
@@ -66,9 +70,10 @@
   - ⚠ Obese
 - 다음 목표 체중(증가/감량) 안내 메시지 제공
 
----
+
 
 ### 4️⃣ 식단 추천 시스템 (영양소 기반)
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/banksystem2_Array/healthsystem/img/project2-2.PNG)
 사용자 입력에 따라 **맞춤형 레시피 추천 기능**을 제공합니다.
 
 - 기준 요소
@@ -82,6 +87,7 @@
 ---
 
 ### 5️⃣ 요리 레시피 제공
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/banksystem2_Array/healthsystem/img/project2-3.PNG)
 - 메뉴명을 입력하면 해당 요리 레시피 출력
 - 재료 + 단계별 조리 방법 제공
 - 등록되지 않은 메뉴 입력 시 예외 처리
@@ -89,9 +95,14 @@
 ---
 
 ### 6️⃣ 사용자 맞춤 식단 저장
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/banksystem2_Array/healthsystem/img/project2-4.PNG)
 - 사용자별 즐겨찾기 식단 최대 5개 저장
 - 중복 저장 방지
 - 저장된 식단 목록 조회 가능
+
+
+### 7️⃣ 종료
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/banksystem2_Array/healthsystem/img/project2-5.PNG)
 
 ---
 
