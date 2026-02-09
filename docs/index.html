@@ -1011,6 +1011,13 @@
             z-index: 10;
         }
 
+        
+.slide-btn.disabled {
+  opacity: 0.25;
+  cursor: default;
+  pointer-events: none;
+}
+
         .slide-btn.left {
             left: 10px;
         }
@@ -1322,8 +1329,10 @@
 
 
                 <div class="portfolio-slider-wrap">
-                    <button class="slide-btn left" onclick="prevSlide()">◀</button>
+                    <button class="slide-btn left" id="prevBtn" onclick="prevSlide()">◀</button>
+                    <!-- <button class="slide-btn left" onclick="prevSlide()">◀</button> -->
 
+                    
                     <div class="portfolio-slider" id="portfolioSlider">
 
                         <!-- 슬라이드 3 : 미니 프로젝트 클론 -->
@@ -1745,8 +1754,8 @@
                         </div>
 
                     </div>
-
-                    <button class="slide-btn right" onclick="nextSlide()">▶</button>
+                     <button class="slide-btn right" id="nextBtn" onclick="nextSlide()">▶</button>
+                    <!-- <button class="slide-btn right" onclick="nextSlide()">▶</button> -->
                 </div>
             </section>
 
@@ -2457,7 +2466,48 @@
                 });
             </script>
 
-            <script>
+<script>
+let currentIndex = 0;
+const totalPages = 2;
+
+const slider = document.getElementById("portfolioSlider");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const pageIndicator = document.getElementById("pageIndicator");
+
+function updateUI() {
+  // 슬라이드 이동
+  slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+  // 버튼 활성 / 비활성
+  prevBtn.classList.toggle("disabled", currentIndex === 0);
+  nextBtn.classList.toggle("disabled", currentIndex === totalPages - 1);
+
+  // 하단 텍스트
+  pageIndicator.textContent =
+    currentIndex === 0 ? "👥 팀 프로젝트" : "🧪 미니 프로젝트";
+}
+
+function nextSlide() {
+  if (currentIndex < totalPages - 1) {
+    currentIndex++;
+    updateUI();
+  }
+}
+
+function prevSlide() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    updateUI();
+  }
+}
+
+// 초기 상태 세팅
+updateUI();
+
+
+</script>
+            <!-- <script>
                 const slider = document.getElementById("portfolioSlider");
                 const realCount = 2;
                 let current = 1; // 시작은 첫 실제 슬라이드
@@ -2497,7 +2547,7 @@
 
                     isMoving = false;
                 });
-            </script>
+            </script> -->
 
         </main>
         <footer style="padding:28px 0;text-align:center;color:var(--muted)">© 2025 길상현</footer>
