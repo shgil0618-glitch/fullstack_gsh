@@ -2397,21 +2397,21 @@
                 /* ================= 테마 전환 ================= */
                 const themeBtn = document.getElementById("themeToggle");
 
-                // 저장된 테마 있으면 복구
-                if (localStorage.getItem("theme") === "light") {
-                    document.body.classList.add("light");
-                }
+                // // 저장된 테마 있으면 복구
+                // if (localStorage.getItem("theme") === "light") {
+                //     document.body.classList.add("light");
+                // }
 
-                // 클릭 시 토글
-                themeBtn.addEventListener("click", () => {
-                    document.body.classList.toggle("light");
+                // // 클릭 시 토글
+                // themeBtn.addEventListener("click", () => {
+                //     document.body.classList.toggle("light");
 
-                    if (document.body.classList.contains("light")) {
-                        localStorage.setItem("theme", "light");
-                    } else {
-                        localStorage.setItem("theme", "dark");
-                    }
-                });
+                //     if (document.body.classList.contains("light")) {
+                //         localStorage.setItem("theme", "light");
+                //     } else {
+                //         localStorage.setItem("theme", "dark");
+                //     }
+                // });
 
                 /* ================= 이력서 다운로드 ================= */
                 document.getElementById("download").addEventListener("click", () => {
