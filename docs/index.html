@@ -172,6 +172,23 @@
             font-size: 18px;
         }
 
+        .scroll-hint {
+    position: absolute;
+    bottom: 40px;          /* 화면 하단에서 40px 위 */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7); /* 반투명 글자 */
+    animation: fadeBlink 2s infinite; /* 깜빡임 효과 */
+    pointer-events: none;  /* 클릭 방해 안 하도록 */
+}
+
+/* 깜빡임 애니메이션 */
+@keyframes fadeBlink {
+    0%   { opacity: 0.2; }
+    50%  { opacity: 1; }
+    100% { opacity: 0.2; }
+}
 
 
         /* about me */
@@ -996,33 +1013,45 @@
         }
 
         /* 좌우 버튼 */
-        .slide-btn {
-            position: absolute;
-            top: 10em;
-            transform: translateY(-50%);
-            background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: var(--panel);
-            font-size: 20px;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 10;
-        }
+.slide-btn {
+    position: absolute;
+    top: 10em;
+    transform: translateY(-50%);
+    background: var(--glass);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--panel);
+    font-size: 20px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
 
-        .slide-btn.left {
-            left: 10px;
-        }
+    /* 반짝임 애니메이션 추가 */
+    animation: blink 2s infinite;
+}
 
-        .slide-btn.right {
-            right: 10px;
-        }
+.slide-btn.left {
+    left: 10px;
+}
 
-        .slide-btn:hover {
-            background: var(--accent);
-            color: white;
-        }
+.slide-btn.right {
+    right: 10px;
+}
+
+.slide-btn:hover {
+    background: var(--accent);
+    color: white;
+}
+
+
+
+/* 반짝임 효과 정의 */
+@keyframes blink {
+    0%   { box-shadow: 0 0 5px var(--accent); }
+    50%  { box-shadow: 0 0 15px var(--accent); background: var(--accent); color: white; }
+    100% { box-shadow: 0 0 5px var(--accent); }
+}
 
         .closing-line {
             text-align: center;
@@ -1089,13 +1118,16 @@
 
 
     <section id="hero" class="hero star-bg">
-        <div class="container">
-            <div class="hero-card">
-                <div class="hero-title">길상현</div>
-                <div class="hero-sub">Fullstack Engineer · 도전하는 개발자</div>
-            </div>
+    <div class="container">
+        <div class="hero-card">
+            <div class="hero-title">길상현</div>
+            <div class="hero-sub">Fullstack Engineer · 도전하는 개발자</div>
         </div>
-    </section>
+    </div>
+
+    <!-- 스크롤 안내 문구 -->
+    <div class="scroll-hint">⬇ 스크롤을 올려주세요 ⬇</div>
+</section>
 
 
 
@@ -1322,17 +1354,18 @@
 
 
                 <div class="portfolio-slider-wrap">
-                    <button class="slide-btn left" onclick="prevSlide()">◀</button>
+                    <button class="slide-btn left" id="prevBtn" onclick="prevSlide()">◀</button>
+
 
                     <div class="portfolio-slider" id="portfolioSlider">
 
                         <!-- 슬라이드 3 : 미니 프로젝트 클론 -->
-                        <div class="portfolio-slide">
+                        <!-- <div class="portfolio-slide">
                             <h3 class="portfolio-subtitle">🧪 미니 프로젝트</h3>
                             <div class="project-grid">
-                                <!-- 소규모 카드 -->
+                                
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- 슬라이드 1 : 팀 프로젝트 -->
                         <div class="portfolio-slide">
@@ -1737,16 +1770,17 @@
 
 
                         <!-- 슬라이드 1 : 팀 프로젝트 클론 -->
-                        <div class="portfolio-slide">
+                        <!-- <div class="portfolio-slide">
                             <h3 class="portfolio-subtitle">🧪 팀 프로젝트</h3>
                             <div class="project-grid">
-                                <!-- 소규모 카드 -->
+                               
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
+                    
+                    <button class="slide-btn right" id="nextBtn" onclick="nextSlide()">▶</button>
 
-                    <button class="slide-btn right" onclick="nextSlide()">▶</button>
                 </div>
             </section>
 
@@ -2456,46 +2490,54 @@
             </script>
 
             <script>
-                const slider = document.getElementById("portfolioSlider");
-                const realCount = 2;
-                let current = 1; // 시작은 첫 실제 슬라이드
-                let isMoving = false;
+    const slider = document.getElementById("portfolioSlider");
+    const realCount = 1; // 총 2페이지
+    let current = 0;
+    let isMoving = false;
 
-                // 초기 위치 세팅
-                slider.style.transform = "translateX(-100%)";
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
 
-                function goTo(index, transition = true) {
-                    slider.style.transition = transition ? "transform 0.6s ease" : "none";
-                    slider.style.transform = `translateX(-${index * 100}%)`;
-                    current = index;
-                }
+    // 초기 위치 세팅
+    slider.style.transform = "translateX(0%)";
 
-                function nextSlide() {
-                    if (isMoving) return;
-                    isMoving = true;
-                    goTo(current + 1);
-                }
+    function updateButtons() {
+        if (current === 0) {
+            prevBtn.style.display = "none";   // 첫 페이지 → prev 숨김
+            nextBtn.style.display = "inline-block"; // next 표시
+        } else if (current === realCount) {
+            prevBtn.style.display = "inline-block"; // prev 표시
+            nextBtn.style.display = "none";   // 두 번째 페이지 → next 숨김
+        }
+    }
 
-                function prevSlide() {
-                    if (isMoving) return;
-                    isMoving = true;
-                    goTo(current - 1);
-                }
+    function goTo(index, transition = true) {
+        slider.style.transition = transition ? "transform 0.6s ease" : "none";
+        slider.style.transform = `translateX(-${index * 100}%)`;
+        current = index;
+        updateButtons();
+    }
 
-                slider.addEventListener("transitionend", () => {
-                    // 오른쪽 끝 → 첫 실제
-                    if (current === realCount + 1) {
-                        goTo(1, false);
-                    }
+    function nextSlide() {
+        if (isMoving || current >= realCount) return;
+        isMoving = true;
+        goTo(current + 1);
+    }
 
-                    // 왼쪽 끝 → 마지막 실제
-                    if (current === 0) {
-                        goTo(realCount, false);
-                    }
+    function prevSlide() {
+        if (isMoving || current <= 0) return;
+        isMoving = true;
+        goTo(current - 1);
+    }
 
-                    isMoving = false;
-                });
-            </script>
+    slider.addEventListener("transitionend", () => {
+        isMoving = false;
+    });
+
+    // 초기 버튼 상태 세팅
+    updateButtons();
+</script>
+
 
         </main>
         <footer style="padding:28px 0;text-align:center;color:var(--muted)">© 2025 길상현</footer>
