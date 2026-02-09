@@ -94,8 +94,8 @@ View(JSP)
 ### 1) 레시피 게시판 CRUD 기능 구현
 
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project1_Eclipse/img/project4-0.PNG)
-![alt text](project4-1.PNG)
-![alt text](project4-2.PNG)
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project1_Eclipse/img/project4-1.PNG)
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project1_Eclipse/img/project4-2.PNG)
 
 * 레시피 목록 조회 및 상세 조회 기능 구현
 * 레시피 등록 / 수정 / 삭제 기능 전체 흐름 설계

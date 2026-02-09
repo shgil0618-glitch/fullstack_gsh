@@ -74,6 +74,7 @@
 
 ### 4️⃣ 식단 추천 시스템 (영양소 기반)
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/banksystem2_Array/healthsystem/img/project2-2.PNG)
+
 사용자 입력에 따라 **맞춤형 레시피 추천 기능**을 제공합니다.
 
 - 기준 요소
@@ -84,7 +85,7 @@
   - 영양소 정보 출력
   - 달리기 / 수영 기준 소모 시간 안내
 
----
+
 
 ### 5️⃣ 요리 레시피 제공
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/banksystem2_Array/healthsystem/img/project2-3.PNG)
@@ -92,7 +93,7 @@
 - 재료 + 단계별 조리 방법 제공
 - 등록되지 않은 메뉴 입력 시 예외 처리
 
----
+
 
 ### 6️⃣ 사용자 맞춤 식단 저장
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/banksystem2_Array/healthsystem/img/project2-4.PNG)
@@ -118,7 +119,7 @@
  → 메뉴 복귀 또는 종료
 ```
 
----
+
 
 ## ▶ 실행 방법
 
@@ -175,7 +176,6 @@
  → level = old_level 복귀
 ```
 
----
 
 ### ✅ 결과
 
