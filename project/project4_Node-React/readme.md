@@ -8,8 +8,7 @@ Spring Boot · JPA 기반 레시피 공유 SNS 웹 서비스 (실시간·인터�
 
 **“오늘 뭐먹지? SNS”**는 기존 레시피 서비스에서 확장된 형태로,
 레시피를 중심으로 한 **SNS(User Generated Content) 웹 서비스**를 목표로 한 팀 프로젝트입니다.
-게시글 공유, 좋아요·리트윗·해시태그와 같은 **SNS 핵심 인터랙션**과
-WebSocket 기반 **실시간 소통 기능**을 구현하여 사용자 참여도를 높이는 데 집중했습니다.
+게시글 공유, 좋아요·리트윗·해시태그와 같은 **SNS 핵심 인터랙션** 을 구현하여 사용자 참여도를 높이는 데 집중했습니다.
 
 * **프로젝트 성격**: 팀 프로젝트 (SNS 서비스 구축)
 * **목표**: 실시간성과 상호작용을 갖춘 레시피 공유 SNS 구현
@@ -42,7 +41,6 @@ WebSocket 기반 **실시간 소통 기능**을 구현하여 사용자 참여도
 
 * React
 * Ant Design (Antd)
-* Chart.js
 
 ### Others
 
@@ -79,21 +77,27 @@ WebSocket 기반 **실시간 소통 기능**을 구현하여 사용자 참여도
 
    * 자주 조회되는 데이터 캐싱을 통한 성능 최적화
 
-6. **소켓 통신 기반 실시간 기능**
-
-   * WebSocket을 활용한 실시간 채팅 기능 제공
-
 ---
 
 ## 5. 담당 업무 및 성과
 
-* **게시글 CRUD 구현**: 레시피 게시글 생성·수정·삭제·조회 API를 설계·구현하여 SNS 콘텐츠 생성 흐름을 안정화함.
+### 1) 게시글 CRUD 구현
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/pro5-4.PNG)
+![alt text](img/pro5-5.PNG)
+ * 레시피 게시글 생성·수정·삭제·조회 API를 설계·구현하여 SNS 콘텐츠 생성 흐름을 안정화함.
 
-* **SNS 인터랙션 기능 구현**: 좋아요·리트윗·해시태그 기능을 구현하고 사용자 반응 상태 관리 로직을 적용함.
+<br>
 
-* **반응 데이터 처리 최적화**: JPA와 MyBatis를 병행 사용해 조회·상태 변경 로직의 처리 효율을 개선함.
+### 2) SNS 인터랙션 기능 구현
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/project5-1.PNG)
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/pr5-2.PNG)
+* 좋아요·리트윗·해시태그 기능을 구현하고 사용자 반응 상태 관리 로직을 적용함.
 
-* **WebSocket 기반 실시간 기능 구현**: 실시간 채팅 메시지 송수신 로직을 구현해 사용자 간 즉각적인 소통 환경을 구축함.
+<br>
+
+### 3) 반응 데이터 처리 최적화
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/pro5-6.PNG)
+* JPA와 MyBatis를 병행 사용해 조회·상태 변경 로직의 처리 효율을 개선함.
 
 ---
 
@@ -106,7 +110,6 @@ WebSocket 기반 **실시간 소통 기능**을 구현하여 사용자 참여도
 * **해결**: 사용자 ID + 게시글 ID 기준 유니크 제약과 서버 측 반응 토글 로직을 적용함.
 * **성과**: 반응 데이터 무결성을 확보하고 SNS 인터랙션 신뢰도를 향상시킴.
 * **학습**: SNS 서비스에서는 UI뿐 아니라 데이터 레벨에서의 상태 관리가 필수적임을 이해함.
-* **향후 개선 계획**: Redis 기반 반응 상태 캐싱과 비동기 처리 도입을 검토해 대규모 트래픽 대응을 강화할 예정.
 
 ---
 
