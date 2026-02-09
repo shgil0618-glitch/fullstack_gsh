@@ -404,6 +404,25 @@
         .flip-card {
             transition: all 0.25s ease;
             border-radius: 14px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .flip-card::after {
+            content: "자세히 보기 ↗";
+            position: absolute;
+            bottom: 16px;
+            right: 18px;
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.65);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            pointer-events: none;
+        }
+
+        .flip-card:hover::after {
+            opacity: 1;
         }
 
         .flip-card.best {
@@ -455,8 +474,9 @@
             overflow-y: auto;
             /* 추가 */
             backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
+            display: block;
+            /* display: flex; */
+            /* flex-direction: column; */
             align-items: flex-start;
             justify-content: flex-start;
             padding: 20px;
@@ -533,50 +553,49 @@
             }
         }
 
-.project-links {
-    margin-top: 14px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
+        .project-links {
+            margin-top: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
-.project-links a {
-    padding: 8px 14px;
-    border-radius: 999px; /* pill 버튼 */
-    background: linear-gradient(
-        135deg,
-        rgba(99, 102, 241, 0.9),
-        rgba(245, 158, 11, 0.9)
-    );
-    color: #fff;
-    font-size: 13px;
-    font-weight: 700;
-    text-decoration: none;
+        .project-links a {
+            padding: 8px 14px;
+            border-radius: 999px;
+            /* pill 버튼 */
+            background: linear-gradient(135deg,
+                    rgba(99, 102, 241, 0.9),
+                    rgba(245, 158, 11, 0.9));
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
 
-    box-shadow:
-        0 6px 16px rgba(99, 102, 241, 0.35),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+            box-shadow:
+                0 6px 16px rgba(99, 102, 241, 0.35),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.25);
 
-    transition: 
-        transform 0.15s ease,
-        box-shadow 0.15s ease,
-        filter 0.15s ease;
-}
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.15s ease,
+                filter 0.15s ease;
+        }
 
-/* 👉 눌러보고 싶은 포인트 */
-.project-links a:hover {
-    transform: translateY(-2px) scale(1.04);
-    box-shadow:
-        0 10px 26px rgba(99, 102, 241, 0.5);
-    filter: brightness(1.1);
-}
+        /* 👉 눌러보고 싶은 포인트 */
+        .project-links a:hover {
+            transform: translateY(-2px) scale(1.04);
+            box-shadow:
+                0 10px 26px rgba(99, 102, 241, 0.5);
+            filter: brightness(1.1);
+        }
 
-/* 👉 클릭감 */
-.project-links a:active {
-    transform: translateY(0) scale(0.97);
-    box-shadow:
-        0 4px 10px rgba(0, 0, 0, 0.3);
-}
+        /* 👉 클릭감 */
+        .project-links a:active {
+            transform: translateY(0) scale(0.97);
+            box-shadow:
+                0 4px 10px rgba(0, 0, 0, 0.3);
+        }
 
 
         /* ================= 기술 태그 ================= */
@@ -1013,21 +1032,48 @@
             margin: 0 auto;
         }
 
-.readme-title {
-    font-size: 24px;
-    margin-bottom: 8px;
-}
+        .readme-title {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
 
-.readme-divider {
-    width: 100%;
-    height: 1px;
-    margin: 12px 0 24px;
-    background: #ffffff;
-    opacity: 0.6;
-}
+        .readme-divider {
+            width: 100%;
+            height: 1px;
+            margin: 12px 0 24px;
+            background: #ffffff;
+            opacity: 0.6;
+        }
 
 
+        /* 카드 내부 좌우 분할 */
+        .project-layout {
+            display: flex;
+            height: 100%;
+            align-items: center;
+        }
 
+        /* 왼쪽 이미지 */
+        .project-image {
+            width: 40%;
+            height: 100%;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 오른쪽 글 */
+        .project-content {
+            width: 60%;
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* 아래 여백 제거 */
+        }
     </style>
 
 
@@ -1270,8 +1316,10 @@
 
 
 
-            <section id="portfolio" class="block scroll-item slide-left">
+           <section id="portfolio" class="block scroll-item slide-left">
                 <h2 class="section-title">Portfolio</h2>
+
+
 
                 <div class="portfolio-slider-wrap">
                     <button class="slide-btn left" onclick="prevSlide()">◀</button>
@@ -1293,28 +1341,42 @@
                                 <!-- 카드 8 -->
                                 <div class="flip-card" onclick="openModal('project4')">
                                     <div class="flip-inner">
-                                        <div class="flip-face flip-front">
-                                            <h3>Project 4 - 오늘 뭐먹지? SNS</h3>
-                                            <p class="project-desc">
-                                                레시피 공유 기반 SNS 웹 서비스 구축 프로젝트
-                                            </p>
+                                        <div class="flip-face flip-front project-layout">
 
-                                            <div class="project-meta">
-                                                <p>📅 기간: 2026.01</p>
-                                                <p>👥 구분: 팀 프로젝트 (4명)</p>
-                                                <p>🔥 핵심 해결: SNS 인터랙션 · 실시간 통신 · 상태 관리</p>
-                                                <p>🎯 역할: 게시글 CRUD · 좋아요 · 리트윗 · 해시태그 · 소켓 통신</p>
+                                            <!-- 왼쪽 대표 이미지 -->
+                                            <div class="project-image">
+                                                <img src="../project/project4_Node-React/img/pro5.PNG" alt="대표 이미지">
                                             </div>
 
-                                            <div class="tech-tags">
-                                                <div class="tech-tag">Spring Boot</div>
-                                                <div class="tech-tag">JPA</div>
-                                                <div class="tech-tag">Redis</div>
-                                                <div class="tech-tag">JWT</div>
-                                                <div class="tech-tag">React</div>
-                                                <div class="tech-tag">WebSocket</div>
+                                            <!-- 오른쪽 기존 글 영역 (복붙) -->
+                                            <div class="project-content">
+
+                                                <h3>Project 4 - 오늘 뭐먹지? SNS</h3>
+
+                                                <p class="project-desc">
+                                                    레시피 공유 기반 SNS 웹 서비스 구축 프로젝트
+                                                </p>
+
+                                                <div class="project-meta">
+                                                    <p>📅 기간: 2026.01</p>
+                                                    <p>👥 구분: 팀 프로젝트 (4명)</p>
+                                                    <p>🔥 핵심 해결: SNS 인터랙션 · 실시간 통신 · 상태 관리</p>
+                                                    <p>🎯 역할: 게시글 CRUD · 좋아요 · 리트윗 · 해시태그 · 소켓 통신</p>
+                                                </div>
+
+                                                <div class="tech-tags">
+                                                    <div class="tech-tag">Spring Boot</div>
+                                                    <div class="tech-tag">JPA</div>
+                                                    <div class="tech-tag">Redis</div>
+                                                    <div class="tech-tag">JWT</div>
+                                                    <div class="tech-tag">React</div>
+                                                    <div class="tech-tag">WebSocket</div>
+                                                </div>
+
                                             </div>
+
                                         </div>
+
 
                                         <div class="flip-face flip-back">
                                             <h3>핵심 기술</h3>
@@ -1330,93 +1392,116 @@
                                 <!-- 카드 7 -->
                                 <div class="flip-card best" onclick="openModal('project3')">
                                     <div class="flip-inner">
-                                        <div class="flip-face flip-front">
-                                            <h3>Project 3 - 오늘 뭐먹지? v2</h3>
-                                            <p class="project-desc">
-                                                레시피 추천 UGC 웹 서비스 기능 고도화 프로젝트
-                                            </p>
 
-                                            <div class="project-meta">
-                                                <p>📅 기간: 2025.12 ~ 2026.01</p>
-                                                <p>👥 구분: 팀 프로젝트 (4명)</p>
-                                                <p>🔥 핵심 해결: 검색 성능 개선 · API 비용 최적화</p>
-                                                <p>🎯 역할: 검색 로직 · API 연동 · 데이터 구조 개선</p>
+                                        <div class="flip-face flip-front project-layout">
+                                            <div class="project-image">
+                                                <img src="../project/project3_Api/img/image-2.png" alt="Project 3">
                                             </div>
 
-                                            <div class="tech-tags">
-                                                <div class="tech-tag">Spring Boot</div>
-                                                <div class="tech-tag">MyBatis</div>
-                                                <div class="tech-tag">Oracle</div>
-                                                <div class="tech-tag">REST API</div>
-                                                <div class="tech-tag">Bootstrap</div>
+                                            <div class="project-content">
+                                                <h3>Project 3 - 오늘 뭐먹지? v2</h3>
+                                                <p class="project-desc">
+                                                    레시피 추천 UGC 웹 서비스 기능 고도화 프로젝트
+                                                </p>
+
+                                                <div class="project-meta">
+                                                    <p>📅 기간: 2025.12 ~ 2026.01</p>
+                                                    <p>👥 구분: 팀 프로젝트 (4명)</p>
+                                                    <p>🔥 핵심 해결: 검색 성능 개선 · API 비용 최적화</p>
+                                                    <p>🎯 역할: 검색 로직 · API 연동 · 데이터 구조 개선</p>
+                                                </div>
+
+                                                <div class="tech-tags">
+                                                    <div class="tech-tag">Spring Boot</div>
+                                                    <div class="tech-tag">MyBatis</div>
+                                                    <div class="tech-tag">Oracle</div>
+                                                    <div class="tech-tag">REST API</div>
+                                                    <div class="tech-tag">Bootstrap</div>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="flip-face flip-back">
                                             <h3>핵심 기술</h3>
-                                            <p>
-                                                검색 쿼리 최적화 · 외부 API 연동 · 비용 최적화 설계
-                                            </p>
+                                            <p>검색 쿼리 최적화 · 외부 API 연동 · 비용 최적화 설계</p>
                                         </div>
+
                                     </div>
                                 </div>
+
 
 
                                 <!-- 카드 6 -->
                                 <div class="flip-card" onclick="openModal('project2')">
                                     <div class="flip-inner">
-                                        <div class="flip-face flip-front">
-                                            <h3>Project 2 - 오늘 뭐먹지? v1</h3>
-                                            <p class="project-desc">
-                                                Spring · MyBatis 기반 레시피 UGC 웹 서비스 구축 프로젝트
-                                            </p>
 
-                                            <div class="project-meta">
-                                                <p>📅 기간: 2025.11 ~ 2025.12</p>
-                                                <p>👥 구분: 팀 프로젝트 (3명)</p>
-                                                <p>🔥 핵심 해결: 검색·페이징 성능 개선 · 권한별 UI 설계</p>
-                                                <p>🎯 역할: 게시판 CRUD · 검색 로직 · AJAX 페이징</p>
+                                        <div class="flip-face flip-front project-layout">
+                                            <div class="project-image">
+                                                <img src="../project/project2_springboot/img/image-2.png"
+                                                    alt="Project 2">
                                             </div>
 
-                                            <div class="tech-tags">
-                                                <div class="tech-tag">Spring MVC</div>
-                                                <div class="tech-tag">MyBatis</div>
-                                                <div class="tech-tag">Oracle</div>
-                                                <div class="tech-tag">jQuery</div>
-                                                <div class="tech-tag">Bootstrap</div>
+                                            <div class="project-content">
+                                                <h3>Project 2 - 오늘 뭐먹지? v1</h3>
+                                                <p class="project-desc">
+                                                    Spring · MyBatis 기반 레시피 UGC 웹 서비스 구축 프로젝트
+                                                </p>
+
+                                                <div class="project-meta">
+                                                    <p>📅 기간: 2025.11 ~ 2025.12</p>
+                                                    <p>👥 구분: 팀 프로젝트 (3명)</p>
+                                                    <p>🔥 핵심 해결: 검색·페이징 성능 개선 · 권한별 UI 설계</p>
+                                                    <p>🎯 역할: 게시판 CRUD · 검색 로직 · AJAX 페이징</p>
+                                                </div>
+
+                                                <div class="tech-tags">
+                                                    <div class="tech-tag">Spring MVC</div>
+                                                    <div class="tech-tag">MyBatis</div>
+                                                    <div class="tech-tag">Oracle</div>
+                                                    <div class="tech-tag">jQuery</div>
+                                                    <div class="tech-tag">Bootstrap</div>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="flip-face flip-back">
                                             <h3>핵심 기술</h3>
-                                            <p>
-                                                CRUD 설계 · SQL 최적화 · AJAX 기반 UX 개선
-                                            </p>
+                                            <p>CRUD 설계 · SQL 최적화 · AJAX 기반 UX 개선</p>
                                         </div>
+
                                     </div>
                                 </div>
+
 
 
                                 <!-- 카드 5 -->
                                 <div class="flip-card" onclick="openModal('project1')">
                                     <div class="flip-inner">
-                                        <div class="flip-face flip-front">
-                                            <h3>Project 1 - Eclipse Java</h3>
-                                            <p class="project-desc">
-                                                콘솔 기반 Java 팀 프로젝트로 핵심 로직과 데이터 흐름 구현
-                                            </p>
 
-                                            <div class="project-meta">
-                                                <p>📅 기간: 2024.11 – 2024.12</p>
-                                                <p>👥 구분: 팀 프로젝트</p>
-                                                <p>🔥 핵심 해결: 메뉴 흐름 제어 및 데이터 처리 구조화</p>
-                                                <p>🎯 역할: 레시피 로직 · 입력 처리 · 데이터 관리</p>
+                                        <div class="flip-face flip-front project-layout">
+                                            <div class="project-image">
+                                                <img src="../project/project1_Eclipse/img/project4-0.PNG"
+                                                    alt="Project 1">
                                             </div>
 
-                                            <div class="tech-tags">
-                                                <div class="tech-tag">Java</div>
-                                                <div class="tech-tag">Eclipse</div>
-                                                <div class="tech-tag">Console</div>
+                                            <div class="project-content">
+                                                <h3>Project 1 - Eclipse Java</h3>
+                                                <p class="project-desc">
+                                                    콘솔 기반 Java 팀 프로젝트로 핵심 로직과 데이터 흐름 구현
+                                                </p>
+
+                                                <div class="project-meta">
+                                                    <p>📅 기간: 2024.11 – 2024.12</p>
+                                                    <p>👥 구분: 팀 프로젝트</p>
+                                                    <p>🔥 핵심 해결: 메뉴 흐름 제어 및 데이터 처리 구조화</p>
+                                                    <p>🎯 역할: 레시피 로직 · 입력 처리 · 데이터 관리</p>
+                                                </div>
+
+                                                <div class="tech-tags">
+                                                    <div class="tech-tag">Java</div>
+                                                    <div class="tech-tag">Eclipse</div>
+                                                    <div class="tech-tag">Console</div>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -1424,6 +1509,7 @@
                                             <h3>핵심기술</h3>
                                             <p>조건문 · 반복문 · 컬렉션 · 예외 처리</p>
                                         </div>
+
                                     </div>
                                 </div>
 
@@ -1433,12 +1519,12 @@
                         </div>
 
                         <!-- 슬라이드 2 : 개인 프로젝트 -->
-                        <div class="portfolio-slide">
+                        <!-- <div class="portfolio-slide">
                             <h3 class="portfolio-subtitle">👤 개인 프로젝트</h3>
-                            <div class="project-grid">
-                                <!-- Bank / Project 1~5 카드 -->
-                                <!-- 카드 9 -->
-                                <div class="flip-card best" onclick="openModal('project5')">
+                            <div class="project-grid"> -->
+                        <!-- Bank / Project 1~5 카드 -->
+                        <!-- 카드 9 -->
+                        <!-- <div class="flip-card best" onclick="openModal('project5')">
                                     <div class="flip-inner">
                                         <div class="flip-face flip-front">
                                             <h3>Project 5 - 개인 프로젝트</h3>
@@ -1465,33 +1551,41 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- 슬라이드 3 : 미니 프로젝트 -->
                         <div class="portfolio-slide">
                             <h3 class="portfolio-subtitle">🧪 미니 프로젝트</h3>
                             <div class="project-grid">
-                                <!-- 소규모 카드 -->
+
                                 <!-- 카드 4 -->
                                 <div class="flip-card" onclick="openModal('bank4')">
                                     <div class="flip-inner">
-                                        <div class="flip-face flip-front">
-                                            <h3>Bank System - OOP.Ver</h3>
-                                            <p class="project-desc">
-                                                객체지향 설계로 리팩토링한 뱅킹 시스템
-                                            </p>
 
-                                            <div class="project-meta">
-                                                <p>📅 기간: 2026.02</p>
-                                                <p>👥 구분: 개인 프로젝트</p>
-                                                <p>🔥 핵심 해결: 배열·절차형 구조를 객체 단위로 분리</p>
-                                                <p>🎯 역할: 전체 설계 · 클래스 분리 · 기능 구현</p>
+                                        <div class="flip-face flip-front project-layout">
+                                            <div class="project-image">
+                                                <img src="../project/banksystem3_Method/img/project3-0.PNG"
+                                                    alt="Bank OOP">
                                             </div>
 
-                                            <div class="tech-tags">
-                                                <div class="tech-tag">Java</div>
-                                                <div class="tech-tag">OOP</div>
-                                                <div class="tech-tag">Method 분리</div>
+                                            <div class="project-content">
+                                                <h3>Bank System - OOP.Ver</h3>
+                                                <p class="project-desc">
+                                                    객체지향 설계로 리팩토링한 뱅킹 시스템
+                                                </p>
+
+                                                <div class="project-meta">
+                                                    <p>📅 기간: 2026.02</p>
+                                                    <p>👥 구분: 개인 프로젝트</p>
+                                                    <p>🔥 핵심 해결: 배열·절차형 구조를 객체 단위로 분리</p>
+                                                    <p>🎯 역할: 전체 설계 · 클래스 분리 · 기능 구현</p>
+                                                </div>
+
+                                                <div class="tech-tags">
+                                                    <div class="tech-tag">Java</div>
+                                                    <div class="tech-tag">OOP</div>
+                                                    <div class="tech-tag">Method 분리</div>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -1503,30 +1597,39 @@
                                                 객체 참조 공유 (DI 개념)
                                             </p>
                                         </div>
+
                                     </div>
                                 </div>
 
-                                <!-- 카드 3 -->
+                                <!-- 카드 3 (최고) -->
                                 <div class="flip-card best" onclick="openModal('bank3')">
                                     <div class="flip-inner">
-                                        <div class="flip-face flip-front">
-                                            <h3>Health System - Recipe.Ver</h3>
-                                            <p class="project-desc">
-                                                건강 정보 기반 맞춤 식단 추천 시스템
-                                            </p>
 
-                                            <div class="project-meta">
-                                                <p>📅 기간: 2025.06</p>
-                                                <p>👥 구분: 개인 프로젝트</p>
-                                                <p>🔥 핵심 해결: BMI 계산 기반 맞춤 식단 추천</p>
-                                                <p>🎯 역할: 배열 구조 설계 · 조건 필터 구현</p>
+                                        <div class="flip-face flip-front project-layout">
+                                            <div class="project-image">
+                                                <img src="../project/banksystem2_Array/healthsystem/img/project2-1.PNG"
+                                                    alt="Health System">
                                             </div>
 
-                                            <div class="tech-tags">
-                                                <div class="tech-tag">Java</div>
-                                                <div class="tech-tag">배열</div>
-                                                <div class="tech-tag">상태관리</div>
-                                                <div class="tech-tag">실생활도메인</div>
+                                            <div class="project-content">
+                                                <h3>Health System - Recipe.Ver</h3>
+                                                <p class="project-desc">
+                                                    건강 정보 기반 맞춤 식단 추천 시스템
+                                                </p>
+
+                                                <div class="project-meta">
+                                                    <p>📅 기간: 2025.06</p>
+                                                    <p>👥 구분: 개인 프로젝트</p>
+                                                    <p>🔥 핵심 해결: BMI 계산 기반 맞춤 식단 추천</p>
+                                                    <p>🎯 역할: 배열 구조 설계 · 조건 필터 구현</p>
+                                                </div>
+
+                                                <div class="tech-tags">
+                                                    <div class="tech-tag">Java</div>
+                                                    <div class="tech-tag">배열</div>
+                                                    <div class="tech-tag">상태관리</div>
+                                                    <div class="tech-tag">실생활도메인</div>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -1538,29 +1641,38 @@
                                                 영양소 조건 필터링
                                             </p>
                                         </div>
+
                                     </div>
                                 </div>
 
                                 <!-- 카드 2 -->
                                 <div class="flip-card" onclick="openModal('bank2')">
                                     <div class="flip-inner">
-                                        <div class="flip-face flip-front">
-                                            <h3>Bank System - Array.Ver</h3>
-                                            <p class="project-desc">
-                                                배열 기반 다중 사용자 계좌 관리 시스템
-                                            </p>
 
-                                            <div class="project-meta">
-                                                <p>📅 기간: 2025.03</p>
-                                                <p>👥 구분: 개인 프로젝트</p>
-                                                <p>🔥 핵심 해결: 사용자별 배열 관리 및 충돌 방지</p>
-                                                <p>🎯 역할: 배열 구조 설계 · 로그인 기준 데이터 접근 구현</p>
+                                        <div class="flip-face flip-front project-layout">
+                                            <div class="project-image">
+                                                <img src="../project/banksystem2_Array/healthsystem/img/project2-0.PNG"
+                                                    alt="Bank Array">
                                             </div>
 
-                                            <div class="tech-tags">
-                                                <div class="tech-tag">Java</div>
-                                                <div class="tech-tag">배열</div>
-                                                <div class="tech-tag">다중사용자</div>
+                                            <div class="project-content">
+                                                <h3>Bank System - Array.Ver</h3>
+                                                <p class="project-desc">
+                                                    배열 기반 다중 사용자 계좌 관리 시스템
+                                                </p>
+
+                                                <div class="project-meta">
+                                                    <p>📅 기간: 2025.03</p>
+                                                    <p>👥 구분: 개인 프로젝트</p>
+                                                    <p>🔥 핵심 해결: 사용자별 배열 관리 및 충돌 방지</p>
+                                                    <p>🎯 역할: 배열 구조 설계 · 로그인 기준 데이터 접근 구현</p>
+                                                </div>
+
+                                                <div class="tech-tags">
+                                                    <div class="tech-tag">Java</div>
+                                                    <div class="tech-tag">배열</div>
+                                                    <div class="tech-tag">다중사용자</div>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -1572,29 +1684,38 @@
                                                 배열 충돌 문제 해결
                                             </p>
                                         </div>
+
                                     </div>
                                 </div>
 
                                 <!-- 카드 1 -->
                                 <div class="flip-card" onclick="openModal('bank1')">
                                     <div class="flip-inner">
-                                        <div class="flip-face flip-front">
-                                            <h3>Bank System - Control.Ver</h3>
-                                            <p class="project-desc">
-                                                조건문과 상태 제어로 구현한 콘솔 기반 뱅킹 시스템
-                                            </p>
 
-                                            <div class="project-meta">
-                                                <p>📅 기간: 2025.01</p>
-                                                <p>👥 구분: 개인 프로젝트</p>
-                                                <p>🔥 핵심 해결: switch-case 및 level 변수로 메뉴 상태 제어</p>
-                                                <p>🎯 역할: 전체 로직 설계 · 상태 관리 구현</p>
+                                        <div class="flip-face flip-front project-layout">
+                                            <div class="project-image">
+                                                <img src="../project/banksystem1_Control/img/project1-0.PNG"
+                                                    alt="Bank Control">
                                             </div>
 
-                                            <div class="tech-tags">
-                                                <div class="tech-tag">Java</div>
-                                                <div class="tech-tag">조건문</div>
-                                                <div class="tech-tag">상태관리</div>
+                                            <div class="project-content">
+                                                <h3>Bank System - Control.Ver</h3>
+                                                <p class="project-desc">
+                                                    조건문과 상태 제어로 구현한 콘솔 기반 뱅킹 시스템
+                                                </p>
+
+                                                <div class="project-meta">
+                                                    <p>📅 기간: 2025.01</p>
+                                                    <p>👥 구분: 개인 프로젝트</p>
+                                                    <p>🔥 핵심 해결: switch-case 및 level 변수로 메뉴 상태 제어</p>
+                                                    <p>🎯 역할: 전체 로직 설계 · 상태 관리 구현</p>
+                                                </div>
+
+                                                <div class="tech-tags">
+                                                    <div class="tech-tag">Java</div>
+                                                    <div class="tech-tag">조건문</div>
+                                                    <div class="tech-tag">상태관리</div>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -1606,11 +1727,13 @@
                                                 로그인 전·후 기능 접근 분리
                                             </p>
                                         </div>
+
                                     </div>
                                 </div>
 
                             </div>
                         </div>
+
 
 
                         <!-- 슬라이드 1 : 팀 프로젝트 클론 -->
@@ -2294,8 +2417,8 @@
                 /* ================= 이력서 다운로드 ================= */
                 document.getElementById("download").addEventListener("click", () => {
                     const link = document.createElement("a");
-                    link.href = "./project/길상현●입사지원서●-------대체.docx"; // ✅ 이력서 경로
-                    link.download = "길상현●입사지원서●-------대체.docx";
+                    link.href = "./project/1. 길상현●입사지원서●.docx"; // ✅ 이력서 경로
+                    link.download = "1. 길상현●입사지원서●.docx";
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
