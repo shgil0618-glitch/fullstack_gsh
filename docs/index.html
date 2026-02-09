@@ -1011,13 +1011,6 @@
             z-index: 10;
         }
 
-        
-.slide-btn.disabled {
-  opacity: 0.25;
-  cursor: default;
-  pointer-events: none;
-}
-
         .slide-btn.left {
             left: 10px;
         }
@@ -1081,25 +1074,6 @@
             justify-content: center;
             /* 아래 여백 제거 */
         }
-
-        .slide-control {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.slide-label {
-  margin-top: 6px;
-  font-size: 13px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.7);
-  min-height: 16px; /* 공간 고정 */
-}
-
-.slide-btn.disabled + .slide-label {
-  opacity: 0;
-}
-
     </style>
 
 
@@ -1348,21 +1322,17 @@
 
 
                 <div class="portfolio-slider-wrap">
-                      <div class="slide-control">
-    <button class="slide-btn left" id="prevBtn" onclick="prevSlide()">◀</button>
-    <div class="slide-label" id="prevLabel"></div>
-  </div>
-                    <!-- <button class="slide-btn left" onclick="prevSlide()">◀</button> -->
+                    <button class="slide-btn left" onclick="prevSlide()">◀</button>
 
-                    
                     <div class="portfolio-slider" id="portfolioSlider">
 
                         <!-- 슬라이드 3 : 미니 프로젝트 클론 -->
-                         <!-- <div class="portfolio-slide">
+                        <div class="portfolio-slide">
                             <h3 class="portfolio-subtitle">🧪 미니 프로젝트</h3>
                             <div class="project-grid">
+                                <!-- 소규모 카드 -->
                             </div>
-                        </div> -->
+                        </div>
 
                         <!-- 슬라이드 1 : 팀 프로젝트 -->
                         <div class="portfolio-slide">
@@ -1767,20 +1737,16 @@
 
 
                         <!-- 슬라이드 1 : 팀 프로젝트 클론 -->
-                        <!-- <div class="portfolio-slide">
+                        <div class="portfolio-slide">
                             <h3 class="portfolio-subtitle">🧪 팀 프로젝트</h3>
                             <div class="project-grid">
-                                
+                                <!-- 소규모 카드 -->
                             </div>
-                        </div> -->
+                        </div>
 
                     </div>
 
-                    <div class="slide-control">
-                        <button class="slide-btn right" id="nextBtn" onclick="nextSlide()">▶</button>
-                        <div class="slide-label" id="nextLabel"></div>
-                    </div>
-                    <!-- <button class="slide-btn right" onclick="nextSlide()">▶</button> -->
+                    <button class="slide-btn right" onclick="nextSlide()">▶</button>
                 </div>
             </section>
 
@@ -2491,58 +2457,7 @@
                 });
             </script>
 
-<script>
-let currentIndex = 1; // ✅ 팀 프로젝트부터 시작 (index 1)
-const totalPages = 2;
-
-const slider = document.getElementById("portfolioSlider");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const prevLabel = document.getElementById("prevLabel");
-const nextLabel = document.getElementById("nextLabel");
-
-function updateUI() {
-  // 슬라이드 이동
-  slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-  const isFirst = currentIndex === 0;
-  const isLast = currentIndex === totalPages - 1;
-
-  // 버튼 활성 / 비활성
-  prevBtn.classList.toggle("disabled", isFirst);
-  nextBtn.classList.toggle("disabled", isLast);
-
-  /*
-    index 기준 정리
-    0 = 🧪 미니
-    1 = 👥 팀
-  */
-
-  // 🔥 "누르면 이동할 프로젝트" 표시
-  prevLabel.textContent = !isFirst ? "🧪 미니 프로젝트" : "";
-  nextLabel.textContent = !isLast ? "👥 팀 프로젝트" : "";
-}
-
-// 이동
-function nextSlide() {
-  if (currentIndex < totalPages - 1) {
-    currentIndex++;
-    updateUI();
-  }
-}
-
-function prevSlide() {
-  if (currentIndex > 0) {
-    currentIndex--;
-    updateUI();
-  }
-}
-
-// ✅ 초기 실행
-updateUI();
-</script>
-
-            <!-- <script>
+            <script>
                 const slider = document.getElementById("portfolioSlider");
                 const realCount = 2;
                 let current = 1; // 시작은 첫 실제 슬라이드
@@ -2582,7 +2497,7 @@ updateUI();
 
                     isMoving = false;
                 });
-            </script> -->
+            </script>
 
         </main>
         <footer style="padding:28px 0;text-align:center;color:var(--muted)">© 2025 길상현</footer>
