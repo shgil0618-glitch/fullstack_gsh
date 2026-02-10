@@ -18,7 +18,7 @@
 ## Contact & Link
 
 <!-- ![프로필](./userimage.png) -->
-<img src="./userimage.png" alt="프로필" width = "100">
+<img src="./docs/img/mypicture.png" alt="프로필" width = "100">
 
 | | |
 |-|-|
