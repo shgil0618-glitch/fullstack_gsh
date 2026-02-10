@@ -173,22 +173,34 @@
         }
 
         .scroll-hint {
-    position: absolute;
-    bottom: 40px;          /* 화면 하단에서 40px 위 */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 18px;
-    color: rgba(255, 255, 255, 0.7); /* 반투명 글자 */
-    animation: fadeBlink 2s infinite; /* 깜빡임 효과 */
-    pointer-events: none;  /* 클릭 방해 안 하도록 */
-}
+            position: absolute;
+            bottom: 40px;
+            /* 화면 하단에서 40px 위 */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            /* 반투명 글자 */
+            animation: fadeBlink 2s infinite;
+            /* 깜빡임 효과 */
+            pointer-events: none;
+            /* 클릭 방해 안 하도록 */
+        }
 
-/* 깜빡임 애니메이션 */
-@keyframes fadeBlink {
-    0%   { opacity: 0.2; }
-    50%  { opacity: 1; }
-    100% { opacity: 0.2; }
-}
+        /* 깜빡임 애니메이션 */
+        @keyframes fadeBlink {
+            0% {
+                opacity: 0.2;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.2;
+            }
+        }
 
 
         /* about me */
@@ -927,7 +939,7 @@
         .scroll-item.visible {
             opacity: 1;
             transform: translateX(0) translateY(0);
-        }   
+        }
 
         /* ------------------ 카드 팝인 ------------------ */
         .flip-card {
@@ -1013,45 +1025,55 @@
         }
 
         /* 좌우 버튼 */
-.slide-btn {
-    position: absolute;
-    top: 10em;
-    transform: translateY(-50%);
-    background: var(--glass);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: var(--panel);
-    font-size: 20px;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10;
+        .slide-btn {
+            position: absolute;
+            top: 10em;
+            transform: translateY(-50%);
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--panel);
+            font-size: 20px;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
 
-    /* 반짝임 애니메이션 추가 */
-    animation: blink 2s infinite;
-}
+            /* 반짝임 애니메이션 추가 */
+            animation: blink 2s infinite;
+        }
 
-.slide-btn.left {
-    left: 10px;
-}
+        .slide-btn.left {
+            left: 10px;
+        }
 
-.slide-btn.right {
-    right: 10px;
-}
+        .slide-btn.right {
+            right: 10px;
+        }
 
-.slide-btn:hover {
-    background: var(--accent);
-    color: white;
-}
+        .slide-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
 
 
 
-/* 반짝임 효과 정의 */
-@keyframes blink {
-    0%   { box-shadow: 0 0 5px var(--accent); }
-    50%  { box-shadow: 0 0 15px var(--accent); background: var(--accent); color: white; }
-    100% { box-shadow: 0 0 5px var(--accent); }
-}
+        /* 반짝임 효과 정의 */
+        @keyframes blink {
+            0% {
+                box-shadow: 0 0 5px var(--accent);
+            }
+
+            50% {
+                box-shadow: 0 0 15px var(--accent);
+                background: var(--accent);
+                color: white;
+            }
+
+            100% {
+                box-shadow: 0 0 5px var(--accent);
+            }
+        }
 
         .closing-line {
             text-align: center;
@@ -1103,7 +1125,6 @@
             justify-content: center;
             /* 아래 여백 제거 */
         }
-
     </style>
 
 
@@ -1119,16 +1140,16 @@
 
 
     <section id="hero" class="hero star-bg">
-    <div class="container">
-        <div class="hero-card">
-            <div class="hero-title">길상현</div>
-            <div class="hero-sub">Fullstack Engineer · 도전하는 개발자</div>
+        <div class="container">
+            <div class="hero-card">
+                <div class="hero-title">길상현</div>
+                <div class="hero-sub">Fullstack Engineer · 도전하는 개발자</div>
+            </div>
         </div>
-    </div>
 
-    <!-- 스크롤 안내 문구 -->
-    <div class="scroll-hint">⬇ 스크롤을 올려주세요 ⬇</div>
-</section>
+        <!-- 스크롤 안내 문구 -->
+        <div class="scroll-hint">⬇ 스크롤을 올려주세요 ⬇</div>
+    </section>
 
 
 
@@ -1165,7 +1186,7 @@
                                     팀 깃허브 : github.com/shgil0618
                                 </a>
                             </span>
-                            
+
                         </div>
                         <div class="quote">끊임없이 도전하고 성장하는 풀스택 개발자</div>
                     </div>
@@ -1349,7 +1370,7 @@
 
 
 
-           <section id="portfolio" class="block scroll-item slide-left">
+            <section id="portfolio" class="block scroll-item slide-left">
                 <h2 class="section-title">Portfolio</h2>
 
 
@@ -1379,7 +1400,8 @@
 
                                             <!-- 왼쪽 대표 이미지 -->
                                             <div class="project-image">
-                                                <img src="https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/pro5.PNG" alt="대표 이미지">
+                                                <img src="https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/pro5.PNG"
+                                                    alt="대표 이미지">
                                             </div>
 
                                             <!-- 오른쪽 기존 글 영역 (복붙) -->
@@ -1393,7 +1415,7 @@
 
                                                 <div class="project-meta">
                                                     <p>📅 기간: 2026.01 ~ 2026.02</p>
-                                                    <p>👥 구분: 팀 프로젝트 (4인)</p>
+                                                    <p>👥 구분: 팀 프로젝트 (2인)</p>
                                                     <p>🔥 핵심 해결: SNS 인터랙션 · 실시간 통신 · 상태 관리</p>
                                                     <p>🎯 역할: 게시글 CRUD · 좋아요 · 리트윗 · 해시태그 · 소켓 통신</p>
                                                 </div>
@@ -1429,7 +1451,8 @@
 
                                         <div class="flip-face flip-front project-layout">
                                             <div class="project-image">
-                                                <img src="https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project3_Api/img/image-2.png" alt="Project 3">
+                                                <img src="https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project3_Api/img/image-2.png"
+                                                    alt="Project 3">
                                             </div>
 
                                             <div class="project-content">
@@ -1779,7 +1802,7 @@
                         </div> -->
 
                     </div>
-                    
+
                     <button class="slide-btn right" id="nextBtn" onclick="nextSlide()">▶</button>
 
                 </div>
@@ -1869,18 +1892,25 @@
                             return new TextDecoder("utf-8").decode(bytes);
                         })(data.content);
 
-                        container.innerHTML = marked.parse(decodedContent);
+                        // ✅ 여기 핵심
+                        container.innerHTML = `
+            <div id="readme">
+                ${marked.parse(decodedContent)}
+            </div>
+        `;
 
                     } catch (error) {
                         console.error(error);
                         container.innerHTML = "<p>README를 불러오는 데 실패했습니다.</p>";
                     } finally {
                         const loader = container.previousElementSibling;
-                        if (loader && loader.classList.contains("loader")) loader.style.display = "none";
+                        if (loader && loader.classList.contains("loader")) {
+                            loader.style.display = "none";
+                        }
                     }
                 }
-
             </script>
+
 
 
             <script>
@@ -1943,8 +1973,6 @@
                             <h3>GitHub 미리보기</h3>
                             <div class="loader"></div>
                             <div id="readme-bank2"></div>
-
-                            
                         `,
 
                         bank3: `
@@ -2099,7 +2127,7 @@
 
                         /* ================= 프로젝트 3 ================= */
                         project3: `
-                            <h2>Project 3 - Open API 연동</h2>
+                            <h2 class="">Project 3 - Open API 연동</h2>
                             <div class="video-wrap">
                             <iframe 
                                 src="https://www.youtube.com/embed/bLB8UWRj_tE" 
@@ -2112,7 +2140,7 @@
                             </div>
                             
 
-                            <p>
+                            <p style="margin:20px 0">
                                 외부 Open API를 활용해 데이터를 수집·가공하고  
                                 <strong>비동기 통신 흐름</strong>을 이해한 프로젝트입니다.
                             </p>
@@ -2131,7 +2159,8 @@
 
                             <h3>GitHub 미리보기</h3>
                             <div class="loader"></div>
-                            <div id="readme-project3"></div>
+                            <div id="readme-project3">
+                            </div>
 
                             
                         `,
@@ -2491,55 +2520,55 @@
             </script>
 
             <script>
-    const slider = document.getElementById("portfolioSlider");
-    const realCount = 1; // 총 2페이지
-    let current = 0;
-    let isMoving = false;
+                const slider = document.getElementById("portfolioSlider");
+                const realCount = 1; // 총 2페이지
+                let current = 0;
+                let isMoving = false;
 
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
+                const prevBtn = document.getElementById("prevBtn");
+                const nextBtn = document.getElementById("nextBtn");
 
-    // 초기 위치 세팅
-    slider.style.transform = "translateX(0%)";
+                // 초기 위치 세팅
+                slider.style.transform = "translateX(0%)";
 
-    function updateButtons() {
-        if (current === 0) {
-            prevBtn.style.display = "none";   // 첫 페이지 → prev 숨김
-            nextBtn.style.display = "inline-block"; // next 표시
-        } else if (current === realCount) {
-            prevBtn.style.display = "inline-block"; // prev 표시
-            nextBtn.style.display = "none";   // 두 번째 페이지 → next 숨김
-        }
-    }
+                function updateButtons() {
+                    if (current === 0) {
+                        prevBtn.style.display = "none";   // 첫 페이지 → prev 숨김
+                        nextBtn.style.display = "inline-block"; // next 표시
+                    } else if (current === realCount) {
+                        prevBtn.style.display = "inline-block"; // prev 표시
+                        nextBtn.style.display = "none";   // 두 번째 페이지 → next 숨김
+                    }
+                }
 
-    function goTo(index, transition = true) {
-        slider.style.transition = transition ? "transform 0.6s ease" : "none";
-        slider.style.transform = `translateX(-${index * 100}%)`;
-        current = index;
-        updateButtons();
-    }
+                function goTo(index, transition = true) {
+                    slider.style.transition = transition ? "transform 0.6s ease" : "none";
+                    slider.style.transform = `translateX(-${index * 100}%)`;
+                    current = index;
+                    updateButtons();
+                }
 
-    function nextSlide() {
-        if (isMoving || current >= realCount) return;
-        isMoving = true;
-        goTo(current + 1);
-    }
+                function nextSlide() {
+                    if (isMoving || current >= realCount) return;
+                    isMoving = true;
+                    goTo(current + 1);
+                }
 
-    function prevSlide() {
-        if (isMoving || current <= 0) return;
-        isMoving = true;
-        goTo(current - 1);
-    }
+                function prevSlide() {
+                    if (isMoving || current <= 0) return;
+                    isMoving = true;
+                    goTo(current - 1);
+                }
 
-    slider.addEventListener("transitionend", () => {
-        isMoving = false;
-    });
+                slider.addEventListener("transitionend", () => {
+                    isMoving = false;
+                });
 
-    // 초기 버튼 상태 세팅
-    updateButtons();
-</script>
+                // 초기 버튼 상태 세팅
+                updateButtons();
+            </script>
 
-\
+            \
 
 
         </main>
