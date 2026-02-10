@@ -6,7 +6,7 @@ Spring Boot · JPA 기반 레시피 공유 SNS 웹 서비스 (실시간·인터�
 
 ## 1. 프로젝트 개요
 
-**“오늘 뭐먹지? SNS”**는 기존 레시피 서비스에서 확장된 형태로,
+**“오늘 뭐먹지? SNS”** 는 기존 레시피 서비스에서 확장된 형태로,
 레시피를 중심으로 한 **SNS(User Generated Content) 웹 서비스**를 목표로 한 팀 프로젝트입니다.
 게시글 공유, 좋아요·리트윗·해시태그와 같은 **SNS 핵심 인터랙션** 을 구현하여 사용자 참여도를 높이는 데 집중했습니다.
 
@@ -26,7 +26,7 @@ Spring Boot · JPA 기반 레시피 공유 SNS 웹 서비스 (실시간·인터�
 
 ### Backend
 
-* Java 11 (JDK 11)
+* Java 17 (JDK 17)
 * Spring Boot 3.4 (MVC, Security)
 * JPA
 * MyBatis 3.5
