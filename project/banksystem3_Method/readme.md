@@ -2,7 +2,7 @@
 
 # 🏦 BankSystem 3 - OOP & Method Isolation Version
 
-> **객체지향 설계(OOP)**를 적용하여 각 기능을 독립된 클래스로 분리하고  
+> **객체지향 설계(OOP)** 를 적용하여 각 기능을 독립된 클래스로 분리하고  
 > 데이터 모델(`UserInfo`)과 행위(`Add`, `Deposit` 등)를 구조화한  
 > **유지보수 중심의 뱅크 시스템**
 
