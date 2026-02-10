@@ -102,8 +102,10 @@ Spring Boot · JPA 기반 레시피 공유 SNS 웹 서비스 (실시간·인터�
 ### 4) AWS 배포
 * AWS 인스턴스 값들 확인
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project5_gsh/img/aws3.PNG)
-* 액션 키값 등록
+
+* 액션 키값들 등록 확인
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project5_gsh/img/aws2.PNG)
+
 * Backend / Frontend 액션 정상 확인
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project5_gsh/img/aws1.PNG)
 
