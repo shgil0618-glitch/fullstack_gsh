@@ -45,12 +45,11 @@ Spring Boot · JPA 기반 레시피 공유 SNS 웹 서비스 (실시간·인터�
 ### Others
 
 * JWT 인증
-* WebSocket
 * External API
 
 ### DevOps
 
-* AWS (EC2, S3, RDS)
+* AWS (EC2 · ECR · IAM)
 * GitHub Actions 기반 CI/CD
 
 ---
