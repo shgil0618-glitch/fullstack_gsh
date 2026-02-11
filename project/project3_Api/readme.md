@@ -72,6 +72,7 @@ Spring Boot 기반 레시피 추천 UGC 웹 서비스 (기능 고도화 프로�
 ## 5. 담당 업무 및 성과
 
 ### 1) 사용자 · 관리자 중심 기능 개선
+■ 권한에 따라 접속가능한 페이지를 분리 (guest/로그인유저/관리자)
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project3_Api/img/image-3.png)
 
 * 관리자 페이지 기능 강화 (게시글·데이터 관리 효율 향상)
@@ -79,13 +80,16 @@ Spring Boot 기반 레시피 추천 UGC 웹 서비스 (기능 고도화 프로�
 * **성과**: 전체 사용 편의성 및 관리 효율 향상
 
 ### 2) 비용 최적화 기반 설계
+■ 등록 폼에서 자동완성 버튼 클릭시 (제목/재료/간단설명/조리방법)을 토대로 게시글 자동완성
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project3_Api/img/image-1.png)
+■ 관리자가 비속어 검사버튼 클릭시 비속어 사전에 걸리지않은 게시글을 찾아 자동 비공개 처리
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project3_Api/img/image-2.png)
 * 외부 API 호출을 **자동 → 사용자 선택형** 구조로 개선
 * 불필요한 API 호출 및 데이터 전송 최소화
 * **성과**: 운영 비용 절감 및 시스템 안정성 확보
 
 ### 3) 검색 기능 고도화
+■ 기존 데이터에 걸리지않는 검색어 입력 시 자연어 처리 API 호출 유사데이터 검색
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project3_Api/img/image.png)
 * 검색어 · 카테고리 · 정렬 기준을 조합한 검색 구조 설계
 * EXISTS + JOIN 병행 사용으로 쿼리 최적화
@@ -93,7 +97,9 @@ Spring Boot 기반 레시피 추천 UGC 웹 서비스 (기능 고도화 프로�
 
 
 ### 4) 커뮤니티 기능 확장
+■ 비속어 필터링을 통한 비공개 처리로 최대한 API비용 발생을 낮춤
 ![](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project3_Api/img/image-4.png)
+■ 비속어 필터링을 활용하여 등록/수정 시 자동 검출 및 비공개 처리
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project3_Api/img/image-5.png)
 * 좋아요 기능 추가
 * 비속어 사전 구축 및 자동 필터링 적용

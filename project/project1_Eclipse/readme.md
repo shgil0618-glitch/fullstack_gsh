@@ -94,8 +94,7 @@ View(JSP)
 ### 1) 레시피 게시판 CRUD 기능 구현
 
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project1_Eclipse/img/project4-0.PNG)
-![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project1_Eclipse/img/project4-1.PNG)
-![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project1_Eclipse/img/project4-2.PNG)
+
 
 * 레시피 목록 조회 및 상세 조회 기능 구현
 * 레시피 등록 / 수정 / 삭제 기능 전체 흐름 설계
@@ -106,7 +105,9 @@ View(JSP)
 
 ### 2) 레시피 등록 · 수정 화면 흐름 설계
 
+■ 글쓰기 폼
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project1_Eclipse/img/project4-3글쓰기.PNG)
+■ 상세보기 폼
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project1_Eclipse/img/project4-4상세보기.PNG)
 
 * JSP 기반 입력 폼 구성
@@ -117,8 +118,11 @@ View(JSP)
 
 
 ### 3) 커뮤니티 게시판 기능 구현
+■ 수정 폼 (등록 데이터 유지)
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project1_Eclipse/img/project4-5수정.PNG)
+■ 수정 버튼 클릭 시 (상세보기 이동)
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project1_Eclipse/img/project4-5수정2.PNG)
+■ 삭제 버튼 클릭 시
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project1_Eclipse/img/project4-6글삭제.PNG)
 * 커뮤니티 게시판 목록 및 상세 조회 기능 구현
 * 게시글 등록 및 삭제 기능 처리
@@ -138,7 +142,7 @@ View(JSP)
 
 
 ### 5) 사용자 입력 검증 및 예외 상황 처리
-
+■  if-else문을 활용하여 예외처리 진행
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project1_Eclipse/img/project4-8.PNG)
 
 * 잘못된 요청(URL, 파라미터 누락 등)에 대한 기본 예외 처리

@@ -81,33 +81,39 @@ Spring Boot · JPA 기반 레시피 공유 SNS 웹 서비스 (실시간·인터�
 ## 5. 담당 업무 및 성과
 
 ### 1) 게시글 CRUD 구현
+■ 등록 폼
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/pro5-4.PNG)
+■ 등록 시 리스트 (본인 게시글에 한해 수정/삭제 버튼 활성화)
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/pro5-5.PNG)
  * 레시피 게시글 생성·수정·삭제·조회 API를 설계·구현하여 SNS 콘텐츠 생성 흐름을 안정화함.
 
 <br>
 
 ### 2) SNS 인터랙션 기능 구현
+■ 좋아요,리트윗시 표시
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/project5-1.PNG)
+■ 관심 게시글만 따로 리스트 처리
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/pr5-2.PNG)
 * 좋아요·리트윗·해시태그 기능을 구현하고 사용자 반응 상태 관리 로직을 적용함.
 
 <br>
 
 ### 3) 반응 데이터 처리 최적화
+■ 검새기능 
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/pro5-6.PNG)
 * JPA와 MyBatis를 병행 사용해 조회·상태 변경 로직의 처리 효율을 개선함.
 
 ### 4) AWS 배포
-
+■ AWS 인스턴스 값들 확인
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project5_gsh/img/aws3.PNG)
-* AWS 인스턴스 값들 확인
 
+■ 액션 키값들 등록 확인
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project5_gsh/img/aws2.PNG)
-* 액션 키값들 등록 확인
 
+■ Backend / Frontend 액션 정상 확인
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project5_gsh/img/aws1.PNG)
-* Backend / Frontend 액션 정상 확인
+
+
 ---
 
 ## 6. 트러블슈팅
