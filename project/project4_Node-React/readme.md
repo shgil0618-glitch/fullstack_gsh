@@ -84,9 +84,10 @@ Spring Boot · JPA 기반 레시피 공유 SNS 웹 서비스 (실시간·인터�
 ■ 등록 폼
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/pro5-4.PNG)
 
+<br>
 ■ 등록 시 리스트 (본인 게시글에 한해 수정/삭제 버튼 활성화)
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/pro5-5.PNG)
-
+<br>
  * 레시피 게시글 생성·수정·삭제·조회 API를 설계·구현하여 SNS 콘텐츠 생성 흐름을 안정화함.
 
 <br>
