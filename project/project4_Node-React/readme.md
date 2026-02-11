@@ -82,17 +82,31 @@ Spring Boot · JPA 기반 레시피 공유 SNS 웹 서비스 (실시간·인터�
 
 ### 1) 게시글 CRUD 구현
 
-<div>
+
+
 ■ 등록 폼
+<div>
 
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/pro5-4.PNG)
 </div>
 
+
+
+
+■ 등록 폼
 <div>
+
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/pro5-4.PNG)
+</div>
+
+
 ■ 등록 시 리스트 (본인 게시글에 한해 수정/삭제 버튼 활성화)
+
+<div>
 
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/pro5-5.PNG)
 </div>
+
 
  * 레시피 게시글 생성·수정·삭제·조회 API를 설계·구현하여 SNS 콘텐츠 생성 흐름을 안정화함.
 
@@ -100,17 +114,26 @@ Spring Boot · JPA 기반 레시피 공유 SNS 웹 서비스 (실시간·인터�
 
 ### 2) SNS 인터랙션 기능 구현
 ■ 좋아요,리트윗시 표시
-![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/project5-1.PNG)
+<div>
 
+![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/project5-1.PNG)
+</div>
 ■ 관심 게시글만 따로 리스트 처리
+<div>
+
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/pr5-2.PNG)
+</div>
 * 좋아요·리트윗·해시태그 기능을 구현하고 사용자 반응 상태 관리 로직을 적용함.
 
 <br>
 
 ### 3) 반응 데이터 처리 최적화
 ■ 검색기능
+<div>
+
 ![alt text](https://raw.githubusercontent.com/shgil0618-glitch/fullstack_gsh/master/project/project4_Node-React/img/pro5-6.PNG)
+</div>
+
 * JPA와 MyBatis를 병행 사용해 조회·상태 변경 로직의 처리 효율을 개선함.
 
 ### 4) AWS 배포
