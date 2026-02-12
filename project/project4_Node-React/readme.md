@@ -1,6 +1,6 @@
 # 🍽️ 오늘 뭐먹지? SNS
 
-Spring Boot · JPA 기반 레시피 공유 SNS 웹 서비스 (실시간·인터랙션 중심 프로젝트)
+Spring Boot · JPA · React기반 맛집 공유 SNS 웹 서비스 (실시간·인터랙션 중심 프로젝트)
 
 ---
 
