@@ -24,7 +24,7 @@
 |-|-|
 |이름|길상현|
 |이메일|shgil0618@gmail.com|
-|프로젝트 정리|https://github.com/shgil0618-glitch/fullstack_gsh.git|
+|프로젝트 정리|https://github.com/shgil0618-glitch/fullstack_gsh/project|
 |유튜브 채널|https://youtu.be/M0sg6rhlKfI|
 |팀프로젝트 주소|https://github.com/shgil0618-glitch/Bug-Hunters.git|
 |자기소개 페이지|https://shgil0618-glitch.github.io/fullstack_gsh/|
