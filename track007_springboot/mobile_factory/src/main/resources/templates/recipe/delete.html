@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<div layout:fragment="content">
+
+    <h2 class="mb-4">레시피 삭제</h2>
+
+    <p>정말로 <strong th:text="${dto.title}"></strong> 레시피를 삭제하시겠습니까?</p>
+
+    <form th:action="@{/recipes/delete}" method="post">
+        <input type="hidden" name="recipeId" th:value="${dto.recipeId}"/>
+        <

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thejoa703.mapper.EventMapper">
+
+    <resultMap id="ParticipantResult" type="com.thejoa703.dto.ParticipantDto">
+        <id column="PARTICIPANT_ID" property="participantId"/>
+        <result column="EVENT_ID" property="eventId"/>
+        <result column="PHONE_NUMBER" property="phoneNumber"/>
+        <result column="ENTRY_ORDER" property="entryOrder"/>
+        <result column="JOIN_DATE" property="joinDate"/>
+        <result column="VERIFIED" property="verified"/>
+    </resultMap>
+
+    <resultMap id="LottoResult" type="com.thejoa703.dto.LottoNumberDto">
+        <id column="LOTTO_ID" property="lottoId"/>
+        <result column="PARTICIPANT_ID" property="participantId"/>
+        <result column="LOTTO_NUMBER" property="lottoNumber"/>
+        <result column="ISSUE_DATE" property="issueDate"/>
+    </resultMap>
+
+    <select id="checkDuplicatePhone" resultType="int" parameterType="map">
+        SELECT COUNT(*) 
+        FROM PARTICIPANT 
+        WHERE EVENT_ID = #{eventId} AND PHONE_NUMBER = #{phoneNumber}
+    </select>
+
+    <insert id="insertParticipant" parameterType="com.thejoa703.dto.ParticipantDto">
+        <selectKey keyProperty="participantId,entryOrder" resultType="com.thejoa703.dto.ParticipantDto" order="BEFORE">
+            SELECT SEQ_PARTICIPANT.NEXTVAL as participantId, SEQ_PARTICIPANT.NEXTVAL as entryOrder FROM DUAL
+        </selectKey>
+        INSERT INTO PARTICIPANT (
+            PARTICIPANT_ID, EVENT_ID, PHONE_NUMBER, ENTRY_ORDER, JOIN_DATE, VERIFIED
+        ) VALUES (
+            #{participantId}, #{eventId}, #{phoneNumber}, #{entryOrder}, SYSDATE, 'Y'
+        )
+    </insert>
+
+    <insert id="insertLottoNumber" parameterType="com.thejoa703.dto.LottoNumberDto">
+        <selectKey keyProperty="lottoId" resultType="int" order="BEFORE">
+            SELECT SEQ_LOTTO_NUMBER.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO LOTTO_NUMBER (
+            LOTTO_ID, PARTICIPANT_ID, LOTTO_NUMBER, ISSUE_DATE
+        ) VALUES (
+            #{lottoId}, #{participantId}, #{lottoNumber}, SYSDATE
+        )
+    </insert>
+
+    <insert id="insertWinner" parameterType="com.thejoa703.dto.WinnerDto">
+        <selectKey keyProperty="winnerId" resultType="int" order="BEFORE">
+            SELECT SEQ_WINNER.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO WINNER (
+            WINNER_ID, PARTICIPANT_ID, WIN_RANK, WIN_REASON, WIN_DATE
+        ) VALUES (
+            #{winnerId}, #{participantId}, #{winRank}, #{winReason}, SYSDATE
+        )
+    </insert>
+
+    <insert id="insertInitialResultCheck" parameterType="int">
+        INSERT INTO RESULT_CHECK (CHECK_ID, PARTICIPANT_ID, CHECK_COUNT)
+        VALUES (SEQ_RESULT_CHECK.NEXTVAL, #{participantId}, 0)
+    </insert>
+
+    <update id="updateCheckCount" parameterType="int">
+        UPDATE RESULT_CHECK
+        SET CHECK_COUNT = CHECK_COUNT + 1,
+            FIRST_CHECK_DATE = CASE WHEN CHECK_COUNT = 0 THEN SYSDATE ELSE FIRST_CHECK_DATE END,
+            LAST_CHECK_DATE = SYSDATE
+        WHERE PARTICIPANT_ID = #{participantId}
+    </update>
+
+    <insert id="insertSmsLog" parameterType="com.thejoa703.dto.SmsLogDto">
+        INSERT INTO SMS_LOG (SMS_ID, PARTICIPANT_ID, PHONE_NUMBER, MSG_TYPE, SEND_DATE)
+        VALUES (SEQ_SMS_LOG.NEXTVAL, #{participantId}, #{phoneNumber}, #{msgType}, SYSDATE)
+    </insert>
+
+    <select id="selectUncheckedParticipants" resultType="map" parameterType="int">
+        <![CDATA[
+        SELECT p.PHONE_NUMBER, p.PARTICIPANT_ID
+        FROM PARTICIPANT p
+        JOIN EVENT e ON p.EVENT_ID = e.EVENT_ID
+        LEFT JOIN RESULT_CHECK rc ON p.PARTICIPANT_ID = rc.PARTICIPANT_ID
+        WHERE e.EVENT_ID = #{eventId}
+          AND SYSDATE >= e.ANNOUNCE_START + 10
+          AND (rc.CHECK_COUNT = 0 OR rc.CHECK_ID IS NULL)
+          AND NOT EXISTS (
+              SELECT 1 FROM SMS_LOG s 
+              WHERE s.PARTICIPANT_ID = p.PARTICIPANT_ID AND s.MSG_TYPE = 'REMIND'
+          )
+        ]]>
+    </select>
+
+</mapper>
