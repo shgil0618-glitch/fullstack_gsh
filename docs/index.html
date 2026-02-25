@@ -1126,7 +1126,128 @@
             justify-content: center;
             /* 아래 여백 제거 */
         }
+
+
+        /* ===================================================== */
+/* =============== 📱 MOBILE FIX PATCH ================= */
+/* ===================================================== */
+
+@media (max-width: 768px) {
+
+    /* 1️⃣ 배경 fixed 깨짐 방지 */
+    body {
+        background-attachment: scroll;
+    }
+
+    /* 2️⃣ 공통 여백 정리 */
+    .block {
+        margin: 70px auto;
+        padding: 0 18px;
+    }
+
+    /* 3️⃣ HERO */
+    .hero {
+        height: 80vh;
+    }
+
+    .hero-card {
+        padding: 40px 24px !important;
+    }
+
+    .hero-title {
+        font-size: 26px;
+    }
+
+    .hero-sub {
+        font-size: 15px;
+    }
+
+    /* 4️⃣ About 세로 정렬 */
+    .about-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .photo {
+        margin: 0 0 20px 0;
+    }
+
+    /* 5️⃣ Skills 1열 */
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* 6️⃣ 포트폴리오 카드 세로 정렬 */
+    .project-layout {
+        flex-direction: column;
+        height: auto;
+        gap: 16px;
+    }
+
+    .project-image {
+        width: 100%;
+        height: 200px;
+    }
+
+    .project-content {
+        width: 100%;
+        padding: 0;
+    }
+
+    .flip-inner {
+        height: auto;
+        min-height: unset;
+    }
+
+    .flip-face {
+        position: relative;
+    }
+
+    /* hover 효과 제거 (모바일에서 어색함 방지) */
+    .flip-card:hover {
+        transform: none;
+    }
+
+    /* 7️⃣ 슬라이더 버튼 위치 조정 */
+    .slide-btn {
+        top: 50%;
+        transform: translateY(-50%);
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+
+    /* 8️⃣ 모달 최적화 */
+    .modal-content {
+        width: 94vw;
+        height: 85vh;
+        padding: 30px 20px;
+    }
+
+    /* 9️⃣ 유튜브 영상 반응형 */
+    .video-wrap {
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%; /* 16:9 */
+    }
+
+    .video-wrap iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+}
+
+
+
+
+
     </style>
+
+    
 
 
 </head>
@@ -1174,16 +1295,16 @@
                         <div class="contact">
                             <span>📧 shgil0618@gmail.com</span>
                             <span>📍 부천(Bucheon), Korea</span>
-                            <!-- <span>🔗
-                                <a href="https://github.com/shgil0618-glitch/fullstack_gsh/" target="_blank"
+                            <span>🔗
+                                <a href="http://3.38.111.199/recipes/search" target="_blank"
                                     style="text-decoration: none; color: inherit;">
-                                    개인 깃허브 : github.com/shgil0618
+                                    배포 링크 : 3.38.111.199
                                 </a>
-                            </span> -->
+                            </span> 
                             <span>🔗
                                 <a href="https://github.com/shgil0618-glitch/Bug-Hunters.git" target="_blank"
                                     style="text-decoration: none; color: inherit;">
-                                    팀 깃허브 : github.com/shgil0618
+                                    팀 깃허브 : Bug-Hunters
                                 </a>
                             </span>
 
