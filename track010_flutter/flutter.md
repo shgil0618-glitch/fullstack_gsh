@@ -284,3 +284,21 @@ Q2. TEST1 : FLUTTER에서 CORE 계층동작순서
     주소록 - 서버주소찾기 (`api.dart`)  
       →  열쇠상자 - JWT(`token_manager.dart`) 
           → 전화기 - 서버요청(`dio_client.dart`) ■
+
+
+    ├── features/              # 기능 단위로 모듈화 (DDD + Clean Architecture )
+    │    ├── user/             # 사용자 인증/관리 관련 기능
+    │    │    ├── data/        # 서버랑 주고받는 ("편지상자")    
+    │    │    │    ├── models/         # 편지내용 -  DTO, API 응답/요청 모델
+    │    │    │    ├── repositories/   # 편지 배달부 - Repository 구현체 (API 호출, DB 접근)
+    │    │    │    └── sources/        # 편지출발 -서버, db / 데이터 소스 (Remote API, Local DB)
+    │    │    ├── domain/      # 진짜 중요한 "보물상자"
+    │    │    │    ├── entities/       # 보물카드, 핵심 엔티티 (User, Token 등)
+    │    │    │    ├── repositories/   # 보물카드 찾는 지도 - 약속만 있고 실제 구현 없음  , Repository 인터페이스 (추상화)
+    │    │    │    └── usecases/       # 보물카드 쓰는 방법 - login, logout 같은 규칙 - 유스케이스 (Login, Logout, RefreshToken)
+    │    │    └── presentation/ # 화면에 보여주는 "무대" 
+    │    │         ├── pages/          # 큰 무대    -  화면 단위 (LoginPage, HomePage) 
+    │    │         ├── widgets/        # 작은 장심품 -  UI 컴포넌트 (LoginForm, UserCard)
+    │    │         └── state/          # 배경       -  상태 관리 (Provider, Bloc, Riverpod 등)
+
+
